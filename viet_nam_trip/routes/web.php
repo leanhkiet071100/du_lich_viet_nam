@@ -16,3 +16,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+//Nhóm admin
+Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'web'], function () {
+    Route::name('admin.')->group(function(){
+        Route::get('login', 'LoginController@showLoginForm')->name('login');
+
+        // Route::group(['middleware' => 'admin'], function () {});
+
+        Route::group(['prefix' => 'bai-viet'], function () {
+            Route::get('/', 'BaiVietController@bai_viet')->name('bai-viet');
+        });
+    });
+});

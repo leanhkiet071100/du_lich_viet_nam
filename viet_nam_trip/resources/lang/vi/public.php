@@ -1,3 +1,7 @@
 <?php
 
-return [];
+return [
+    'titile'=>'Tiêu đề',
+    'STT'=> 'STT',
+    
+];
