@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('phu_de')->nullable();
             $table->string('hinh_anh_bai_viet')->nullable();;
             $table->string('loai_bai_viet')->nullable();
-            $table->text('noi_dung');
+            $table->text('noi_dung')->nullable();
             $table->boolean('hien')->nullable();
             $table->boolean('noi_bat')->nullable();
             $table->string('trang_thai')->nullable();

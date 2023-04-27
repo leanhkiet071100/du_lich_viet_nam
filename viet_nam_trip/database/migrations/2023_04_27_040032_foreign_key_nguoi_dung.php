@@ -11,7 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-       
+         Schema::table('nguoi_dungs', function (Blueprint $table) {
+            $table->foreign('cap_id')->references('id')->on('cap_nguoi_dungs');
+          
+        });
     }
 
     /**
@@ -19,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('nguoi_dungss', function (Blueprint $table) {
+            $table->dropForeign('nguoi_dungs_cap_id_id_foreign');
+        });
     }
 };

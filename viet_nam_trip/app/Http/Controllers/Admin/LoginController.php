@@ -12,7 +12,6 @@ class LoginController extends Controller
         $data = [
             'pageTitle' => trans('auth.login'),
         ];
-    
 
         return view('admin.login.login', $data);
     }

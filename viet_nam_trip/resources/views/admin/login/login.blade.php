@@ -13,7 +13,7 @@
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
 
-    @include('thuvien/cssadmin')
+    @include('admin.thuvien.css')
 </head>
 
 <body>
@@ -81,7 +81,7 @@
         </div>
     </div>
 
-    @include('thuvien/jsadmin')
+    @include('admin.thuvien.js')
     @yield('js')
 </body>
 

@@ -442,3 +442,18 @@ back ground full
 .app-page-title .page-title-heading{
     text-transform: uppercase;
 }
+table.align-middle.mb-0.table.table-borderless.table-striped.table-hover {
+    text-transform: revert;
+}
+
+.title-table {
+    text-align: center;
+    transform: inherit;
+}
+.form-group-checked {
+    display: flex;
+}
+
+.custom-switch-input.section-parent{
+    vertical-align: middle;
+}

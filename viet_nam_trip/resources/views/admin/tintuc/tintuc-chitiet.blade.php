@@ -13,7 +13,7 @@
                         <i class="pe-7s-ticket icon-gradient bg-mean-fruit"></i>
                     </div>
                     <div>
-                        Bài viết chi tiết
+                        {{$title}}
                         <div class="page-title-subheading">
                             {{$baiviet->tieu_de}}
                         </div>
@@ -27,7 +27,7 @@
                 <div class="main-card mb-3 card">
                     <div class="card-body display_data">
                         <div class="position-relative row form-group">
-                            <label for="" class="col-md-3 text-md-right col-form-label">Hình</label>
+                            <label for="" class="col-md-3 text-md-right col-form-label">{{trans('public.img')}}</label>
                             <div class="col-md-9 col-xl-8">
                                 <ul class="text-nowrap overflow-auto" id="images">
                                     <li class="d-inline-block mr-1" style="position: relative;">

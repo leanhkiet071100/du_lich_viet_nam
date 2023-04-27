@@ -17,7 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $table = 'nguoidungs';
+    protected $table = 'nguoi_dungs';
     protected $fillable = [
         'ten',
         'email',
@@ -27,9 +27,6 @@ class User extends Authenticatable
         'hinh_dai_dien',
         'cap',
         'trang_thai',
-        'mo_ta',
-        'hien',
-        'noi_bat',
         'moi',
     ];
 
@@ -43,6 +40,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    static $statuses = [
+        'hoat-dong', 'cho-kich-hoat', 'khong-hoat-dong'
+    ];
+
     /**
      * The attributes that should be cast.
      *
@@ -52,19 +53,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-     public function baiviet_binhluan(){
-        return $this->hasMany(baiviet_binhluan::class, 'ma_nguoi_dung', 'id');
+     public function bai_viet_binh_luan(){
+        return $this->hasMany(bai_viet_binh_luans::class, 'ma_nguoi_dung', 'id');
     }
 
-    public function baiviet(){
-        return $this->hasMany(baiviet::class, 'ma_nguoi_dung', 'id');
+    public function bai_viet(){
+        return $this->hasMany(bai_viet::class, 'ma_nguoi_dung', 'id');
     }
 
-    public function nguoidung_diachi(){
-        return $this->belongsTo(nguoidung_diachi::class, 'ma_nguoi_dung', 'id');
-    }
-
-    public function nguoidung(){
-        return $this->hasOne(gio_hang::class, 'ma_nguoi_dung', 'id');
+    public function cap_nguoi_dung(){
+        return $this->belongsTo(cap_nguoi_dung::class, 'cap_id', 'id');
     }
 }

@@ -15,7 +15,7 @@
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
 
-    @include('admin.thuvien.cssadmin')
+    @include('admin.thuvien.css')
 </head>
 
 <body>
@@ -40,7 +40,7 @@
 
 
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
-    @include('admin.thuvien.jsadmin')
+    @include('admin.thuvien.js')
     <script>
         $(document).ready(function() {
             $url = window.location.href;

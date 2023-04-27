@@ -14,10 +14,9 @@ use Carbon\Carbon;
 use App\Models\bai_viet;
 use App\Models\User;
 
-
-class baivietController extends Controller
+class TinTucController extends Controller
 {
-     //Quản lí bài viết
+        //Quản lí bài viết
     public function index(Request $request){
        
         //$lstintuc = bai_viet::orderBy('created_at','ASC')->paginate(15);
@@ -26,6 +25,7 @@ class baivietController extends Controller
 
         $totaltintucs = $query->count();
         $user = User::all();
+        $query = $query->where('loai_bai_viet', 1);
         $query= $this->handleFilters($query, $request);
    
         $lstintuc = $query->paginate(15);
@@ -34,9 +34,9 @@ class baivietController extends Controller
             'pageTitle' => "Bài viết",
             'lstintuc' => $lstintuc,
             'user'=> $user,
-            
-    
+            'title'=> trans('public.news')
         ];
+   
         return view('admin.tintuc.tintuc-ds', $data);
     }
 
@@ -71,6 +71,7 @@ class baivietController extends Controller
     public function create(){
         $data = [
             'pageTitle' => trans('public.create_post'),
+            'title'=> trans('public.news')
         ];
         
         return view('admin.tintuc.tintuc-them', $data);
@@ -120,12 +121,12 @@ class baivietController extends Controller
         if($hinhtintuc != null){
             //$file_name = time().Str::random(10).'.'.$hinhtintuc->getClientOriginalExtension();
             $file_name = $hinhtintuc->getClientOriginalName();
-            $imagePath = $hinhtintuc->move(public_path('hinh_anh_bai_viet/'), $file_name);
-            $ten_file = 'hinh_anh_bai_viet/'.$file_name;
+            $imagePath = $hinhtintuc->move(public_path('hinh_anh_tin_tuc/'), $file_name);
+            $ten_file = 'hinh_anh_tin_tuc/'.$file_name;
             $tintucmoi->hinh_anh_bai_viet = $ten_file;
             $tintucmoi->save();
         }
-        return Redirect::route('admin.bai-viet.index')->with('success','Thêm thành công');
+        return Redirect::route('admin.tin-tuc.index')->with('success','Thêm thành công');
     }
 
     //chi tiết bài viết
@@ -146,6 +147,7 @@ class baivietController extends Controller
         $data = [
             'pageTitle'=>trans('edit_post'),
             'tintuc' => $tintuc,
+            'title'=> trans('public.news')
 
         ];
         return view('admin.tintuc.tintuc-sua', $data);
@@ -191,13 +193,13 @@ class baivietController extends Controller
         if($hinhtintuc != null){
             //$file_name = time().Str::random(10).'.'.$hinhtintuc->getClientOriginalExtension();
             $file_name = $hinhtintuc->getClientOriginalName();
-            $imagePath = $hinhtintuc->move(public_path('hinh_anh_bai_viet/'), $file_name);
-            $ten_file = 'hinh_anh_bai_viet/'.$file_name;
+            $imagePath = $hinhtintuc->move(public_path('hinh_anh_tin_tuc/'), $file_name);
+            $ten_file = 'hinh_anh_tin_tuc/'.$file_name;
             $tintuc->hinh_anh_bai_viet = $ten_file;
             $tintuc->save();
         }
         $tintuc->save();
-        return Redirect::route('admin.bai-viet.index')->with('success','sửa thành công');
+        return Redirect::route('admin.tin-tuc.index')->with('success','sửa thành công');
     }
     
     //xóa bài viết
@@ -212,7 +214,7 @@ class baivietController extends Controller
             'msg' => trans('public.delete_success'),
             'status' => 'success'
         ];
-        return Redirect::route('admin.bai-viet.index')->with(['toast'=>$toastData,'success'=>'xóa thành công']);
+        return Redirect::route('admin.tin-tuc.index')->with(['toast'=>$toastData,'success'=>'xóa thành công']);
     }
 
     // radio
@@ -254,64 +256,4 @@ class baivietController extends Controller
             'mess'=>  'sửa thành công',
         ]);
     }
-
-    
-    
-
-    // kết quản lí bài viết
-
-    // quản lí lí bình luận bài viết
-    public function binh_luan_bai_viet(){
-        $lsbinhluan = tintuc_binhluan::join('nguoidungs','nguoidungs.id', '=','tintuc_binhluans.ma_nguoi_dung')
-                                        ->join('tintucs','tintucs.id', '=','tintuc_binhluans.ma_bai_viet')
-                                        ->select('tintuc_binhluans.*','nguoidungs.ten','tintucs.tieu_de')
-                                        ->paginate(10);
-        return view('admin.tintuc.tintuc-binhluan')->with(['lsbinhluan'=>$lsbinhluan]);
-    }
-
-    public function binh_luan_bai_viet_hien(Request $request,$id){
-        $check = $request->check;
-        $tintuc = tintuc_binhluan::find($id);
-        if($check=="true"){
-            $tintuc->fill([
-                'hien'=>1
-            ]);
-        }else{
-            $tintuc->fill([
-                'hien'=>0
-            ]);
-        }
-        $tintuc->save();
-        return response()->json([
-            'status'=>200,
-            'mess'=>  'sửa thành công',
-        ]);
-    }
-    
-    public function binh_luan_bai_viet_noi_bat(Request $request,$id){
-        $check = $request->check;
-        $tintuc = tintuc_binhluan::find($id);
-        if($check=="true"){
-            $tintuc->fill([
-                'noi_bat'=>1
-            ]);
-        }else{
-            $tintuc->fill([
-                'noi_bat'=>0
-            ]);
-        }
-        $tintuc->save();
-        return response()->json([
-            'status'=>200,
-            'mess'=>  'sửa thành công',
-        ]);
-    }
-
-    public function binh_luan_bai_viet_xoa($id){
-        $binhluan_tintuc = tintuc_binhluan::find($id);
-        $binhluan_tintuc->delete();
-        return  Redirect::route('admin.binh-luan-bai-viet')->with('success','Xóa thành công');
-    }
-
-    // kết thúc quản lí bình luận bài viết
 }

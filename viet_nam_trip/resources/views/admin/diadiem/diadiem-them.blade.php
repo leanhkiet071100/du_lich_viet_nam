@@ -1,7 +1,7 @@
-@extends('layouts.layoutadmin')
+@extends('admin.layouts.app')
 
 @section('title', 'mạng xã hội')
-@section('sidebar')
+@section('content')
     @parent
     <!-- Main -->
     <div class="app-main__inner">
@@ -13,9 +13,9 @@
                         <i class="pe-7s-ticket icon-gradient bg-mean-fruit"></i>
                     </div>
                     <div>
-                        THÊM SẢN PHẨM
+                        {{trans('public.add_location')}}
                         <div class="page-title-subheading">
-                           Quản lí xem thêm, cập nhât, xóa sản phẩm
+                           {{trans('public.manage_title')}}
                         </div>
                     </div>
                 </div>
@@ -26,10 +26,10 @@
             <div class="col-md-12">
                 <div class="main-card mb-3 card">
                     <div class="card-body">
-                        <form method="post" enctype="multipart/form-data" action="{{ route('admin.post-san-pham-them') }}">
+                        <form method="post" enctype="multipart/form-data" action="{{ route('admin.dia-diem.create') }}">
                             @csrf
                             <div class="position-relative row form-group">
-                                <label for="brand_id" class="col-md-3 text-md-right col-form-label">Nhãn hiệu</label>
+                                <label for="brand_id" class="col-md-3 text-md-right col-form-label">Loại địa điểm</label>
                                 <div class="col-md-9 col-xl-8">
                                     <select required name="nhanhieu_id" id="brand_id" class="form-control">
                                         <option value="">-- Nhãn hiệu --</option>

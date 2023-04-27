@@ -46,7 +46,7 @@
                  </div>
                  <button class="close"></button>
              </div>
-             <ul class="header-megamenu nav">
+             {{-- <ul class="header-megamenu nav">
 
                  <li class="btn-group nav-item">
                      <a class="nav-link" data-toggle="dropdown" aria-expanded="false">
@@ -129,7 +129,7 @@
                          </button>
                      </div>
                  </li>
-             </ul>
+             </ul> --}}
          </div>
          <div class="app-header-right">
              <div class="header-dots">

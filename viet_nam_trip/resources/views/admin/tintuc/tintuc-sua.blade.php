@@ -1,7 +1,7 @@
-@extends('layouts.layoutadmin')
+@extends('admin.layouts.app')
 
 @section('title', 'mạng xã hội')
-@section('sidebar')
+@section('content')
     @parent
     <!-- Main -->
     <div class="app-main__inner">
@@ -13,10 +13,10 @@
                         <i class="pe-7s-ticket icon-gradient bg-mean-fruit"></i>
                     </div>
                     <div>
-                        Sửa bài viết
+                        {{$title}}
                         <div class="page-title-subheading">
                             
-                            {{$baiviet->tieu_de}}
+                            {{$tintuc->tieu_de}}
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
             <div class="col-md-12">
                 <div class="main-card mb-3 card">
                     <div class="card-body">
-                        <form method="post" enctype="multipart/form-data" action="{{ route('admin.post-bai-viet-sua',['id'=>$baiviet->id]) }}">
+                        <form method="post" enctype="multipart/form-data" action="{{ route('admin.tin-tuc.update',['id'=>$tintuc->id]) }}">
                             @csrf
                             <div class="position-relative row form-group">
                                 <label for="" class="col-md-3 text-md-right col-form-label">Hình ảnh</label>
@@ -39,23 +39,23 @@
                                                 class="hinh-bai-viet">
                                                 <img style="width: 100%; cursor: pointer;" class="thumbnail"
                                                     data-toggle="tooltip" title="Click to add image" data-placement="bottom"
-                                                    src="{{ URL($baiviet->hinh_anh) ?? assets/images/add-image-icon.jpg}}" alt="Add Image">
+                                                    src="{{ URL($tintuc->hinh_anh_bai_viet) ?? URL('assets\admin\assets\images\add-image-icon.jpg')}}" alt="Add Image">
 
-                                                <input name="hinhbaiviet" type="file" onchange="changeImg(this);"
-                                                    accept="image/x-png,image/gif,image/jpeg" id="hinhbaiviet"
+                                                <input name="hinhtintuc" type="file" onchange="changeImg(this);"
+                                                    accept="image/x-png,image/gif,image/jpeg" id="hinhtintuc"
                                                     class="image form-control-file bai-viet-hinh" style="display: none;">
                                             </div>
 
                                         </li>
                                     </ul>
                                     <div class="text-center">
-                                        @error('hinhbaiviet')
+                                        @error('hinhtintuc')
                                             <span style="color:red"> {{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                             </div>
-                            <div class="position-relative row form-group">
+                            {{-- <div class="position-relative row form-group">
                                 <label for="product_category_id" class="col-md-3 text-md-right col-form-label">Loại bài
                                     viết</label>
                                 <div class="col-md-9 col-xl-8">
@@ -66,22 +66,22 @@
                                                 {{ $value->ten_loai_san_pham }}
                                             </option>
                                         @endforeach
-                                    </select> --}}
-                                    <input required name="loaibaiviet" id="loaibaiviet" placeholder="Loại bài viêt"
-                                        type="text" class="form-control" value="{{ old('loaibaiviet') ?? $baiviet->loai_bai_viet }}">
+                                    </select> 
+                                    <input required name="loaitintuc" id="loaitintuc" placeholder="Loại bài viêt"
+                                        type="text" class="form-control" value="{{ old('loaitintuc') ?? $tintuc->loai_bai_viet }}">
                                     <div class="text-center">
-                                        @error('loaibaiviet')
+                                        @error('loaitintuc')
                                             <span style="color:red"> {{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="position-relative row form-group">
                                 <label for="tieude" class="col-md-3 text-md-right col-form-label">Tiêu đề</label>
                                 <div class="col-md-9 col-xl-8">
                                     <input required name="tieude" id="tieude" placeholder="Tiêu đề" type="text"
-                                        class="form-control" value="{{ old('tieude') ?? $baiviet->tieu_de}}">
+                                        class="form-control" value="{{ old('tieude') ?? $tintuc->tieu_de}}">
                                     <div class="text-center">
                                         @error('tieude')
                                             <span style="color:red"> {{ $message }}</span>
@@ -95,7 +95,7 @@
                                 <label for="phude" class="col-md-3 text-md-right col-form-label">Phụ đề</label>
                                 <div class="col-md-9 col-xl-8">
                                     <input  name="phude" id="phude" placeholder="Phụ đề" type="text"
-                                        class="form-control" value="{{ old('phude') ?? $baiviet->phu_de }}">
+                                        class="form-control" value="{{ old('phude') ?? $tintuc->phu_de }}">
                                     <div class="text-center">
                                         @error('phude')
                                             <span style="color:red"> {{ $message }}</span>
@@ -108,7 +108,7 @@
                                 <label for="noidung" class="col-md-3 text-md-right col-form-label">Nội dung</label>
                                 <div class="col-md-9 col-xl-8">
                                     <textarea required class="form-control" name="noidung" id="noidung" placeholder="Nội dung"
-                                        value="{{ old('noidung') }}">{{ old('noidung') ?? $baiviet->noi_dung }}</textarea>
+                                        value="{{ old('noidung') }}">{{ old('noidung') ?? $tintuc->noi_dung }}</textarea>
                                     <div class="text-center">
                                         @error('noidung')
                                             <span style="color:red"> {{ $message }}</span>
@@ -119,7 +119,7 @@
 
                             <div class="position-relative row form-group mb-1">
                                 <div class="col-md-9 col-xl-8 offset-md-2">
-                                    <a href="{{ route('admin.bai-viet') }}" class="border-0 btn btn-outline-danger mr-1">
+                                    <a href="{{ route('admin.bai-viet.index') }}" class="border-0 btn btn-outline-danger mr-1">
                                         <span class="btn-icon-wrapper pr-1 opacity-8">
                                             <i class="fa fa-times fa-w-20"></i>
                                         </span>
@@ -145,7 +145,6 @@
 
 @section('js')
     <script type="text/javascript">
-
         $(document).ready(function() {
             $('#bai-viet').addClass('mm-active');
             $('#li-bai-viet').addClass('mm-active');
