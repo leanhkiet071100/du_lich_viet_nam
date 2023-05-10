@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'edit'=>'sửa',
     'title'=>'tiêu đề',
     'STT'=> 'STT',
     'cancel'=>'Hủy',
@@ -11,7 +12,7 @@ return [
     'create'=>'tạo',
     'update'=>'cập nhật',
     'delete'=>'xóa',
-    'phone'=>'Số điện thoại',
+    'phone_munber'=>'Số điện thoại',
     'password'=>'Mật khẩu',
     'email'=>'email',
     'conscious'=>'tỉnh',
@@ -53,7 +54,6 @@ return [
     'manage_location'=> 'quản lí địa điểm',
     'manage_news'=> 'quản lí tin tức',
     'manage_user'=>'quản lí người dùng',
-
     'manage_website'=>'quản lí trang web',
     'create_date'=>'ngày tạo',
     'delete_date'=>'ngày xóa',
@@ -68,8 +68,19 @@ return [
     'user_sell'=>'Người bán hàng',
     'user_location'=> 'Người nơi lưu trú',
     'request_delete_user'=> 'yêu cầu xóa tài khoản',
+    'request_dang_ki_user'=> 'yêu cầu đăng kí tài khoản',
     'user_admin'=>'nhân viên quản trị',
     'create_excel'=>'tạo bằng excel',
     'import_excel'=>'tạo bằng excel',
     'export_excel'=>'xuất excel',
+    'password'=>'mật khẩu',
+    'full_name'=>'Họ và tên',
+    'email'=>'Email',
+    'create_success'=>'tạo  công',
+    'details'=>'chi tiết',
+    'no_active'=>'không hoạt động',
+    'active'=>'hoạt động',
+    'delay_active'=>'chờ kích hoạt',
+    'avatar'=>'hình đại diện',
+    'manage_type_location'=> 'quản lí loại địa điểm'
 ];

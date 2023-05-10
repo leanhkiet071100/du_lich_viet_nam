@@ -19,11 +19,13 @@ Route::get('/', function () {
 
 
 
+
 //Nhóm admin
 Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'web'], function () {
     Route::name('admin.')->group(function(){
         Route::get('login', 'LoginController@showLoginForm')->name('login');
-
+        Route::post('login_admin', 'LoginController@post_login_admin')->name('post_login_admin');
+        Route::post('logout_admin', 'LoginController@logout_admin')->name('logout_admin');
         // Route::group(['middleware' => 'admin'], function () {});
 
         Route::group(['prefix' => 'bai-viet'], function () {
@@ -57,6 +59,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
                 Route::get('/', 'UserController@index')->name('index');
                 Route::get('/create', 'UserController@create')->name('create');
                 Route::post('/store', 'UserController@store')->name('store');
+                Route::get('/{id}/show', 'UserController@show')->name('show');
                 Route::get('/{id}/edit', 'UserController@edit')->name('edit');
                 Route::post('/{id}/update', 'UserController@update')->name('update');
                 Route::get('/{id}/destroy', 'UserController@destroy')->name('destroy');
@@ -79,17 +82,19 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
         });
 
 
-        Route::group(['prefix' => 'dia-diem'], function () {
-            Route::name('dia-diem.')->group(function(){
-                Route::get('/', 'DiaDiemController@index')->name('index');
-                Route::get('/create', 'DiaDiemController@create')->name('create');
-                Route::post('/store', 'DiaDiemController@store')->name('store');
-                Route::get('/{id}/edit', 'DiaDiemController@edit')->name('edit');
-                Route::post('/{id}/update', 'DiaDiemController@update')->name('update');
-                Route::get('/{id}/destroy', 'DiaDiemController@destroy')->name('destroy');
-                Route::post('/hien/{id}', 'DiaDiemController@hien')->name('hien');
-                Route::post('/noi-bat/{id}', 'DiaDiemController@noi_bat')->name('noi-bat');
+        Route::group(['prefix' => 'loai-dia-diem'], function () {
+            Route::name('loai-dia-diem.')->group(function(){
+                Route::get('/', 'LoaiDiaDiemController@index')->name('index');
+                Route::get('/create', 'LoaiDiaDiemController@create')->name('create');
+                Route::post('/store', 'LoaiDiaDiemController@store')->name('store');
+                Route::get('/{id}/edit', 'LoaiDiaDiemController@edit')->name('edit');
+                Route::post('/{id}/update', 'LoaiDiaDiemController@update')->name('update');
+                Route::get('/{id}/destroy', 'LoaiDiaDiemController@destroy')->name('destroy');
+                Route::post('/hien/{id}', 'LoaiDiaDiemController@hien')->name('hien');
+                Route::post('/noi-bat/{id}', 'LoaiDiaDiemController@noi_bat')->name('noi-bat');
             });
         });
+
+
     });
 });

@@ -16,6 +16,7 @@
     <meta name="msapplication-tap-highlight" content="no">
 
     @include('admin.thuvien.css')
+    <script type="text/javascript" src="{{ URL('assets/admin/assets/scripts/sweetalert2.js') }}"></script>
 </head>
 
 <body>
@@ -40,6 +41,29 @@
 
 
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
+    @if (session()->has('toast'))
+        <script>
+            // (function() {
+            //     "use strict";
+
+            //     $.toast({
+            //         heading: '{{ session()->get('toast')['title'] ?? '' }}',
+            //         text: '{{ session()->get('toast')['msg'] ?? '' }}',
+            //         bgColor: '@if (session()->get('toast')['status'] == 'success') #43d477 @else #f63c3c @endif',
+            //         textColor: 'white',
+            //         hideAfter: 10000,
+            //         position: 'bottom-right',
+            //         icon: '{{ session()->get('toast')['status'] }}'
+            //     });
+            // })(jQuery)
+
+            Swal.fire(
+                '{{ session()->get('toast')['title'] ?? '' }}',
+               '{{ session()->get('toast')['msg'] ?? '' }}',
+                '@if (session()->get('toast')['status'] == 'success') #43d477 @else #f63c3c @endif',
+            )
+        </script>
+    @endif
     @include('admin.thuvien.js')
     <script>
         $(document).ready(function() {

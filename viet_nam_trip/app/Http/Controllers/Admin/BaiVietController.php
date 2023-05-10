@@ -31,7 +31,7 @@ class baivietController extends Controller
         $lstintuc = $query->paginate(15);
 
         $data= [
-            'pageTitle' => "Bài viết",
+            'pageTitle' => "Tin tức",
             'lstintuc' => $lstintuc,
             'user'=> $user,
             

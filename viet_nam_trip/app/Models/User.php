@@ -24,8 +24,9 @@ class User extends Authenticatable
         'email_verified_at',
         'mat_khau',
         'remember_token',
+        'so_dien_thoai',
         'hinh_dai_dien',
-        'cap',
+        'cap_id',
         'trang_thai',
         'moi',
     ];
@@ -40,7 +41,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    static $statuses = [
+    static $statsues = [
         'hoat-dong', 'cho-kich-hoat', 'khong-hoat-dong'
     ];
 

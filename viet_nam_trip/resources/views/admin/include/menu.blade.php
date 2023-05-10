@@ -65,13 +65,13 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="{{ Route('admin.vai-tro-nguoi-dung.index') }}" id="vai-tro-nguoi-dung">
+                            <a href="{{ Route('admin.nguoi-dung.index') }}" id="list-nguoi-dung">
                                 <i class="metismenu-icon"></i>{{ trans('public.list') }}
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ Route('admin.vai-tro-nguoi-dung.index') }}" id="vai-tro-nguoi-dung">
+                            <a href="{{ Route('admin.nguoi-dung.create') }}" id="tao-nguoi-dung">
                                 <i class="metismenu-icon"></i>{{ trans('public.create') }}
                             </a>
                         </li>
@@ -101,6 +101,11 @@
                                 <i class="metismenu-icon"></i>{{ trans('public.request_delete_user') }}
                             </a>
                         </li>
+                         <li>
+                            <a href="{{ Route('admin.vai-tro-nguoi-dung.create') }}" id="nguoi-noi-luu-tru">
+                                <i class="metismenu-icon"></i>{{ trans('public.request_dang_ki_user') }}
+                            </a>
+                        </li>
 
                     </ul>
                 </li>
@@ -127,6 +132,30 @@
                                 <i class="metismenu-icon"></i>Bình luận
                             </a>
                         </li> --}}
+
+                    </ul>
+                </li>
+                 <li class="" id="li-loai-dia-diem">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-plugin"></i>{{ trans('public.manage_type_location') }}
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
+                        {{-- <li>
+                            <a href="{{ Route('admin.get-loai-san-pham') }}" id="loai-san-pham">
+                                <i class="metismenu-icon"></i>Loại sản phẩm
+                            </a>
+                        </li> --}}
+                        <li>
+                            <a href="" id="loai-dia-diem">
+                                <i class="metismenu-icon"></i>{{ trans('public.list') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" id="create-loai-dia-diem">
+                                <i class="metismenu-icon"></i>{{ trans('public.create') }}
+                            </a>
+                        </li>
 
                     </ul>
                 </li>

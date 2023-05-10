@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{{$pageTitle}}</title>
+    <title>{{ $pageTitle }}</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="CodeLean Design">
@@ -25,7 +25,7 @@
                         <div class="app-logo-inverse mx-auto mb-3"></div>
                         <div class="modal-dialog w-100 mx-auto">
                             <div class="modal-content">
-                                <form class="" action="" method="post">
+                                <form class="" action="{{ route('admin.post_login_admin') }}" method="post">
                                     @csrf
                                     <div class="modal-body">
                                         <div class="h5 modal-title text-center">
@@ -34,29 +34,37 @@
                                                 <span>Làm ơn điền vào ô sau đây</span>
                                             </h4>
                                         </div>
-                                        {{-- @if ($errors->has('error'))
-                                            <div class="alert alert-danger">
-                                                {{ $errors->first('error') }}
+                                        @if (session()->has('error'))
+                                            <div class="alert alert-danger danger text-center" id="error"
+                                                style="font-size:50px ">
+                                                {{ session()->get('error') }}
                                             </div>
-                                        @endif --}}
+                                        @endif
                                         <div class="form-row">
                                             <div class="col-md-12">
                                                 <div class="position-relative form-group">
                                                     <input name="email" id="exampleEmail" placeholder="Email"
-                                                        type="email" class="form-control"
-                                                        value="">
+                                                        type="email" class="form-control" value="{{ old('email') }}">
                                                 </div>
-                                                 
-                                                  
+                                                <div class="text-center">
+                                                    @error('email')
+                                                        <span style="color:red"> {{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
                                             </div>
 
                                             <div class="col-md-12">
                                                 <div class="position-relative form-group">
                                                     <input id="examplePassword" placeholder="Mật khẩu" type="password"
-                                                        class="form-control" name="mat-khau"
-                                                        value="">
+                                                        class="form-control" name="mat-khau" value="">
                                                 </div>
-                                            
+                                                <div class="text-center">
+                                                    @error('mat-khau')
+                                                        <span style="color:red"> {{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
                                             </div>
                                         </div>
                                         {{-- <div class="position-relative form-check">

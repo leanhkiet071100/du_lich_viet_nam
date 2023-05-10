@@ -1,7 +1,7 @@
-@extends('layouts.layoutadmin')
+@extends('admin.layouts.app')
 
 @section('title', 'mạng xã hội')
-@section('sidebar')
+@section('content')
     @parent
     <!-- Main -->
     <div class="app-main__inner">
@@ -13,9 +13,9 @@
                         <i class="pe-7s-ticket icon-gradient bg-mean-fruit"></i>
                     </div>
                     <div>
-                        User
+                        {{ $title }}
                         <div class="page-title-subheading">
-                            View, create, update, delete and manage.
+                            {{ trans('public.create') }}
                         </div>
                     </div>
                 </div>
@@ -26,133 +26,104 @@
             <div class="col-md-12">
                 <div class="main-card mb-3 card">
                     <div class="card-body">
-                        <form method="post" enctype="multipart/form-data">
+                        <form method="post" enctype="multipart/form-data" action="{{ route('admin.nguoi-dung.store') }}">
+                            @csrf
                             <div class="position-relative row form-group">
-                                <label for="image" class="col-md-3 text-md-right col-form-label">Avatar</label>
+                                <label for="name"
+                                    class="col-md-3 text-md-right col-form-label">{{ trans('public.name') }}</label>
                                 <div class="col-md-9 col-xl-8">
-                                    <img style="height: 200px; cursor: pointer;" class="thumbnail rounded-circle"
-                                        data-toggle="tooltip" title="Click to change the image" data-placement="bottom"
-                                        src="assets/images/add-image-icon.jpg" alt="Avatar">
-                                    <input name="image" type="file" onchange="changeImg(this)"
-                                        class="image form-control-file" style="display: none;" value="">
-                                    <input type="hidden" name="image_old" value="">
-                                    <small class="form-text text-muted">
-                                        Click on the image to change (required)
-                                    </small>
+                                    <input  name="name" id="name" placeholder="{{ trans('public.name') }}"
+                                        type="text" class="form-control" value="{{ old('name') }}">
+                                    <div class="text-center">
+                                        @error('name')
+                                            <span style="color:red"> {{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="position-relative row form-group">
-                                <label for="name" class="col-md-3 text-md-right col-form-label">Name</label>
+                                <label for="email"
+                                    class="col-md-3 text-md-right col-form-label">{{ trans('public.email') }}</label>
                                 <div class="col-md-9 col-xl-8">
-                                    <input required name="name" id="name" placeholder="Name" type="text"
-                                        class="form-control" value="">
+                                    <input  name="email" id="email" placeholder="Email" type="email"
+                                        class="form-control" value="{{ old('email') }}">
+                                    <div class="text-center">
+                                        @error('email')
+                                            <span style="color:red"> {{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="position-relative row form-group">
-                                <label for="email" class="col-md-3 text-md-right col-form-label">Email</label>
+                                <label for="mat-khau"
+                                    class="col-md-3 text-md-right col-form-label">{{ trans('public.password') }}</label>
                                 <div class="col-md-9 col-xl-8">
-                                    <input required name="email" id="email" placeholder="Email" type="email"
-                                        class="form-control" value="">
+                                    <input name="mat-khau" id="mat-khau" placeholder="{{ trans('public.password') }}"
+                                        type="password" class="form-control" value="{{ old('mat-khau') }}">
+                                    <div class="text-center">
+                                        @error('mat-khau')
+                                            <span style="color:red"> {{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="position-relative row form-group">
-                                <label for="password" class="col-md-3 text-md-right col-form-label">Password</label>
+                                <label for="so_dien_thoai"
+                                    class="col-md-3 text-md-right col-form-label">{{ trans('public.phone_munber') }}</label>
                                 <div class="col-md-9 col-xl-8">
-                                    <input name="password" id="password" placeholder="Password" type="password"
-                                        class="form-control" value="">
+                                    <input name="so_dien_thoai" id="so_dien_thoai" placeholder="{{ trans('public.phone_munber') }}"
+                                        type="text" class="form-control" value="{{ old('so_dien_thoai') }}">
+                                    <div class="text-center">
+                                        @error('so_dien_thoai')
+                                            <span style="color:red"> {{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-
                             <div class="position-relative row form-group">
-                                <label for="password_confirmation" class="col-md-3 text-md-right col-form-label">Confirm
-                                    Password</label>
+                                <label for="role_id"
+                                    class="col-md-3 text-md-right col-form-label">{{ trans('public.role') }}</label>
                                 <div class="col-md-9 col-xl-8">
-                                    <input name="password_confirmation" id="password_confirmation"
-                                        placeholder="Confirm Password" type="password" class="form-control" value="">
-                                </div>
-                            </div>
+                                    <select  name="role_id" id="role_id" class="form-control">
+                                        <option value="">{{ trans('public.role') }}</option>
+                                        @foreach ($list_cap_nguoi_dung as $key => $role)
+                                            <option value="{{ $role->id }}"
+                                                {{ old('role_id') == $role->id ? 'selected' : '' }}>{{ $role->ten }}
+                                            </option>
+                                        @endforeach
 
-                            <div class="position-relative row form-group">
-                                <label for="company_name" class="col-md-3 text-md-right col-form-label">
-                                    Company Name
-                                </label>
-                                <div class="col-md-9 col-xl-8">
-                                    <input name="company_name" id="company_name" placeholder="Company Name" type="text"
-                                        class="form-control" value="">
-                                </div>
-                            </div>
-
-                            <div class="position-relative row form-group">
-                                <label for="country" class="col-md-3 text-md-right col-form-label">Country</label>
-                                <div class="col-md-9 col-xl-8">
-                                    <input name="country" id="country" placeholder="Country" type="text"
-                                        class="form-control" value="">
-                                </div>
-                            </div>
-
-                            <div class="position-relative row form-group">
-                                <label for="street_address" class="col-md-3 text-md-right col-form-label">
-                                    Street Address
-                                </label>
-                                <div class="col-md-9 col-xl-8">
-                                    <input name="street_address" id="street_address" placeholder="Street Address"
-                                        type="text" class="form-control" value="">
-                                </div>
-                            </div>
-
-                            <div class="position-relative row form-group">
-                                <label for="postcode_zip" class="col-md-3 text-md-right col-form-label">
-                                    Postcode Zip
-                                </label>
-                                <div class="col-md-9 col-xl-8">
-                                    <input name="postcode_zip" id="postcode_zip" placeholder="Postcode Zip"
-                                        type="text" class="form-control" value="">
-                                </div>
-                            </div>
-
-                            <div class="position-relative row form-group">
-                                <label for="town_city" class="col-md-3 text-md-right col-form-label">
-                                    Town City
-                                </label>
-                                <div class="col-md-9 col-xl-8">
-                                    <input name="town_city" id="town_city" placeholder="Town City" type="text"
-                                        class="form-control" value="">
-                                </div>
-                            </div>
-
-                            <div class="position-relative row form-group">
-                                <label for="phone" class="col-md-3 text-md-right col-form-label">Phone</label>
-                                <div class="col-md-9 col-xl-8">
-                                    <input required name="phone" id="phone" placeholder="Phone" type="tel"
-                                        class="form-control" value="">
-                                </div>
-                            </div>
-
-                            <div class="position-relative row form-group">
-                                <label for="level" class="col-md-3 text-md-right col-form-label">Level</label>
-                                <div class="col-md-9 col-xl-8">
-                                    <select required name="level" id="level" class="form-control">
-                                        <option value="">-- Level --</option>
-                                        <option value=0>
-                                            Host
-                                        </option>
-                                        <option value=1>
-                                            Admin
-                                        </option>
-                                        <option value=2>
-                                            Client
-                                        </option>
                                     </select>
+                                      
+                                    <div class="text-center">
+                                        @error('role_id')
+                                            <span style="color:red"> {{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="position-relative row form-group">
-                                <label for="description" class="col-md-3 text-md-right col-form-label">Description</label>
+                                <label for="level"
+                                    class="col-md-3 text-md-right col-form-label">{{ trans('public.status') }}</label>
                                 <div class="col-md-9 col-xl-8">
-                                    <textarea name="description" id="description" class="form-control"></textarea>
+                                   
+                                    <select  name="status" id="status" class="form-control">
+                                        <option value="">{{ trans('public.status') }}</option>
+                                        @foreach (\App\User::$statuses as $key => $status)
+                                            <option value="{{ $key }}"
+                                                {{ old('status') == $key ? 'selected' : '' }}>{{ $status }}
+                                            </option>
+                                        @endforeach
+                                        <div class="text-center">
+                                            @error('status')
+                                                <span style="color:red"> {{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </select>
+                                    
                                 </div>
                             </div>
 
@@ -162,14 +133,14 @@
                                         <span class="btn-icon-wrapper pr-1 opacity-8">
                                             <i class="fa fa-times fa-w-20"></i>
                                         </span>
-                                        <span>Cancel</span>
+                                        <span>{{ trans('public.cancel') }}</span>
                                     </a>
 
                                     <button type="submit" class="btn-shadow btn-hover-shine btn btn-primary">
                                         <span class="btn-icon-wrapper pr-2 opacity-8">
                                             <i class="fa fa-download fa-w-20"></i>
                                         </span>
-                                        <span>Save</span>
+                                        <span>{{ trans('public.save') }}</span>
                                     </button>
                                 </div>
                             </div>
@@ -181,7 +152,12 @@
     </div>
     <!-- End Main -->
 @endsection
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $('#tao-nguoi-dung').addClass('mm-active');
+            $('#li-nguoi-dung').addClass('mm-active');
+        });
+    </script>
 
-@section('content')
-    <p>This is my body content.</p>
 @endsection

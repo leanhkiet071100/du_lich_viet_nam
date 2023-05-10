@@ -31,7 +31,7 @@ class TinTucController extends Controller
         $lstintuc = $query->paginate(15);
 
         $data= [
-            'pageTitle' => "Bài viết",
+            'pageTitle' => "Tin tức",
             'lstintuc' => $lstintuc,
             'user'=> $user,
             'title'=> trans('public.news')
@@ -155,7 +155,7 @@ class TinTucController extends Controller
 
     public function update(Request $request,$id){
          $rule = [
-            'hinhtintuc' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'hinhtintuc' => 'image|mimes:jpeg,png,jpg,gif,svg',
             'tieude' => 'required',
             'phude' => '',
             'noidung' => 'required',
