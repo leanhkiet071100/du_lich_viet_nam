@@ -20,7 +20,7 @@ class DiaDiemController extends Controller
         $user = User::all();
         //$query= $this->handleFilters($query, $request);
         $lsdiadiem = $query->paginate(15);
-      
+
 
         $data= [
             'pageTitle' => "Địa điểm",
@@ -35,7 +35,7 @@ class DiaDiemController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -43,7 +43,7 @@ class DiaDiemController extends Controller
      */
     public function store(Request $request)
     {
-        
+
     }
 
     /**
@@ -51,7 +51,7 @@ class DiaDiemController extends Controller
      */
     public function show(diadiem $diadiem)
     {
-        
+
     }
 
     /**

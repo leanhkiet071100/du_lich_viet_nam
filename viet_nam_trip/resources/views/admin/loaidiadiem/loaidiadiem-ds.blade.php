@@ -1,7 +1,7 @@
-@extends('layouts.layoutadmin')
+@extends('admin.layouts.app')
 
 @section('title', 'mạng xã hội')
-@section('sidebar')
+@section('content')
     @parent
 
     <!-- Main -->
@@ -22,11 +22,11 @@
                 </div>
 
                 <div class="page-title-actions">
-                    <a class="btn-shadow btn-hover-shine mr-3 btn btn-primary" onclick="hienformthemnhanhieu()">
+                    <a class="btn-shadow btn-hover-shine mr-3 btn btn-primary" onclick="hien_form_loai_san_pham()">
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fa fa-plus fa-w-20"></i>
                         </span>
-                        Thêm
+                        {{ trans('public.create') }}
                     </a>
                 </div>
             </div>
@@ -36,14 +36,14 @@
             <div class="col-md-12">
                 <div class="main-card mb-3 card">
                     <div class="card-header">
-                        <form>
+                        <form action="" method="get" class="mb-0">
                             <div class="input-group">
                                 <input type="search" name="search" id="search" placeholder="Search everything"
-                                    class="form-control">
+                                    class="form-control" value="{{request()->get('search')}}">
                                 <span class="input-group-append">
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fa fa-search"></i>&nbsp;
-                                        Search
+                                        {{trans('public.search')}}
                                     </button>
                                 </span>
                             </div>
@@ -60,23 +60,23 @@
                         <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th class="text-center" width="5%">ID</th>
+                                    <th class="text-center" width="5%">{{trans('public.STT')}}</th>
 
-                                    <th class="text-center" width="20%">Hình</th>
-                                    <th class="text-center" width="50%">Tên nhãn hiệu</th>
+                                    <th class="text-center" width="20%">{{trans('public.img')}}</th>
+                                    <th class="text-center" width="50%">{{trans('public.name')}}</th>
 
-                                    <th class="text-center">Hiện</th>
-                                    <th class="text-center">Hoạt động</th>
+                                    <th class="text-center">{{trans('public.presently')}}</th>
+                                    <th class="text-center">{{trans('public.function')}}</th>
                                 </tr>
                             </thead>
                             <tbody id="table-dsnhanhieu">
-                                <?php /* @foreach ($lsnhanhieu as $key => $value)
+                                @foreach ($ls_loai_dia_diem as $key => $value)
                                     <tr>
-                                        <td class="text-center text-muted">{{ $key + 1 }}</td>
+                                        <td class="text-center text-muted">{{ ($key + 1) }} '</td>
                                         <td class="td-hinh">
                                             <div class="widget-content-center ">
                                                 <img style="height: 60px; width: 60px" data-toggle="tooltip" title="Image"
-                                                    data-placement="bottom" src="{{URL('')}}/{{$value->hinh_nhan_hieu}}"
+                                                    data-placement="bottom" src="{{URL($value->hinh_loai_dia_diem  ?? 'assets/img/no-img.jpg')}}"
                                                     alt="">
                                             </div>
                                         </td>
@@ -84,112 +84,44 @@
                                             <div class="widget-content p-0">
                                                 <div class="widget-content-wrapper">
                                                     <div class="widget-content-left flex2">
-                                                        <div class="widget-heading">{{ $value->ten_nhan_hieu }}</div>
+                                                        <div class="widget-heading">{{$value->ten}}</div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
-
-
-
                                         <td class="td-radio">
                                             <div class=" check-magana text-center td-radio">
-                                                {{-- <input class="form-check-input" type="checkbox" value=""
+                                                {{-- <input class="form-check-input" type="checkbox" value=""\
                                                     id="defaultCheck1"> --}}
-                                                <input class="" type="checkbox" value="" id="defaultCheck1">
+                                                <input class="" type="checkbox" value="" id="checkhien{{$value->id }}" onchange="loai_dia_diem_hien({{$value->id}})" @if($value->hien == 1) checked @endif>
                                             </div>
                                         </td>
-
                                         <td class="text-center">
-                                            <a href="./brand-edit.html" data-toggle="tooltip" title="Edit"
-                                                data-placement="bottom" class="btn btn-outline-warning border-0 btn-sm">
+                                            <a data-url="{{ route('admin.loai-dia-diem.edit', ['id'=>$value->id]) }}" data-toggle="tooltip" title="Edit"
+                                                data-placement="bottom" class="btn btn-outline-warning border-0 btn-sm edit_nhanhieu" id="edit_nhanhieu">
                                                 <span class="btn-icon-wrapper opacity-8">
                                                     <i class="fa fa-edit fa-w-20"></i>
                                                 </span>
                                             </a>
                                             <form class="d-inline" action="" method="post">
-                                                <button class="btn btn-hover-shine btn-outline-danger border-0 btn-sm"
-                                                    type="submit" data-toggle="tooltip" title="Delete"
-                                                    data-placement="bottom"
-                                                    onclick="return confirm('Do you really want to delete this item?')">
-                                                    <span class="btn-icon-wrapper opacity-8">
+                                                <button class="delete_nhanhieu btn btn-hover-shine btn-outline-danger border-0 btn-sm "
+                                                    type="button" data-toggle="tooltip" title="Delete"
+                                                    data-placement="bottom" value="' + item.id +'" id="delete_nhanhieu" data-url="{{ route('admin.loai-dia-diem.destroy', ['id'=>$value->id]) }}">
                                                         <i class="fa fa-trash fa-w-20"></i>
                                                     </span>
                                                 </button>
                                             </form>
                                         </td>
                                     </tr>
-                                @endforeach */
-                                ?>
+                                @endforeach
+
 
                             </tbody>
                         </table>
                     </div>
 
                     <div class="d-block card-footer">
-                        <nav role="navigation" aria-label="Pagination Navigation" class="flex items-center justify-between">
-                            <div class="flex justify-between flex-1 sm:hidden">
-                                <span
-                                    class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default leading-5 rounded-md">
-                                    « Previous
-                                </span>
-
-                                <a href="#page=2"
-                                    class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 rounded-md hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-                                    Next »
-                                </a>
-                            </div>
-
-                            <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                                {{-- <div>
-                                    <p class="text-sm text-gray-700 leading-5">
-                                        Showing
-                                        <span class="font-medium">1</span>
-                                        to
-                                        <span class="font-medium">5</span>
-                                        of
-                                        <span class="font-medium">9</span>
-                                        results
-                                    </p>
-                                </div> --}}
-
-                                <div>
-                                    <span class="relative z-0 inline-flex shadow-sm rounded-md">
-                                        <span aria-disabled="true" aria-label="&amp;laquo; Previous">
-                                            <span
-                                                class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-l-md leading-5"
-                                                aria-hidden="true">
-                                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd"
-                                                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                            </span>
-                                        </span>
-
-                                        <span aria-current="page">
-                                            <span
-                                                class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default leading-5">1</span>
-                                        </span>
-                                        <a href="#page=2"
-                                            class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
-                                            aria-label="Go to page 2">
-                                            2
-                                        </a>
-
-                                        <a href="#page=2" rel="next"
-                                            class="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md leading-5 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150"
-                                            aria-label="Next &amp;raquo;">
-                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                        </a>
-                                    </span>
-                                </div>
-                            </div>
-                        </nav>
+                         {{ $ls_loai_dia_diem->appends(request()->all())->links('pagination::bootstrap-4') }}
                     </div>
 
                 </div>
@@ -207,8 +139,9 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            $('#nhan-hieu').addClass('mm-active');
-            loadnhanhieu()
+            $('#li-loai-dia-diem').addClass('mm-active');
+            $('#loai-dia-diem').addClass('mm-active');
+
         });
 
         $(document).on('click', '.delete_nhanhieu', function(e) {
@@ -216,7 +149,7 @@
             var r = confirm("Bạn có chắc chắn muốn xóa?");
             if (r == true) {
                 var idnhanhieu = $(this).val();
-                //var url = "{{ route('admin.xoa-nhan-hieu', '1') }}";
+
                 var url = $(this).attr('data-url');
                 $.ajaxSetup({
                     headers: {
@@ -229,7 +162,7 @@
                     type: "DELETE",
                     success: function(data) {
                         alert(data.mess);
-                        loadnhanhieu();
+                        load();
                     }
                 });
             }
@@ -237,8 +170,9 @@
 
         $(document).on('click', '.edit_nhanhieu', function(e) {
             e.preventDefault();
-            //var url = "{{ route('admin.xoa-nhan-hieu', '1') }}";
+
             var url = $(this).attr('data-url');
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -251,7 +185,7 @@
                 contentType: false,
                 processData: false,
                 success: function(data) {
-                    //console.log(data);
+                    console.log(data);
                     var create_nhan_hieu = document.getElementById('create-nhan-hieu');
                     create_nhan_hieu.style.display = "block";
                     $('#create-nhan-hieu').html('');
@@ -260,19 +194,20 @@
                 }
             });
         });
- 
 
 
-    function hienformthemnhanhieu() {
+
+    function hien_form_loai_san_pham() {
         //  var formData = new FormData();
         //  formData.append('idpost', idpost);
+        var url = "{{ route('admin.loai-dia-diem.create') }}";
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
         $.ajax({
-            url: "{{ route('admin.get-nhan-hieu-them') }}",
+            url: "{{ route('admin.loai-dia-diem.create') }}",
             type: 'GET',
             //data: formData,
             contentType: false,
@@ -294,68 +229,72 @@
         remove_them_layout();
     }
 
-    function loadnhanhieu() {
-        $.ajax({
-            url: "{{ route('admin.load-nhan-hieu') }}",
-            type: "GET",
-            dataType: "json",
-            success: function(data) {
-                console.log(data);
-                $('#table-dsnhanhieu').html("");
-                $.each(data.lsnhanhieu, function(key, item) {
-                    $('#table-dsnhanhieu').append('<tr>\
-                                        <td class="text-center text-muted">' + (key + 1) + '</td>\
-                                        <td class="td-hinh">\
-                                            <div class="widget-content-center ">\
-                                                <img style="height: 60px; width: 60px" data-toggle="tooltip" title="Image"\
-                                                    data-placement="bottom" src="{{ URL('') }}/' + item
-                        .hinh_nhan_hieu + '"\
-                                                    alt="">\
-                                            </div>\
-                                        </td>\
-                                        <td>\
-                                            <div class="widget-content p-0">\
-                                                <div class="widget-content-wrapper">\
-                                                    <div class="widget-content-left flex2">\
-                                                        <div class="widget-heading">' + item.ten_nhan_hieu + '</div>\
-                                                    </div>\
-                                                </div>\
-                                            </div>\
-                                        </td>\
-                                        <td class="td-radio">\
-                                            <div class=" check-magana text-center td-radio">\
-                                                {{-- <input class="form-check-input" type="checkbox" value=""\
-                                                    id="defaultCheck1"> --}}\
-                                                <input class="" type="checkbox" value="" id="checkhien' + item.id +  '" onchange="nhan_hieu_hien(' + item.id + ')"  ' + (item.hien == 1 ? "checked" : "") +'>\
-                                            </div>\
-                                        </td>\
-                                        <td class="text-center">\
-                                            <a data-url="{{ route('admin.get-nhan-hieu-sua', '') }}\/' + item.id + '" data-toggle="tooltip" title="Edit"\
-                                                data-placement="bottom" class="btn btn-outline-warning border-0 btn-sm edit_nhanhieu" id="edit_nhanhieu">\
-                                                <span class="btn-icon-wrapper opacity-8">\
-                                                    <i class="fa fa-edit fa-w-20"></i>\
-                                                </span>\
-                                            </a>\
-                                            <form class="d-inline" action="" method="post">\
-                                                <button class="delete_nhanhieu btn btn-hover-shine btn-outline-danger border-0 btn-sm "\
-                                                    type="button" data-toggle="tooltip" title="Delete"\
-                                                    data-placement="bottom" value="' + item.id +'" id="delete_nhanhieu" data-url="{{ route('admin.xoa-nhan-hieu', '') }}\/' + item.id + '">\
-                                                    <span class="btn-icon-wrapper opacity-8">\
-                                                        <i class="fa fa-trash fa-w-20"></i>\
-                                                    </span>\
-                                                </button>\
-                                            </form>\
-                                        </td>\
-                                    </tr>');
-                });
-            }
-        })
+    // function loadnhanhieu() {
+    //     $.ajax({
+    //         url: "{{ route('admin.loai-dia-diem.load') }}",
+    //         type: "GET",
+    //         dataType: "json",
+    //         success: function(data) {
+    //             console.log(data);
+    //             $('#table-dsnhanhieu').html("");
+    //             $.each(data.lsnhanhieu, function(key, item) {
+    //                 $('#table-dsnhanhieu').append('<tr>\
+    //                                     <td class="text-center text-muted">' + (key + 1) + '</td>\
+    //                                     <td class="td-hinh">\
+    //                                         <div class="widget-content-center ">\
+    //                                             <img style="height: 60px; width: 60px" data-toggle="tooltip" title="Image"\
+    //                                                 data-placement="bottom" src="{{ URL('') }}/' + item
+    //                     .hinh_nhan_hieu + '"\
+    //                                                 alt="">\
+    //                                         </div>\
+    //                                     </td>\
+    //                                     <td>\
+    //                                         <div class="widget-content p-0">\
+    //                                             <div class="widget-content-wrapper">\
+    //                                                 <div class="widget-content-left flex2">\
+    //                                                     <div class="widget-heading">' + item.ten_nhan_hieu + '</div>\
+    //                                                 </div>\
+    //                                             </div>\
+    //                                         </div>\
+    //                                     </td>\
+    //                                     <td class="td-radio">\
+    //                                         <div class=" check-magana text-center td-radio">\
+    //                                             {{-- <input class="form-check-input" type="checkbox" value=""\
+    //                                                 id="defaultCheck1"> --}}\
+    //                                             <input class="" type="checkbox" value="" id="checkhien' + item.id +  '" onchange="nhan_hieu_hien(' + item.id + ')"  ' + (item.hien == 1 ? "checked" : "") +'>\
+    //                                         </div>\
+    //                                     </td>\
+    //                                     <td class="text-center">\
+    //                                         <a data-url="{{ route('admin.loai-dia-diem.edit', '') }}\/' + item.id + '" data-toggle="tooltip" title="Edit"\
+    //                                             data-placement="bottom" class="btn btn-outline-warning border-0 btn-sm edit_nhanhieu" id="edit_nhanhieu">\
+    //                                             <span class="btn-icon-wrapper opacity-8">\
+    //                                                 <i class="fa fa-edit fa-w-20"></i>\
+    //                                             </span>\
+    //                                         </a>\
+    //                                         <form class="d-inline" action="" method="post">\
+    //                                             <button class="delete_nhanhieu btn btn-hover-shine btn-outline-danger border-0 btn-sm "\
+    //                                                 type="button" data-toggle="tooltip" title="Delete"\
+    //                                                 data-placement="bottom" value="' + item.id +'" id="delete_nhanhieu" data-url="{{ route('admin.loai-dia-diem.destroy', '') }}\/' + item.id + '">\
+    //                                                 <span class="btn-icon-wrapper opacity-8">\
+    //                                                     <i class="fa fa-trash fa-w-20"></i>\
+    //                                                 </span>\
+    //                                             </button>\
+    //                                         </form>\
+    //                                     </td>\
+    //                                 </tr>');
+    //             });
+    //         }
+    //     })
+    // }
+
+    function load(){
+        location.reload()
     }
 
-    function nhan_hieu_hien($id) {
+    function loai_dia_diem_hien($id) {
         var check = document.getElementById("checkhien" + $id).checked;
         var formData = new FormData();
-        var url = "{{ route('admin.nhan-hieu-hien', '') }}" + '/' + $id;
+        var url = "{{ route('admin.loai-dia-diem.hien', '') }}" + '/' + $id;
         formData.append('check', check);
         $.ajaxSetup({
             headers: {

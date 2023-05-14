@@ -123,7 +123,7 @@
                             </a>
                         </li> --}}
                         <li>
-                            <a href="{{ Route('admin.dia-diem.index') }}" id="dia-diem">
+                            <a href="{{ Route('admin.loai-dia-diem.index') }}" id="dia-diem">
                                 <i class="metismenu-icon"></i>{{ trans('public.list') }}
                             </a>
                         </li>
@@ -147,7 +147,7 @@
                             </a>
                         </li> --}}
                         <li>
-                            <a href="" id="loai-dia-diem">
+                            <a href="{{route('admin.loai-dia-diem.index')}}" id="loai-dia-diem">
                                 <i class="metismenu-icon"></i>{{ trans('public.list') }}
                             </a>
                         </li>
@@ -179,34 +179,7 @@
                     </ul>
                 </li>
                 <li class="app-sidebar__heading">{{ trans('public.website') }}</li>
-                <li class="" id="li-hinh-anh">
-                    <a href="#">
-                        <i class="metismenu-icon pe-7s-photo"></i>Quản lí hình ảnh
-                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                    </a>
-                    <ul>
-                        <li>
-                            <a href="" id="logo">
-                                <i class="metismenu-icon"></i>logo
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" id="banner">
-                                <i class="metismenu-icon"></i>banner
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" id="slideshow">
-                                <i class="metismenu-icon"></i>slideshow
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" id="mang-xa-hoi">
-                                <i class="metismenu-icon"></i>mạng xã hội
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+
 
 
             </ul>

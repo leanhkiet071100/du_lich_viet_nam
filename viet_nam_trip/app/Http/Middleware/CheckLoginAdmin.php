@@ -16,12 +16,12 @@ class CheckLoginAdmin
     public function handle(Request $request, Closure $next): Response
     {
        if(!Auth::check()){
-            return redirect()->route('login-admin')->with('yes','Bạn vui lòng đăng nhập để thực hiện chức năng');
-        }elseif(Auth::user()->cap_id == 1 ){
+            return redirect()->route('admin.login')->with('yes','Bạn vui lòng đăng nhập để thực hiện chức năng');
+        }elseif(Auth::user()->is_admin == 1 ){
             return $next($request);
-        }elseif(Auth::user()->cap_id == 2 ){
-            return redirect()->route('index')->with('yes','bạn không có quyền hạn vào trang admin');
+        }elseif(Auth::user()->cap_id == 0 ){
+            return redirect()->route('admin.login')->with('yes','bạn không có quyền hạn vào trang admin');
         }
-        return $next($request);
+        // return $next($request);
     }
 }

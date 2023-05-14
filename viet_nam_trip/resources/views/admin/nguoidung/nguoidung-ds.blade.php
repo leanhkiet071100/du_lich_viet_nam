@@ -169,7 +169,7 @@
                                                     <div class="badge badge-danger mt-2">{{trans('public.no_active')}}</div>
                                                     @break
                                                 @default
-                                                    
+
                                             @endswitch
                                         </td>
                                         <td class="text-center">

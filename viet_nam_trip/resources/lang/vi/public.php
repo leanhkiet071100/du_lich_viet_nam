@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'ID'=>'ID',
     'edit'=>'sửa',
     'title'=>'tiêu đề',
     'STT'=> 'STT',
@@ -82,5 +83,6 @@ return [
     'active'=>'hoạt động',
     'delay_active'=>'chờ kích hoạt',
     'avatar'=>'hình đại diện',
-    'manage_type_location'=> 'quản lí loại địa điểm'
+    'manage_type_location'=> 'quản lí loại địa điểm',
+    'type_location'=>'loại địa diểm',
 ];

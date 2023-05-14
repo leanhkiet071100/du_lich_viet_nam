@@ -16,76 +16,51 @@ use Validator;
 
 class LoaiDiaDiemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $ls_loai_dia_diem = loai_dia_diem::get();
+        $query = loai_dia_diem::query();
+        $query= $this->handleFilters($query, $request);
+        $ls_loai_dia_diem = $query->paginate(15);
 
         $data = [
-            'pageTitle' => trans('auth.login'),
+            'pageTitle' => trans('public.type_location'),
             'title'=>trans('public.manage_type_location'),
+            'ls_loai_dia_diem'=>$ls_loai_dia_diem,
         ];
-    
-        return view('admin.loaidiadiem.loaidiadiem-ds',$data);
+
+        return view('admin.loaidiadiem.loaidiadiem-ds', $data);
     }
 
-    public function load_nhan_hieu(){
-        $lsnhanhieu = nhan_hieu::orderByRaw('id DESC')->get();
+     private function handleFilters($query, $request){
+        $search = $request->get('search', null);
+
+        if (!empty($search)) {
+            $query->where('ten', 'like', '%' . $search . '%');
+        }
+
+        return $query;
+    }
+
+    public function load(){
+        $lsnhanhieu = loai_dia_diem::orderByRaw('id DESC')->get();
         return response()->json(['lsnhanhieu' => $lsnhanhieu]);
     }
 
-    public function get_them_nhan_hieu(){
-
-        $output = '';
-        // $output = '<div class="row">
-        //     <div class="col-md-12">
-        //         <div class="main-card mb-3 card">
-        //             <div class="card-body">
-        //                 <form method="post" enctype="multipart/form-data">
-        //                     <div class="position-relative row form-group">
-        //                         <label for="name" class="col-md-3 text-md-right col-form-label">Name</label>
-        //                         <div class="col-md-9 col-xl-8">
-        //                             <input required name="name" id="name" placeholder="Name" type="text"
-        //                                 class="form-control" value="">
-        //                         </div>
-        //                     </div>
-
-        //                     <div class="position-relative row form-group mb-1">
-        //                         <div class="col-md-9 col-xl-8 offset-md-2">
-        //                             <a href="#" class="border-0 btn btn-outline-danger mr-1">
-        //                                 <span class="btn-icon-wrapper pr-1 opacity-8">
-        //                                     <i class="fa fa-times fa-w-20"></i>
-        //                                 </span>
-        //                                 <span>Cancel</span>
-        //                             </a>
-
-        //                             <button type="submit" class="btn-shadow btn-hover-shine btn btn-primary">
-        //                                 <span class="btn-icon-wrapper pr-2 opacity-8">
-        //                                     <i class="fa fa-download fa-w-20"></i>
-        //                                 </span>
-        //                                 <span>Save</span>
-        //                             </button>
-        //                         </div>
-        //                     </div>
-        //                 </form>
-        //             </div>
-        //         </div>
-        //     </div>
-        // </div>';
-        return  view('admin.nhanhieu.nhanhieu-them');
+    public function create(){
+        return  view('admin.loaidiadiem.loaidiadiem-them');
     }
 
-    public function post_them_nhan_hieu(Request $request){
+    public function store(Request $request){
         $validator = Validator::make($request->all(), [
-            'tennhanhieu' => 'required|unique:nhan_hieus,ten_nhan_hieu',
-            'hinhnhanhieu' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'tennhanhieu' => 'required|unique:loai_dia_diems,ten',
+            'hinhnhanhieu' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ], $messages = [
-            'required' => 'Tên nhãn hiệu không được bỏ trống',
+            'required' => 'Tên loại địa điểm không được bỏ trống',
             'image' => 'đây không phải là hình ảnh',
             'mimes' => 'hình ảnh phải có đuổi là: jpeg,png,jpg,gif,svg',
-            'unique' => 'Tên nhãn hiệu đã tồn tại',
-            
-        ]);
+            'unique' => 'Tên địa điểm đã tồn tại',
 
+        ]);
         if($validator->fails())
         {
             return response()->json([
@@ -94,28 +69,28 @@ class LoaiDiaDiemController extends Controller
             ]);
         }
         else{
+
             $tennhanhieu = $request->tennhanhieu;
             $hinhnhanhieu = $request->file('hinhnhanhieu');
-            $date = Carbon::now();
-            //$date = $date->format('dmYhis'); // ngày tháng năm giờ phút giây
-            $date = $date->format('dmy');
+
             if($request->hasFile('hinhnhanhieu')){
-                $nhanhieu = new nhan_hieu;
+                $nhanhieu = new loai_dia_diem;
                 $nhanhieu->fill([
-                    'ten_nhan_hieu'=>$tennhanhieu,
-                    'hinh_nhan_hieu'=>'',
+                    'ten'=>$tennhanhieu,
+                    'hinh_loai_dia_diem'=>'',
                     'hien'=>1,
                 ]);
                 $nhanhieu->save();
                 $idnhanhieu = $nhanhieu->id;
+
                 // đặt tên file và kiểu file
                 // getClientoriginalName() : lấy tên file cũ
                 // getClientOriginalExtension(): lấy đuôi file
                 //$file_name = time().Str::random(10).'.'.$hinhnhanhieu->getClientOriginalExtension();
-                $file_name = $date.$hinhnhanhieu->getClientoriginalName();
-                // move:  di chuyển hình ảnh; public_path: tạo  thư mục ; $file_name: tên file 
-                $imagePath = $hinhnhanhieu->move(public_path('hinh_nhanhieu/'.$idnhanhieu), $file_name);
-                $nhanhieu->hinh_nhan_hieu = 'hinh_nhanhieu/'.$idnhanhieu.'/'.$file_name;
+                $file_name = $hinhnhanhieu->getClientoriginalName();
+                // move:  di chuyển hình ảnh; public_path: tạo  thư mục ; $file_name: tên file
+                $imagePath = $hinhnhanhieu->move(public_path('hinh_loai_dia_diem/'.$idnhanhieu), $file_name);
+                $nhanhieu->hinh_loai_dia_diem = 'hinh_loai_dia_diem/'.$idnhanhieu.'/'.$file_name;
                 $nhanhieu->save();
             }
             return response()->json([
@@ -126,17 +101,20 @@ class LoaiDiaDiemController extends Controller
 
     }
 
-    public function get_sua_nhan_hieu($id){
+    public function edit($id){
         $output = '';
-        $nhanhieu  = nhan_hieu::find($id);
-        return  view('admin.nhanhieu.nhanhieu-sua')->with(['nhanhieu'=>$nhanhieu]);
+        $nhanhieu  = loai_dia_diem::find($id);
+        return  view('admin.loaidiadiem.loaidiadiem-sua')->with(['nhanhieu'=>$nhanhieu]);
     }
 
-    public function post_sua_nhan_hieu(Request $request, $id){
+    public function update(Request $request, $id){
         $validator = Validator::make($request->all(), [
             'tennhanhieu' => 'required',
+            'hinhnhanhieu' => 'required',
         ], $messages = [
-            'required' => 'Tên nhãn hiệu không được bỏ trống',
+            'required' => 'không được bỏ trống',
+            'image' => 'đây không phải là hình ảnh',
+            'mimes' => 'hình ảnh phải có đuổi là: jpeg,png,jpg,gif,svg',
         ]);
 
         if($validator->fails())
@@ -152,18 +130,18 @@ class LoaiDiaDiemController extends Controller
             $date = Carbon::now();
             //$date = $date->format('dmYhis'); // ngày tháng năm giờ phút giây
             $date = $date->format('dmy');
-            $nhanhieu = nhan_hieu::find($id);
-            $nhanhieu->ten_nhan_hieu = $tennhanhieu;
+            $nhanhieu = loai_dia_diem::find($id);
+            $nhanhieu->ten = $tennhanhieu;
             if($request->hasFile('hinhnhanhieu')){
                 $idnhanhieu = $nhanhieu->id;
                 // đặt tên file và kiểu file
                 // getClientoriginalName() : lấy tên file cũ
                 // getClientOriginalExtension(): lấy đuôi file
                 $file_name = $date.$hinhnhanhieu->getClientoriginalName();
-                // move:  di chuyển hình ảnh; public_path: tạo  thư mục ; $file_name: tên file 
-                $imagePath = $hinhnhanhieu->move(public_path('hinh_nhanhieu/'.$idnhanhieu), $file_name);
-                $nhanhieu->hinh_nhan_hieu = 'hinh_nhanhieu/'.$idnhanhieu.'/'.$file_name;
-                
+                // move:  di chuyển hình ảnh; public_path: tạo  thư mục ; $file_name: tên file
+                $imagePath = $hinhnhanhieu->move(public_path('hinh_loai_dia_diem/'.$idnhanhieu), $file_name);
+                $nhanhieu->hinh_loai_dia_diem = 'hinh_loai_dia_diem/'.$idnhanhieu.'/'.$file_name;
+
             }
             $nhanhieu->save();
             return response()->json([
@@ -174,9 +152,9 @@ class LoaiDiaDiemController extends Controller
 
     }
 
-    public function xoa_nhan_hieu($id){
-        $nhanhieu  = nhan_hieu::find($id);
-        $nhanhieu->delete();
+    public function destroy($id){
+        $loai_dia_diem  = loai_dia_diem::find($id);
+        $loai_dia_diem->delete();
         return response()->json([
             'status'=>200,
             'mess'=> 'Xóa thành công',
@@ -184,9 +162,9 @@ class LoaiDiaDiemController extends Controller
 
     }
 
-    public function nhan_hieu_hien(Request $request,$id){
+    public function hien(Request $request,$id){
         $check = $request->check;
-        $nhanhieu = nhan_hieu::find($id);
+        $nhanhieu = loai_dia_diem::find($id);
         if($check=="true"){
             $nhanhieu->fill([
                 'hien'=>1
