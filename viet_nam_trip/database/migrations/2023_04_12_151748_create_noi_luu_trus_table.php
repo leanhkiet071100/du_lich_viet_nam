@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignId('dia_diem_id');
             $table->foreignId('nguoi_dung_id');
             $table->string('ten_noi_luu_tru');
+            $table->foreignId('tinh_id')->nullable();
+            $table->foreignId('huyen_id')->nullable();
+            $table->foreignId('xa_id')->nullable();
             $table->string('dia_chi');
             $table->string('so_dien_thoai');
             $table->string('hinh_noi_luu_tru');

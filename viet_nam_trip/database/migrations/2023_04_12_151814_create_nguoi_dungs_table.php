@@ -23,7 +23,7 @@ return new class extends Migration
             $table->text('mo_ta')->nullable();
             $table->string('so_dien_thoai')->nullable();
             // $table->boolean('moi')->nullable();
-            $table->boolean('noi_bat')->nullable();
+            //$table->boolean('noi_bat')->nullable();
             $table->string('trang_thai')->nullable();
             $table->timestamps();
             $table->softDeletes();

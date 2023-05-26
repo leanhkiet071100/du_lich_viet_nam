@@ -13,9 +13,9 @@
                         <i class="pe-7s-ticket icon-gradient bg-mean-fruit"></i>
                     </div>
                     <div>
-                        THÊM SẢN PHẨM
+                        {{$title}}
                         <div class="page-title-subheading">
-                            View, create, update, delete and manage.
+                            {{trans('public.manage_title')}}
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                                             value="{{$sanpham->ten_san_pham}}">
                                 </div>
                             </div>
-                            
+
                             <div class="position-relative row form-group">
                                 <label for="color" class="col-md-3 text-md-right col-form-label">màu</label>
                                 <div class="col-md-9 col-xl-8">
@@ -58,7 +58,7 @@
                                         @error('size')
                                             <span style="color:red"> {{ $message }}</span>
                                         @enderror
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
 
@@ -71,7 +71,7 @@
                                         @error('soluongkho')
                                             <span style="color:red"> {{ $message }}</span>
                                         @enderror
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
 

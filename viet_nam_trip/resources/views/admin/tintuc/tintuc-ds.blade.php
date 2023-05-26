@@ -158,11 +158,11 @@
                                                 {{-- <input class="form-check-input" type="checkbox" value=""\
                                                     id="defaultCheck1"> --}}
                                                 <input type="checkbox" id="check-noi-bat{{ $value->id }}"
-                                                    @if ($value->noi_bat == 1) checked @endif 
+                                                    @if ($value->noi_bat == 1) checked @endif
                                                     onchange="bai_viet_noi_bat({{ $value->id }})">
                                             </div>
                                         </td>
-                                  
+
                                         <td class="text-center">
                                             <a href=""
                                                 class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">
@@ -175,7 +175,7 @@
                                                 </span>
                                             </a>
                                             <form class="d-inline" action="{{ route('admin.tin-tuc.destroy', ['id' => $value->id]) }}"  method="GET">
-                                              
+
                                                 <button class="btn btn-hover-shine btn-outline-danger border-0 btn-sm"
                                                     type="submit" data-toggle="tooltip" title="Delete"
                                                     data-placement="bottom"
@@ -236,7 +236,7 @@
 
           function bai_viet_noi_bat($id) {
                 var check = document.getElementById("check-noi-bat" + $id).checked;
-               
+
                 var formData = new FormData();
                 var url = "{{ route('admin.bai-viet.noi-bat', '') }}" + '/' + $id;
                 formData.append('check', check);

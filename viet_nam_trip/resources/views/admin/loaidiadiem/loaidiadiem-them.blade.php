@@ -6,11 +6,11 @@
                 <form action="" id="formthemnhanhieu" method="post">
                     @csrf
 
-                    <p class="text-center title">Thêm loại địa điểm</p>
+                    <p class="text-center title">Thêm {{trans('public.category_travel_packages')}}</p>
                     <div class="position-relative row form-group">
                         <label for="name" class="col-md-3 text-md-right col-form-label">{{trans('public.name')}}</label>
                         <div class="col-md-9 col-xl-8">
-                            <input name="tennhanhieu" id="tennhanhieu" placeholder="tên nhãn hiệu" type="text"
+                            <input name="tennhanhieu" id="tennhanhieu" placeholder="{{trans('public.category_travel_packages')}}" type="text"
                                 class="form-control" value="">
                         </div>
 
@@ -50,13 +50,13 @@
                                 <span class="btn-icon-wrapper pr-1 opacity-8">
                                     <i class="fa fa-times fa-w-20"></i>
                                 </span>
-                                <span>Hủy</span>
+                                <span>{{trans('public.cancel')}}</span>
                             </a>
                             <button class="btn-shadow btn-hover-shine btn btn-primary">
                                 <span class="btn-icon-wrapper pr-2 opacity-8">
                                     <i class="fa fa-download fa-w-20"></i>
                                 </span>
-                                <span>Thêm</span>
+                                <span>{{trans('public.create')}}</span>
                             </button>
                         </div>
                     </div>
@@ -125,7 +125,7 @@
                 });
 
                 $.ajax({
-                    url: "{{ route('admin.loai-dia-diem.store') }}",
+                    url: "{{ route('admin.loai-goi-du-lich.store') }}",
                     type: 'POST',
                     data: formData,
                     contentType: false,

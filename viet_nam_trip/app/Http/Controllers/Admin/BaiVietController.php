@@ -19,28 +19,27 @@ class baivietController extends Controller
 {
      //Quản lí bài viết
     public function index(Request $request){
-       
         //$lstintuc = bai_viet::orderBy('created_at','ASC')->paginate(15);
-        
+
         $query = bai_viet::query();
 
         $totaltintucs = $query->count();
         $user = User::all();
         $query= $this->handleFilters($query, $request);
-   
+
         $lstintuc = $query->paginate(15);
 
         $data= [
             'pageTitle' => "Tin tức",
             'lstintuc' => $lstintuc,
             'user'=> $user,
-            
-    
+
+
         ];
         return view('admin.tintuc.tintuc-ds', $data);
     }
 
-    //tìm kiếm 
+    //tìm kiếm
     private function handleFilters($query, $request){
         $form = $request->get('form', null);
         $to = $request->get('to', null);
@@ -72,12 +71,12 @@ class baivietController extends Controller
         $data = [
             'pageTitle' => trans('public.create_post'),
         ];
-        
+
         return view('admin.tintuc.tintuc-them', $data);
     }
 
     public function store(Request $request){
-        
+
         $rule = [
             'hinhtintuc' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'tieude' => 'required',
@@ -107,7 +106,7 @@ class baivietController extends Controller
         $tieude = $request->input('tieude');
         $tintucmoi = new bai_viet;
         $tintucmoi->fill([
-               
+
                 'tieu_de'=> $tieude,
                 'phu_de'=> $phude,
                 //'hinh_anh'=>$ten_file,
@@ -139,7 +138,7 @@ class baivietController extends Controller
     //sửa bài viết
      public function edit($id){
         $tintuc = bai_viet::find($id);
-       
+
         if (!empty($bundle)) {
             abort(404);
         }
@@ -179,15 +178,15 @@ class baivietController extends Controller
         $phude = $request->input('phude');
         $noidung = $request->input('noidung');
         $tieude = $request->input('tieude');
-     
+
         $tintuc = bai_viet::find($id);
-     
+
         $tintuc->fill([
                 'tieu_de'=> $tieude,
                 'phu_de'=> $phude,
                 'noi_dung'=>$noidung,
             ]);
-          
+
         if($hinhtintuc != null){
             //$file_name = time().Str::random(10).'.'.$hinhtintuc->getClientOriginalExtension();
             $file_name = $hinhtintuc->getClientOriginalName();
@@ -199,11 +198,11 @@ class baivietController extends Controller
         $tintuc->save();
         return Redirect::route('admin.bai-viet.index')->with('success','sửa thành công');
     }
-    
+
     //xóa bài viết
     public function destroy(Request $request, $id){
         $tintuc = bai_viet::find($id);
-   
+
         if (!empty($tintuc)) {
             $tintuc->delete();
         }
@@ -255,8 +254,8 @@ class baivietController extends Controller
         ]);
     }
 
-    
-    
+
+
 
     // kết quản lí bài viết
 
@@ -287,7 +286,7 @@ class baivietController extends Controller
             'mess'=>  'sửa thành công',
         ]);
     }
-    
+
     public function binh_luan_bai_viet_noi_bat(Request $request,$id){
         $check = $request->check;
         $tintuc = tintuc_binhluan::find($id);

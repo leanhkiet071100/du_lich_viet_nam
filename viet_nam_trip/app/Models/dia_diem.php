@@ -18,13 +18,13 @@ class dia_diem extends Model
         'ten_dia_diem',
         'vi_do',
         'thoi_gian_du_lich',
-        'mua_du_lich',   
+        'mua_du_lich',
         'mo_ta',
         'gioi_thieu',
         'hinh_anh_dia_diem',
         'tinh_id',
         'huyen_id',
-        'xa_id', 
+        'xa_id',
         'hien',
         'noi_bat',
         'trang_thai',
@@ -49,7 +49,7 @@ class dia_diem extends Model
     }
 
     public function loai_dia_diem(){
-        return $this->hasMany(loai_dia_diem::class, 'loai_dia_diem_id', 'id');
+        return $this->hasMany('App\Models\loai_dia_diem', 'id', 'loai_dia_diem_id');
     }
 
     public function tinh(){

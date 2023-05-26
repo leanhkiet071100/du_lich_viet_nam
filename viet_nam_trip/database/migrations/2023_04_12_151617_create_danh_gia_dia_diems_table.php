@@ -18,8 +18,6 @@ return new class extends Migration
             $table->foreignId('binh_luan_id')->nullable();
             $table->text('noi_dung')->nullable();
             $table->integer('sao')->nullable();
-            $table->time('ngay')->nullable();
-            $table->boolean('hien')->nullable();
             $table->text('trang_thai')->nullable();
             $table->timestamps();
             $table->softDeletes();

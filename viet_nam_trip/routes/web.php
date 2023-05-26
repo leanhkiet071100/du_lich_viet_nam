@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 
 //Nhóm admin
-Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'web'], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'], function () {
     Route::name('admin.')->group(function(){
         Route::get('login', 'LoginController@showLoginForm')->name('login');
         Route::post('login_admin', 'LoginController@post_login_admin')->name('post_login_admin');
@@ -82,6 +82,20 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
         });
 
 
+        Route::group(['prefix' => 'dia-diem'], function () {
+            Route::name('dia-diem.')->group(function(){
+                Route::get('/', 'DiaDiemController@index')->name('index');
+                Route::get('/create', 'DiaDiemController@create')->name('create');
+                Route::post('/store', 'DiaDiemController@store')->name('store');
+                Route::get('/{id}/edit', 'DiaDiemController@edit')->name('edit');
+                Route::post('/{id}/update', 'DiaDiemController@update')->name('update');
+                Route::delete('/{id}/destroy', 'DiaDiemController@destroy')->name('destroy');
+                Route::post('/hien/{id}', 'DiaDiemController@hien')->name('hien');
+                Route::post('/noi-bat/{id}', 'DiaDiemController@noi_nat')->name('noi-bat');
+
+            });
+        });
+
         Route::group(['prefix' => 'loai-dia-diem'], function () {
             Route::name('loai-dia-diem.')->group(function(){
                 Route::get('/', 'LoaiDiaDiemController@index')->name('index');
@@ -96,6 +110,18 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
             });
         });
 
+        // gói du lịch
+        Route::group(['prefix' => 'loai-goi-du-lich'], function () {
+            Route::name('loai-goi-du-lich.')->group(function(){
+                Route::get('/', 'LoaiGoiDulichController@index')->name('index');
+                Route::get('/load', 'LoaiGoiDulichController@load')->name('load');
+                Route::get('/create', 'LoaiGoiDulichController@create')->name('create');
+                Route::post('/store', 'LoaiGoiDulichController@store')->name('store');
+                Route::get('/{id}/edit', 'LoaiGoiDulichController@edit')->name('edit');
+                Route::post('/{id}/update', 'LoaiGoiDulichController@update')->name('update');
+                Route::delete('/{id}/destroy', 'LoaiGoiDulichController@destroy')->name('destroy');
+            });
+        });
 
     });
 });

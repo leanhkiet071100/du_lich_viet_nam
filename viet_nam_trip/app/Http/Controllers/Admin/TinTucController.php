@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
-
 use App\Models\bai_viet;
 use App\Models\User;
 
@@ -18,16 +17,16 @@ class TinTucController extends Controller
 {
         //Quản lí bài viết
     public function index(Request $request){
-       
+
         //$lstintuc = bai_viet::orderBy('created_at','ASC')->paginate(15);
-        
+
         $query = bai_viet::query();
 
         $totaltintucs = $query->count();
         $user = User::all();
-        $query = $query->where('loai_bai_viet', 1);
+        // $query = $query->where('loai_bai_viet', 1);
         $query= $this->handleFilters($query, $request);
-   
+
         $lstintuc = $query->paginate(15);
 
         $data= [
@@ -36,11 +35,11 @@ class TinTucController extends Controller
             'user'=> $user,
             'title'=> trans('public.news')
         ];
-   
+
         return view('admin.tintuc.tintuc-ds', $data);
     }
 
-    //tìm kiếm 
+    //tìm kiếm
     private function handleFilters($query, $request){
         $form = $request->get('form', null);
         $to = $request->get('to', null);
@@ -73,12 +72,12 @@ class TinTucController extends Controller
             'pageTitle' => trans('public.create_post'),
             'title'=> trans('public.news')
         ];
-        
+
         return view('admin.tintuc.tintuc-them', $data);
     }
 
     public function store(Request $request){
-        
+
         $rule = [
             'hinhtintuc' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'tieude' => 'required',
@@ -108,11 +107,10 @@ class TinTucController extends Controller
         $tieude = $request->input('tieude');
         $tintucmoi = new bai_viet;
         $tintucmoi->fill([
-               
+
                 'tieu_de'=> $tieude,
                 'phu_de'=> $phude,
                 //'hinh_anh'=>$ten_file,
-                'loai_bai_viet'=>1,
                 'noi_dung'=>$noidung,
                 'hien'=> 1,
                 'noi_bat'=>1,
@@ -140,7 +138,7 @@ class TinTucController extends Controller
     //sửa bài viết
      public function edit($id){
         $tintuc = bai_viet::find($id);
-       
+
         if (!empty($bundle)) {
             abort(404);
         }
@@ -181,15 +179,15 @@ class TinTucController extends Controller
         $phude = $request->input('phude');
         $noidung = $request->input('noidung');
         $tieude = $request->input('tieude');
-     
+
         $tintuc = bai_viet::find($id);
-     
+
         $tintuc->fill([
                 'tieu_de'=> $tieude,
                 'phu_de'=> $phude,
                 'noi_dung'=>$noidung,
             ]);
-          
+
         if($hinhtintuc != null){
             //$file_name = time().Str::random(10).'.'.$hinhtintuc->getClientOriginalExtension();
             $file_name = $hinhtintuc->getClientOriginalName();
@@ -201,11 +199,11 @@ class TinTucController extends Controller
         $tintuc->save();
         return Redirect::route('admin.tin-tuc.index')->with('success','sửa thành công');
     }
-    
+
     //xóa bài viết
     public function destroy(Request $request, $id){
         $tintuc = bai_viet::find($id);
-   
+
         if (!empty($tintuc)) {
             $tintuc->delete();
         }

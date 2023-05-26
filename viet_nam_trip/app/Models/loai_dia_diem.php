@@ -22,6 +22,6 @@ class loai_dia_diem extends Model
     ];
 
     public function dia_diem(){
-        return $this->belongsTo(dia_diem::class, 'ma_loai_san_pham', 'id');
+        return $this->belongsTo('App\Models\dia_diem', 'id', 'loai_dia_diem_id');
     }
 }

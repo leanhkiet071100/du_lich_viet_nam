@@ -3,9 +3,9 @@
     <div class="col-md-12">
         <div class="main-card mb-3 card">
             <div class="card-body">
-                <form action="" id="formsuanhanhieu" method="post" data-url="{{ route('admin.loai-dia-diem.update',['id'=>$nhanhieu->id]) }}">
+                <form action="" id="formsuanhanhieu" method="post" data-url="{{ route('admin.loai-goi-du-lich.update',['id'=>$nhanhieu->id]) }}">
                     @csrf
-                    <p class="text-center title">Sửa loại địa điểm</p>
+                    <p class="text-center title">Sửa {{trans('public.category_travel_packages')}}</p>
                     <div class="position-relative row form-group">
                         <label for="name" class="col-md-3 text-md-right col-form-label">{{trans('public.name')}}</label>
                         <div class="col-md-9 col-xl-8">
@@ -27,7 +27,7 @@
                                         class="hinh-nhan-hieu">
                                         <img style="width: 100%; cursor: pointer;" class="thumbnail"
                                             data-toggle="tooltip" title="Click to add image" data-placement="bottom"
-                                            src="{{ URL(old('hinhnhanhieu') ?? $nhanhieu->hinh_loai_dia_diem) }}" alt="Add Image">
+                                            src="{{ URL(old('hinhnhanhieu') ?? $nhanhieu->hinh_loai_goi_du_lich) }}" alt="Add Image">
 
                                         <input name="hinhnhanhieu" type="file" onchange="changeImg(this);"
                                             accept="image/x-png,image/gif,image/jpeg" id="hinhnhanhieu"

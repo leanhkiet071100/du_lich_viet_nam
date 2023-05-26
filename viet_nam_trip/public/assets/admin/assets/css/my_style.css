@@ -71,12 +71,12 @@ td.td-radio {
 
 .create-nhan-hieu {
     display: none;
-    position: absolute;
+    position: fixed;
     width: 50%;
     /* height: 100%; */
-    top: 25%;
+    top: 7%;
     /*background-color: #d92550;*/
-    left: 35%;
+    left: 30%;
     z-index: 100;
 }
 
@@ -411,7 +411,7 @@ li a {
 }
 
 /* ------------------
-back ground full 
+back ground full
 -------------------*/
 .theme-layout {
     float: left;
@@ -439,9 +439,10 @@ back ground full
     opacity: 0;
 }
 
-.app-page-title .page-title-heading{
+.app-page-title .page-title-heading {
     text-transform: uppercase;
 }
+
 table.align-middle.mb-0.table.table-borderless.table-striped.table-hover {
     text-transform: revert;
 }
@@ -450,10 +451,11 @@ table.align-middle.mb-0.table.table-borderless.table-striped.table-hover {
     text-align: center;
     transform: inherit;
 }
+
 .form-group-checked {
     display: flex;
 }
 
-.custom-switch-input.section-parent{
+.custom-switch-input.section-parent {
     vertical-align: middle;
 }

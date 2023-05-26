@@ -117,21 +117,11 @@
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
                     <ul>
-                        {{-- <li>
-                            <a href="{{ Route('admin.get-loai-san-pham') }}" id="loai-san-pham">
-                                <i class="metismenu-icon"></i>Loại sản phẩm
-                            </a>
-                        </li> --}}
                         <li>
-                            <a href="{{ Route('admin.loai-dia-diem.index') }}" id="dia-diem">
+                            <a href="{{route('admin.dia-diem.index')}}" id="dia-diem">
                                 <i class="metismenu-icon"></i>{{ trans('public.list') }}
                             </a>
                         </li>
-                        {{-- <li>
-                            <a href="{{ Route('admin.binh-luan-san-pham') }}" id="binh-luan-san-pham">
-                                <i class="metismenu-icon"></i>Bình luận
-                            </a>
-                        </li> --}}
 
                     </ul>
                 </li>
@@ -141,18 +131,43 @@
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
                     <ul>
-                        {{-- <li>
-                            <a href="{{ Route('admin.get-loai-san-pham') }}" id="loai-san-pham">
-                                <i class="metismenu-icon"></i>Loại sản phẩm
-                            </a>
-                        </li> --}}
                         <li>
                             <a href="{{route('admin.loai-dia-diem.index')}}" id="loai-dia-diem">
                                 <i class="metismenu-icon"></i>{{ trans('public.list') }}
                             </a>
                         </li>
+
+                    </ul>
+                </li>
+
+                <li class="app-sidebar__heading">{{ trans('public.booking') }}</li>
+                <li class="" id="li-goi-du-lich">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-plugin"></i>{{ trans('public.manage_category_travel_packages') }}
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
                         <li>
-                            <a href="" id="create-loai-dia-diem">
+                            <a href="{{route('admin.loai-goi-du-lich.index')}}" id="loai-goi-du-lich">
+                                <i class="metismenu-icon"></i>{{ trans('public.list') }}
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="" id="li-loai-goi-du-lich">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-plugin"></i>{{ trans('public.manage_travel_packages') }}
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{{route('admin.loai-dia-diem.index')}}" id="goi-du-lich">
+                                <i class="metismenu-icon"></i>{{ trans('public.list') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.loai-dia-diem.index')}}" id="tao-goi-du-lich">
                                 <i class="metismenu-icon"></i>{{ trans('public.create') }}
                             </a>
                         </li>
