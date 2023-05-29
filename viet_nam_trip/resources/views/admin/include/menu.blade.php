@@ -141,7 +141,7 @@
                 </li>
 
                 <li class="app-sidebar__heading">{{ trans('public.booking') }}</li>
-                <li class="" id="li-goi-du-lich">
+                <li class="" id="li-loai-goi-du-lich">
                     <a href="#">
                         <i class="metismenu-icon pe-7s-plugin"></i>{{ trans('public.manage_category_travel_packages') }}
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
@@ -155,19 +155,19 @@
 
                     </ul>
                 </li>
-                <li class="" id="li-loai-goi-du-lich">
+                <li class="" id="li-goi-du-lich">
                     <a href="#">
                         <i class="metismenu-icon pe-7s-plugin"></i>{{ trans('public.manage_travel_packages') }}
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
                     <ul>
                         <li>
-                            <a href="{{route('admin.loai-dia-diem.index')}}" id="goi-du-lich">
+                            <a href="{{route('admin.goi-du-lich.index')}}" id="goi-du-lich">
                                 <i class="metismenu-icon"></i>{{ trans('public.list') }}
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('admin.loai-dia-diem.index')}}" id="tao-goi-du-lich">
+                            <a href="{{route('admin.goi-du-lich.create')}}" id="tao-goi-du-lich">
                                 <i class="metismenu-icon"></i>{{ trans('public.create') }}
                             </a>
                         </li>

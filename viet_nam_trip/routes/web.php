@@ -110,7 +110,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
             });
         });
 
-        // gói du lịch
+        // loại gói du lịch
         Route::group(['prefix' => 'loai-goi-du-lich'], function () {
             Route::name('loai-goi-du-lich.')->group(function(){
                 Route::get('/', 'LoaiGoiDulichController@index')->name('index');
@@ -120,6 +120,18 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
                 Route::get('/{id}/edit', 'LoaiGoiDulichController@edit')->name('edit');
                 Route::post('/{id}/update', 'LoaiGoiDulichController@update')->name('update');
                 Route::delete('/{id}/destroy', 'LoaiGoiDulichController@destroy')->name('destroy');
+            });
+        });
+        // gói du lịch
+        Route::group(['prefix' => 'goi-du-lich'], function () {
+            Route::name('goi-du-lich.')->group(function(){
+                Route::get('/', 'GoiDuLichController@index')->name('index');
+                Route::get('/load', 'GoiDuLichController@load')->name('load');
+                Route::get('/create', 'GoiDuLichController@create')->name('create');
+                Route::post('/store', 'GoiDuLichController@store')->name('store');
+                Route::get('/{id}/edit', 'GoiDuLichController@edit')->name('edit');
+                Route::post('/{id}/update', 'GoiDuLichController@update')->name('update');
+                Route::delete('/{id}/destroy', 'GoiDuLichController@destroy')->name('destroy');
             });
         });
 

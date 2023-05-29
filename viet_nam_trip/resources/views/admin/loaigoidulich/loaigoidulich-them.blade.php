@@ -6,7 +6,7 @@
                 <form action="" id="formthemnhanhieu" method="post">
                     @csrf
 
-                    <p class="text-center title">Thêm loại địa điểm</p>
+                    <p class="text-center title">Thêm loại gói du lịch</p>
                     <div class="position-relative row form-group">
                         <label for="name" class="col-md-3 text-md-right col-form-label">{{trans('public.name')}}</label>
                         <div class="col-md-9 col-xl-8">
