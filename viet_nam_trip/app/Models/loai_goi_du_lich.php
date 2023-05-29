@@ -20,6 +20,6 @@ class loai_goi_du_lich extends Model
     ];
 
     public function goi_du_lich(){
-        return $this->hasMany('App\Models\goi_du_lich', 'id', 'goi_du_lich_id');
+        return $this->belongsTo('App\Models\goi_du_lich', 'id', 'loai_id');
     }
 }

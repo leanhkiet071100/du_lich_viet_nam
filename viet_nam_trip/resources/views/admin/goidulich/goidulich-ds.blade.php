@@ -16,7 +16,7 @@
                         <i class="pe-7s-ticket icon-gradient bg-mean-fruit"></i>
                     </div>
                     <div>
-                        {{trans('public.list_location')}}
+                        {{trans('public.travel_packages')}}
                         <div class="page-title-subheading">
                            {{trans('public.manage_title')}}
                         </div>
@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="page-title-actions">
-                    <a href="{{ route('admin.dia-diem.create') }}" class="btn-shadow btn-hover-shine mr-3 btn btn-primary">
+                    <a href="{{ route('admin.goi-du-lich.create') }}" class="btn-shadow btn-hover-shine mr-3 btn btn-primary">
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fa fa-plus fa-w-20"></i>
                         </span>
@@ -55,18 +55,16 @@
                                 <tr>
                                     <th class="text-center">{{trans('public.STT')}}</th>
                                     <th class="text-center">{{trans('public.name')}}</th>
-                                    <th class="text-center">{{trans('public.type_location')}}</th>
-                                    <th class="text-center">{{trans('public.Address')}}</th>
-                                    <th class="text-center">{{trans('public.presently')}}</th>
-                                    <th class="text-center">{{trans('public.outstanding')}}</th>
-
+                                    <th class="text-center">{{trans('public.category_travel_packages')}}</th>
+                                    <th class="text-center">{{trans('public.nation')}}</th>
+                                    <th class="text-center">{{trans('public.maximum_number_of_people')}}</th>
                                     {{-- <th class="text-center">Featured</th> --}}
                                     <th class="text-center">{{trans('public.function')}}</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach ($lsdiadiem as $key => $value)
+                                @foreach ($lsgoidulich as $key => $value)
                                     <tr>
                                         <td class="text-center text-muted">{{ $key + 1 }}</td>
                                         <td>
@@ -76,40 +74,20 @@
                                                         <div class="widget-content-left">
                                                             <img style="height: 60px; width:60px;" data-toggle="tooltip"
                                                                 title="Image" data-placement="bottom"
-                                                                src="{{URL($value->hinh_loai_dia_diem  ?? 'assets/img/no-img.jpg')}}" alt="">
+                                                                src="{{URL($value->hinh_goi_du_lich  ?? 'assets/img/no-img.jpg')}}" alt="">
                                                         </div>
                                                     </div>
                                                     <div class="widget-content-left flex2">
                                                         <div class="widget-subheading opacity-7">
-                                                            {{ $value->ten_dia_diem }}
+                                                            {{ $value->ten }}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="text-center">{{$value->ten}}</td>
-                                        <td class="text-center">{{ $value->chi_tiet_dia_chi, $value->xa_id, $value->huyen_id, $value->xa_id }}</td>
-                                        <td class="td-radio">
-                                            <div class=" check-magana text-center td-radio">
-                                                {{-- <input class="form-check-input" type="checkbox" value=""\
-                                                    id="defaultCheck1"> --}}
-                                                <input class="" type="checkbox" value=""
-                                                    id="check-hien{{ $value->id }}"
-                                                    @if ($value->hien == 1) checked @endif
-                                                    onchange="san_pham_hien({{ $value->id }})">
-                                            </div>
-                                        </td>
-                                        <td class="td-radio">
-                                            <div class=" check-magana text-center td-radio">
-                                                {{-- <input class="form-check-input" type="checkbox" value=""\
-                                                    id="defaultCheck1"> --}}
-                                                <input class="" type="checkbox" value=""
-                                                    id="check-noi-bat{{ $value->id }}"
-                                                    @if ($value->noi_bat == 1) checked @endif
-                                                    onchange="san_pham_noi_bat({{ $value->id }})">
-                                            </div>
-                                        </td>
-
+                                        <td class="text-center">{{$value->ten_loai_goi_du_lich}}</td>
+                                        <td class="text-center">{{$value->quoc_gia}}</td>
+                                        <td class="text-center">{{$value->so_nguoi_toi_da}}</td>
                                         <td class="text-center">
                                             <a href="{{ route('admin.dia-diem.edit', ['id' => $value->id]) }}"
                                                 class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">
@@ -146,7 +124,7 @@
 
 
                     <div class="d-block card-footer">
-                        {{ $lsdiadiem->appends(request()->all())->links('pagination::bootstrap-4') }}
+                        {{ $lsgoidulich->appends(request()->all())->links('pagination::bootstrap-4') }}
                     </div>
 
                 </div>
@@ -158,8 +136,8 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            $('#dia-diem').addClass('mm-active');
-            $('#li-dia-diem').addClass('mm-active');
+            $('#goi-du-lich').addClass('mm-active');
+            $('#li-goi-du-lich').addClass('mm-active');
         });
 
         function format_curency(a) {

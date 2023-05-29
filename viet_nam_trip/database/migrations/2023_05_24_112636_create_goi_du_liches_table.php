@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('loai_id');
             $table->string('ten')->nullable();
+            $table->text('hinh_goi_du_lich')->nullable();
             $table->string('quoc_gia')->nullable();
             $table->string('noi_khoi_hanh')->nullable();
             $table->timestamp('tap_trung')->nullable();
