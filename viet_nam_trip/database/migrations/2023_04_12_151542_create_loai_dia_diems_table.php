@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('loai_dia_diems', function (Blueprint $table) {
-            $table->id();
-            $table->string('ten');
-            $table->text('hinh_loai_dia_diem')->nullable();
-            $table->boolean('hien')->nullable();
-            $table->string('trang_thai')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        // Schema::create('loai_dia_diems', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('ten');
+        //     $table->text('hinh_loai_dia_diem')->nullable();
+        //     $table->boolean('hien')->nullable();
+        //     $table->string('trang_thai')->nullable();
+        //     $table->timestamps();
+        //     $table->softDeletes();
+        // });
     }
 
     /**
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('loai_dia_diems');
+        // Schema::dropIfExists('loai_dia_diems');
     }
 };

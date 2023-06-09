@@ -81,7 +81,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
             });
         });
 
-
+        //địa điểm
         Route::group(['prefix' => 'dia-diem'], function () {
             Route::name('dia-diem.')->group(function(){
                 Route::get('/', 'DiaDiemController@index')->name('index');
@@ -89,13 +89,26 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
                 Route::post('/store', 'DiaDiemController@store')->name('store');
                 Route::get('/{id}/edit', 'DiaDiemController@edit')->name('edit');
                 Route::post('/{id}/update', 'DiaDiemController@update')->name('update');
+                Route::get('/{id}/show', 'DiaDiemController@show')->name('show');
                 Route::delete('/{id}/destroy', 'DiaDiemController@destroy')->name('destroy');
-                Route::post('/hien/{id}', 'DiaDiemController@hien')->name('hien');
                 Route::post('/noi-bat/{id}', 'DiaDiemController@noi_nat')->name('noi-bat');
-
+                //load tỉnh thành Việt Nam
+                Route::post('/get-load-huyen', 'DiaDiemController@get_load_huyen')->name('get-load-huyen');
+                Route::post('/get-load-xa', 'DiaDiemController@get_load_xa')->name('get-load-xa');
             });
         });
 
+        //hình địa điểm
+         Route::group(['prefix' => 'dia-diem-hinh'], function () {
+            Route::name('dia-diem-hinh.')->group(function(){
+                Route::get('/{id}', 'DiaDiemHinhController@index')->name('index');
+                Route::post('/store', 'DiaDiemHinhController@store')->name('store');
+                Route::post('/{id}/update', 'DiaDiemHinhController@update')->name('update');
+                Route::delete('/destroy/{id}', 'DiaDiemHinhController@destroy')->name('destroy');
+                Route::get('/load_hinh/{id}', 'DiaDiemHinhController@load_hinh')->name('load_hinh');
+            });
+        });
+        // loại địa điểm
         Route::group(['prefix' => 'loai-dia-diem'], function () {
             Route::name('loai-dia-diem.')->group(function(){
                 Route::get('/', 'LoaiDiaDiemController@index')->name('index');
@@ -134,6 +147,30 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
                 Route::delete('/{id}/destroy', 'GoiDuLichController@destroy')->name('destroy');
             });
         });
+
+    });
+});
+
+//nnhóm web
+Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
+    Route::name('web.')->group(function(){
+        Route::group(['prefix' => 'dia-diem'], function () {
+            Route::name('dia-diem.')->group(function(){
+                Route::get('/', 'DiaDiemController@index')->name('index');
+                Route::get('/{id}/show', 'DiaDiemController@show')->name('show');
+            });
+
+        });
+        //tin tuc
+        Route::group(['prefix' => 'tin-tuc'], function () {
+            Route::name('tin-tuc.')->group(function(){
+                Route::get('/', 'TinTucController@index')->name('index');
+                Route::get('/{id}/show', 'TinTucController@show')->name('show');
+            });
+        });
+
+
+
 
     });
 });

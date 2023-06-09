@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('dia_diems', function ($table) {      
-            $table->foreign('loai_dia_diem_id')->references('id')->on('loai_dia_diems');
-            $table->foreign('tinh_id')->references('id')->on('tinh_huyen_xas');
-            $table->foreign('huyen_id')->references('id')->on('tinh_huyen_xas');
-            $table->foreign('xa_id')->references('id')->on('tinh_huyen_xas');
+        Schema::table('dia_diems', function ($table) {
+            // $table->foreign('loai_dia_diem_id')->references('id')->on('loai_dia_diems');
+            // $table->foreign('tinh_id')->references('id')->on('tinh_huyen_xas');
+            // $table->foreign('huyen_id')->references('id')->on('tinh_huyen_xas');
+            // $table->foreign('xa_id')->references('id')->on('tinh_huyen_xas');
         });
     }
 

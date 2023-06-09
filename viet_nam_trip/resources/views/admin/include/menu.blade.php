@@ -125,7 +125,7 @@
 
                     </ul>
                 </li>
-                 <li class="" id="li-loai-dia-diem">
+                 {{-- <li class="" id="li-loai-dia-diem">
                     <a href="#">
                         <i class="metismenu-icon pe-7s-plugin"></i>{{ trans('public.manage_type_location') }}
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
@@ -138,7 +138,7 @@
                         </li>
 
                     </ul>
-                </li>
+                </li> --}}
 
                 <li class="app-sidebar__heading">{{ trans('public.booking') }}</li>
                 <li class="" id="li-loai-goi-du-lich">

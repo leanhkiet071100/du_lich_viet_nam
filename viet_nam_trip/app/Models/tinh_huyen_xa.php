@@ -15,19 +15,17 @@ class tinh_huyen_xa extends Model
 
     protected $fillable = [
         'ten',
-        'hinh_loai_dia_diem',
-        'hien',
-        'noi_bat',
-        'trang_thai'
+        'parent_id',
+        'loai',
     ];
 
     public function tinh(){
-        return $this->hasMany(dia_diem::class, 'tinh_id', 'id');
+        return $this->hasMany('App\Models\tinh_huyen_xa', 'parent_id', 'id');
     }
     public function huyen(){
-        return $this->hasMany(dia_diem::class, 'huyen_id', 'id');
+        return $this->hasMany('App\Models\tinh_huyen_xa', 'parent_id', 'id');
     }
     public function xa(){
-        return $this->hasMany(dia_diem::class, 'xa_id', 'id');
+        return $this->hasMany('App\Models\tinh_huyen_xa', 'parent_id', 'id');
     }
 }

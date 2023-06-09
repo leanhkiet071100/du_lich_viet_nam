@@ -22,92 +22,92 @@ class TinhHuyenXaSeeder extends Seeder
                 'parent_id'=>null
             ],
             [
-                'ten'=>' Hà Giang',
+                'ten'=>'Hà Giang',
                 'loai'=>1,
                 'parent_id'=>null
             ],
             [
-            'ten'=>' Cao Bằng',
+            'ten'=>'Cao Bằng',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Bắc Kạn',
+            'ten'=>'Bắc Kạn',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Tuyên Quang',
+            'ten'=>'Tuyên Quang',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Lào Cai',
+            'ten'=>'Lào Cai',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Điện Biên',
+            'ten'=>'Điện Biên',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Lai Châu',
+            'ten'=>'Lai Châu',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Sơn La',
+            'ten'=>'Sơn La',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Yên Bái',
+            'ten'=>'Yên Bái',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Hoà Bình',
+            'ten'=>'Hoà Bình',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Thái Nguyên',
+            'ten'=>'Thái Nguyên',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Lạng Sơn',
+            'ten'=>'Lạng Sơn',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Quảng Ninh',
+            'ten'=>'Quảng Ninh',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Bắc Giang',
+            'ten'=>'Bắc Giang',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Phú Thọ',
+            'ten'=>'Phú Thọ',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Vĩnh Phúc',
+            'ten'=>'Vĩnh Phúc',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Bắc Ninh',
+            'ten'=>'Bắc Ninh',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Hải Dương',
+            'ten'=>'Hải Dương',
             'loai'=>1,
             'parent_id'=>null
             ],
@@ -117,57 +117,57 @@ class TinhHuyenXaSeeder extends Seeder
             'parent_id'=>null
             ],
             [
-            'ten'=>' Hưng Yên',
+            'ten'=>'Hưng Yên',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Thái Bình',
+            'ten'=>'Thái Bình',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Hà Nam',
+            'ten'=>'Hà Nam',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Nam Định',
+            'ten'=>'Nam Định',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Ninh Bình',
+            'ten'=>'Ninh Bình',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Thanh Hóa',
+            'ten'=>'Thanh Hóa',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Nghệ An',
+            'ten'=>'Nghệ An',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Hà Tĩnh',
+            'ten'=>'Hà Tĩnh',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Quảng Bình',
+            'ten'=>'Quảng Bình',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Quảng Trị',
+            'ten'=>'Quảng Trị',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Thừa Thiên Huế',
+            'ten'=>'Thừa Thiên Huế',
             'loai'=>1,
             'parent_id'=>null
             ],
@@ -177,87 +177,87 @@ class TinhHuyenXaSeeder extends Seeder
             'parent_id'=>null
             ],
             [
-            'ten'=>' Quảng Nam',
+            'ten'=>'Quảng Nam',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Quảng Ngãi',
+            'ten'=>'Quảng Ngãi',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Bình Định',
+            'ten'=>'Bình Định',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Phú Yên',
+            'ten'=>'Phú Yên',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Khánh Hòa',
+            'ten'=>'Khánh Hòa',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Ninh Thuận',
+            'ten'=>'Ninh Thuận',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Bình Thuận',
+            'ten'=>'Bình Thuận',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Kon Tum',
+            'ten'=>'Kon Tum',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Gia Lai',
+            'ten'=>'Gia Lai',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Đắk Lắk',
+            'ten'=>'Đắk Lắk',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Đắk Nông',
+            'ten'=>'Đắk Nông',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Lâm Đồng',
+            'ten'=>'Lâm Đồng',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Bình Phước',
+            'ten'=>'Bình Phước',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Tây Ninh',
+            'ten'=>'Tây Ninh',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Bình Dương',
+            'ten'=>'Bình Dương',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Đồng Nai',
+            'ten'=>'Đồng Nai',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Bà Rịa - Vũng Tàu',
+            'ten'=>'Bà Rịa - Vũng Tàu',
             'loai'=>1,
             'parent_id'=>null
             ],
@@ -267,42 +267,42 @@ class TinhHuyenXaSeeder extends Seeder
             'parent_id'=>null
             ],
             [
-            'ten'=>' Long An',
+            'ten'=>'Long An',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Tiền Giang',
+            'ten'=>'Tiền Giang',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Bến Tre',
+            'ten'=>'Bến Tre',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Trà Vinh',
+            'ten'=>'Trà Vinh',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Vĩnh Long',
+            'ten'=>'Vĩnh Long',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Đồng Tháp',
+            'ten'=>'Đồng Tháp',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' An Giang',
+            'ten'=>'An Giang',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Kiên Giang',
+            'ten'=>'Kiên Giang',
             'loai'=>1,
             'parent_id'=>null
             ],
@@ -312,22 +312,22 @@ class TinhHuyenXaSeeder extends Seeder
             'parent_id'=>null
             ],
             [
-            'ten'=>' Hậu Giang',
+            'ten'=>'Hậu Giang',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Sóc Trăng',
+            'ten'=>'Sóc Trăng',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Bạc Liêu',
+            'ten'=>'Bạc Liêu',
             'loai'=>1,
             'parent_id'=>null
             ],
             [
-            'ten'=>' Cà Mau',
+            'ten'=>'Cà Mau',
             'loai'=>1,
             'parent_id'=>null
             ],

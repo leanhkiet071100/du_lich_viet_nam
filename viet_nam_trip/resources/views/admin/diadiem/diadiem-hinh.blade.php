@@ -1,11 +1,11 @@
-@extends('layouts.layoutadmin')
+@extends('admin.layouts.app')
 
 @section('title', 'mạng xã hội')
-@section('sidebar')
+@section('content')
     @parent
     <!-- Main -->
     <div class="app-main__inner">
-        <input type="hidden" id="idsp" value="{{ $sanpham->id }}">
+        <input type="hidden" id="dia_diem_id" value="{{ $dia_diem->id }}">
         <div class="app-page-title">
             <div class="page-title-wrapper">
                 <div class="page-title-heading">
@@ -13,9 +13,9 @@
                         <i class="pe-7s-ticket icon-gradient bg-mean-fruit"></i>
                     </div>
                     <div>
-                        Hình ảnh sản phẩm
+                        {{ $pageTitle }}
                         <div class="page-title-subheading">
-                            View, create, update, delete and manage.
+                            {{ trans('public.manage_title') }}
                         </div>
                     </div>
                 </div>
@@ -28,15 +28,14 @@
                     <div class="card-body">
 
                         <div class="position-relative row form-group">
-                            <label for="name" class="col-md-3 text-md-right col-form-label">Tên sản phẩm</label>
+                            <label for="name" class="col-md-3 text-md-right col-form-label">{{trans('public.name')}}</label>
                             <div class="col-md-9 col-xl-8">
-                                <input disabled placeholder="Product Name" type="text" class="form-control"
-                                    value="{{ $sanpham->ten_san_pham }}">
+                                <input disabled placeholder="Product Name" type="text" class="form-control" value="{{ $dia_diem->ten_dia_diem }}">
                             </div>
                         </div>
 
                         <div class="position-relative row form-group">
-                            <label for="" class="col-md-3 text-md-right col-form-label">Hình sản phẩm</label>
+                            <label for="" class="col-md-3 text-md-right col-form-label">{{trans('public.list_img')}}</label>
                             <div class="col-md-9 col-xl-8">
                                 <ul class="text-nowrap" id="images">
 
@@ -49,10 +48,10 @@
                                             <img style="width: 100%; cursor: pointer; height:200px"
                                                 class="thumbnail hinhanh" data-toggle="tooltip" title="Click to add image"
                                                 data-placement="bottom"
-                                                src="{{ URL('admin/assets/images/add-image-icon.jpg') }}" alt="Add Image">
+                                                src="{{ URL('assets/admin/assets/images/add-image-icon.jpg') }}" alt="Add Image">
 
-                                            <input id="hinhsp" name="hinhsp[]" multiple="multiple" type="file"
-                                                onchange="uploadhinhsp()" multiple="multiple"
+                                            <input id="hinh" name="hinh[]" multiple="multiple" type="file"
+                                                onchange="uploadhinh()" multiple="multiple"
                                                 accept="image/x-png,image/gif,image/jpeg" class="image form-control-file"
                                                 style="display: none;">
 
@@ -77,19 +76,19 @@
                         <div class="position-relative row form-group mb-1">
                             <div class="col-md-9 col-xl-8 offset-md-3">
 
-                                <a onclick="themhinhsp({{ $sanpham->id }})" style="color: white"
+                                <a onclick="them_hinh({{ $dia_diem->id }})" style="color: white"
                                     class="btn-shadow btn-hover-shine btn btn-primary btn-them" id="btn-them">
                                     <span class="btn-icon-wrapper pr-2 opacity-8">
                                         <i class="fa fa-check fa-w-20"></i>
                                     </span>
-                                    <span>Thêm</span>
+                                    <span>{{trans('public.create')}}</span>
                                 </a>
-                                <a href="{{ route('admin.chi-tiet-san-pham', ['id' => $sanpham->id]) }}"
+                                <a href="{{ route('admin.dia-diem.show', ['id' => $dia_diem->id]) }}"
                                     class="border-0 btn btn-outline-danger mr-1">
                                     <span class="btn-icon-wrapper pr-1 opacity-8">
                                         <i class="fa fa-times fa-w-20"></i>
                                     </span>
-                                    <span>Hủy</span>
+                                    <span>{{trans('public.cancel')}}</span>
                                 </a>
                             </div>
                         </div>
@@ -104,16 +103,17 @@
 @section('js')
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#san-pham').addClass('mm-active');
-             $('#li-san-pham').addClass('mm-active');
-            loadhinhsp()
+            $('#dia-diem').addClass('mm-active');
+             $('#li-dia-diem').addClass('mm-active');
+            load_hinh()
         });
 
-        $(document).on('click', '.delete_hinh_sanpham', function(e) {
+        $(document).on('click', '.delete_hinh', function(e) {
             e.preventDefault();
             var r = confirm("Bạn có chắc chắn muốn xóa?");
             if (r == true) {
                 var url = $(this).attr('data-url');
+                console.log(url);
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -124,15 +124,16 @@
                     url: url,
                     type: "delete",
                     success: function(data) {
+                        console.log(data);
                         alert(data.mess);
-                        loadhinhsp();
+                        load_hinh();
                     }
                 });
             }
         });
 
-        function uploadhinhsp() {
-            var file = document.getElementById('hinhsp').files;
+        function uploadhinh() {
+            var file = document.getElementById('hinh').files;
             document.getElementById('preview-upload').innerHTML = "";
             var hinhmoi = document.getElementById('label-hinh-moi');
             hinhmoi.style.display = "block";
@@ -163,14 +164,13 @@
             }
         }
 
-        function themhinhsp(idsp) {
-            var hinhsp = $('#hinhsp')[0].files;
-            //console.log(hinhsp);
+        function them_hinh(dia_diem_id) {
+            var hinh = $('#hinh')[0].files;
+            //console.log(hinh);
             var formData = new FormData();
-            formData.append('idsp', idsp);
-            for (var i = 0; i < hinhsp.length; i++) {
-                formData.append('hinhsp[]', hinhsp[i]);
-
+            formData.append('dia_diem_id', dia_diem_id);
+            for (var i = 0; i < hinh.length; i++) {
+                formData.append('hinh[]', hinh[i]);
             }
 
             $.ajaxSetup({
@@ -180,14 +180,14 @@
             });
 
             $.ajax({
-                url: "{{ route('admin.them-hinh-san-pham') }}",
+                url: "{{ route('admin.dia-diem-hinh.store') }}",
                 type: 'POST',
                 data: formData,
                 contentType: false,
                 processData: false,
                 success: function(data) {
                     if (data.status == 400) {
-                        alert(data.errors.hinhsp[0]);
+                        alert(data.errors.hinh[0]);
                     } else {
                         document.getElementById('preview-upload').innerHTML = "";
                         var hinhmoi = document.getElementById('label-hinh-moi');
@@ -197,34 +197,32 @@
                         alert(data.mess);
 
                     }
-
-                    loadhinhsp();
+                    console.log(data);
+                    load_hinh();
                 }
             });
         }
 
-        function loadhinhsp() {
-            var id = $('#idsp').val();
-            var url = "{{ route('admin.load-hinh-anh-san-pham', '') }}/" + id;
+        function load_hinh() {
+            var id = $('#dia_diem_id').val();
+            var url = "{{ route('admin.dia-diem-hinh.load_hinh', '') }}/" + id;
             $.ajax({
                 url: url,
                 type: "GET",
                 dataType: "json",
                 success: function(data) {
                     $('#images').html("");
-                    $.each(data.sanphamhinh, function(key, item) {
+                    $.each(data.hinh, function(key, item) {
                         $('#images').append(
                             '<li class="float-left d-inline-block mr-2 mb-2"\
                                                                 style="position: relative; width: 30%;">\
                                                                 <form action="" method="post">\
-                                                                    <button data-url="{{ route('admin.xoa-hinh-san-pham', '') }}\/' +
-                            item
-                            .id + '" type="button" onclick="" class="delete_hinh_sanpham btn btn-sm btn-outline-danger border-0 position-absolute">\
+                                                                    <button data-url="{{ route('admin.dia-diem-hinh.destroy','') }}/' + item.id + '" type="button" onclick="" class="delete_hinh btn btn-sm btn-outline-danger border-0 position-absolute">\
                                                                         <i class="fas fa-times"></i>\
                                                                     </button>\
                                                                 </form>\
                                                                 <div style="width: 100%; height: 200px; overflow: hidden;" class="hinhanhsp">\
-                                                                    <img src="{{ URL('') }}/' + item.hinh_san_pham + '"" alt="Image">\
+                                                                    <img src="{{ URL('') }}/' + item.ten + '"" alt="Image">\
                                                                 </div>\
                                                             </li>')
                     });

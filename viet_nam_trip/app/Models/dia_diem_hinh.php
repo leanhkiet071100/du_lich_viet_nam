@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\CalendarLinks\Link;
+use Jorenvh\Share\ShareFacade;
 
 class dia_diem_hinh extends Model
 {
@@ -20,6 +22,6 @@ class dia_diem_hinh extends Model
     ];
 
     public function dia_diem(){
-        return $this->hasMany(dia_diem::class, 'dia_diem_id', 'id');
+        return $this->hasMany('App\Models\dia_diem', 'id', 'dia_diem_id');
     }
 }

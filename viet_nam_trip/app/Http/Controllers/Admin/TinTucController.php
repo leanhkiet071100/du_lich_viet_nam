@@ -15,13 +15,13 @@ use App\Models\User;
 
 class TinTucController extends Controller
 {
-        //Quản lí bài viết
+        //Quản lí tin tức
     public function index(Request $request){
 
         //$lstintuc = bai_viet::orderBy('created_at','ASC')->paginate(15);
 
         $query = bai_viet::query();
-
+        $query = $query->where('loai_bai_viet', '=', 'tin-tuc');
         $totaltintucs = $query->count();
         $user = User::all();
         // $query = $query->where('loai_bai_viet', 1);
@@ -48,7 +48,6 @@ class TinTucController extends Controller
         $hien = $request->get('hien', null);
         $noi_bat = $request->get('noi-bat', null);
         $query = fromAndToDateFilter($form, $to, $query, 'created_at');
-
         if (!empty($title)) {
             $query->where('tieu_de', 'like', '%' . $title . '%');
         }
@@ -66,7 +65,7 @@ class TinTucController extends Controller
         return $query;
     }
 
-    //thêm Bài viết
+    //thêm tin tức
     public function create(){
         $data = [
             'pageTitle' => trans('public.create_post'),
@@ -111,6 +110,7 @@ class TinTucController extends Controller
                 'tieu_de'=> $tieude,
                 'phu_de'=> $phude,
                 //'hinh_anh'=>$ten_file,
+                'loai_bai_viet'=>'tin-tuc',
                 'noi_dung'=>$noidung,
                 'hien'=> 1,
                 'noi_bat'=>1,
@@ -127,7 +127,7 @@ class TinTucController extends Controller
         return Redirect::route('admin.tin-tuc.index')->with('success','Thêm thành công');
     }
 
-    //chi tiết bài viết
+    //chi tiết tin tức
     public function chi_tiet_bai_viet($id){
         $tintuc = tintuc::join('nguoidungs','nguoidungs.id', '=','tintucs.ma_nguoi_dung')
                             ->select('tintucs.*','nguoidungs.ten','nguoidungs.hinh_dai_dien')
@@ -135,15 +135,15 @@ class TinTucController extends Controller
         return view('admin.tintuc.tintuc-chitiet')->with(['tintuc'=>$tintuc]);
     }
 
-    //sửa bài viết
-     public function edit($id){
+    //sửa tin tức
+    public function edit($id){
         $tintuc = bai_viet::find($id);
 
         if (!empty($bundle)) {
             abort(404);
         }
         $data = [
-            'pageTitle'=>trans('edit_post'),
+            'pageTitle'=>$tintuc->tieu_de,
             'tintuc' => $tintuc,
             'title'=> trans('public.news')
 
@@ -169,7 +169,7 @@ class TinTucController extends Controller
 
         ];
         $attribute = [
-            'hinhtintuc' => 'Hình bài viêt',
+            'hinhtintuc' => 'Hình tin tức',
             'phude' => 'Phụ để',
             'noidung' => 'Nội dung',
             'tieude' => 'Tiêu đề',
@@ -200,7 +200,7 @@ class TinTucController extends Controller
         return Redirect::route('admin.tin-tuc.index')->with('success','sửa thành công');
     }
 
-    //xóa bài viết
+    //xóa tin tức
     public function destroy(Request $request, $id){
         $tintuc = bai_viet::find($id);
 

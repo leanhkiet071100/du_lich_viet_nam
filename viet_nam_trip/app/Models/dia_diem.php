@@ -14,18 +14,16 @@ class dia_diem extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'loai_dia_diem_id',
         'ten_dia_diem',
         'vi_do',
-        'thoi_gian_du_lich',
         'mua_du_lich',
         'mo_ta',
-        'gioi_thieu',
+        'noi_dung',
         'hinh_anh_dia_diem',
-        'tinh_id',
-        'huyen_id',
-        'xa_id',
-        'hien',
+        'chi_tiet_dia_chi',
+        'tinh',
+        'huyen',
+        'xa',
         'noi_bat',
         'trang_thai',
     ];
@@ -35,7 +33,7 @@ class dia_diem extends Model
 
     //khóa ngoại hình ảnh sản phẩm 1
     public function dia_diem_hinh(){
-        return $this->belongsTo(dia_diem_hinh::class, 'dia_diem_id', 'id');
+        return $this->belongsTo('App\Models\dia_diem_hinh', 'id', 'dia_diem_id');
     }
 
     public function danh_gia_dia_diem(){

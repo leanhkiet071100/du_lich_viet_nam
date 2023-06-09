@@ -164,10 +164,9 @@
                                         </td>
 
                                         <td class="text-center">
-                                            <a href=""
-                                                class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">
+                                            {{-- <a href="" class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">
                                                 Chi tiết
-                                            </a>
+                                            </a> --}}
                                             <a href="{{route("admin.tin-tuc.edit",['id'=>$value->id])}}" data-toggle="tooltip" title="Edit"
                                                 data-placement="bottom" class="btn btn-outline-warning border-0 btn-sm">
                                                 <span class="btn-icon-wrapper opacity-8">
