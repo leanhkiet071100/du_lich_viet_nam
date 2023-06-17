@@ -194,6 +194,19 @@
                     </ul>
                 </li>
                 <li class="app-sidebar__heading">{{ trans('public.website') }}</li>
+                <li class="" id="li-web">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-pen"></i>{{ trans('public.manage_web') }}
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{{ route('admin.thong-tin-web.index') }}" id="thong-tin-trang-web">
+                                <i class="metismenu-icon"></i>{{ trans('public.info_web') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
 
 

@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
 
 
 //Nhóm admin
@@ -148,12 +143,33 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
             });
         });
 
+        //khách sạn
+        Route::group(['prefix' => 'thong-tin-web'], function () {
+            Route::name('thong-tin-web.')->group(function(){
+                Route::get('/', 'WebController@index')->name('index');
+                 Route::get('/create', 'WebController@create')->name('create');
+                Route::post('/store', 'WebController@store')->name('store');
+                Route::get('/{id}/edit', 'WebController@edit')->name('edit');
+                Route::post('/{id}/update', 'WebController@update')->name('update');
+                Route::delete('/{id}/destroy', 'WebController@destroy')->name('destroy');
+            });
+        });
+
     });
 });
 
 //nnhóm web
 Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
     Route::name('web.')->group(function(){
+
+        //trang chủ
+        Route::group(['prefix' => ''], function () {
+            Route::name('trang-chu.')->group(function(){
+                Route::get('/', 'TrangChuController@index')->name('index');
+            });
+        });
+
+        //địa điểm
         Route::group(['prefix' => 'dia-diem'], function () {
             Route::name('dia-diem.')->group(function(){
                 Route::get('/', 'DiaDiemController@index')->name('index');
@@ -168,6 +184,46 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
                 Route::get('/{id}/show', 'TinTucController@show')->name('show');
             });
         });
+
+        //bài viết
+        Route::group(['prefix' => 'bai-viet'], function () {
+            Route::name('bai-viet.')->group(function(){
+                Route::get('/', 'BaiVietController@index')->name('index');
+                Route::get('/{id}/show', 'BaiVietController@show')->name('show');
+            });
+        });
+
+        //khách sạn
+        Route::group(['prefix' => 'khach-san'], function () {
+            Route::name('khach-san.')->group(function(){
+                Route::get('/', 'KhachSanController@index')->name('index');
+                Route::get('/{id}/show', 'KhachSanController@show')->name('show');
+            });
+        });
+
+        //về chúng tôi
+        Route::group(['prefix' => 've-chung-toi'], function () {
+            Route::name('ve-chung-toi.')->group(function(){
+                Route::get('/', 'VeChungToiController@index')->name('index');
+            });
+        });
+
+        //liên hệ
+        Route::group(['prefix' => 'lien-he'], function () {
+            Route::name('lien-he.')->group(function(){
+                Route::get('/', 'LienHeController@index')->name('index');
+            });
+        });
+
+
+        //khách sạn
+        Route::group(['prefix' => 'khach-san'], function () {
+            Route::name('khach-san.')->group(function(){
+                Route::get('/', 'KhachSanController@index')->name('index');
+                Route::get('/{id}/show', 'KhachSanController@show')->name('show');
+            });
+        });
+
 
 
 

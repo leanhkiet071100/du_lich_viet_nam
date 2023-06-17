@@ -122,4 +122,9 @@ return [
     'homne'=>'trang chủ',
     'eatery'=>'quán ăn',
     'list_img'=>'Danh sách hình ảnh',
+    'comment'=>'bình luận',
+    'writing_comment'=>'viết bình luận',
+    'manage_web'=>'quản lí trang web',
+    'info_web' => 'thông tin trang web',
+    'contact'=>'liên hệ',
 ];

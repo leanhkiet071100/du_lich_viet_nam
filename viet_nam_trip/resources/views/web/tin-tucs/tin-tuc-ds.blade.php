@@ -9,7 +9,7 @@
                 @foreach ($ls_tin_tuc as $key=>$value )
                 <div class="col-md-3 d-flex ftco-animate">
                     <div class="blog-entry align-self-stretch">
-                        <a href="{{route('web.tin-tuc.show', ['id'=>$value->id])}}" class="block-20" style="background-image: url({{URL($value->hinh_anh_bai_viet)}});">
+                        <a href="{{route('web.tin-tuc.show', ['id'=>$value->id])}}" class="block-20" style="background-image: url({{URL($value->hinh_anh_bai_viet)}}); background-size:100% 100%;">
                         </a>
                         <div class="text p-4 d-block">
                             <span class="tag">Tips, Travel</span>

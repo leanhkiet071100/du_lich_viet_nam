@@ -1,27 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
-use App\Models\bai_viet;
-use App\Models\bai_viet_binh_luan;
-use App\Models\bai_viet_binh_luan_hinh;
-use App\Models\User;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Carbon\Carbon;
 
-class TinTucController extends Controller
+class TrangChuController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-
+        $data= [
+            'pageTitle' => "Trang chủ",
+        ];
+        return view('web.trang-chu.trang-chu', $data);
     }
 
     /**
@@ -43,7 +37,7 @@ class TinTucController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(bai_viet $bai_viet)
+    public function show(string $id)
     {
         //
     }
@@ -51,7 +45,7 @@ class TinTucController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(bai_viet $bai_viet)
+    public function edit(string $id)
     {
         //
     }
@@ -59,7 +53,7 @@ class TinTucController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, bai_viet $bai_viet)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -67,7 +61,7 @@ class TinTucController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(bai_viet $bai_viet)
+    public function destroy(string $id)
     {
         //
     }

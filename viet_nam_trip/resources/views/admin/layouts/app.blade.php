@@ -87,6 +87,13 @@
                 return false;
             return true;
         }
+
+        function format_curency(a) {
+            //xóa dấu phẩy
+            a.value = a.value.replaceAll(',', '');
+            // định dạng tiền
+            a.value = a.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        }
     </script>
     {{-- <script src="//cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script> --}}
     @yield('js')
