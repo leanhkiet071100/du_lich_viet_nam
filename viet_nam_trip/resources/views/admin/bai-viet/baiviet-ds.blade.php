@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="page-title-actions">
-                    <a href="{{ Route('admin.tin-tuc.create') }}" class="btn-shadow btn-hover-shine mr-3 btn btn-primary">
+                    <a href="{{ Route('admin.bai-viet.create') }}" class="btn-shadow btn-hover-shine mr-3 btn btn-primary">
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fa fa-plus fa-w-20"></i>
                         </span>
@@ -122,7 +122,7 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($lstintuc as $key => $value)
+                                @foreach ($lsbaiviet as $key => $value)
                                     <tr>
                                         <td class="text-center text-muted">{{ $key + 1 }}</td>
                                         <td>
@@ -132,7 +132,7 @@
                                                         <div class="widget-content-left">
                                                             <img style="height: 60px; width:60px;" data-toggle="tooltip"
                                                                 title="Image" data-placement="bottom"
-                                                                src="{{ URL($value->hinh_anh_bai_viet) }}" alt="">
+                                                                src="{{ URL($value->hinh_anh_bai_viet ?? 'hinh_test/blog.jpg') }}" alt="">
                                                         </div>
                                                     </div>
                                                     <div class="widget-content-left flex2">
@@ -167,13 +167,15 @@
                                             {{-- <a href="" class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">
                                                 Chi tiết
                                             </a> --}}
-                                            <a href="{{route("admin.tin-tuc.edit",['id'=>$value->id])}}" data-toggle="tooltip" title="Edit"
-                                                data-placement="bottom" class="btn btn-outline-warning border-0 btn-sm">
-                                                <span class="btn-icon-wrapper opacity-8">
-                                                    <i class="fa fa-edit fa-w-20"></i>
-                                                </span>
-                                            </a>
-                                            <form class="d-inline" action="{{ route('admin.tin-tuc.destroy', ['id' => $value->id]) }}"  method="GET">
+                                            @if ($value->nguoi_dung_id == null)
+                                                <a href="{{route("admin.bai-viet.edit",['id'=>$value->id])}}" data-toggle="tooltip" title="Edit"
+                                                    data-placement="bottom" class="btn btn-outline-warning border-0 btn-sm">
+                                                    <span class="btn-icon-wrapper opacity-8">
+                                                        <i class="fa fa-edit fa-w-20"></i>
+                                                    </span>
+                                                </a>
+                                             @endif
+                                            <form class="d-inline" action="{{ route('admin.bai-viet.destroy', ['id' => $value->id]) }}"  method="GET">
 
                                                 <button class="btn btn-hover-shine btn-outline-danger border-0 btn-sm"
                                                     type="submit" data-toggle="tooltip" title="Delete"
@@ -193,7 +195,7 @@
 
 
                     <div class="d-block card-footer">
-                        {{ $lstintuc->appends(request()->all())->links('pagination::bootstrap-4') }}
+                        {{ $lsbaiviet->appends(request()->all())->links('pagination::bootstrap-4') }}
                     </div>
 
                 </div>
@@ -205,8 +207,8 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            $('#tin-tuc').addClass('mm-active');
-            $('#li-tin-tuc').addClass('mm-active');
+            $('#bai-viet').addClass('mm-active');
+            $('#li-bai-viet').addClass('mm-active');
         });
 
         function bai_viet_hien($id) {

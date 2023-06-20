@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\bai_viet;
+use App\Models\dia_diem;
 use App\Models\User;
 
 
@@ -21,21 +22,21 @@ class baivietController extends Controller
         //$lstintuc = bai_viet::orderBy('created_at','ASC')->paginate(15);
 
         $query = bai_viet::query();
-
+        $query = $query->where('loai_bai_viet','bai-viet');
         $totaltintucs = $query->count();
         $user = User::all();
         $query= $this->handleFilters($query, $request);
 
-        $lstintuc = $query->paginate(15);
+        $lsbaiviet = $query->paginate(15);
 
         $data= [
             'pageTitle' => "Tin tức",
-            'lstintuc' => $lstintuc,
+            'lsbaiviet' => $lsbaiviet,
             'user'=> $user,
-
+            'title'=>trans('public.user'),
 
         ];
-        return view('admin.tintuc.tintuc-ds', $data);
+        return view('admin.bai-viet.baiviet-ds', $data);
     }
 
     //tìm kiếm
@@ -67,19 +68,20 @@ class baivietController extends Controller
 
     //thêm Bài viết
     public function create(){
-        $data = [
+        $ls_dia_diem = dia_diem::get();
+          $data = [
             'pageTitle' => trans('public.create_post'),
+            'title'=> trans('public.post'),
+            'ls_dia_diem'=>$ls_dia_diem,
         ];
 
-        return view('admin.tintuc.tintuc-them', $data);
+        return view('admin.bai-viet.baiviet-them', $data);
     }
 
     public function store(Request $request){
-
         $rule = [
             'hinhtintuc' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'tieude' => 'required',
-            'phude' => '',
             'noidung' => 'required',
         ];
         $message =[
@@ -94,66 +96,54 @@ class baivietController extends Controller
         ];
         $attribute = [
             'hinhtintuc' => 'Hình bài viêt',
-            'phude' => 'Phụ để',
             'noidung' => 'Nội dung',
             'tieude' => 'Tiêu đề',
         ];
         $request->validate($rule, $message, $attribute);
-        $hinhtintuc = $request->file('hinhtintuc');
-        $phude = $request->input('phude');
+        $hinh_bai_viet = $request->file('hinhtintuc');
+        $dia_diem_id = $request->input('dia_diem_id');
         $noidung = $request->input('noidung');
         $tieude = $request->input('tieude');
-        $tintucmoi = new bai_viet;
-        $tintucmoi->fill([
-
-                'tieu_de'=> $tieude,
-                'phu_de'=> $phude,
-                //'hinh_anh'=>$ten_file,
-                'loai_bai_viet'=>1,
-                'noi_dung'=>$noidung,
-                'hien'=> 1,
-                'noi_bat'=>1,
+        $bai_viet_moi = new bai_viet;
+        $bai_viet_moi->fill([
+            'tieu_de'=> $tieude,
+            'dia_diem_id'=>$dia_diem_id,
+            'loai_bai_viet'=>'bai-viet',
+            'noi_dung'=>$noidung,
+            'hien'=> 1,
          ]);
-         $tintucmoi->save();
-        if($hinhtintuc != null){
+         $bai_viet_moi->save();
+        if($hinh_bai_viet != null){
             //$file_name = time().Str::random(10).'.'.$hinhtintuc->getClientOriginalExtension();
-            $file_name = $hinhtintuc->getClientOriginalName();
-            $imagePath = $hinhtintuc->move(public_path('hinh_anh_bai_viet/'), $file_name);
+            $file_name = $hinh_bai_viet->getClientOriginalName();
+            $imagePath = $hinh_bai_viet->move(public_path('hinh_anh_bai_viet/'), $file_name);
             $ten_file = 'hinh_anh_bai_viet/'.$file_name;
-            $tintucmoi->hinh_anh_bai_viet = $ten_file;
-            $tintucmoi->save();
+            $bai_viet_moi->hinh_anh_bai_viet = $ten_file;
+            $bai_viet_moi->save();
         }
         return Redirect::route('admin.bai-viet.index')->with('success','Thêm thành công');
     }
 
-    //chi tiết bài viết
-    public function chi_tiet_bai_viet($id){
-        $tintuc = tintuc::join('nguoidungs','nguoidungs.id', '=','tintucs.ma_nguoi_dung')
-                            ->select('tintucs.*','nguoidungs.ten','nguoidungs.hinh_dai_dien')
-                            ->find($id);
-        return view('admin.tintuc.tintuc-chitiet')->with(['tintuc'=>$tintuc]);
-    }
-
     //sửa bài viết
-     public function edit($id){
-        $tintuc = bai_viet::find($id);
-
+    public function edit($id){
+        $baiviet = bai_viet::where('loai_bai_viet','bai-viet')->find($id);
+        $ls_dia_diem = dia_diem::get();
         if (!empty($bundle)) {
             abort(404);
         }
         $data = [
             'pageTitle'=>trans('edit_post'),
-            'tintuc' => $tintuc,
-
+            'baiviet' => $baiviet,
+            'ls_dia_diem'=>$ls_dia_diem,
+            'title'=> trans('public.post')
         ];
-        return view('admin.tintuc.tintuc-sua', $data);
+        return view('admin.bai-viet.baiviet-sua', $data);
     }
 
     public function update(Request $request,$id){
-         $rule = [
+        $rule = [
             'hinhtintuc' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'tieude' => 'required',
-            'phude' => '',
             'noidung' => 'required',
         ];
         $message =[
@@ -168,33 +158,33 @@ class baivietController extends Controller
         ];
         $attribute = [
             'hinhtintuc' => 'Hình bài viêt',
-            'phude' => 'Phụ để',
             'noidung' => 'Nội dung',
             'tieude' => 'Tiêu đề',
         ];
         $request->validate($rule, $message, $attribute);
-        $hinhtintuc = $request->file('hinhtintuc');
-        $phude = $request->input('phude');
+        $hinh_bai_viet = $request->file('hinhtintuc');
+        $dia_diem_id = $request->input('dia_diem_id');
         $noidung = $request->input('noidung');
         $tieude = $request->input('tieude');
 
-        $tintuc = bai_viet::find($id);
+        $bai_viet = bai_viet::find($id);
 
-        $tintuc->fill([
-                'tieu_de'=> $tieude,
-                'phu_de'=> $phude,
-                'noi_dung'=>$noidung,
-            ]);
+        $bai_viet->fill([
+            'tieu_de'=> $tieude,
+            'dia_diem_id'=>$dia_diem_id,
+            'noi_dung'=>$noidung,
+            'hien'=> 1,
+        ]);
 
-        if($hinhtintuc != null){
+        if($hinh_bai_viet != null){
             //$file_name = time().Str::random(10).'.'.$hinhtintuc->getClientOriginalExtension();
-            $file_name = $hinhtintuc->getClientOriginalName();
-            $imagePath = $hinhtintuc->move(public_path('hinh_anh_bai_viet/'), $file_name);
+            $file_name = $hinh_bai_viet->getClientOriginalName();
+            $imagePath = $hinh_bai_viet->move(public_path('hinh_anh_bai_viet/'), $file_name);
             $ten_file = 'hinh_anh_bai_viet/'.$file_name;
-            $tintuc->hinh_anh_bai_viet = $ten_file;
-            $tintuc->save();
+            $bai_viet->hinh_anh_bai_viet = $ten_file;
+            $bai_viet->save();
         }
-        $tintuc->save();
+        $bai_viet->save();
         return Redirect::route('admin.bai-viet.index')->with('success','sửa thành công');
     }
 

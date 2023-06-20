@@ -201,7 +201,7 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="{{ route('admin.tin-tuc.index') }}" id="bai-viet">
+                            <a href="{{ route('admin.bai-viet.index') }}" id="bai-viet">
                                 <i class="metismenu-icon"></i>{{ trans('public.list') }}
                             </a>
                         </li>

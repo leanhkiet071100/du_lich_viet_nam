@@ -49,6 +49,19 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
             });
         });
 
+        Route::group(['prefix' => 'bai-viet'], function () {
+            Route::name('bai-viet.')->group(function(){
+                Route::get('/', 'BaiVietController@index')->name('index');
+                Route::get('/create', 'BaiVietController@create')->name('create');
+                Route::post('/store', 'BaiVietController@store')->name('store');
+                Route::get('/{id}/edit', 'BaiVietController@edit')->name('edit');
+                Route::post('/{id}/update', 'BaiVietController@update')->name('update');
+                Route::get('/{id}/destroy', 'BaiVietController@destroy')->name('destroy');
+                Route::post('/hien/{id}', 'BaiVietController@hien')->name('hien');
+                Route::post('/noi-bat/{id}', 'BaiVietController@noi_bat')->name('noi-bat');
+            });
+        });
+
         Route::group(['prefix' => 'nguoi-dung'], function () {
             Route::name('nguoi-dung.')->group(function(){
                 Route::get('/', 'UserController@index')->name('index');
