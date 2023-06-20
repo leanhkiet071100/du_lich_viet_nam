@@ -5,24 +5,26 @@
     @include('web.includes.banner')
     <section class="ftco-section contact-section ftco-degree-bg">
         <div class="container">
+            @if ($web != null)
             <div class="row d-flex mb-5 contact-info">
                 <div class="col-md-12 mb-4">
                     <h2 class="h4">{{trans('web.info_contact')}}</h2>
                 </div>
                 <div class="w-100"></div>
                 <div class="col-md-3">
-                    <p><span>{{trans('public.Address')}}: </span> {{$web->dia_chi}}</p>
+                    <p><span>{{trans('public.Address')}}: </span> {{$web->dia_chi ?? 'chưa có địa chỉ'}}</p>
                 </div>
                 <div class="col-md-3">
-                    <p><span>{{trans('public.phone_munber')}}:</span> <a href="tel://1234567920">{{$web->so_dien_thoai}}</a></p>
+                    <p><span>{{trans('public.phone_munber')}}:</span> <a href="">{{$web->so_dien_thoai ?? 'hiện chưa cập nhật'}}</a></p>
                 </div>
                 <div class="col-md-3">
-                    <p><span>Email:</span> <a href="mailto:info@yoursite.com">{{$web->email}}</a></p>
+                    <p><span>Email:</span> <a href="mailto:info@yoursite.com">{{$web->email ?? 'chưa có email'}}</a></p>
                 </div>
                 <div class="col-md-3">
-                    <p><span>Website:</span> <a href="{{route('web.trang-chu.index')}}">{{$web->web}}</a></p>
+                    <p><span>Website:</span> <a href="{{route('web.trang-chu.index')}}">{{$web->web ?? 'trang chủ'}}</a></p>
                 </div>
             </div>
+             @endif
             <div class="row block-9">
                 <div class="col-md-6 pr-md-5">
                     <form action="#">

@@ -24,10 +24,9 @@ class danh_gia_dia_diem extends Model
     ];
 
     public function dia_diem(){
-        return $this->hasMany(sanpham::class, 'ma_san_pham', 'id');
     }
 
     public function danh_gia_dia_diem_hinh(){
-        return $this->belongsTo(danh_gia_dia_diem_hinh::class, 'ma_san_pham', 'id');
+        return $this->belongsTo('App\Models\danh_gia_dia_diem_hinh', 'danh_gia_dia_diem_id','id');
     }
 }

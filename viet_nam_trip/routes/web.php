@@ -161,6 +161,22 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
 //nnhóm web
 Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
     Route::name('web.')->group(function(){
+        //trang chủ
+        Route::group(['prefix' => ''], function () {
+            Route::name('auth.')->group(function(){
+                //Đăng nhập
+                Route::get('/dang-nhap', 'AuthController@dang_nhap')->name('dang-nhap');
+                Route::post('/dang-nhap', 'AuthController@post_dang_nhap')->name('post-dang-nhap');
+                //Đăng kí
+                Route::get('/dang-ki', 'AuthController@dang_ki')->name('dang-ki');
+                Route::post('/dang-ki','AuthController@post_dang_ki')->name('post-dang-ki');
+                Route::get('/kich-hoat/{id}/{token}','AuthController@kich_hoat')->name('kich-hoat');
+
+                //quên mật khẩu
+                Route::get('/quen-mat-khau', 'AuthController@quen_mat_khau')->name('quen-mat-khau');
+                Route::post('/quen-mat-khau', 'AuthController@post_quen_mat_khau')->name('post-quen-mat-khau');
+            });
+        });
 
         //trang chủ
         Route::group(['prefix' => ''], function () {
@@ -174,6 +190,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
             Route::name('dia-diem.')->group(function(){
                 Route::get('/', 'DiaDiemController@index')->name('index');
                 Route::get('/{id}/show', 'DiaDiemController@show')->name('show');
+                Route::get('/danh-gia/{id}','DiaDiemController@danh_gia')->name('danh-gia');
+                Route::post('/post-danh-gia/{id}','DiaDiemController@post_danh_gia')->name('post-danh-gia');
+                Route::get('/bai-viet/{id}','DiaDiemController@bai_viet')->name('bai-viet');
+                Route::post('/post-bai-viet/{id}','DiaDiemController@post_bai_viet')->name('post-bai-viet');
             });
 
         });

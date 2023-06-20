@@ -192,6 +192,21 @@
                             </a>
                         </li>
                     </ul>
+
+                </li>
+                 <li class="" id="li-bai-viet">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-pen"></i>Quản lí bài viết
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{{ route('admin.tin-tuc.index') }}" id="bai-viet">
+                                <i class="metismenu-icon"></i>{{ trans('public.list') }}
+                            </a>
+                        </li>
+                    </ul>
+
                 </li>
                 <li class="app-sidebar__heading">{{ trans('public.website') }}</li>
                 <li class="" id="li-web">

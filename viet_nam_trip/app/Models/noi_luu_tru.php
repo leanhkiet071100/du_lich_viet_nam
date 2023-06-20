@@ -13,9 +13,11 @@ class noi_luu_tru extends Model
     public $timestamps = true;
 
     protected $fillable = [
-
         'dia_diem_id',
         'ten_noi_luu_tru',
+        'tinh',
+        'huyen',
+        'xa',
         'dia_chi',
         'so_dien_thoai',
         'hinh_noi_luu_tru',

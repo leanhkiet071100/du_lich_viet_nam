@@ -15,7 +15,11 @@
                 <li class="nav-item nav-menu" id="blog"><a href="{{route('web.bai-viet.index')}}" class="nav-link">{{trans('public.blog')}}</a></li>
                 <li class="nav-item nav-menu" id="news"><a href="{{route('web.tin-tuc.index')}}" class="nav-link">{{trans('public.news')}}</a></li>
                 <li class="nav-item nav-menu" id="contact"><a href="{{route('web.lien-he.index')}}" class="nav-link">{{trans('public.contact')}}</a></li>
-                {{-- <li class="nav-item cta"><a href="contact.html" class="nav-link"><span>Add listing</span></a></li> --}}
+                @if (Auth::user() != null)
+                       <li class="nav-item nav-menu" id="contact"><a href="{{route('web.lien-he.index')}}" class="nav-link">{{trans('public.contact')}}</a></li>
+                @else
+                    <li class="nav-item cta" id="login"><a href="{{route('web.auth.dang-nhap')}}" class="nav-link"><span>Đăng nhập</span></a></li>
+                @endif
             </ul>
         </div>
     </div>

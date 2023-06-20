@@ -27,7 +27,8 @@ class BaiVietController extends Controller
 
     public function show(Request $request, $id)
     {
-        $bai_viet =bai_viet::where('loai_bai_viet','=','bai-viet')->find($id);
+        $bai_viet =bai_viet::where('loai_bai_viet','=','bai-viet')->join('nguoi_dungs','nguoi_dungs.id','=','bai_viets.nguoi_dung_id')->find($id);
+
         $ls_binh_luan = bai_viet_binh_luan::where('bai_viet_id','=',$id)->get();
         $data= [
             'pageTitle' => "Tin tức",
