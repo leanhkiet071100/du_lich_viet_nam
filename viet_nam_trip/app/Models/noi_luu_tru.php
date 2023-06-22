@@ -21,6 +21,7 @@ class noi_luu_tru extends Model
         'dia_chi',
         'so_dien_thoai',
         'hinh_noi_luu_tru',
+        'noi_bat',
         'trang_thai',
     ];
 

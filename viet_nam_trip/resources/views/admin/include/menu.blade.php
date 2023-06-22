@@ -125,6 +125,20 @@
 
                     </ul>
                 </li>
+                 <li class="" id="li-quan-an">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-plugin"></i>Quản lí quản ăn
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{{route('admin.quan-an.index')}}" id="quan-an">
+                                <i class="metismenu-icon"></i>{{ trans('public.list') }}
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
                  {{-- <li class="" id="li-loai-dia-diem">
                     <a href="#">
                         <i class="metismenu-icon pe-7s-plugin"></i>{{ trans('public.manage_type_location') }}

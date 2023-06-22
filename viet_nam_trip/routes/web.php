@@ -49,19 +49,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
             });
         });
 
-        Route::group(['prefix' => 'bai-viet'], function () {
-            Route::name('bai-viet.')->group(function(){
-                Route::get('/', 'BaiVietController@index')->name('index');
-                Route::get('/create', 'BaiVietController@create')->name('create');
-                Route::post('/store', 'BaiVietController@store')->name('store');
-                Route::get('/{id}/edit', 'BaiVietController@edit')->name('edit');
-                Route::post('/{id}/update', 'BaiVietController@update')->name('update');
-                Route::get('/{id}/destroy', 'BaiVietController@destroy')->name('destroy');
-                Route::post('/hien/{id}', 'BaiVietController@hien')->name('hien');
-                Route::post('/noi-bat/{id}', 'BaiVietController@noi_bat')->name('noi-bat');
-            });
-        });
-
         Route::group(['prefix' => 'nguoi-dung'], function () {
             Route::name('nguoi-dung.')->group(function(){
                 Route::get('/', 'UserController@index')->name('index');
@@ -106,8 +93,39 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
             });
         });
 
+        Route::group(['prefix' => 'quan-an'], function () {
+            Route::name('quan-an.')->group(function(){
+                Route::get('/', 'QuanAnController@index')->name('index');
+                Route::get('/create', 'QuanAnController@create')->name('create');
+                Route::post('/store', 'QuanAnController@store')->name('store');
+                Route::get('/{id}/edit', 'QuanAnController@edit')->name('edit');
+                Route::post('/{id}/update', 'QuanAnController@update')->name('update');
+                Route::get('/{id}/show', 'QuanAnController@show')->name('show');
+                Route::delete('/{id}/destroy', 'QuanAnController@destroy')->name('destroy');
+                Route::post('/noi-bat/{id}', 'QuanAnController@noi_nat')->name('noi-bat');
+                //load tỉnh thành Việt Nam
+                Route::post('/get-load-huyen', 'QuanAnController@get_load_huyen')->name('get-load-huyen');
+                Route::post('/get-load-xa', 'QuanAnController@get_load_xa')->name('get-load-xa');
+            });
+        });
+
+        // món ăn
+        Route::group(['prefix' => 'mon-an'], function () {
+            Route::name('mon-an.')->group(function(){
+                Route::get('/', 'MonAnController@index')->name('index');
+                Route::get('/load', 'MonAnController@load')->name('load');
+                Route::get('/create/{idquan}', 'MonAnController@create')->name('create');
+                Route::post('/quan-an/{idquan}/store', 'MonAnController@store')->name('store');
+                Route::get('{id}/edit/quan-an/{idquan}', 'MonAnController@edit')->name('edit');
+                Route::post('/{id}/update', 'MonAnController@update')->name('update');
+                Route::delete('/{id}/destroy', 'MonAnController@destroy')->name('destroy');
+
+            });
+        });
+
+
         //hình địa điểm
-         Route::group(['prefix' => 'dia-diem-hinh'], function () {
+        Route::group(['prefix' => 'dia-diem-hinh'], function () {
             Route::name('dia-diem-hinh.')->group(function(){
                 Route::get('/{id}', 'DiaDiemHinhController@index')->name('index');
                 Route::post('/store', 'DiaDiemHinhController@store')->name('store');
@@ -116,6 +134,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
                 Route::get('/load_hinh/{id}', 'DiaDiemHinhController@load_hinh')->name('load_hinh');
             });
         });
+
         // loại địa điểm
         Route::group(['prefix' => 'loai-dia-diem'], function () {
             Route::name('loai-dia-diem.')->group(function(){
@@ -256,10 +275,5 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
                 Route::get('/{id}/show', 'KhachSanController@show')->name('show');
             });
         });
-
-
-
-
-
     });
 });
