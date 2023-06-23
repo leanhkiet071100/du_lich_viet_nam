@@ -21,24 +21,26 @@
                                 </div>
                             @endif
 
-                            <form action="{{ route('web.auth.post-quen-mat-khau') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{route('web.auth.post-doi-mat-khau', ['email'=>$email])}}" method="post" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="form-group">
-                                    <input type="email" class="form-control" id="exampleInputEmail1" name="email"
-                                        value="{{ old('email') ?? $email}}" placeholder="Vùi lòng nhập email">
+                                    <input type="password" class="form-control" id="mat-khau-moi" name="mat-khau-moi" value="{{ old('mat-khau-moi')}}" placeholder="Bạn hãy nhập mật khẩu mới">
                                     <div class="text-center">
-                                        @error('email')
+                                        @error('mat-khau-moi')
                                             <span style="color:red"> {{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="form-group-register">
-                                    <div class="register">
-                                        <p>Bạn chưa có tài khoản ư?</p><a href="{{ route('web.auth.dang-ki') }}">Đăng kí</a>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" id="xac-nhan-mat-khau-moi" name="xac-nhan-mat-khau-moi"  value="{{ old('xac-nhan-mat-khau-moi')}}" placeholder="Xác nhận mật khẩu">
+                                    <div class="text-center">
+                                        @error('xac-nhan-mat-khau-moi')
+                                            <span style="color:red"> {{ $message }}</span>
+                                        @enderror
                                     </div>
-                                </div>
-                                <button type="submit" class="btn vizew-btn w-100 mt-30">Tìm kiếm</button>
+                                </div>>
+                                <button type="submit" class="btn vizew-btn w-100 mt-30">Đổi mật khẩu</button>
                             </form>
 
                         </div>

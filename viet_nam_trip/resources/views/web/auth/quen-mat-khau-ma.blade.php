@@ -12,7 +12,7 @@
                         <div class="login-content">
                             <!-- Section Title -->
                             <div class="section-heading">
-                                <h4>Tìm tài khoản của bạn</h4>
+                                <h4>Mã đã được gửi</h4>
                                 <div class="line"></div>
                             </div>
                             @if ($errors->has('error'))
@@ -20,25 +20,28 @@
                                     {{ $errors->first('error') }}
                                 </div>
                             @endif
-
-                            <form action="{{ route('web.auth.post-quen-mat-khau') }}" method="post" enctype="multipart/form-data">
+                            @if (session()->has('yes'))
+                                <div class="alert alert-warning">
+                                    {{ session()->get('yes') }}
+                                </div>
+                            @endif
+                            <form action="{{ route('web.auth.quen-mat-khau-xac-nhan', ['email'=>$email]) }}" method="post" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="form-group">
-                                    <input type="email" class="form-control" id="exampleInputEmail1" name="email"
-                                        value="{{ old('email') ?? $email}}" placeholder="Vùi lòng nhập email">
+                                    <input type="quen-mat-khau-ma" class="form-control" id="quen-mat-khau-ma" name="quen-mat-khau-ma" value="" placeholder="Nhập mã đã gửi">
                                     <div class="text-center">
-                                        @error('email')
+                                        @error('quen-mat-khau-ma')
                                             <span style="color:red"> {{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="form-group-register">
                                     <div class="register">
-                                        <p>Bạn chưa có tài khoản ư?</p><a href="{{ route('web.auth.dang-ki') }}">Đăng kí</a>
+                                        <p>Bạn chưa nhận được mã ư?</p><a href="{{ route('web.auth.quen-mat-khau-gui-lai-ma',['email'=>$email]) }}">Gửi lại</a>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn vizew-btn w-100 mt-30">Tìm kiếm</button>
+                                <button type="submit" class="btn vizew-btn w-100 mt-30">XÁC NHẬN</button>
                             </form>
 
                         </div>

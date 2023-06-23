@@ -67,7 +67,7 @@
                             </div> --}}
                                 <div class="form-group-forgot-password">
                                     <div class="forgot-password">
-                                        <a href="">Quên mật khẩu</a>
+                                        <a href="{{route('web.auth.quen-mat-khau')}}">Quên mật khẩu</a>
 
                                     </div>
                                 </div>

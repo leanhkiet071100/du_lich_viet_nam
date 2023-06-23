@@ -193,7 +193,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
 //nnhóm web
 Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
     Route::name('web.')->group(function(){
-        //trang chủ
+        //Auth
         Route::group(['prefix' => ''], function () {
             Route::name('auth.')->group(function(){
                 //Đăng nhập
@@ -207,6 +207,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
                 //quên mật khẩu
                 Route::get('/quen-mat-khau', 'AuthController@quen_mat_khau')->name('quen-mat-khau');
                 Route::post('/quen-mat-khau', 'AuthController@post_quen_mat_khau')->name('post-quen-mat-khau');
+                Route::get('/quen-mat-khau-ma/{email}', 'AuthController@quen_mat_khau_ma')->name('quen-mat-khau-ma');
+                Route::post('/quen-mat-khau-xac-nhan/{email}', 'AuthController@quen_mat_khau_xac_nhan')->name('quen-mat-khau-xac-nhan');
+                Route::get('/quen-mat-khau-gui-lai-ma/{email}', 'AuthController@quen_mat_khau_gui_lai_ma')->name('quen-mat-khau-gui-lai-ma');
+                Route::get('/doi-mat-khau/{email}', 'AuthController@doi_mat_khau')->name('doi-mat-khau');
+                Route::post('/post-doi-mat-khau/{email}', 'AuthController@post_doi_mat_khau')->name('post-doi-mat-khau');
+
             });
         });
 

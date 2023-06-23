@@ -13693,10 +13693,10 @@ button.btn-chi-tiet>a {
     position: fixed;
     top: 10%;
     left: calc(100% - 75%);
-    width: 690px;
+    width: 50%;
     z-index: 100;
     display: block;
-    height: 490px;
+    height: 500px;
     overflow-y: auto;
 }
 
@@ -13982,4 +13982,3 @@ button.btn-chi-tiet>a {
     margin-right: 20px;
     float: left;
 }
-
