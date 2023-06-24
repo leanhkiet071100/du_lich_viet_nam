@@ -10585,6 +10585,7 @@ h5,
     background: #fff !important;
     -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    z-index: 999;
 }
 
 .ftco-navbar-light.scrolled .nav-item.active>a {
@@ -13981,4 +13982,672 @@ button.btn-chi-tiet>a {
     font-size: 20px;
     margin-right: 20px;
     float: left;
+}
+
+/* tài khoản cá nhân */
+
+.info_user {
+    padding: 15px 0;
+    border-bottom: 1px solid #7fad39;
+}
+
+.info-user-avatar {
+    display: inline-block;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 0.0625rem solid rgba(0, 0, 0, .09);
+    box-sizing: border-box;
+}
+
+.info-user-avatar img {
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+
+}
+
+.info-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-height: 1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 15px;
+    overflow: hidden;
+}
+
+.info-edit a {
+    color: #888;
+    text-transform: capitalize;
+    text-decoration: none;
+}
+
+/* tài khoản cá nhân menu */
+section.time-line-user {
+    padding-bottom: 70px;
+    position: relative;
+    margin: 60px;
+}
+
+.app-sidebar .scrollbar-sidebar {
+    z-index: 15;
+    width: 100%;
+}
+
+.scrollbar-sidebar,
+.scrollbar-container {
+    position: relative;
+    height: 100%;
+}
+
+.ps {
+    overflow: hidden !important;
+    overflow-anchor: none;
+    touch-action: auto;
+}
+
+.app-sidebar .app-sidebar__inner {
+    padding: 20px 0;
+}
+
+.vertical-nav-menu {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    list-style: none;
+}
+
+.vertical-nav-menu ul {
+    transition: padding 300ms;
+}
+
+.vertical-nav-menu ul {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    list-style: none;
+    line-height: 2rem;
+}
+
+.vertical-nav-menu li.mm-active>a {
+    font-weight: bold;
+}
+
+.vertical-nav-menu li a {
+    /* display: block; */
+    position: relative;
+    border-radius: 0.25rem;
+    /* white-space: nowrap; */
+    transition: all .2s;
+    /* margin: 0.1rem 0; */
+    color: #000;
+}
+
+.vertical-nav-menu ul>li>a {
+    color: #6c757d;
+    height: 2rem;
+    line-height: 1.5rem;
+    padding: 0px 15px;
+    margin: 0;
+}
+
+.vertical-nav-menu ul>li>a.tk-active {
+    color: #7fad39;
+    background: #e0f3ff;
+    font-weight: bold;
+
+}
+
+.vertical-nav-menu ul>li>a:hover {
+    color: #7fad39;
+}
+
+.vertical-nav-menu li.tk-active>a {
+    font-weight: bold;
+}
+
+.vertical-nav-menu li>a:hover {
+    color: #7fad39;
+    font-weight: bold;
+}
+
+.vertical-nav-menu::after {
+    content: " ";
+    pointer-events: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.vertical-nav-menu ul:before {
+    content: '';
+    height: 100%;
+    opacity: 1;
+    width: 2px;
+    background: #e0f3ff;
+    position: absolute;
+    left: 0px;
+    top: 0;
+    border-radius: 15px;
+}
+
+.menu-tai-khoan {}
+
+/* chi tiết tài khoản */
+.detail-info {
+    width: 100%;
+    box-sizing: border-box;
+    margin-left: 2.6875rem;
+    min-width: 0;
+    background: #fff;
+    background-size: cover;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 43%);
+    border-radius: 0.125rem;
+    padding: 15px;
+}
+
+.detail-info-menu {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 100%;
+    /* background: red; */
+}
+
+.detail-info-title .title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    text-transform: capitalize;
+    color: #333;
+}
+
+.detail-info-title {
+    border-bottom: 0.0625rem solid #7fad39;
+    padding: 1.125rem 0;
+}
+
+.detail-info-title .slogan {
+    margin-top: 0.1875rem;
+    font-size: .875rem;
+    line-height: 1.0625rem;
+    color: #555;
+}
+
+.detail-info-content .content {
+    margin-top: 15px;
+}
+
+.anh-dai-dien img {
+    width: 100px;
+    height: 100px;
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 50%;
+}
+
+.thay-doi {
+    border: 0;
+    outline: none;
+    background: none;
+    color: #05a;
+    font-size: .8125rem;
+    text-transform: capitalize;
+    text-decoration: underline;
+    display: inline-block;
+}
+
+
+.ma-xac-nhan {
+    display: inline-block;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    height: 38px;
+}
+
+.btn-ma-xac-nhan {
+    padding: 5px 0;
+    height: 100%;
+    background: #7fad39;
+    color: white;
+    font-size: 20px;
+    border: none;
+}
+
+.dia-chi {
+    padding: 1.5rem;
+    justify-content: space-between;
+}
+
+.btn-add-dia-chi {
+    height: 40px;
+    padding: 0 20px;
+    font-size: .875rem;
+    font-weight: 400;
+    position: relative;
+    overflow: visible;
+    outline: 0;
+    background: #7fad39;
+    color: white;
+    border: none;
+    line-height: 100%;
+}
+
+/* địa chỉ người dùng */
+
+.dia-chi-nguoi-dung {
+    padding: 18px 0 20px;
+    border-bottom: 1px solid rgb(127 173 57);
+}
+
+.chi-tiet-dia-chi {
+    margin: 0;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 20px;
+}
+
+.dia-chi-thong-tin {
+    margin-right: 8px;
+    display: flex;
+}
+
+.dia-chi-thong-tin .ho-ten {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 100%;
+}
+
+.dia-chi-thong-tin .duong-ke {
+    border-left: 0.5px solid rgba(0, 0, 0, .26);
+    margin: 0 8px;
+}
+
+.dia-chi-thong-tin .so-dien-thoai {
+    font-size: .875rem;
+    line-height: 1.5rem;
+    color: rgba(0, 0, 0, .54);
+    white-space: nowrap;
+    width: 100%;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.dia-chi-thong-tin .span {
+    color: rgba(0, 0, 0, .87);
+    font-size: 1rem;
+    line-height: 1.5rem;
+    width: 100%;
+}
+
+.btn-dia-chi .edit-dia-chi {
+    border: 0;
+    background: none;
+    outline: none;
+    padding: 4px;
+    color: #7fad39;
+}
+
+.hien-dia-chi {
+    justify-content: space-between;
+    display: flex;
+}
+
+.show-dia-chi {
+    font-size: .875rem;
+    line-height: 1.25rem;
+    color: rgba(0, 0, 0, .54);
+}
+
+.thiet-lap {
+    padding-top: 4px;
+}
+
+.thiet-lap .btn-thiet-lap {
+    font-size: .875rem;
+    line-height: 1.25rem;
+    padding: 4px 12px;
+    height: 28px;
+    min-width: 0;
+    color: rgba(0, 0, 0, .87);
+    border: 1px solid rgba(0, 0, 0, .26);
+    box-shadow: 0 1px 1px rgb(0 0 0 / 3%);
+}
+
+.mac-dinh {
+    margin-top: 20px;
+}
+
+.mac-dinh span {
+    color: #7fad39;
+    border-color: #7fad39;
+    border-radius: 1px;
+    padding: 2px 4px;
+    border: 0.5px solid;
+}
+
+.tinh-huyen-xa {
+    justify-content: space-between;
+    padding: 0 15px;
+}
+
+.btn-luu-dia-chi {
+    /* padding: 0 15px; */
+    justify-content: end;
+}
+
+.btn-luu-dia-chi button {
+    margin: 0 15px;
+    color: #555;
+}
+
+.btn-huy-dia-chi {
+    border: none;
+    background: white;
+    text-align: center;
+}
+
+.btn-huy-dia-chi:hover {
+    color: #fff;
+    background: red;
+}
+
+
+
+.form-dia-chi {
+    display: none;
+    background: #fff;
+    width: 875px;
+    max-width: 875px;
+    padding: 20px;
+    position: absolute;
+    left: 0;
+    top: -20%;
+    z-index: 101;
+    box-shadow: 0 0 10px 10px #EDEDED;
+}
+
+.tinh-huyen-xa select {
+    width: 200px;
+    max-width: 200px;
+}
+
+.shoping_cart_item_close {
+    color: #000;
+}
+
+.shoping_cart_item_close:hover {
+    color: red;
+}
+
+.check-gio-hang {
+    vertical-align: middle;
+    padding-bottom: 25px;
+    padding-left: 0;
+}
+
+img.hinh-mang-xa-hoi {
+    width: 14px;
+    height: 14px;
+}
+
+/* hóa đơn */
+.don-hang {
+    justify-content: space-between;
+    margin: 0 10px;
+}
+
+.don-hang-chon {
+    color: #000000;
+}
+
+.don-hang-chon:hover {
+    color: #7fad39;
+}
+
+.don-hang-chon.active {
+    border-bottom: solid;
+    border-color: #7fad39;
+    color: #7fad39;
+}
+
+.don-hang-box {
+    position: relative;
+    background: #fff;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 43%);
+    margin-top: 20px;
+    background-size: cover;
+    padding: 20px;
+    width: 100%;
+}
+
+.list-product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.img-product {
+    min-width: 80px;
+    float: left;
+    margin-right: 20px;
+}
+
+.img-product img {
+    width: 80px;
+    height: 80px;
+}
+
+.detail-product {
+    display: flex;
+    margin: 10px 20px 10px 0;
+    position: relative;
+}
+
+.detail-product {}
+
+.price-product {
+    font-size: 18px;
+    color: #D62D2D;
+    font-weight: 700;
+}
+
+.trang-thai {
+    line-height: 24px;
+    color: #ee4d2d;
+    text-align: right;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.info-title-don-hang {
+    display: flex;
+    justify-content: space-between;
+}
+
+.chi-tiet-chuc-nang {
+    background-color: #fffefb;
+    padding: 20px;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 50%);
+}
+
+.tong-tien {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 30px 0;
+    align-items: center;
+}
+
+.span-thanh-tien {
+    margin: 0 10px 0 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgba(0, 0, 0, .8);
+}
+
+.span-tien {
+    color: #ee4d2d;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+button.btn-danh-gia {
+    background: #7fad39;
+    min-width: 150px;
+    min-height: 40px;
+    padding: 8px 20px;
+    outline: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+    border-radius: 2px;
+    outline: 0;
+    border: none;
+    color: white;
+}
+
+button.btn-chi-tiet {
+    min-width: 150px;
+    min-height: 40px;
+    padding: 8px 20px;
+    outline: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+    border-radius: 2px;
+    outline: 0;
+    border: none;
+    background: aliceblue;
+}
+
+.danh-gia {
+    margin: 0 0 0 10px;
+    align-items: center;
+    text-overflow: ellipsis;
+}
+
+button.btn-chi-tiet {
+    margin: 0 0 0 10px;
+    align-items: center;
+    text-overflow: ellipsis;
+}
+
+.chuc-nang {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 0;
+}
+
+.name-product {
+    text-align: justify;
+}
+
+button.btn-chi-tiet>a {
+    color: black;
+}
+
+/* chi tiết đơn hàng */
+.card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.widget-content {
+    padding: 1rem;
+    flex-direction: row;
+    align-items: center;
+}
+
+.widget-content .widget-content-wrapper {
+    display: flex;
+    flex: 1;
+    position: relative;
+    align-items: center;
+}
+
+.display_data p {
+    font-size: 20px;
+    margin-bottom: 0;
+    line-height: 37px;
+}
+
+.chi-tiet-tien-don-hang {
+    background-color: #fafafa;
+    border-top: 1px solid rgba(0, 0, 0, .09);
+}
+
+.chi-tiet-tien {
+    padding: 0 24px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: right;
+    border-bottom: 1px dotted rgba(0, 0, 0, .09);
+}
+
+.ten-tien {
+    padding: 13px 10px;
+    color: rgba(0, 0, 0, .54);
+    font-size: 20px;
+}
+
+.gia-tien {
+    padding: 13px 0 13px 10px;
+    width: 240px;
+    border-left: 1px dotted rgba(0, 0, 0, .09);
+    justify-content: flex-end;
+    word-wrap: break-word;
+    color: rgba(0, 0, 0, .8);
+}
+
+.tt-chi-tiet-don-hang {
+    padding: 20px 24px;
+    font-size: 20px;
+    line-height: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.trang-thai-chi-tiet .trang-thai {
+    color: #ee4d2d;
+    text-transform: uppercase;
+}
+
+.tt-chia {
+    margin: 0 20px;
+}
+
+.tro-lai a {
+    color: rgba(0, 0, 0, .54);
+}
+
+.tro-lai a:hover {
+    color: #7fad39;
 }

@@ -83,6 +83,7 @@
         }
     </script>
     @yield('js')
+    @yield('js-tai-khoan')
 </body>
 
 </html>

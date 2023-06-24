@@ -171,7 +171,6 @@ class AuthController extends Controller
     //đăng xuất
     public function dang_xuat(Request $request){
         Auth::logout();
-        $request->session()->flush();
         return redirect()->route('web.auth.dang-nhap');
     }
 

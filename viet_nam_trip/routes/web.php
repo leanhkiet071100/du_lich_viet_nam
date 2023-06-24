@@ -281,5 +281,48 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
                 Route::get('/{id}/show', 'KhachSanController@show')->name('show');
             });
         });
+
+        //Tài khoản
+        Route::prefix('tai-khoan')->group(function(){
+            Route::name('tai-khoan.')->group(function(){
+                // load trang người dung
+                Route::get('/', 'TaiKhoanController@index')->name('tai-khoan');
+                // thay đổi thông tin tài khoản
+                Route::post('/', 'TaiKhoanController@thay_doi_tai_khoan')->name('post-tai-khoan');
+                // đổi  mật khẩu
+                Route::get('/doi-mat-khau', 'TaiKhoanController@doi_mat_khau')->name('doi-mat-khau');
+                Route::post('/doi-mat-khau', 'TaiKhoanController@post_doi_mat_khau')->name('post-doi-mat-khau');
+                // load địa chỉ
+                Route::get('/dia-chi', 'TaiKhoanController@dia_chi')->name('dia-chi');
+                //load form thêm địa chỉ
+                Route::get('/get-dia-chi', 'TaiKhoanController@get_dia_chi')->name('get-dia-chi');
+                // thêm địa chỉ
+                Route::post('/post-dia-chi', 'TaiKhoanController@post_dia_chi')->name('post-dia-chi');
+                //load form sửa địa chỉ
+                Route::get('/get-dia-chi-sua/{id}', 'TaiKhoanController@get_dia_chi_sua')->name('get-dia-chi-sua');
+                //sửa địa chỉ
+                Route::post('/post-dia-chi-sua/{id}', 'TaiKhoanController@post_dia_chi_sua')->name('post-dia-chi-sua');
+                //thiết lập địa chỉ mặc định
+                Route::post('/thiet-lap-dia-chi', 'TaiKhoanController@thiet_lap_dia_chi')->name('thiet-lap-dia-chi');
+                //load tỉnh thành Việt Nam
+                Route::post('/get-load-huyen', 'TaiKhoanController@get_load_huyen')->name('get-load-huyen');
+                Route::post('/get-load-xa', 'TaiKhoanController@get_load_xa')->name('get-load-xa');
+                //Đăng xuất
+                Route::get('/logout-user', 'AuthController@dang_xuat')->name('logout-user');
+                //Đơn hàng
+                Route::get('/don-hang', 'TaiKhoanController@don_hang')->name('don-hang');
+                Route::get('/don-hang-cho-xac-nhan', 'TaiKhoanController@don_hang_cho_xac_nhan')->name('don-hang-cho-xac-nhan');
+                Route::get('/don-hang-van-chuyen', 'TaiKhoanController@don_hang_van_chuyen')->name('don-hang-van-chuyen');
+                Route::get('/don-hang-dang-giao', 'TaiKhoanController@don_hang_dang_giao')->name('don-hang-dang-giao');
+                Route::get('/don-hang-hoan-thanh', 'TaiKhoanController@don_hang_hoan_thanh')->name('don-hang-hoan-thanh');
+                Route::get('/don-hang-huy', 'TaiKhoanController@don_hang_huy')->name('don-hang-huy');
+                Route::get('/don-hang-tra-hang', 'TaiKhoanController@don_hang_tra_hang')->name('don-hang-tra-hang');
+                Route::get('/don-hang-chi-tiet/{id}', 'TaiKhoanController@don_hang_chi_tiet')->name('don-hang-chi-tiet');
+                //Đánh giá sản phẩm
+                Route::get('/danh-gia-san-pham/{id}', 'TaiKhoanController@danh_gia_san_pham')->name('danh-gia-san-pham');
+                Route::post('/post-danh-gia-san-pham/{id}', 'TaiKhoanController@post_danh_gia_san_pham')->name('post-danh-gia-san-pham');
+            });
+        });
+
     });
 });
