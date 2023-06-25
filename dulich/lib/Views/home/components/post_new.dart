@@ -1,3 +1,4 @@
+import 'package:dulich/Global/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -53,19 +54,19 @@ class _PostNewState extends State<PostNew> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 "Sắc màu của biển",
-                                style: GoogleFonts.lexend(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white),
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                    color: whiteColor),
                               ),
-                              Text(
+                              const Text(
                                 "Quy Nhơn - Bình Định",
-                                style: GoogleFonts.lexend(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white),
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: whiteColor),
                               ),
                               RatingBar.builder(
                                 initialRating: 3,

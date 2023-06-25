@@ -1,7 +1,7 @@
 import 'package:dulich/Global/color.dart';
 import 'package:dulich/Views/dashboard/dashboard.dart';
 import 'package:dulich/Views/forgot/check_email.dart';
-import 'package:dulich/Views/forgot/forgot_pass.dart';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -33,21 +33,19 @@ class _LoginState extends State<Login> {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Container(
-          margin: const EdgeInsets.only(top: 50, bottom: 50),
+          margin: const EdgeInsets.only(top: 0),
           decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(90)),
+            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40)),
           ),
           child: Center(
               child: Image.asset(
             'images/logo.png',
+            color: blueColor,
             width: double.infinity,
-            height: size.height * 0.3,
+            height: size.height * 0.5,
           )),
         ),
-        const SizedBox(
-          height: 40,
-        ),
-        // ----------EMAIL-----------
+        //  ----------EMAIL-----------
         Container(
           padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
           child: TextFormField(
@@ -169,7 +167,10 @@ class _LoginState extends State<Login> {
           ],
         ),
         Container(
-          margin: const EdgeInsets.only(left: 20, right: 20),
+          margin: const EdgeInsets.only(
+            left: 20,
+            right: 20,
+          ),
           width: double.infinity,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10), color: blueColor),
@@ -189,8 +190,8 @@ class _LoginState extends State<Login> {
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(top: 20),
-          height: size.height * 0.3,
+          margin: const EdgeInsets.only(top: 10),
+          height: size.height * 0.25,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dulich/Views/splash/splash1.dart';
 import 'package:flutter/material.dart';
 
 import '../login/login.dart';
@@ -18,7 +19,7 @@ class _SplashPageState extends State<SplashPage> {
     Timer(
         duration,
         () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Login())));
+            context, MaterialPageRoute(builder: (context) => Splash1())));
   }
 
   @override

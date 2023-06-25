@@ -72,9 +72,9 @@ class _FoodDetailState extends State<FoodDetail> {
                         maxLines: 2,
                         textAlign: TextAlign.start,
                         overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.quicksand(
+                        style: TextStyle(
                           fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w500,
                         ),
                       )
                     ],
@@ -100,8 +100,10 @@ class _FoodDetailState extends State<FoodDetail> {
                       ),
                       Text(
                         '+84 3202 13184',
-                        style: GoogleFonts.quicksand(
-                            fontSize: 16, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ],
                   ),
@@ -125,8 +127,10 @@ class _FoodDetailState extends State<FoodDetail> {
                       ),
                       Text(
                         'Bình Định',
-                        style: GoogleFonts.quicksand(
-                            fontSize: 16, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ],
                   ),
@@ -144,7 +148,7 @@ class _FoodDetailState extends State<FoodDetail> {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
                   child: const Text(
                     'Hầu hết người xem trang của bạn sẽ thấy khoảng 5 - 10 phần nội dung. Phần lớn họ sử dụng điện thoại di động nên sẽ lướt qua các nội dung rất nhanh. Vì vậy bạn không nên đưa nội dung thành một đoạn văn liền mạch quá dài. Mà hãy chia thành các mục nhỏ, sử dụng cách viết liệt kê, in đậm chữ để làm nổi bật những ý chính.',
                     textAlign: TextAlign.justify,

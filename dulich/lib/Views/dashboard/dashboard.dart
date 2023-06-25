@@ -1,5 +1,7 @@
 import 'package:dulich/Global/color.dart';
+import 'package:dulich/Views/booking/booking.dart';
 import 'package:dulich/Views/home/home_page.dart';
+
 import 'package:dulich/Views/user/user_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -17,14 +19,12 @@ class _DashboardState extends State<Dashboard> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
+    Booking(),
     Text(
-      'Likes',
+      'Maps',
       style: optionStyle,
     ),
-    Text(
-      'Search',
-      style: optionStyle,
-    ),
+    // MapPage(),
     UserPage()
   ];
 
@@ -69,16 +69,16 @@ class _DashboardState extends State<Dashboard> {
               text: 'Home',
             ),
             GButton(
-              icon: Icons.favorite,
-              text: 'Favorite',
+              icon: Icons.card_travel,
+              text: 'Booking',
             ),
             GButton(
               icon: Icons.map,
               text: 'Maps',
             ),
             GButton(
-              icon: Icons.settings,
-              text: 'Settings',
+              icon: Icons.person,
+              text: 'Profile',
             ),
           ],
           selectedIndex: _selectedIndex,

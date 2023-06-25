@@ -20,6 +20,7 @@ class FoodList extends StatelessWidget {
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
           return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 alignment: Alignment.center,
@@ -47,14 +48,14 @@ class FoodList extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            padding: const EdgeInsets.only(left: 5),
+                            padding: const EdgeInsets.only(left: 5, bottom: 5),
                             child: Text(
                               nameF,
                               overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.quicksand(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                           Row(
@@ -63,9 +64,9 @@ class FoodList extends StatelessWidget {
                                 padding: const EdgeInsets.only(left: 5),
                                 child: Text(
                                   'Giá:',
-                                  style: GoogleFonts.quicksand(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
                                       color: Colors.red),
                                 ),
                               ),
@@ -73,10 +74,10 @@ class FoodList extends StatelessWidget {
                                 padding: const EdgeInsets.only(left: 5),
                                 child: Text(
                                   '${costF}vnd',
-                                  style: GoogleFonts.quicksand(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                      color: blackColor),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ],

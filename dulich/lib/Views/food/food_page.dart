@@ -18,57 +18,39 @@ class _FoodPageState extends State<FoodPage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-          toolbarHeight: size.height * 0.15,
-          leading: GestureDetector(
-            onTap: () {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Dashboard()),
-                  (route) => false);
-            },
-            child: const Icon(
-              Icons.arrow_back_ios,
-              color: blackColor,
+        toolbarHeight: size.height * 0.1,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const Dashboard()),
+                (route) => false);
+          },
+          child: const Icon(
+            Icons.arrow_back_ios,
+            color: blackColor,
+          ),
+        ),
+        elevation: 0,
+        backgroundColor: miniColor,
+        title: Center(
+          child: Text(
+            'Quán ăn',
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+        ),
+        actions: [
+          Container(
+            child: IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.search,
+                color: Colors.black,
+              ),
             ),
           ),
-          elevation: 0,
-          backgroundColor: miniColor,
-          title: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Quán ăn',
-                style: TextStyle(color: blackColor, fontSize: 24),
-              ),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              Container(
-                width: size.width * 0.68,
-                height: size.height * 0.05,
-                decoration: BoxDecoration(
-                    color: greencolor, borderRadius: BorderRadius.circular(10)),
-                padding: const EdgeInsets.only(left: 5, right: 15),
-                child: Center(
-                  child: TextFormField(
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Tìm kiếm",
-                        hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: Colors.black54,
-                          size: 25,
-                        )),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-            ],
-          )),
+        ],
+      ),
       body: SafeArea(
           child: InkWell(
         onTap: (() {
@@ -110,10 +92,10 @@ class _FoodPageState extends State<FoodPage> {
                         'Hoàng Thao Seaview',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.quicksand(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                       SizedBox(
                         width: size.width * 0.02,
@@ -136,9 +118,9 @@ class _FoodPageState extends State<FoodPage> {
                               maxLines: 2,
                               textAlign: TextAlign.start,
                               overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.quicksand(
+                              style: TextStyle(
                                 fontSize: 10,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           )
@@ -161,8 +143,10 @@ class _FoodPageState extends State<FoodPage> {
                           ),
                           Text(
                             '+84 3202 13184',
-                            style: GoogleFonts.quicksand(
-                                fontSize: 10, fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ],
                       ),
@@ -183,8 +167,10 @@ class _FoodPageState extends State<FoodPage> {
                           ),
                           Text(
                             'Bình Định',
-                            style: GoogleFonts.quicksand(
-                                fontSize: 10, fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ],
                       ),
