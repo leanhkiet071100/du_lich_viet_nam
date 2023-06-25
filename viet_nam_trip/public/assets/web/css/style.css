@@ -14651,3 +14651,7 @@ button.btn-chi-tiet>a {
 .tro-lai a:hover {
     color: #7fad39;
 }
+
+.rep-commment{
+    display: none;
+}

@@ -248,6 +248,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
             Route::name('bai-viet.')->group(function(){
                 Route::get('/', 'BaiVietController@index')->name('index');
                 Route::get('/{id}/show', 'BaiVietController@show')->name('show');
+
+                //bình luận bài viết
+                Route::post('/binh-luan-bai-viet/{id}','BaiVietController@binh_luan_bai_viet')->name('binh-luan-bai-viet');
+                Route::post('/load-binh-luan-bai-viet','BaiVietController@load_binh_luan')->name('load-binh-luan-bai-viet');
             });
         });
 
