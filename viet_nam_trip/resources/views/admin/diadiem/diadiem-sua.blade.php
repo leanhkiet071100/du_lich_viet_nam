@@ -13,7 +13,7 @@
                         <i class="pe-7s-ticket icon-gradient bg-mean-fruit"></i>
                     </div>
                     <div>
-                        {{ trans('public.add_location') }}
+                       {{$title}}
                         <div class="page-title-subheading">
                             {{ trans('public.manage_title') }}
                         </div>
@@ -212,8 +212,8 @@
 @section('js')
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#san-pham').addClass('mm-active');
-            $('#li-san-pham').addClass('mm-active');
+
+            $('#li-dia-diem').addClass('mm-active');
 
         });
 

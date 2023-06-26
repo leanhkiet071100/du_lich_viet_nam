@@ -129,10 +129,11 @@ class QuanAnController extends Controller
         $tinh = tinh_huyen_xa::where('id', $data['tinh'])->first();
         $huyen =  tinh_huyen_xa::where('id', $data['huyen'])->first();
         $xa =  tinh_huyen_xa::where('id', $data['xa'])->first();
+        $dia_diem_id = $data['dia_diem_id'] ?? null;
         $quan_an = new quan_an;
         $quan_an->fill([
             'ten_quan_an'=> $data['ten'],
-            'dia_diem_id'=> $data['dia_diem_id'],
+            'dia_diem_id'=> $dia_diem_id,
             'tinh'=>$tinh->ten,
             'huyen'=>$huyen->ten,
             'xa'=>$xa->ten,
