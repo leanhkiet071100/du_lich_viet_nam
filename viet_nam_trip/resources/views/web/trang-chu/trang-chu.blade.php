@@ -2,6 +2,11 @@
 
 @section('content')
     @parent
+      @if (session()->has('yes'))
+        <script>
+            alert('{{session()->get('yes')}}');
+        </script>
+    @endif
     <div class="hero-wrap js-fullheight" style="background-image: url({{URL('assets/web/images/bg_1.jpg')}});">
         <div class="overlay"></div>
         <div class="container">

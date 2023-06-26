@@ -25,19 +25,22 @@
                                     {{ $errors->first('error') }}
                                 </div>
                             @endif
-
+                            @if (session()->has('no'))
+                                <div class="alert alert-danger">
+                                    {!! session()->get('no') !!}
+                                </div>
+                            @endif
                             @if (session()->has('yes'))
                                 <div class="alert alert-warning">
                                     {{ session()->get('yes') }}
                                 </div>
                             @endif
-
                             <form action="{{ route('web.auth.post-dang-nhap') }}" method="post"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <input type="email" class="form-control" id="exampleInputEmail1" name="email"
-                                        value="{{ old('email') ?? $email }}" placeholder="Email">
+                                        value="{{ old('email') ?? $email ?? session()->get('email') }}" placeholder="Email">
                                     <div class="text-center">
                                         @error('email')
                                             <span style="color:red"> {{ $message }}</span>
@@ -46,7 +49,7 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control" id="exampleInputPassword1" name="mat-khau"
-                                        value="{{ old('mat-khau') ?? $mat_khau }}" placeholder="Password">
+                                        value="{{ old('mat-khau') ?? $mat_khau ?? session()->get('mat_khau') }}" placeholder="Password">
                                     <div class="text-center">
                                         @error('mat-khau')
                                             <span style="color:red"> {{ $message }}</span>

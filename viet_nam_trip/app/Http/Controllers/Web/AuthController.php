@@ -23,8 +23,6 @@ class AuthController extends Controller
     {
          $data= [
             'pageTitle' => "Tin tức",
-            'email' => null,
-            'mat_khau'=> null,
         ];
         return view('web.auth.dang-nhap', $data);
     }
@@ -53,14 +51,17 @@ class AuthController extends Controller
         // dd($nguoidung,$request->matkhau,Hash::check($request->matkhau,$nguoidung->password));
         if($nguoidung!=null){
                 if(Hash::check($request->input('mat-khau'),$nguoidung->mat_khau)){
-                    if($nguoidung->trang_thai == 0)
-                    {
-                        return view('web.auth.dang-nhap', $data)->WithErrors(['error' => 'Tài khoản của bạn chưa kích hoạt,'])->with(['email'=> $email,'mat_khau'=>$mat_khau,'kiet'=>'lê anh kiệt']);
+                    if($nguoidung->trang_thai == 0){
+                        return Redirect::route('web.auth.dang-nhap', $data)->With(['no' => 'Tài khoản của bạn chưa kích hoạt,  click <a href="'.route('web.auth.kich-hoat-lai', ['email'=>$email]).'"">Kích hoạt</a>', 'email'=> $email, 'mat_khau'=>$mat_khau]);
                     }
-                    elseif($nguoidung->trang_thai==2)
-                    {
+                    elseif($nguoidung->trang_thai==2){
                         return view('web.auth.dang-nhap', $data)->WithErrors(['error' => 'Tài khoản của bạn bị khóa vui lòng liên hệ admin'])->with(['email'=> $email,'mat_khau'=>$mat_khau]);
 
+                    }elseif($nguoidung->is_admin == 1){
+                        $request->session()->regenerate();
+                        Auth::login($nguoidung);
+                        $request->session()->put('LoggedUser', $nguoidung->id);
+                        return redirect()->route('admin.tin-tuc.index');
                     }
                     else{
                         $request->session()->regenerate();
@@ -76,6 +77,39 @@ class AuthController extends Controller
         } else {
             return view('web.auth.dang-nhap', $data)->WithErrors(['error' => 'Địa chỉ email sai hoặc không tồn tại'])->with(['email'=> $email,'mat_khau'=>$mat_khau]);
         }
+    }
+
+    public function kich_hoat_lai(Request $request, $email){
+        $web = web::orderBy('id')->first();
+        $ten_web = $web->ten ?? 'cao thắng';
+        $email_web = $web->email ?? 'caothang@caothang.edu.vn';
+        $email = $email;
+        $nguoidung = User::where('email', $email)->first();
+        // vd: Mail::send('email.dangki',['name'=>'test']);
+        $token = strtoupper(Str::random(10));
+        $nguoidung->update([
+            'remember_token'=>$token,
+        ]);
+        Mail::send('email.email-kich-hoat',compact('nguoidung'), function($email) use($web, $nguoidung){
+            // $email->to('địa chỉ email nhận','tên người nhận')
+            //$email->subject('Xác nhận đăng kí tài khoản');
+            // lấy file
+            //$email->attach('C:\laravel-master\laravel\public\uploads\image.png');
+            //$email->attach('C:\laravel-master\laravel\public\uploads\test.txt');
+            //email gửi
+
+            if($web != null){
+                $email->from($web->email,$web->ten);
+            }else{
+                $email->from('0306191038@caothang.edu.vn','thư xác nhận email');
+            }
+            // gửi thêm tệp đính kèm
+            //$email->attach(public_path($hinh_anh->hinh_logo));
+
+            // email nhận
+            $email->to($nguoidung->email,$nguoidung->ten)->subject('XÁC NHẬN ĐĂNG KÍ TÀI KHOẢN');
+        });
+        return Redirect::route('web.auth.dang-nhap')->With(['yes' => 'Vui lòng check email để kích hoạt tài khoản']);
     }
 
     //đăng kí
@@ -112,8 +146,8 @@ class AuthController extends Controller
             ]);
         // thông tin của web
         $web = web::orderBy('id')->first();
-        $ten_web = $web->ten;
-        $email_web = $web->email;
+        $ten_web = $web->ten ?? 'cao thắng';
+        $email_web = $web->email ?? 'caothang@caothang.edu.vn';
         // $hinh_anh = logo::orderBy('id')->first();
         // thông tin người dung
         $sdt = $request->input('sdt');
@@ -146,7 +180,7 @@ class AuthController extends Controller
             if($web != null){
                 $email->from($web->email,$web->ten);
             }else{
-                $email->from('0306191038@caothang.edu.vn','cửa hàng quần áo');
+                $email->from('0306191038@caothang.edu.vn','thư xác nhận email');
             }
             // gửi thêm tệp đính kèm
             //$email->attach(public_path($hinh_anh->hinh_logo));
@@ -160,7 +194,7 @@ class AuthController extends Controller
     public function kich_hoat($id, $token){
         $nguoidung = User::find($id);
         if($nguoidung->remember_token === $token){
-            $nguoidung->update(['trang_thai'=>1,'token'=>null]);
+            $nguoidung->update(['trang_thai'=>1,'remember_token'=>null]);
             return Redirect::route('web.auth.dang-nhap')->with('success','Xác nhận thành công, bạn có hể đăng nhập');
         }else {
             return Redirect::route('web.auth.dang-nhap')->WithErrors(['error' => 'xác  nhận không thành công']);

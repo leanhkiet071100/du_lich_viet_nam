@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 //Nhóm admin
-Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin',  'middleware' => 'App\Http\Middleware\CheckLoginAdmin'], function () {
     Route::name('admin.')->group(function(){
         Route::get('login', 'LoginController@showLoginForm')->name('login');
         Route::post('login_admin', 'LoginController@post_login_admin')->name('post_login_admin');
@@ -199,6 +199,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
                 //Đăng nhập
                 Route::get('/dang-nhap', 'AuthController@dang_nhap')->name('dang-nhap');
                 Route::post('/dang-nhap', 'AuthController@post_dang_nhap')->name('post-dang-nhap');
+                Route::get('/kich-hoat-lai/{email}', 'AuthController@kich_hoat_lai')->name('kich-hoat-lai');
                 //Đăng kí
                 Route::get('/dang-ki', 'AuthController@dang_ki')->name('dang-ki');
                 Route::post('/dang-ki','AuthController@post_dang_ki')->name('post-dang-ki');
@@ -240,6 +241,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
             Route::name('tin-tuc.')->group(function(){
                 Route::get('/', 'TinTucController@index')->name('index');
                 Route::get('/{id}/show', 'TinTucController@show')->name('show');
+
+                  //bình luận tin tức
+                Route::post('/binh-luan-tin-tuc/{id}','TinTucController@binh_luan_bai_viet')->name('binh-luan-tin-tuc');
+                Route::post('/load-binh-luan-tin-tuc','TinTucController@load_binh_luan')->name('load-binh-luan-tin-tuc');
             });
         });
 
