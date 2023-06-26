@@ -14,9 +14,7 @@ return new class extends Migration
         Schema::create('danh_gia_dia_diem_hinhs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('danh_gia_dia_diem_id');
-            $table->foreignId('binh_luan_id');
             $table->text('ten')->nullable();
-            $table->boolean('hien')->nullable();
             $table->text('trang_thai')->nullable();
             $table->timestamps();
             $table->softDeletes();

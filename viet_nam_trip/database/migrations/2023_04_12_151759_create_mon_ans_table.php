@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('ten_mon');
             $table->string('gia_ban');
             $table->string('hinh_mon_an');
-            $table->boolean('hien')->nullable();
             $table->boolean('noi_bat')->nullable();
             $table->text('trang_thai')->nullable();
             $table->timestamps();

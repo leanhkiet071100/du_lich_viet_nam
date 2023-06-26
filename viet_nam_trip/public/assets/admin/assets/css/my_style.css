@@ -467,8 +467,16 @@ table.align-middle.mb-0.table.table-borderless.table-striped.table-hover {
 }
 
 .tinh-huyen-xa select {
-    width: 200px;
+    width: 180px;
     max-width: 200px;
+    border: solid 2px;
+    height: 38px;
+    max-height: 38px;
+}
+
+.select-dia-diem-id {
+    width: 100%;
+    /* max-width: 200px; */
     border: solid 2px;
     height: 38px;
     max-height: 38px;

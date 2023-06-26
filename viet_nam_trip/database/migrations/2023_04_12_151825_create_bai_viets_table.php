@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('bai_viets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('nguoi_dung_id')->nullable();
+            $table->foreignId('dia_diem_id')->nullable();
             $table->string('tieu_de');
             $table->string('phu_de')->nullable();
             $table->string('hinh_anh_bai_viet')->nullable();;
