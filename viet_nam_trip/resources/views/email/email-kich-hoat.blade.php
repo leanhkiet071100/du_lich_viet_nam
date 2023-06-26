@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    @include('thuvien.cssadmin')
+    @include('admin.thuvien.css')
     <style>
         .email-dang-ki{
             padding: 30px;
@@ -76,9 +76,9 @@
         <div class="row email-dang-ki">
             <div class="main-card card ">
                 <div class="card-body noi-dung-email" style="padding: 1.25rem">
-                    <div class="position-relative row form-group hinh-logo">
+                    {{-- <div class="position-relative row form-group hinh-logo">
                         <img src="{{ URL($hinh_anh->hinh_logo) }}" alt="">
-                    </div>
+                    </div> --}}
                     <div class="position-relative row form-group">
                         <h1 class="welcome">Chào Mừng Tới Cửa Hàng với Chúng Tôi</h1>
                     </div>
@@ -86,7 +86,7 @@
                         <div class="xac-nhan">
                             <h2 class="loi-chao">Xin chào {{$nguoidung->ten}}</h2>
                             <p style="font-family: inherit; font-size: 20px;">Nếu bạn muốn tạo tài khoản, làm ơn kích hoạt tài khoản</p>
-                            <a href="{{route('kich-hoat',['id'=>$nguoidung->id, 'token'=>$nguoidung->remember_token])}}" class="kich-hoat">Kích hoạt tài khoản</a>
+                            <a href="{{route('web.auth.kich-hoat',['id'=>$nguoidung->id, 'token'=>$nguoidung->remember_token])}}" class="kich-hoat">Kích hoạt tài khoản</a>
                         </div>
 
                     </div>

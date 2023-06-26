@@ -14,12 +14,15 @@ class quan_an extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        
         'dia_diem_id',
         'ten_quan_an',
+        'tinh',
+        'huyen',
+        'xa',
         'dia_chi',
         'so_dien_thoai',
         'hinh_quan_an',
+        'noi_bat',
         'trang_thai',
     ];
 

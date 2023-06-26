@@ -26,7 +26,7 @@ class GoiDuLichController extends Controller
         //$query= $this->handleFilters($query, $request);
         $lsgoidulich = $query->join('loai_goi_du_liches','loai_goi_du_liches.id','=','goi_du_liches.loai_id')
                             ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
-                            ->paginate(15);
+                            ->paginate(10);
         //truy vấn theo with
         $data= [
             'pageTitle' => trans('public.travel_packages'),
@@ -145,25 +145,5 @@ class GoiDuLichController extends Controller
         }
         $goi_du_lich->save();
         return Redirect::route('admin.goi-du-lich.index');
-    }
-
-    public function show(diadiem $diadiem)
-    {
-
-    }
-
-    public function edit(diadiem $diadiem)
-    {
-        //
-    }
-
-    public function update(Request $request, diadiem $diadiem)
-    {
-        //
-    }
-
-    public function destroy(diadiem $diadiem)
-    {
-        //
     }
 }

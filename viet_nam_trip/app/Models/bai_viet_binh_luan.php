@@ -9,15 +9,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class bai_viet_binh_luan extends Model
 {
     use HasFactory;
-     use SoftDeletes;
+    use SoftDeletes;
 
     public $timestamps = true;
 
     protected $fillable = [
-        'bai_Viet_id',
+        'bai_viet_id',
         'nguoi_dung_id',
         'binh_luan_id',
         'noi_dung',
+        'hien',
         'trang_thai',
     ];
 
@@ -27,5 +28,8 @@ class bai_viet_binh_luan extends Model
 
     public function nguoidung(){
         return $this->hasMany(nguoi_dung::class, 'ma_nguoi_dung', 'id');
+    }
+    public function binh_luan(){
+        return $this->hasMany('App\Models\bai_viet_binh_luan', 'binh_luan_id', 'id');
     }
 }

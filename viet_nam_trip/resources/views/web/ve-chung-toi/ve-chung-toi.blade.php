@@ -3,56 +3,53 @@
 @section('content')
     @parent
     @include('web.includes.banner')
+    @if ($web != null)
     <section class="ftco-section">
         <div class="container">
+
             <div class="row d-md-flex">
-                <div class="col-md-6 ftco-animate img about-image" style="background-image: url({{URL($web->hinh)}}); background-size: 100% 100%;">
-                </div>
+
+                    <div class="col-md-6 ftco-animate img about-image" style="background-image: url({{URL($web->hinh)}}); background-size: 100% 100%;"></div>
+
+
                 <div class="col-md-6 ftco-animate p-md-5">
                     <div class="row">
                         <div class="col-md-12 nav-link-wrap mb-5">
                             <div class="nav ftco-animate nav-pills" id="v-pills-tab" role="tablist"
                                 aria-orientation="vertical">
+                                @if ($web->tieu_de_noi_dung != null)
                                 <a class="nav-link active" id="v-pills-whatwedo-tab" data-toggle="pill"
                                     href="#v-pills-whatwedo" role="tab" aria-controls="v-pills-whatwedo"
                                     aria-selected="true">{{$web->tieu_de_noi_dung}}</a>
-
+                                @endif
+                                 @if ($web->tieu_de_mo_ta != null)
                                 <a class="nav-link" id="v-pills-mission-tab" data-toggle="pill" href="#v-pills-mission"
                                     role="tab" aria-controls="v-pills-mission" aria-selected="false">{{$web->tieu_de_mo_ta}}</a>
-
+                                 @endif
                                 {{-- <a class="nav-link" id="v-pills-goal-tab" data-toggle="pill" href="#v-pills-goal"
                                     role="tab" aria-controls="v-pills-goal" aria-selected="false">Our goal</a> --}}
                             </div>
                         </div>
+
                         <div class="col-md-12 d-flex align-items-center">
 
                             <div class="tab-content ftco-animate" id="v-pills-tabContent">
-
+                                @if ($web->noi_dung != null)
                                 <div class="tab-pane fade show active" id="v-pills-whatwedo" role="tabpanel"
                                     aria-labelledby="v-pills-whatwedo-tab">
                                     <div>
                                        {!!$web->noi_dung!!}
                                     </div>
                                 </div>
-
+                                 @endif
+                                 @if ($web->mo_ta != null)
                                 <div class="tab-pane fade" id="v-pills-mission" role="tabpanel"
                                     aria-labelledby="v-pills-mission-tab">
                                     <div>
                                         {!!$web->mo_ta!!}
                                     </div>
                                 </div>
-{{--
-                                <div class="tab-pane fade" id="v-pills-goal" role="tabpanel"
-                                    aria-labelledby="v-pills-goal-tab">
-                                    <div>
-                                        <h2 class="mb-4">Help Our Customer</h2>
-                                        <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                            Consonantia, there live the blind texts. Separated they live in Bookmarksgrove
-                                            right at the coast of the Semantics, a large language ocean.</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate,
-                                            quibusdam sunt iste dolores consequatur</p>
-                                    </div>
-                                </div> --}}
+                                 @endif
                             </div>
                         </div>
                     </div>
@@ -60,7 +57,7 @@
             </div>
         </div>
     </section>
-
+    @endif
     <section class="ftco-section bg-light">
         <div class="container">
             <div class="row justify-content-start mb-5 pb-3">

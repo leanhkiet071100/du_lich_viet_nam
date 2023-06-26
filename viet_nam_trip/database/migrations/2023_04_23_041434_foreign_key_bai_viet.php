@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('bai_viets', function (Blueprint $table) {
             $table->foreign('nguoi_dung_id')->references('id')->on('nguoi_dungs');
+            $table->foreign('dia_diem_id')->references('id')->on('dia_diems');
         });
     }
 
@@ -23,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('bai_viets', function (Blueprint $table) {
             $table->dropForeign('bai_viets_nguoi_dung_id_foreign');
+            $table->dropForeign('bai_viets_dia_diem_id_foreign');
         });
     }
 };

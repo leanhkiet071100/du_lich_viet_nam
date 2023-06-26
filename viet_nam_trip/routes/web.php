@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 //Nhóm admin
-Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin',  'middleware' => 'App\Http\Middleware\CheckLoginAdmin'], function () {
     Route::name('admin.')->group(function(){
         Route::get('login', 'LoginController@showLoginForm')->name('login');
         Route::post('login_admin', 'LoginController@post_login_admin')->name('post_login_admin');
@@ -93,8 +93,39 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
             });
         });
 
+        Route::group(['prefix' => 'quan-an'], function () {
+            Route::name('quan-an.')->group(function(){
+                Route::get('/', 'QuanAnController@index')->name('index');
+                Route::get('/create', 'QuanAnController@create')->name('create');
+                Route::post('/store', 'QuanAnController@store')->name('store');
+                Route::get('/{id}/edit', 'QuanAnController@edit')->name('edit');
+                Route::post('/{id}/update', 'QuanAnController@update')->name('update');
+                Route::get('/{id}/show', 'QuanAnController@show')->name('show');
+                Route::delete('/{id}/destroy', 'QuanAnController@destroy')->name('destroy');
+                Route::post('/noi-bat/{id}', 'QuanAnController@noi_nat')->name('noi-bat');
+                //load tỉnh thành Việt Nam
+                Route::post('/get-load-huyen', 'QuanAnController@get_load_huyen')->name('get-load-huyen');
+                Route::post('/get-load-xa', 'QuanAnController@get_load_xa')->name('get-load-xa');
+            });
+        });
+
+        // món ăn
+        Route::group(['prefix' => 'mon-an'], function () {
+            Route::name('mon-an.')->group(function(){
+                Route::get('/', 'MonAnController@index')->name('index');
+                Route::get('/load', 'MonAnController@load')->name('load');
+                Route::get('/create/{idquan}', 'MonAnController@create')->name('create');
+                Route::post('/quan-an/{idquan}/store', 'MonAnController@store')->name('store');
+                Route::get('{id}/edit/quan-an/{idquan}', 'MonAnController@edit')->name('edit');
+                Route::post('/{id}/update', 'MonAnController@update')->name('update');
+                Route::delete('/{id}/destroy', 'MonAnController@destroy')->name('destroy');
+
+            });
+        });
+
+
         //hình địa điểm
-         Route::group(['prefix' => 'dia-diem-hinh'], function () {
+        Route::group(['prefix' => 'dia-diem-hinh'], function () {
             Route::name('dia-diem-hinh.')->group(function(){
                 Route::get('/{id}', 'DiaDiemHinhController@index')->name('index');
                 Route::post('/store', 'DiaDiemHinhController@store')->name('store');
@@ -103,6 +134,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
                 Route::get('/load_hinh/{id}', 'DiaDiemHinhController@load_hinh')->name('load_hinh');
             });
         });
+
         // loại địa điểm
         Route::group(['prefix' => 'loai-dia-diem'], function () {
             Route::name('loai-dia-diem.')->group(function(){
@@ -161,6 +193,29 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
 //nnhóm web
 Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
     Route::name('web.')->group(function(){
+        //Auth
+        Route::group(['prefix' => ''], function () {
+            Route::name('auth.')->group(function(){
+                //Đăng nhập
+                Route::get('/dang-nhap', 'AuthController@dang_nhap')->name('dang-nhap');
+                Route::post('/dang-nhap', 'AuthController@post_dang_nhap')->name('post-dang-nhap');
+                Route::get('/kich-hoat-lai/{email}', 'AuthController@kich_hoat_lai')->name('kich-hoat-lai');
+                //Đăng kí
+                Route::get('/dang-ki', 'AuthController@dang_ki')->name('dang-ki');
+                Route::post('/dang-ki','AuthController@post_dang_ki')->name('post-dang-ki');
+                Route::get('/kich-hoat/{id}/{token}','AuthController@kich_hoat')->name('kich-hoat');
+
+                //quên mật khẩu
+                Route::get('/quen-mat-khau', 'AuthController@quen_mat_khau')->name('quen-mat-khau');
+                Route::post('/quen-mat-khau', 'AuthController@post_quen_mat_khau')->name('post-quen-mat-khau');
+                Route::get('/quen-mat-khau-ma/{email}', 'AuthController@quen_mat_khau_ma')->name('quen-mat-khau-ma');
+                Route::post('/quen-mat-khau-xac-nhan/{email}', 'AuthController@quen_mat_khau_xac_nhan')->name('quen-mat-khau-xac-nhan');
+                Route::get('/quen-mat-khau-gui-lai-ma/{email}', 'AuthController@quen_mat_khau_gui_lai_ma')->name('quen-mat-khau-gui-lai-ma');
+                Route::get('/doi-mat-khau/{email}', 'AuthController@doi_mat_khau')->name('doi-mat-khau');
+                Route::post('/post-doi-mat-khau/{email}', 'AuthController@post_doi_mat_khau')->name('post-doi-mat-khau');
+
+            });
+        });
 
         //trang chủ
         Route::group(['prefix' => ''], function () {
@@ -174,6 +229,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
             Route::name('dia-diem.')->group(function(){
                 Route::get('/', 'DiaDiemController@index')->name('index');
                 Route::get('/{id}/show', 'DiaDiemController@show')->name('show');
+                Route::get('/danh-gia/{id}','DiaDiemController@danh_gia')->name('danh-gia');
+                Route::post('/post-danh-gia/{id}','DiaDiemController@post_danh_gia')->name('post-danh-gia');
+                Route::get('/bai-viet/{id}','DiaDiemController@bai_viet')->name('bai-viet');
+                Route::post('/post-bai-viet/{id}','DiaDiemController@post_bai_viet')->name('post-bai-viet');
             });
 
         });
@@ -182,6 +241,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
             Route::name('tin-tuc.')->group(function(){
                 Route::get('/', 'TinTucController@index')->name('index');
                 Route::get('/{id}/show', 'TinTucController@show')->name('show');
+
+                  //bình luận tin tức
+                Route::post('/binh-luan-tin-tuc/{id}','TinTucController@binh_luan_bai_viet')->name('binh-luan-tin-tuc');
+                Route::post('/load-binh-luan-tin-tuc','TinTucController@load_binh_luan')->name('load-binh-luan-tin-tuc');
             });
         });
 
@@ -190,6 +253,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
             Route::name('bai-viet.')->group(function(){
                 Route::get('/', 'BaiVietController@index')->name('index');
                 Route::get('/{id}/show', 'BaiVietController@show')->name('show');
+
+                //bình luận bài viết
+                Route::post('/binh-luan-bai-viet/{id}','BaiVietController@binh_luan_bai_viet')->name('binh-luan-bai-viet');
+                Route::post('/load-binh-luan-bai-viet','BaiVietController@load_binh_luan')->name('load-binh-luan-bai-viet');
             });
         });
 
@@ -224,9 +291,47 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
             });
         });
 
-
-
-
+        //Tài khoản
+        Route::prefix('tai-khoan')->group(function(){
+            Route::name('tai-khoan.')->group(function(){
+                // load trang người dung
+                Route::get('/', 'TaiKhoanController@index')->name('tai-khoan');
+                // thay đổi thông tin tài khoản
+                Route::post('/', 'TaiKhoanController@thay_doi_tai_khoan')->name('post-tai-khoan');
+                // đổi  mật khẩu
+                Route::get('/doi-mat-khau', 'TaiKhoanController@doi_mat_khau')->name('doi-mat-khau');
+                Route::post('/doi-mat-khau', 'TaiKhoanController@post_doi_mat_khau')->name('post-doi-mat-khau');
+                // load địa chỉ
+                Route::get('/dia-chi', 'TaiKhoanController@dia_chi')->name('dia-chi');
+                //load form thêm địa chỉ
+                Route::get('/get-dia-chi', 'TaiKhoanController@get_dia_chi')->name('get-dia-chi');
+                // thêm địa chỉ
+                Route::post('/post-dia-chi', 'TaiKhoanController@post_dia_chi')->name('post-dia-chi');
+                //load form sửa địa chỉ
+                Route::get('/get-dia-chi-sua/{id}', 'TaiKhoanController@get_dia_chi_sua')->name('get-dia-chi-sua');
+                //sửa địa chỉ
+                Route::post('/post-dia-chi-sua/{id}', 'TaiKhoanController@post_dia_chi_sua')->name('post-dia-chi-sua');
+                //thiết lập địa chỉ mặc định
+                Route::post('/thiet-lap-dia-chi', 'TaiKhoanController@thiet_lap_dia_chi')->name('thiet-lap-dia-chi');
+                //load tỉnh thành Việt Nam
+                Route::post('/get-load-huyen', 'TaiKhoanController@get_load_huyen')->name('get-load-huyen');
+                Route::post('/get-load-xa', 'TaiKhoanController@get_load_xa')->name('get-load-xa');
+                //Đăng xuất
+                Route::get('/logout-user', 'AuthController@dang_xuat')->name('logout-user');
+                //Đơn hàng
+                Route::get('/don-hang', 'TaiKhoanController@don_hang')->name('don-hang');
+                Route::get('/don-hang-cho-xac-nhan', 'TaiKhoanController@don_hang_cho_xac_nhan')->name('don-hang-cho-xac-nhan');
+                Route::get('/don-hang-van-chuyen', 'TaiKhoanController@don_hang_van_chuyen')->name('don-hang-van-chuyen');
+                Route::get('/don-hang-dang-giao', 'TaiKhoanController@don_hang_dang_giao')->name('don-hang-dang-giao');
+                Route::get('/don-hang-hoan-thanh', 'TaiKhoanController@don_hang_hoan_thanh')->name('don-hang-hoan-thanh');
+                Route::get('/don-hang-huy', 'TaiKhoanController@don_hang_huy')->name('don-hang-huy');
+                Route::get('/don-hang-tra-hang', 'TaiKhoanController@don_hang_tra_hang')->name('don-hang-tra-hang');
+                Route::get('/don-hang-chi-tiet/{id}', 'TaiKhoanController@don_hang_chi_tiet')->name('don-hang-chi-tiet');
+                //Đánh giá sản phẩm
+                Route::get('/danh-gia-san-pham/{id}', 'TaiKhoanController@danh_gia_san_pham')->name('danh-gia-san-pham');
+                Route::post('/post-danh-gia-san-pham/{id}', 'TaiKhoanController@post_danh_gia_san_pham')->name('post-danh-gia-san-pham');
+            });
+        });
 
     });
 });

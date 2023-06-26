@@ -40,7 +40,7 @@ class LoginController extends Controller
             ]);
         $email = $request->email;
         $mat_khau = $request->input('mat-khau');
-        $nguoidung = User::join('cap_nguoi_dungs','nguoi_dungs.cap_id','=','cap_nguoi_dungs.id')->where('email', $email)->first();
+        $nguoidung = User::where('email', $email)->first();
         $data = [
             'pageTitle' => trans('auth.login'),
             'email' => $email,
@@ -53,14 +53,13 @@ class LoginController extends Controller
                     if($nguoidung->is_admin == 1){
                         $request->session()->regenerate();
                         Auth::login($nguoidung);
-                    
                         $request->session()->put('LoggedUser', $nguoidung->id);
                         return redirect()->route('admin.tin-tuc.index');
                     }
                     else{
-                         return Redirect::route('admin.login')->with(['error' => 'Xin lỗi bạn không có quyền hạn vào trang này']);
+                        return Redirect::route('admin.login')->with(['error' => 'Xin lỗi bạn không có quyền hạn vào trang này']);
                     }
-                   
+
                 }
                 else{
                     return Redirect::route('admin.login')->with(['error' => 'Sai mật khẩu']);
