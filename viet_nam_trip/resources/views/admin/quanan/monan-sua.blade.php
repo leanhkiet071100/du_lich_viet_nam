@@ -19,7 +19,7 @@
                     <div class="position-relative row form-group">
                         <label for="gia" class="col-md-3 text-md-right col-form-label">Giá bán</label>
                         <div class="col-md-9 col-xl-8">
-                            <input name="gia" id="gia" placeholder="Giá" type="text" class="form-control" value="{{$mon_an->gia_ban}}">
+                            <input  onchange="format_curency(this)" onkeypress="return isNumberKey(event)" name="gia" id="gia" placeholder="Giá" type="text" class="form-control" value="{{$mon_an->gia_ban}}">
                         </div>
 
                     </div>

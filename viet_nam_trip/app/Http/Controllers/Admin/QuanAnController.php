@@ -82,6 +82,14 @@ class QuanAnController extends Controller
         return $query;
     }
 
+    private function handleFilter_mon_an($query, $request){
+        $name = $request->get('search_mon', null);
+        if (!empty($name)) {
+            $query->where('ten_mon', 'like', '%' . $name . '%');
+        }
+        return $query;
+    }
+
     public function create()
     {
         $tinh = tinh_huyen_xa::where('loai','=',1)->orderBy('ten')->get();
@@ -89,7 +97,7 @@ class QuanAnController extends Controller
         $xa = tinh_huyen_xa::where('loai','=',3)->orderBy('ten')->get();
         $ls_dia_diem = dia_diem::select('ten_dia_diem','dia_diems.id')->get();
         $data= [
-            'pageTitle' => "Quán ăn mới ",
+            'pageTitle' => "Quán ăn mới",
             'tinh'=>$tinh,
             'huyen'=>$huyen,
             'xa'=>$xa,
@@ -154,7 +162,7 @@ class QuanAnController extends Controller
         return Redirect::route('admin.quan-an.edit',['id' => $quan_an->id]);
     }
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $quan_an = quan_an::find($id);
         $tinh = tinh_huyen_xa::where('loai','=',1)->orderBy('ten')->get();
@@ -165,10 +173,12 @@ class QuanAnController extends Controller
         $ls_huyen_tinh =tinh_huyen_xa::where('loai','=',2)->where('parent_id','=',$tinh_quan_an->id)->get();
         $ls_xa_huyen =tinh_huyen_xa::where('loai','=',3)->where('parent_id','=',$huyen_quan_an->id)->get();
         $ls_dia_diem = dia_diem::select('ten_dia_diem','dia_diems.id')->get();
-        $ls_mon_an = mon_an::where('quan_an_id',$id)->paginate(5);
+        $query = mon_an::query();
+        $query= $this->handleFilter_mon_an($query, $request);
+        $ls_mon_an = $query->paginate(5);
 
         $data= [
-            'pageTitle' => trans('public.create_location'),
+            'pageTitle' => $quan_an->ten_quan_an,
             'tinh'=>$tinh,
             'huyen'=>$huyen,
             'xa'=>$xa,

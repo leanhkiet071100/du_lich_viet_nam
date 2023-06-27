@@ -94,7 +94,7 @@
                                 <label for="phude" class="col-md-3 text-md-right col-form-label">Địa danh</label>
                                 <div class="col-md-9 col-xl-8">
                                     <select name="dia_diem_id" class="form-select js-location" aria-label="Default select example" data-type="tinh" id="js-location-tinh js-location">
-                                        <option>{{ trans('public.location') }}</option>
+                                        <option value="null">{{ trans('public.location') }}</option>
                                          @foreach ($ls_dia_diem as $key => $value)
                                             <option {{ old('dia_diem_id') == $value->id ? 'selected' : '' }} value="{{ $value->id }}">{{ $value->ten_dia_diem }}</option>
                                         @endforeach

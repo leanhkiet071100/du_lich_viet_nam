@@ -101,7 +101,8 @@ class baivietController extends Controller
         ];
         $request->validate($rule, $message, $attribute);
         $hinh_bai_viet = $request->file('hinhtintuc');
-        $dia_diem_id = $request->input('dia_diem_id');
+        $dia_diem_id = $request->input('dia_diem_id') ?? null;
+         dd($dia_diem_id);
         $noidung = $request->input('noidung');
         $tieude = $request->input('tieude');
         $bai_viet_moi = new bai_viet;
@@ -116,8 +117,8 @@ class baivietController extends Controller
         if($hinh_bai_viet != null){
             //$file_name = time().Str::random(10).'.'.$hinhtintuc->getClientOriginalExtension();
             $file_name = $hinh_bai_viet->getClientOriginalName();
-            $imagePath = $hinh_bai_viet->move(public_path('hinh_anh_bai_viet/'), $file_name);
-            $ten_file = 'hinh_anh_bai_viet/'.$file_name;
+            $imagePath = $hinh_bai_viet->move(public_path('img/inh_anh_bai_viet/'), $file_name);
+            $ten_file = 'img/hinh_anh_bai_viet/'.$file_name;
             $bai_viet_moi->hinh_anh_bai_viet = $ten_file;
             $bai_viet_moi->save();
         }
@@ -179,8 +180,8 @@ class baivietController extends Controller
         if($hinh_bai_viet != null){
             //$file_name = time().Str::random(10).'.'.$hinhtintuc->getClientOriginalExtension();
             $file_name = $hinh_bai_viet->getClientOriginalName();
-            $imagePath = $hinh_bai_viet->move(public_path('hinh_anh_bai_viet/'), $file_name);
-            $ten_file = 'hinh_anh_bai_viet/'.$file_name;
+            $imagePath = $hinh_bai_viet->move(public_path('img/hinh_anh_bai_viet/'), $file_name);
+            $ten_file = 'img/hinh_anh_bai_viet/'.$file_name;
             $bai_viet->hinh_anh_bai_viet = $ten_file;
             $bai_viet->save();
         }
