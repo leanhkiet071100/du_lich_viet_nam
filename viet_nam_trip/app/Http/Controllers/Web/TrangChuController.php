@@ -4,6 +4,15 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+use Validator;
+use App\Models\dia_diem;
+use App\Models\quan_an;
 
 class TrangChuController extends Controller
 {
@@ -12,8 +21,12 @@ class TrangChuController extends Controller
      */
     public function index()
     {
+        $ls_dia_diem_noi_bat = dia_diem::where('noi_bat','=',1)->get();
+        $ls_quan_an_noi_bat = quan_an::where('noi_bat','=',1)->get();
         $data= [
             'pageTitle' => "Trang chủ",
+            'ls_dia_diem_noi_bat' => $ls_dia_diem_noi_bat,
+            'ls_quan_an_noi_bat' => $ls_quan_an_noi_bat,
         ];
         return view('web.trang-chu.trang-chu', $data);
     }

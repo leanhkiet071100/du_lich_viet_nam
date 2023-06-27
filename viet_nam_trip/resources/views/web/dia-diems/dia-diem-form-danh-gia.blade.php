@@ -178,6 +178,7 @@
     $("#post-form-danh-gia").submit(function(e) {
         e.preventDefault();
         var url = $(this).attr('data-url');
+        var url_dang_nhap = ""
         var noi_dung = $('#content_post').val();
         var hinh = document.getElementById('uploadanhpost').files;
         var so_sao = $('#so-sao').val();
@@ -208,7 +209,15 @@
                 text: 'Hình như  bạn chưa đánh giá sản phẩm',
 
             })
-            } else {
+            }else if(data.status == 401){
+                Swal.fire({
+                icon: 'error',
+                title: 'Úi...!!!',
+                text: 'Bạn chưa đăng nhập',
+                }).then((result) => {
+                    window.location="{{route('web.auth.dang-nhap')}}";
+                });
+            }else {
                 Swal.fire({
                     icon: 'success',
                     title: 'Cảm ơn bạn yêu',
@@ -219,7 +228,7 @@
             }
 
             }
-            });
+        });
 
     });
 

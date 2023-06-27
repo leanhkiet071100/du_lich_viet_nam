@@ -103,114 +103,46 @@
             </div>
         </div>
     </section>
-
+    @if ($ls_dia_diem_noi_bat->count() > 0)
     <section class="ftco-section ftco-destination">
         <div class="container">
             <div class="row justify-content-start mb-5 pb-3">
                 <div class="col-md-7 heading-section ftco-animate">
-                    <span class="subheading">Featured</span>
-                    <h2 class="mb-4"><strong>Featured</strong> Destination</h2>
+                    <span class="subheading">Địa điểm</span>
+                    <h2 class="mb-4"><strong>Địa điểm Nổi bật </strong></h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="destination-slider owl-carousel ftco-animate">
+                         @foreach ($ls_dia_diem_noi_bat as $key => $value)
                         <div class="item">
                             <div class="destination">
-                                <a href="#" class="img d-flex justify-content-center align-items-center"
-                                    style="background-image: url({{URL('assets/web/images/destination-1.jpg')}});">
+                                <a href="{{route('web.dia-diem.show',['id'=>$value->id])}}" class="img d-flex justify-content-center align-items-center"
+                                    style="background-image: url({{URL($value->hinh_anh_dia_diem)}});">
                                     <div class="icon d-flex justify-content-center align-items-center">
                                         <span class="icon-search2"></span>
                                     </div>
                                 </a>
                                 <div class="text p-3">
-                                    <h3><a href="#">Paris, Italy</a></h3>
-                                    <span class="listing">15 Listing</span>
+                                    <h3><a href="{{route('web.dia-diem.show',['id'=>$value->id])}}">{{$value->ten_dia_diem}}</a></h3>
+                                    {{-- <span class="listing">15 Listing</span> --}}
                                 </div>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="destination">
-                                <a href="#" class="img d-flex justify-content-center align-items-center"
-                                    style="background-image: url({{URL('assets/web/images/destination-2.jpg')}});">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="icon-search2"></span>
-                                    </div>
-                                </a>
-                                <div class="text p-3">
-                                    <h3><a href="#">San Francisco, USA</a></h3>
-                                    <span class="listing">20 Listing</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="destination">
-                                <a href="#" class="img d-flex justify-content-center align-items-center"
-                                    style="background-image: url({{URL('assets/web/images/destination-3.jpg')}});">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="icon-search2"></span>
-                                    </div>
-                                </a>
-                                <div class="text p-3">
-                                    <h3><a href="#">Lodon, UK</a></h3>
-                                    <span class="listing">10 Listing</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="destination">
-                                <a href="#" class="img d-flex justify-content-center align-items-center"
-                                    style="background-image: url({{URL('assets/web/images/destination-4.jpg')}});">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="icon-search2"></span>
-                                    </div>
-                                </a>
-                                <div class="text p-3">
-                                    <h3><a href="#">Lion, Singapore</a></h3>
-                                    <span class="listing">3 Listing</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="destination">
-                                <a href="#" class="img d-flex justify-content-center align-items-center"
-                                    style="background-image: url({{URL('assets/web/images/destination-5.jpg')}});">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="icon-search2"></span>
-                                    </div>
-                                </a>
-                                <div class="text p-3">
-                                    <h3><a href="#">Australia</a></h3>
-                                    <span class="listing">3 Listing</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="destination">
-                                <a href="#" class="img d-flex justify-content-center align-items-center"
-                                    style="background-image: url({{URL('assets/web/images/destination-6.jpg')}});">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="icon-search2"></span>
-                                    </div>
-                                </a>
-                                <div class="text p-3">
-                                    <h3><a href="#">Paris, Italy</a></h3>
-                                    <span class="listing">3 Listing</span>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
+    @endif
     <section class="ftco-section bg-light">
         <div class="container">
             <div class="row justify-content-start mb-5 pb-3">
                 <div class="col-md-7 heading-section ftco-animate">
-                    <span class="subheading">Special Offers</span>
-                    <h2 class="mb-4"><strong>Top</strong> Tour Packages</h2>
+                    <span class="subheading">Tour</span>
+                    <h2 class="mb-4"><strong>Tour</strong> Nổi bật</h2>
                 </div>
             </div>
         </div>
@@ -254,7 +186,7 @@
                 <div class="col-sm col-md-6 col-lg ftco-animate">
                     <div class="destination">
                         <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL('assets/web/images/destination-2.jpg')}});">
+                            style="background-image: url({{URL('assets/web/images/destination-1.jpg')}});">
                             <div class="icon d-flex justify-content-center align-items-center">
                                 <span class="icon-search2"></span>
                             </div>
@@ -289,7 +221,7 @@
                 <div class="col-sm col-md-6 col-lg ftco-animate">
                     <div class="destination">
                         <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL('assets/web/images/destination-3.jpg')}});">
+                            style="background-image: url({{URL('assets/web/images/destination-1.jpg')}});">
                             <div class="icon d-flex justify-content-center align-items-center">
                                 <span class="icon-search2"></span>
                             </div>
@@ -324,7 +256,7 @@
                 <div class="col-sm col-md-6 col-lg ftco-animate">
                     <div class="destination">
                         <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL('assets/web/images/destination-4.jpg')}});">
+                            style="background-image: url({{URL('assets/web/images/destination-1.jpg')}});">
                             <div class="icon d-flex justify-content-center align-items-center">
                                 <span class="icon-search2"></span>
                             </div>
@@ -359,7 +291,7 @@
                 <div class="col-sm col-md-6 col-lg ftco-animate">
                     <div class="destination">
                         <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL('assets/web/images/destination-5.jpg')}});">
+                            style="background-image: url({{URL('assets/web/images/destination-1.jpg')}});">
                             <div class="icon d-flex justify-content-center align-items-center">
                                 <span class="icon-search2"></span>
                             </div>
@@ -394,7 +326,41 @@
             </div>
         </div>
     </section>
-
+    @if ($ls_quan_an_noi_bat->count() > 0)
+    <section class="ftco-section bg-light">
+        <div class="container">
+            <div class="row justify-content-start mb-5 pb-3">
+                <div class="col-md-7 heading-section ftco-animate">
+                    <span class="subheading">Quán ăn</span>
+                    <h2 class="mb-4"><strong>Quán ăn</strong> Nổi bật</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                 @foreach ($ls_quan_an_noi_bat as $key => $value)
+                <div class="col-sm col-md-6 col-lg ftco-animate">
+                    <div class="destination">
+                        <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
+                            style="background-image: url({{URL($value->hinh_quan_an)}});">
+                            <div class="icon d-flex justify-content-center align-items-center">
+                                <span class="icon-search2"></span>
+                            </div>
+                        </a>
+                        <div class="text p-3">
+                            <div class="d-flex">
+                                <div class="one">
+                                    <h3><a href="#">{{$value->ten_quan_an}}</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
     <section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url({{URL('assets/web/images/bg_1.jpg')}});">
         <div class="container">
             <div class="row justify-content-center mb-5 pb-3">

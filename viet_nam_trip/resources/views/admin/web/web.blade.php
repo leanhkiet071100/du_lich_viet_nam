@@ -213,7 +213,8 @@
 @section('js')
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#thong-tin-shop').addClass('mm-active');
+            $('#li-web').addClass('mm-active');
+            $('#thong-tin-trang-web').addClass('mm-active');
         });
         CKEDITOR.replace('noidung');
         CKEDITOR.replace('mota');

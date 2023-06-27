@@ -57,9 +57,6 @@
 </section>
 <!-- End Main -->
 <script type="text/javascript">
-    $(document).ready(function() {
-
-    });
     CKEDITOR.replace('content-post');
     function tro_lai() {
         var form_danh_gia = document.getElementById("form");
@@ -72,7 +69,7 @@
     $("#post-form-danh-gia").submit(function(e) {
         e.preventDefault();
         var url = $(this).attr('data-url');
-        var noi_dung = $('#content-post').val();
+        var noi_dung = $("#content-post").val();
         var title = $('#title').val();
         formData = new FormData();
         formData.append('noi_dung', noi_dung);
@@ -98,6 +95,14 @@
                 text:  data.mess,
 
             })
+            }else if(data.status == 401){
+                Swal.fire({
+                icon: 'error',
+                title: 'Úi...!!!',
+                text: 'Bạn chưa đăng nhập',
+                }).then((result) => {
+                    window.location="{{route('web.auth.dang-nhap')}}";
+                });
             } else {
                 Swal.fire({
                     icon: 'success',

@@ -67,7 +67,7 @@ class AuthController extends Controller
                         $request->session()->regenerate();
                         Auth::login($nguoidung);
                         $request->session()->put('LoggedUser', $nguoidung->id);
-                        return redirect()->route('web.trang-chu.index', $data);
+                        return redirect()->route('web.trang-chu.index');
                     }
                 }
                 else{
@@ -132,7 +132,7 @@ class AuthController extends Controller
                 'email' => 'required|email|max:255|unique:nguoi_dungs,email',
                 'mat-khau' => 'required|min:6',
                 'ho-ten' => 'required',
-                'sdt' => 'required|numric',
+                'sdt' => 'required',
             ],
             [
                 'email.required' => 'Vui lòng nhập email',
