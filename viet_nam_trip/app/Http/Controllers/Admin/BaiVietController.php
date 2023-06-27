@@ -102,7 +102,6 @@ class baivietController extends Controller
         $request->validate($rule, $message, $attribute);
         $hinh_bai_viet = $request->file('hinhtintuc');
         $dia_diem_id = $request->input('dia_diem_id') ?? null;
-         dd($dia_diem_id);
         $noidung = $request->input('noidung');
         $tieude = $request->input('tieude');
         $bai_viet_moi = new bai_viet;

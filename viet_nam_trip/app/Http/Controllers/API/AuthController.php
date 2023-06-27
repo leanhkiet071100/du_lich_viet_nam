@@ -7,13 +7,15 @@ use Mail;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\web;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
+use Token;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -28,7 +30,7 @@ public function register(Request $request)
          'confirm_password'=>'required|same:password',
          'hoten'=>'required|string|max:255',
          'sdt'=> 'required|numeric',
-   
+
      ]
     );
     $input['email']=$request->input('email');
@@ -65,7 +67,7 @@ public function register(Request $request)
      $response=[
          'message'=>'Vui lòng check email',
          'data'=>$nguoidung,
-         
+
      ];
 
      return response()->json($response,200);
@@ -89,7 +91,7 @@ public function login(Request $request)
     }
     else
     {
-        $token= $user->createToken('DuLichVietNam_Login')->plainTextToken;
+        $token= $user->createToken('user')->plainTextToken;
         $response=
         [
             'message'=>'Login Success',
@@ -104,11 +106,17 @@ public function login(Request $request)
 //----------------------------------------------------------//
 
 
-public function logout()
+public function logout(Request $request)
 {
-   
-    return response()->json(['message'=>'Logout Success']);
+    auth()->user()->tokens->each(function ($token, $key) {
+            $token->delete();
+        });
+    return response()->json([
+        'message' => 'Đăng xuất thành công',
+    ], 200);;
 }
+
+
 public function user(){
     $response=[
         "user"=>auth()->user()];
@@ -117,4 +125,29 @@ public function user(){
 public function update(Request $request){
 
 }
+
+    public function changePassword(Request $request)
+    {
+        $attrs = $request->validate([
+            'password' => 'required',
+            'new_password' => 'required|string|min:6|different:password',
+            'confirm_password' => 'required|same:new_password',
+
+        ]);
+        $user = request()->user();
+        if(!Hash::check($request->password, $user->mat_khau)){
+            return response()->json([
+                'status_code' => 422,
+                'message' => ' Mật khẩu không tồn tại'
+            ]);
+        }
+        $user->mat_khau = Hash::make($request->new_password);
+            $user->save();
+
+            return response()->json([
+                'status_code'=>200,
+                'message' => 'Đổi mật khẩu thành công'
+            ]);
+
+    }
 }
