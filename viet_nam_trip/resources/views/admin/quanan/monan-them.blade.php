@@ -19,7 +19,7 @@
                     <div class="position-relative row form-group">
                         <label for="gia" class="col-md-3 text-md-right col-form-label">Giá bán</label>
                         <div class="col-md-9 col-xl-8">
-                            <input name="gia" id="gia" placeholder="Giá" type="text" class="form-control" value="">
+                            <input onchange="format_curency(this)" onkeypress="return isNumberKey(event)" name="gia" id="gia" placeholder="Giá" type="text" class="form-control" value="">
                         </div>
 
                     </div>
@@ -76,7 +76,6 @@
 <script type="text/javascript">
     {
         $(document).ready(function() {
-
             $('.thumbnail').click(function() {
                 $(this).siblings('.image').click();
             });
@@ -122,7 +121,7 @@
                             // });
                             //console.log(data.error.tennhanhieu);
                         } else {
-                             load();
+                                load();
                             Swal.fire(
                                 'Thành công',
                                 'thêm thành công',

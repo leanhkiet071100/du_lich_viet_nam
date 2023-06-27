@@ -172,7 +172,7 @@
                                     class="col-md-3 text-md-right col-form-label">{{ trans('public.price') }}</label>
                                 <div class="col-md-9 col-xl-7">
                                     <input name="gia" id="gia" placeholder="{{ trans('public.price') }}"
-                                        type="text" class="form-control" value="{{ old('ngay-khoi-hanh') }}"
+                                        type="text" class="form-control" value="{{ old('gia') }}"
                                         onchange="format_curency(this)" onkeypress="return isNumberKey(event)">
                                     <div class="text-center">
                                         @error('gia')

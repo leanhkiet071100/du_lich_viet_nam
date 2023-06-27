@@ -68,7 +68,7 @@ class TinTucController extends Controller
     //thêm tin tức
     public function create(){
         $data = [
-            'pageTitle' => trans('public.create_post'),
+            'pageTitle' => 'tạo tin tức',
             'title'=> trans('public.news')
         ];
 
@@ -106,7 +106,6 @@ class TinTucController extends Controller
         $tieude = $request->input('tieude');
         $tintucmoi = new bai_viet;
         $tintucmoi->fill([
-
                 'tieu_de'=> $tieude,
                 'phu_de'=> $phude,
                 //'hinh_anh'=>$ten_file,
@@ -119,8 +118,8 @@ class TinTucController extends Controller
         if($hinhtintuc != null){
             //$file_name = time().Str::random(10).'.'.$hinhtintuc->getClientOriginalExtension();
             $file_name = $hinhtintuc->getClientOriginalName();
-            $imagePath = $hinhtintuc->move(public_path('hinh_anh_tin_tuc/'), $file_name);
-            $ten_file = 'hinh_anh_tin_tuc/'.$file_name;
+            $imagePath = $hinhtintuc->move(public_path('img/hinh_anh_tin_tuc/'), $file_name);
+            $ten_file = 'img/hinh_anh_tin_tuc/'.$file_name;
             $tintucmoi->hinh_anh_bai_viet = $ten_file;
             $tintucmoi->save();
         }
@@ -191,8 +190,8 @@ class TinTucController extends Controller
         if($hinhtintuc != null){
             //$file_name = time().Str::random(10).'.'.$hinhtintuc->getClientOriginalExtension();
             $file_name = $hinhtintuc->getClientOriginalName();
-            $imagePath = $hinhtintuc->move(public_path('hinh_anh_tin_tuc/'), $file_name);
-            $ten_file = 'hinh_anh_tin_tuc/'.$file_name;
+            $imagePath = $hinhtintuc->move(public_path('img/hinh_anh_tin_tuc/'), $file_name);
+            $ten_file = 'img/hinh_anh_tin_tuc/'.$file_name;
             $tintuc->hinh_anh_bai_viet = $ten_file;
             $tintuc->save();
         }

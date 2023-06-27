@@ -49,7 +49,7 @@ class MonAnController extends Controller
         else{
             $ten_mon = $request->ten_mon;
             $hinh = $request->file('hinh');
-            $gia_ban = $request->gia;
+            $gia_ban = str_replace(',', '', $request->gia);
             if($request->hasFile('hinh')){
                 $mon_an = new mon_an;
                 $mon_an->fill([
@@ -65,8 +65,8 @@ class MonAnController extends Controller
                 //$file_name = time().Str::random(10).'.'.$hinhnhanhieu->getClientOriginalExtension();
                 $file_name = $hinh->getClientoriginalName();
                 // move:  di chuyển hình ảnh; public_path: tạo  thư mục ; $file_name: tên file
-                $imagePath = $hinh->move(public_path('hinh_mon_an/'.$idquan), $file_name);
-                $mon_an->hinh_mon_an = 'hinh_mon_an/'.$idquan.'/'.$file_name;
+                $imagePath = $hinh->move(public_path('img/hinh_mon_an/'.$idquan), $file_name);
+                $mon_an->hinh_mon_an = 'img/hinh_mon_an/'.$idquan.'/'.$file_name;
                 $mon_an->save();
             }
             return response()->json([
@@ -112,7 +112,7 @@ class MonAnController extends Controller
         else{
             $ten_mon = $request->ten_mon;
             $hinh = $request->file('hinh');
-            $gia_ban = $request->gia;
+            $gia_ban = str_replace(',', '', $request->gia);
             $mon_an = mon_an::find($id);
                 $mon_an->fill([
                     'ten_mon'=>$ten_mon,
@@ -127,8 +127,8 @@ class MonAnController extends Controller
                 //$file_name = time().Str::random(10).'.'.$hinhnhanhieu->getClientOriginalExtension();
                 $file_name = $hinh->getClientoriginalName();
                 // move:  di chuyển hình ảnh; public_path: tạo  thư mục ; $file_name: tên file
-                $imagePath = $hinh->move(public_path('hinh_mon_an/'.$mon_an->quan_an_id), $file_name);
-                $mon_an->hinh_mon_an = 'hinh_mon_an/'.$mon_an->quan_an_id.'/'.$file_name;
+                $imagePath = $hinh->move(public_path('img/hinh_mon_an/'.$mon_an->quan_an_id), $file_name);
+                $mon_an->hinh_mon_an = 'img/hinh_mon_an/'.$mon_an->quan_an_id.'/'.$file_name;
                 $mon_an->save();
             }
             return response()->json([

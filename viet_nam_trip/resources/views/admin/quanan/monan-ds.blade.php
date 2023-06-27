@@ -5,8 +5,8 @@
                 <div class="card-header">
                     <form action="" method="get" class="mb-0">
                         <div class="input-group">
-                            <input type="search" name="search" id="search" placeholder="Search everything"
-                                class="form-control" value="{{ request()->get('search') }}">
+                            <input type="text" name="search_mon" id="search" placeholder="Search everything"
+                                class="form-control" value="{{ request()->get('search_mon') }}">
                             <span class="input-group-append">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-search"></i>&nbsp;
@@ -61,7 +61,7 @@
                                         <div class="widget-content p-0">
                                             <div class="widget-content-wrapper">
                                                 <div class="widget-content-left flex2">
-                                                    <div class="widget-heading text-center">{{ $value->gia_ban ?? 'chưa có' }}
+                                                    <div class="widget-heading text-center">{{ number_format($value->gia_ban) ?? 'chưa có' }}
                                                     </div>
                                                 </div>
                                             </div>

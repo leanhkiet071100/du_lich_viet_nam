@@ -87,7 +87,7 @@
                 return false;
             return true;
         }
-
+        // đổi giá trị tiền
         function format_curency(a) {
             //xóa dấu phẩy
             a.value = a.value.replaceAll(',', '');
