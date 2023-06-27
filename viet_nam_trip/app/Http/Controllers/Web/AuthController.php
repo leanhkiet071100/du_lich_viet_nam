@@ -132,7 +132,7 @@ class AuthController extends Controller
                 'email' => 'required|email|max:255|unique:nguoi_dungs,email',
                 'mat-khau' => 'required|min:6',
                 'ho-ten' => 'required',
-                'sdt' => 'required|numeric',
+                'sdt' => 'required|numric',
             ],
             [
                 'email.required' => 'Vui lòng nhập email',
@@ -195,6 +195,17 @@ class AuthController extends Controller
         $nguoidung = User::find($id);
         if($nguoidung->remember_token === $token){
             $nguoidung->update(['trang_thai'=>1,'remember_token'=>null]);
+            return Redirect::route('web.auth.dang-nhap')->with('success','Xác nhận thành công, bạn có hể đăng nhập');
+        }else {
+            return Redirect::route('web.auth.dang-nhap')->WithErrors(['error' => 'xác  nhận không thành công']);
+        }
+
+    }
+
+    public function kich_hoat_api($id, $email){
+        $nguoidung = User::find($id);
+        if($nguoidung->email === $email){
+            $nguoidung->update(['trang_thai'=>1]);
             return Redirect::route('web.auth.dang-nhap')->with('success','Xác nhận thành công, bạn có hể đăng nhập');
         }else {
             return Redirect::route('web.auth.dang-nhap')->WithErrors(['error' => 'xác  nhận không thành công']);

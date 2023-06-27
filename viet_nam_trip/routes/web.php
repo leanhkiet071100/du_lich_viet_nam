@@ -204,6 +204,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
                 Route::get('/dang-ki', 'AuthController@dang_ki')->name('dang-ki');
                 Route::post('/dang-ki','AuthController@post_dang_ki')->name('post-dang-ki');
                 Route::get('/kich-hoat/{id}/{token}','AuthController@kich_hoat')->name('kich-hoat');
+                Route::get('/kich-hoat-api/{id}/{email}','AuthController@kich_hoat_api')->name('kich-hoat-api');
 
                 //quên mật khẩu
                 Route::get('/quen-mat-khau', 'AuthController@quen_mat_khau')->name('quen-mat-khau');
