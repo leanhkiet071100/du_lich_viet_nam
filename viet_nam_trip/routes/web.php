@@ -173,6 +173,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
                 Route::get('/{id}/edit', 'GoiDuLichController@edit')->name('edit');
                 Route::post('/{id}/update', 'GoiDuLichController@update')->name('update');
                 Route::delete('/{id}/destroy', 'GoiDuLichController@destroy')->name('destroy');
+                 Route::post('/noi-bat/{id}', 'GoiDuLichController@noi_nat')->name('noi-bat');
             });
         });
 

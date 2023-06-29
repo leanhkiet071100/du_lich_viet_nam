@@ -16,16 +16,23 @@ class goi_du_lich extends Model
     protected $fillable = [
         'loai_id',
         'ten',
-        'quoc_gia',
         'hinh_goi_du_lich',
         'noi_khoi_hanh',
-        'tap_trung',
+        'thoi_gian_tap_trung',
         'so_nguoi_toi_da',
         'gio_khoi_hanh',
         'ngay_khoi_hanh',
-        'gia',
-        'so_ngay_du_lich',
-        'mo_ta',
+        'gia_nguoi_lon',
+        'gia_tre_em',
+        'gia_tre_nho',
+        'so_ngay',
+        'so_dem',
+        'not_compo',
+        'compo',
+        'thong_tin_dich_vu',
+        'dieu_kien_ap_dung',
+        'trang_thai',
+        'noi_bat',
     ];
 
     public function loai_goi_du_lich(){

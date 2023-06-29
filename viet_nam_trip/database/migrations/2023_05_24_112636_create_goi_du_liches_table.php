@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('goi_du_liches', function (Blueprint $table) {
             $table->id();
             $table->foreignId('loai_id');
-            $table->string('ho_ten')->nullable();
+            $table->string('ten')->nullable();
             $table->text('hinh_goi_du_lich')->nullable();
             $table->string('noi_khoi_hanh')->nullable();
             $table->timestamp('thoi_gian_tap_trung')->nullable();
@@ -30,6 +30,8 @@ return new class extends Migration
             $table->text('compo')->nullable();
             $table->text('thong_tin_dich_vu')->nullable();
             $table->text('dieu_kien_ap_dung')->nullable();
+            $table->string('trang_thai')->nullable();
+            $table->boolean('noi_bat')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

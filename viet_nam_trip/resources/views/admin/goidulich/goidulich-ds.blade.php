@@ -43,8 +43,6 @@
                         <div class="btn-actions-pane-right">
                             <div role="group" class="btn-group-sm btn-group">
                                 <a href=""> <button class="btn btn-focus">Xuất excel</button></a>
-
-
                             </div>
                         </div>
                     </div>
@@ -56,9 +54,9 @@
                                     <th class="text-center">{{trans('public.STT')}}</th>
                                     <th class="text-center">{{trans('public.name')}}</th>
                                     <th class="text-center">{{trans('public.category_travel_packages')}}</th>
-                                    <th class="text-center">{{trans('public.nation')}}</th>
                                     <th class="text-center">{{trans('public.maximum_number_of_people')}}</th>
                                     {{-- <th class="text-center">Featured</th> --}}
+                                    <th class="text-center">{{trans('Nổi bật')}}</th>
                                     <th class="text-center">{{trans('public.function')}}</th>
                                 </tr>
                             </thead>
@@ -86,14 +84,23 @@
                                             </div>
                                         </td>
                                         <td class="text-center">{{$value->ten_loai_goi_du_lich}}</td>
-                                        <td class="text-center">{{$value->quoc_gia}}</td>
                                         <td class="text-center">{{$value->so_nguoi_toi_da}}</td>
+                                        <td class="td-radio">
+                                            <div class=" check-magana text-center td-radio">
+                                                {{-- <input class="form-check-input" type="checkbox" value=""\
+                                                    id="defaultCheck1"> --}}
+                                                <input class="" type="checkbox" value=""
+                                                    id="check-noi-bat{{ $value->id }}"
+                                                    @if ($value->noi_bat == 1) checked @endif
+                                                    onchange="noi_bat({{ $value->id }})">
+                                            </div>
+                                        </td>
                                         <td class="text-center">
-                                            <a href="{{ route('admin.dia-diem.edit', ['id' => $value->id]) }}"
+                                            <a href="{{ route('admin.goi-du-lich.edit', ['id' => $value->id]) }}"
                                                 class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">
                                                 Chi tiết
                                             </a>
-                                            <a href="{{ route('admin.dia-diem.edit', ['id' => $value->id]) }}"
+                                            <a href="{{ route('admin.goi-du-lich.edit', ['id' => $value->id]) }}"
                                                 data-toggle="tooltip" title="Edit" data-placement="bottom"
                                                 class="btn btn-outline-warning border-0 btn-sm">
                                                 <span class="btn-icon-wrapper opacity-8">
@@ -149,10 +156,10 @@
             return currency + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
         }
 
-        function san_pham_noi_bat($id) {
+        function noi_bat($id) {
             var check = document.getElementById("check-noi-bat" + $id).checked;
             var formData = new FormData();
-            var url = "{{ route('admin.dia-diem.noi-bat', '') }}" + '/' + $id;
+            var url = "{{ route('admin.goi-du-lich.noi-bat', '') }}" + '/' + $id;
             formData.append('check', check);
             $.ajaxSetup({
                 headers: {
