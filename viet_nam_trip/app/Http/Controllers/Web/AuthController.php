@@ -176,7 +176,6 @@ class AuthController extends Controller
             //$email->attach('C:\laravel-master\laravel\public\uploads\image.png');
             //$email->attach('C:\laravel-master\laravel\public\uploads\test.txt');
             //email gửi
-
             if($web != null){
                 $email->from($web->email,$web->ten);
             }else{

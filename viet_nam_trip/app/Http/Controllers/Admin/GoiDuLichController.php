@@ -140,8 +140,8 @@ class GoiDuLichController extends Controller
             // getClientOriginalExtension(): lấy đuôi file
             $file_name = $data['hinh-goi-du-lịch']->getClientoriginalName();
             // move:  di chuyển hình ảnh; public_path: tạo  thư mục ; $file_name: tên file
-            $imagePath = $goi_du_lich->id->move(public_path('hinh-goi-du-lich/'.$goi_du_lich->id), $file_name);
-            $goi_du_lich->hinh_goi_du_lich = 'hinh-goi-du-lich/'.$goi_du_lich->id.'/'.$file_name;
+            $imagePath = $goi_du_lich->id->move(public_path('imh/hinh-goi-du-lich/'.$goi_du_lich->id), $file_name);
+            $goi_du_lich->hinh_goi_du_lich = 'img/hinh-goi-du-lich/'.$goi_du_lich->id.'/'.$file_name;
         }
         $goi_du_lich->save();
         return Redirect::route('admin.goi-du-lich.index');

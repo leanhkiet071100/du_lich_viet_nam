@@ -17,6 +17,7 @@ class goi_du_lich extends Model
         'loai_id',
         'ten',
         'quoc_gia',
+        'hinh_goi_du_lich',
         'noi_khoi_hanh',
         'tap_trung',
         'so_nguoi_toi_da',

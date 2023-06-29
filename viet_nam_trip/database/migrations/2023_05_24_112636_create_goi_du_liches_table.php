@@ -14,17 +14,22 @@ return new class extends Migration
         Schema::create('goi_du_liches', function (Blueprint $table) {
             $table->id();
             $table->foreignId('loai_id');
-            $table->string('ten')->nullable();
+            $table->string('ho_ten')->nullable();
             $table->text('hinh_goi_du_lich')->nullable();
-            $table->string('quoc_gia')->nullable();
             $table->string('noi_khoi_hanh')->nullable();
-            $table->timestamp('tap_trung')->nullable();
+            $table->timestamp('thoi_gian_tap_trung')->nullable();
             $table->string('so_nguoi_toi_da')->nullable();
             $table->time('gio_khoi_hanh')->nullable();
             $table->date('ngay_khoi_hanh')->nullable();
-            $table->integer('gia')->nullable();
-            $table->string('so_ngay_du_lich')->nullable();
-            $table->text('mo_ta')->nullable();
+            $table->integer('gia_nguoi_lon')->nullable();
+            $table->integer('gia_tre_em')->nullable();
+            $table->integer('gia_tre_nho')->nullable();
+            $table->integer('so_ngay')->nullable();
+            $table->integer('so_dem')->nullable();
+            $table->text('not_compo')->nullable();
+            $table->text('compo')->nullable();
+            $table->text('thong_tin_dich_vu')->nullable();
+            $table->text('dieu_kien_ap_dung')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

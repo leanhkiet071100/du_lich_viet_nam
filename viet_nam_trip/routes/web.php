@@ -136,19 +136,19 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
         });
 
         // loại địa điểm
-        Route::group(['prefix' => 'loai-dia-diem'], function () {
-            Route::name('loai-dia-diem.')->group(function(){
-                Route::get('/', 'LoaiDiaDiemController@index')->name('index');
-                Route::get('/load', 'LoaiDiaDiemController@load')->name('load');
-                Route::get('/create', 'LoaiDiaDiemController@create')->name('create');
-                Route::post('/store', 'LoaiDiaDiemController@store')->name('store');
-                Route::get('/{id}/edit', 'LoaiDiaDiemController@edit')->name('edit');
-                Route::post('/{id}/update', 'LoaiDiaDiemController@update')->name('update');
-                Route::delete('/{id}/destroy', 'LoaiDiaDiemController@destroy')->name('destroy');
-                Route::post('/hien/{id}', 'LoaiDiaDiemController@hien')->name('hien');
+        // Route::group(['prefix' => 'loai-dia-diem'], function () {
+        //     Route::name('loai-dia-diem.')->group(function(){
+        //         Route::get('/', 'LoaiDiaDiemController@index')->name('index');
+        //         Route::get('/load', 'LoaiDiaDiemController@load')->name('load');
+        //         Route::get('/create', 'LoaiDiaDiemController@create')->name('create');
+        //         Route::post('/store', 'LoaiDiaDiemController@store')->name('store');
+        //         Route::get('/{id}/edit', 'LoaiDiaDiemController@edit')->name('edit');
+        //         Route::post('/{id}/update', 'LoaiDiaDiemController@update')->name('update');
+        //         Route::delete('/{id}/destroy', 'LoaiDiaDiemController@destroy')->name('destroy');
+        //         Route::post('/hien/{id}', 'LoaiDiaDiemController@hien')->name('hien');
 
-            });
-        });
+        //     });
+        // });
 
         // loại gói du lịch
         Route::group(['prefix' => 'loai-goi-du-lich'], function () {
@@ -160,6 +160,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
                 Route::get('/{id}/edit', 'LoaiGoiDulichController@edit')->name('edit');
                 Route::post('/{id}/update', 'LoaiGoiDulichController@update')->name('update');
                 Route::delete('/{id}/destroy', 'LoaiGoiDulichController@destroy')->name('destroy');
+                Route::post('/hien/{id}', 'LoaiGoiDulichController@hien')->name('hien');
             });
         });
         // gói du lịch
@@ -334,5 +335,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
             });
         });
 
+        //tour
+        Route::group(['prefix' => 'tour'], function () {
+            Route::name('tour.')->group(function(){
+                Route::get('/', 'TourController@index')->name('index');
+                Route::get('/{id}/show', 'TourController@show')->name('show');
+            });
+        });
     });
 });

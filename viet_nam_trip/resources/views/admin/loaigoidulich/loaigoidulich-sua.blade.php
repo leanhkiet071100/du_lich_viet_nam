@@ -102,11 +102,10 @@
                     success: function(data) {
                         //window.location.reload(); load lại trang
                         //console.log(data.errors.hinhnhanhieu);
-
                         if (data.status == 400) {
                             $('#saveform_errList').html("");
                             $('#error-tennhanhieu').html("");
-                            $('#error-tennhanhieu').append(data.errors.tennhanhieu[0]);
+                            $('#error-tennhanhieu').append(data.errors.tennhanhieu);
                             $('#error-hinhnhanhieu').html("");
                             $('#error-hinhnhanhieu').append(data.errors.hinhnhanhieu[0]);
                             // $.each(data.errors, function(key, err_value){
@@ -114,14 +113,13 @@
                             // });
                             //console.log(data.error.tennhanhieu);
                         }else{
-                            load();
-                            Swal.fire(
-                                'Thành công',
-                                'Sửa thành công',
-                                'success'
-                            )
+                            Swal.fire({
+                                icon: 'success',
+                                text: 'Sửa thành công',
+                            }).then((result) => {
+                                load();
+                            });
                         }
-
                     }
                 });
             })
