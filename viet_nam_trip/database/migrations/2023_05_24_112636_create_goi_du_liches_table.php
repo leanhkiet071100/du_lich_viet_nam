@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('goi_du_liches', function (Blueprint $table) {
             $table->id();
             $table->foreignId('loai_id');
-            $table->string('ten')->nullable();
+            $table->text('ten')->nullable();
             $table->text('hinh_goi_du_lich')->nullable();
             $table->string('noi_khoi_hanh')->nullable();
             $table->timestamp('thoi_gian_tap_trung')->nullable();
@@ -26,6 +26,7 @@ return new class extends Migration
             $table->integer('gia_tre_nho')->nullable();
             $table->integer('so_ngay')->nullable();
             $table->integer('so_dem')->nullable();
+            $table->integer('sao')->nullable();
             $table->text('not_compo')->nullable();
             $table->text('compo')->nullable();
             $table->text('thong_tin_dich_vu')->nullable();

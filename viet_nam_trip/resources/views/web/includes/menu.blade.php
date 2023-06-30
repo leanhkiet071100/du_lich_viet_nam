@@ -11,7 +11,7 @@
                 <li class="nav-item nav-menu" id="home"><a href="{{route('web.trang-chu.index')}}" class="nav-link">{{trans('public.homne')}}</a></li>
                 <li class="nav-item nav-menu" id="about"><a href="{{route('web.ve-chung-toi.index')}}" class="nav-link">{{trans('public.about')}}</a></li>
                 <li class="nav-item nav-menu" id="location"><a href="{{route('web.dia-diem.index')}}" class="nav-link">{{trans('public.location')}}</a></li>
-                <li class="nav-item nav-menu" id="hotel"><a href="{{route('web.khach-san.index')}}" class="nav-link">{{trans('public.hotel')}}</a></li>
+                <li class="nav-item nav-menu" id="hotel"><a href="{{route('web.tour.index')}}" class="nav-link">Tour</a></li>
                 <li class="nav-item nav-menu" id="blog"><a href="{{route('web.bai-viet.index')}}" class="nav-link">{{trans('public.blog')}}</a></li>
                 <li class="nav-item nav-menu" id="news"><a href="{{route('web.tin-tuc.index')}}" class="nav-link">{{trans('public.news')}}</a></li>
                 <li class="nav-item nav-menu" id="contact"><a href="{{route('web.lien-he.index')}}" class="nav-link">{{trans('public.contact')}}</a></li>

@@ -16,13 +16,13 @@ use Illuminate\Support\Facades\Route;
 
 
 //Nhóm admin
-Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin',  'middleware' => 'App\Http\Middleware\CheckLoginAdmin'], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'], function () {
     Route::name('admin.')->group(function(){
         Route::get('login', 'LoginController@showLoginForm')->name('login');
         Route::post('login_admin', 'LoginController@post_login_admin')->name('post_login_admin');
         Route::post('logout_admin', 'LoginController@logout_admin')->name('logout_admin');
         // Route::group(['middleware' => 'admin'], function () {});
-
+        Route::middleware('App\Http\Middleware\CheckLoginAdmin')->group(function(){
         Route::group(['prefix' => 'bai-viet'], function () {
             Route::name('bai-viet.')->group(function(){
                 Route::get('/', 'BaiVietController@index')->name('index');
@@ -177,6 +177,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
             });
         });
 
+        Route::group(['prefix' => 'lich-trinh'], function () {
+            Route::name('lich-trinh.')->group(function(){
+                Route::get('/', 'LichTrinhController@index')->name('index');
+                Route::get('/create/{id_tour}', 'LichTrinhController@create')->name('create');
+                Route::post('/store/{id_tour}', 'LichTrinhController@store')->name('store');
+                Route::get('/{id}/edit/{id_tour}', 'LichTrinhController@edit')->name('edit');
+                Route::post('/{id}/update/{id_tour}', 'LichTrinhController@update')->name('update');
+                Route::delete('/{id}/destroy/{id_tour}', 'LichTrinhController@destroy')->name('destroy');
+            });
+        });
+
         //khách sạn
         Route::group(['prefix' => 'thong-tin-web'], function () {
             Route::name('thong-tin-web.')->group(function(){
@@ -188,7 +199,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
                 Route::delete('/{id}/destroy', 'WebController@destroy')->name('destroy');
             });
         });
-
+        });
     });
 });
 

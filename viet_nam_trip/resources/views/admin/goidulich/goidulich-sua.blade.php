@@ -3,6 +3,11 @@
 @section('title', 'mạng xã hội')
 @section('content')
     @parent
+    @if (session()->has('success'))
+        <script>
+            alert('{{ session()->get('success') }}')
+        </script>
+    @endif
     <!-- Main -->
     <div class="app-main__inner">
 
@@ -21,7 +26,7 @@
                 </div>
             </div>
         </div>
-
+         @include('admin.goidulich.lichtrinh-ds')
         <div class="row">
             <div class="col-md-12">
                 <div class="main-card mb-3 card">
@@ -151,7 +156,7 @@
                             <div class="position-relative row form-group">
                                 <label for="gia-nguoi-lon" class="col-md-3 text-md-right col-form-label">Giá người lớn</label>
                                 <div class="col-md-9 col-xl-7">
-                                    <input name="gia-nguoi-lon" id="gia-nguoi-lon" placeholder="gia-nguoi-lon" type="text" class="form-control" value="{{ old('gio-nguoi-lon') ?? $goi_du_lich->gia_nguoi_lon }}"
+                                    <input name="gia-nguoi-lon" id="gia-nguoi-lon" placeholder="gia-nguoi-lon" type="text" class="form-control" value="{{ number_format(old('gio-nguoi-lon') ?? $goi_du_lich->gia_nguoi_lon) }}"
                                         onchange="format_curency(this)" onkeypress="return isNumberKey(event)">
                                     <div class="text-center">
                                         @error('gia_nguoi_lon')
@@ -167,7 +172,7 @@
                                 <label for="gia-tre-em" class="col-md-3 text-md-right col-form-label">Giá trẻ em</label>
                                 <div class="col-md-9 col-xl-7">
                                     <input name="gia-tre-em" id="gia-tre-em" placeholder="Giá trẻ em"
-                                        type="text" class="form-control" value="{{ old('gia-tre-em') ?? $goi_du_lich->gia_tre_em }}"
+                                        type="text" class="form-control" value="{{ number_format(old('gia-tre-em') ?? $goi_du_lich->gia_tre_em) }}"
                                         onchange="format_curency(this)" onkeypress="return isNumberKey(event)">
                                     <div class="text-center">
                                         @error('gia-tre-em')
@@ -183,7 +188,7 @@
                                 <label for="gia-tre-nho"
                                     class="col-md-3 text-md-right col-form-label">Giá trẻ nhỏ</label>
                                 <div class="col-md-9 col-xl-7">
-                                    <input name="gia-tre-nho" id="gia-tre-nho" placeholder="giá trẻ nhỏ" type="text" class="form-control" value="{{ old('gia-tre-nho') ?? $goi_du_lich->gia_tre_nho }}"
+                                    <input name="gia-tre-nho" id="gia-tre-nho" placeholder="giá trẻ nhỏ" type="text" class="form-control" value="{{ number_format(old('gia-tre-nho') ?? $goi_du_lich->gia_tre_nho) }}"
                                         onchange="format_curency(this)" onkeypress="return isNumberKey(event)">
                                     <div class="text-center">
                                         @error('gia-tre-nho')

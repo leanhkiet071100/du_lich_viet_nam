@@ -33,6 +33,80 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                @if (session()->has('success'))
+                    <div class="alert alert-success success text-center" id="success" style="font-size:50px ">
+                        {{ session()->get('success') }}
+                    </div>
+                @endif
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="" method="get" class="mb-0">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="" class="input-lable">{{ trans('public.search') }}</label>
+                                            <input type="text" name="title" class="form-control"
+                                                value="{{ request()->get('title') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for=""
+                                                class="input-lable">{{ trans('public.start_date') }}</label>
+                                            <input type="date" name="form" id="form" class="form-control"
+                                                value="{{ request()->get('form') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="input-lable">{{ trans('public.end_date') }}</label>
+                                            <input type="date" name="to" id="to" class="form-control"
+                                                value="{{ request()->get('to') }}">
+                                        </div>
+                                    </div>
+                                    {{-- <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="input-lable">{{ trans('public.author') }}</label>
+                                            <input type="text" name="author_id" id="author_id" class="form-control"
+                                                value="{{ request()->get('author_id') }}">
+                                        </div>
+                                    </div> --}}
+                                    <div class="col-md-3">
+                                        <div class="form-group form-group-checked">
+                                            <label for="" class="input-lable">{{ trans('public.presently') }}</label>
+                                            <input type="checkbox" name="hien" id="hien" class="form-control" @if(request()->get('hien', null) == 'on') checked="checked" @endif>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group form-group-checked">
+                                            <label for="" class="input-lable">{{ trans('public.outstanding') }}</label>
+                                            <input type="checkbox" name="noi-bat" id="status" class="form-control" @if(request()->get('noi-bat', null) == 'on') checked="checked" @endif>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group mt-1">
+                                            <label for="" class="input-lable"></label>
+                                            <input type="submit" class="form-control text-center btn btn-success w-100"
+                                                value="{{ trans('public.search_results') }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-md-12">
@@ -46,7 +120,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="table-responsive">
                         <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                             <thead>

@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-lg-3 sidebar">
                     <div class="sidebar-wrap bg-light ftco-animate">
-                        <h3 class="heading mb-4">Find City</h3>
+                        <h3 class="heading mb-4">Tìm tour</h3>
                         <form action="#">
                             <div class="fields">
                                 <div class="form-group">
@@ -36,11 +36,15 @@
                                 <div class="form-group">
                                     <div class="range-slider">
                                         <span>
-                                            <input type="number" value="25000" min="0" max="120000" /> -
-                                            <input type="number" value="50000" min="0" max="120000" />
+                                            <input type="number" value="0" min="0" max="{{ $max_tien }}" />
+                                            -
+                                            <input type="number" value="{{ $max_tien }}" min="0"
+                                                max="{{ $max_tien }}" />
                                         </span>
-                                        <input value="1000" min="0" max="120000" step="500" type="range" />
-                                        <input value="50000" min="0" max="120000" step="500" type="range" />
+                                        <input value="1000" min="0" max="{{ $max_tien }}" step="500"
+                                            type="range" />
+                                        <input value="{{ $max_tien }}" min="0" max="{{ $max_tien }}"
+                                            step="500" type="range" />
                                         </svg>
                                     </div>
                                 </div>
@@ -52,9 +56,10 @@
                     </div>
                     <div class="sidebar-wrap bg-light ftco-animate">
                         <h3 class="heading mb-4">Star Rating</h3>
-                        <form method="post" class="star-rating">
+                        <div>
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="sao-5"
+                                    @if (request()->get('sao-5') == 'on') checked @endif>
                                 <label class="form-check-label" for="exampleCheck1">
                                     <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
                                                 class="icon-star"></i><i class="icon-star"></i><i
@@ -62,7 +67,8 @@
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="sao-4"
+                                    @if (request()->get('sao-4') == 'on') checked @endif>
                                 <label class="form-check-label" for="exampleCheck1">
                                     <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
                                                 class="icon-star"></i><i class="icon-star"></i><i
@@ -70,7 +76,8 @@
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="sao-3"
+                                    @if (request()->get('sao-3') == 'on') checked @endif>
                                 <label class="form-check-label" for="exampleCheck1">
                                     <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
                                                 class="icon-star"></i><i class="icon-star-o"></i><i
@@ -78,7 +85,8 @@
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="sao-2"
+                                    @if (request()->get('sao-2') == 'on') checked @endif>
                                 <label class="form-check-label" for="exampleCheck1">
                                     <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
                                                 class="icon-star-o"></i><i class="icon-star-o"></i><i
@@ -86,228 +94,58 @@
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="sao-1"
+                                    @if (request()->get('sao-1') == 'on') checked @endif>
                                 <label class="form-check-label" for="exampleCheck1">
                                     <p class="rate"><span><i class="icon-star"></i><i class="icon-star-o"></i><i
                                                 class="icon-star-o"></i><i class="icon-star-o"></i><i
                                                 class="icon-star-o"></i></span></p>
                                 </label>
                             </div>
-                        </form>
+
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-9">
                     <div class="row">
-                        <div class="col-md-4 ftco-animate">
-                            <div class="destination">
-                                <a href="hotel-single.html"
-                                    class="img img-2 d-flex justify-content-center align-items-center"
-                                    style="background-image: url(images/hotel-1.jpg);">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="icon-search2"></span>
-                                    </div>
-                                </a>
-                                <div class="text p-3">
-                                    <div class="d-flex">
-                                        <div class="one">
-                                            <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                            <p class="rate">
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star-o"></i>
-                                                <span>8 Rating</span>
-                                            </p>
+                        @foreach ($ls_goi_du_lich as $key => $value)
+                            <div class="col-md-4 ftco-animate">
+                                <div class="destination destination-tour">
+                                    <a href="{{route('web.tour.show', ['id'=>$value->id])}}"
+                                        class="img img-2 d-flex justify-content-center align-items-center"
+                                        style="background-image: url({{ URL($value->hinh_goi_du_lich ?? 'hinh_test/no-img.jpg') }}); background-size: 100% 100%;">
+                                        <div class="icon d-flex justify-content-center align-items-center">
+                                            <span class="icon-search2"></span>
                                         </div>
-                                        <div class="two">
-                                            <span class="price per-price">$40<br><small>/night</small></span>
+                                    </a>
+                                    <div class="text p-3">
+                                        <div class="">
+                                            <div class="">
+                                                <h3 class="h3"><b><a href="{{route('web.tour.show', ['id'=>$value->id])}}">{{ $value->ten }}</a></b></h3>
+                                                <p class="rate">
+                                                    @for ($i = 0; $i < 5; $i++)
+                                                        @if ($i < $value->sao)
+                                                            <i class="icon-star"></i>
+                                                        @else
+                                                            <i class="icon-star-o"></i>
+                                                        @endif
+                                                    @endfor
+
+                                                </p>
+                                            </div>
                                         </div>
+                                        <p>Loại: <b>{{$value->ten_loai_goi_du_lich}}</b></p>
+                                        <p>Nơi khởi hành: <b>{{$value->noi_khoi_hanh}}</b></p>
+                                        <p>Giá: <b style="font-weight: 700; color: #fd5056; font-size: 18px;">{{number_format($value->gia_nguoi_lon)}}</b></p>
+                                        <hr>
+                                        <p class="bottom-area d-flex">
+                                            <span> {{date('d/m/Y', strtotime($value->ngay_khoi_hanh));}}-{{$value->so_ngay}} ngày</span>
+                                            <span class="ml-auto"><a href="#">Đặt ngay</a></span>
+                                        </p>
                                     </div>
-                                    <p>Far far away, behind the word mountains, far from the countries</p>
-                                    <hr>
-                                    <p class="bottom-area d-flex">
-                                        <span><i class="icon-map-o"></i> Miami, Fl</span>
-                                        <span class="ml-auto"><a href="#">Book Now</a></span>
-                                    </p>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4 ftco-animate">
-                            <div class="destination">
-                                <a href="hotel-single.html"
-                                    class="img img-2 d-flex justify-content-center align-items-center"
-                                    style="background-image: url(images/hotel-2.jpg);">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="icon-search2"></span>
-                                    </div>
-                                </a>
-                                <div class="text p-3">
-                                    <div class="d-flex">
-                                        <div class="one">
-                                            <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                            <p class="rate">
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star-o"></i>
-                                                <span>8 Rating</span>
-                                            </p>
-                                        </div>
-                                        <div class="two">
-                                            <span class="price per-price">$40<br><small>/night</small></span>
-                                        </div>
-                                    </div>
-                                    <p>Far far away, behind the word mountains, far from the countries</p>
-                                    <hr>
-                                    <p class="bottom-area d-flex">
-                                        <span><i class="icon-map-o"></i> Miami, Fl</span>
-                                        <span class="ml-auto"><a href="#">Book Now</a></span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 ftco-animate">
-                            <div class="destination">
-                                <a href="hotel-single.html"
-                                    class="img img-2 d-flex justify-content-center align-items-center"
-                                    style="background-image: url(images/hotel-3.jpg);">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="icon-search2"></span>
-                                    </div>
-                                </a>
-                                <div class="text p-3">
-                                    <div class="d-flex">
-                                        <div class="one">
-                                            <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                            <p class="rate">
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star-o"></i>
-                                                <span>8 Rating</span>
-                                            </p>
-                                        </div>
-                                        <div class="two">
-                                            <span class="price per-price">$40<br><small>/night</small></span>
-                                        </div>
-                                    </div>
-                                    <p>Far far away, behind the word mountains, far from the countries</p>
-                                    <hr>
-                                    <p class="bottom-area d-flex">
-                                        <span><i class="icon-map-o"></i> Miami, Fl</span>
-                                        <span class="ml-auto"><a href="#">Book Now</a></span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 ftco-animate">
-                            <div class="destination">
-                                <a href="hotel-single.html"
-                                    class="img img-2 d-flex justify-content-center align-items-center"
-                                    style="background-image: url(images/hotel-4.jpg);">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="icon-search2"></span>
-                                    </div>
-                                </a>
-                                <div class="text p-3">
-                                    <div class="d-flex">
-                                        <div class="one">
-                                            <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                            <p class="rate">
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star-o"></i>
-                                                <span>8 Rating</span>
-                                            </p>
-                                        </div>
-                                        <div class="two">
-                                            <span class="price per-price">$40<br><small>/night</small></span>
-                                        </div>
-                                    </div>
-                                    <p>Far far away, behind the word mountains, far from the countries</p>
-                                    <hr>
-                                    <p class="bottom-area d-flex">
-                                        <span><i class="icon-map-o"></i> Miami, Fl</span>
-                                        <span class="ml-auto"><a href="#">Book Now</a></span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 ftco-animate">
-                            <div class="destination">
-                                <a href="hotel-single.html"
-                                    class="img img-2 d-flex justify-content-center align-items-center"
-                                    style="background-image: url(images/hotel-5.jpg);">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="icon-search2"></span>
-                                    </div>
-                                </a>
-                                <div class="text p-3">
-                                    <div class="d-flex">
-                                        <div class="one">
-                                            <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                            <p class="rate">
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star-o"></i>
-                                                <span>8 Rating</span>
-                                            </p>
-                                        </div>
-                                        <div class="two">
-                                            <span class="price per-price">$40<br><small>/night</small></span>
-                                        </div>
-                                    </div>
-                                    <p>Far far away, behind the word mountains, far from the countries</p>
-                                    <hr>
-                                    <p class="bottom-area d-flex">
-                                        <span><i class="icon-map-o"></i> Miami, Fl</span>
-                                        <span class="ml-auto"><a href="#">Book Now</a></span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 ftco-animate">
-                            <div class="destination">
-                                <a href="hotel-single.html"
-                                    class="img img-2 d-flex justify-content-center align-items-center"
-                                    style="background-image: url(images/hotel-6.jpg);">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="icon-search2"></span>
-                                    </div>
-                                </a>
-                                <div class="text p-3">
-                                    <div class="d-flex">
-                                        <div class="one">
-                                            <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                            <p class="rate">
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star-o"></i>
-                                                <span>8 Rating</span>
-                                            </p>
-                                        </div>
-                                        <div class="two">
-                                            <span class="price per-price">$40<br><small>/night</small></span>
-                                        </div>
-                                    </div>
-                                    <p>Far far away, behind the word mountains, far from the countries</p>
-                                    <hr>
-                                    <p class="bottom-area d-flex">
-                                        <span><i class="icon-map-o"></i> Miami, Fl</span>
-                                        <span class="ml-auto"><a href="#">Book Now</a></span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <div class="row mt-5">
                         <div class="col text-center">

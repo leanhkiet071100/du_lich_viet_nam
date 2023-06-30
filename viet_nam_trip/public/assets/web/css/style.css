@@ -11154,6 +11154,7 @@ h5,
 
 .destination .text h3 {
     font-size: 18px;
+    text-align: justify;
 }
 
 .destination .text h3 a {
@@ -14652,6 +14653,14 @@ button.btn-chi-tiet>a {
     color: #7fad39;
 }
 
-.rep-commment{
+.rep-commment {
     display: none;
+}
+.h3 {
+    /* white-space: nowrap; */
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
 }

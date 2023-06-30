@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\goi_du_lich;
 use App\Models\loai_goi_du_lich;
+use App\Models\lich_trinh;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,8 @@ class GoiDuLichController extends Controller
         $lsgoidulich = $query->join('loai_goi_du_liches','loai_goi_du_liches.id','=','goi_du_liches.loai_id')
                             ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
                             ->paginate(10);
-        //truy vấn theo with
+
+
         $data= [
             'pageTitle' => trans('public.travel_packages'),
             'lsgoidulich' => $lsgoidulich,
@@ -187,10 +189,12 @@ class GoiDuLichController extends Controller
     {
         $goi_du_lich = goi_du_lich::find($id);
         $ls_loai_goi_du_lich = loai_goi_du_lich::all();
+        $ls_lich_trinh = lich_trinh::where('goi_du_lich_id', '=', $id)->paginate(10);
         $data= [
             'pageTitle' => $goi_du_lich->ten,
             'goi_du_lich' => $goi_du_lich,
             'ls_loai_goi_du_lich' => $ls_loai_goi_du_lich,
+            'ls_lich_trinh' => $ls_lich_trinh,
         ];
         return view('admin.goidulich.goidulich-sua', $data);
     }
