@@ -1,9 +1,13 @@
 import 'package:dulich/Global/color.dart';
+import 'package:dulich/Providers/user_provider.dart';
 import 'package:dulich/Views/dashboard/dashboard.dart';
 import 'package:dulich/Views/forgot/check_email.dart';
+import 'package:dulich/Views/home/home_page.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../register/register_page.dart';
 
@@ -15,6 +19,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController txtEmail = TextEditingController();
+  TextEditingController txtPassword = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   bool _obscureText = true;
   bool checkPass = true;
   bool check = true;
@@ -23,6 +30,47 @@ class _LoginState extends State<Login> {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+
+  _bindingUser() async {
+    SharedPreferences pres = await SharedPreferences.getInstance();
+    setState(() {});
+
+    txtEmail.text = (pres.getString('email') ?? '');
+    txtPassword.text = (pres.getString('password') ?? '');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _bindingUser();
+  }
+
+  void _login() async {
+    if (formKey.currentState!.validate()) {
+      EasyLoading.show(status: 'Vui lòng đợi...');
+      bool isSuccess =
+          await UserProvider.login(txtEmail.text, txtPassword.text);
+      EasyLoading.showSuccess('Đăng nhập thành công!');
+      if (isSuccess) {
+        if (check) {
+          SharedPreferences pres = await SharedPreferences.getInstance();
+          pres.setString('email', txtEmail.text);
+          pres.setString('password', txtPassword.text);
+        }
+        EasyLoading.dismiss();
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Dashboard(),
+          ),
+        );
+      } else {
+        EasyLoading.showError('Đăng nhập thất bại!');
+        EasyLoading.dismiss();
+      }
+    }
   }
 
   @override
@@ -49,6 +97,7 @@ class _LoginState extends State<Login> {
         Container(
           padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
           child: TextFormField(
+            controller: txtEmail,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               prefixIcon: const Icon(
@@ -66,6 +115,13 @@ class _LoginState extends State<Login> {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Email không được bỏ trống";
+              } else {
+                return null;
+              }
+            },
           ),
         ),
         const SizedBox(
@@ -75,8 +131,16 @@ class _LoginState extends State<Login> {
         Container(
           padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
           child: TextFormField(
+            controller: txtPassword,
             keyboardType: TextInputType.visiblePassword,
             obscureText: _obscureText,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Mật khẩu không được bỏ trống";
+              } else {
+                return null;
+              }
+            },
             decoration: InputDecoration(
               prefixIcon: const Icon(
                 Icons.lock,
@@ -176,8 +240,12 @@ class _LoginState extends State<Login> {
               borderRadius: BorderRadius.circular(10), color: blueColor),
           child: TextButton(
             onPressed: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => Dashboard()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Dashboard(),
+                  ));
+              //_login();
             },
             child: const Text(
               "Đăng nhập",

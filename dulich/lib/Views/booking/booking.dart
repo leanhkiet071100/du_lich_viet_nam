@@ -106,7 +106,7 @@ class _BookingState extends State<Booking> {
                   children: [
                     Container(
                       margin:
-                          EdgeInsets.only(left: 20, right: size.width * 0.32),
+                          EdgeInsets.only(left: 10, right: size.width * 0.32),
                       child: const Text(
                         'Top 10 tour Miền Nam',
                         style: TextStyle(
