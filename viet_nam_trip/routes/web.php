@@ -352,7 +352,16 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
             Route::name('tour.')->group(function(){
                 Route::get('/', 'TourController@index')->name('index');
                 Route::get('/{id}/show', 'TourController@show')->name('show');
+                Route::get('/booking/{id}', 'TourController@booking')->name('booking');
+                Route::get('/load-nguoi-lon/{so_luong}', 'TourController@load_nguoi_lon')->name('load-nguoi-lon');
+                Route::get('/load-tre-em/{so_luong}', 'TourController@load_tre_em')->name('load-tre-em');
+                Route::get('/load-tre-nho/{so_luong}', 'TourController@load_tre_nho')->name('load-tre-nho');
+                Route::post('/tong-hoa-don/{id}', 'TourController@tong_hoa_don')->name('tong-hoa-don');
+                Route::get('/thanh-toan/{id}', 'TourController@thanh_toan')->name('thanh-toan');
+                Route::post('/post-thanh-toan/{id}', 'TourController@post_thanh_toan')->name('post-thanh-toan');
             });
         });
+        // thanh toán bằng momo
+        Route::post('/momo-payment', 'CheckoutController@momo_payment')->name('momo-payment');
     });
 });

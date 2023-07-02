@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('phieu_dats', function (Blueprint $table) {
             $table->foreign('goi_du_lich_id')->references('id')->on('goi_du_liches');
             $table->foreign('nguoi_duyet_id')->references('id')->on('nguoi_dungs');
+            $table->foreign('nguoi_dung_id')->references('id')->on('nguoi_dungs');
         });
     }
 
@@ -25,6 +26,7 @@ return new class extends Migration
          Schema::table('phieu_dats', function (Blueprint $table) {
             $table->dropForeign('phieu_dats_goi_du_lich_id_foreign');
             $table->dropForeign('phieu_dats_nguoi_duyet_id_foreign');
+            $table->dropForeign('phieu_dats_nguoi_dung_id_foreign')->references('id')->on('nguoi_dungs');
         });
     }
 };
