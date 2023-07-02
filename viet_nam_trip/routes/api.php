@@ -27,6 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::post('logout',[AuthController::class,'logout']);
     Route::post('quen-mat-khau-xac-nhan',[AuthController::class,'quen_mat_khau_xac_nhan']);
+    Route::post('post-doi-mat-khau',[AuthController::class,'post_doi_mat_khau']);
 });
 
 Route::apiResource('luutru',KhachSanController::class);

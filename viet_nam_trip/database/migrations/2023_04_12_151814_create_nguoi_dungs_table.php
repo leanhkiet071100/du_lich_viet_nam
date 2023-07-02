@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('cap')->nullable(); // 0: host, 1: admin, 2: người dùng,3: shippper
             $table->text('mo_ta')->nullable();
             $table->string('so_dien_thoai')->nullable();
+            $table->string('api_code')->nullable();
             $table->boolean('is_admin')->nullable();
             $table->string('trang_thai')->nullable();
             $table->timestamps();

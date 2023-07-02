@@ -152,7 +152,7 @@ public function user(){
 
 
 public function post_quen_mat_khau(Request $request){
-    
+
      $this->validate($request,
         [
             'email' => 'required|email|max:255',
@@ -184,47 +184,45 @@ public function post_quen_mat_khau(Request $request){
         $email->to($nguoidung->email,$nguoidung->ten)->subject('XÁC NHẬN QUÊN MẬT KHẨU');
     });
     //$request->put($nguoidung->email, $code);
-    
-    $token= $nguoidung->createToken('user')->plainTextToken;
+
+        $token= $nguoidung->createToken('user')->plainTextToken;
+        $nguoidung->update([
+            'api_code'=> $code,
+        ]);
         $response=
         [
-            'message'=>'Vui lòng kiểm tra mail',    
-            'user'=>$nguoidung,        
+            'message'=>'Vui lòng kiểm tra mail',
+            'user'=>$nguoidung,
             'token'=>$token,
-            'code'=>$code
         ];
         return response()->json($response,200);
     }
 }
 
 public function quen_mat_khau_xac_nhan(Request $request){
-    return code();
     $this->validate($request,
         [
-            'quen-mat-khau-ma' => 'required',
+            'code' => 'required',
         ],
         [
-            'quen-mat-khau-ma.required' => 'Không được bỏ trống',
+            'code.required' => 'Không được bỏ trống',
         ]);
-    $input['quen-mat-khau']=$request->input('qmk');
-    if($code == session($email)){
-        $request->session()->forget($email);
-        return Redirect::route('web.auth.doi-mat-khau',['email'=>$email])->with(['yes'=>'Mời bạn nhập mật khẩu mới']);
+    $input['code']=$request->input('code');
+    if(auth()->user()->api_code == $input['code']){
+        $response=
+        [
+            'message'=>'Mã xác nhận đúng',
+        ];
+        return response()->json($response,200);
     }else{
-        return  Redirect::route('web.auth.quen-mat-khau-ma',['email'=>$email])->WithErrors(['error' => 'Bạn đã nhập sai vui lòng nhập lại']);
+       $response=
+        [
+            'message'=>'Mã xác nhận sai vui lòng nhập lại',
+        ];
+        return response()->json($response,200);
     }
 }
-
-public function doi_mat_khau(Request $request, $email){
-    $data= [
-            'pageTitle' => "Quên mật khẩu",
-            'email'=>$email,
-        ];
-    return view('web.auth.doi-mat-khau', $data);
-}
-
-public function post_doi_mat_khau(Request $request, $email){
-     $nguoidung = User::where('email', $email)->first();
+public function post_doi_mat_khau(Request $request){
         $rule = [
         'mat-khau-moi'=> 'required|min:6| max:50',
         'xac-nhan-mat-khau-moi' => 'required|min:6| max:50|same:mat-khau-moi',
@@ -239,21 +237,30 @@ public function post_doi_mat_khau(Request $request, $email){
         'xac-nhan-mat-khau'=>'Xác nhận mật khẩu',
         'ma-xac-nhan' => 'Ma xác nhận',
         ];
+
     $request->validate($rule, $message, $attribute);
-    $mat_khau_moi = $request->input('mat-khau-moi');
-    $xac_nhan_mat_khau_moi = $request->input('xac-nhan-mat-khau-moi');
+    $nguoidung  = auth()->user();
+    $input['mat-khau-moi'] = $request->input('mat-khau-moi');
+    $input['xac-nhan-mat-khau-moi']= $request->input('xac-nhan-mat-khau-moi');
 
     $nguoidung->update([
-        'mat_khau' => Hash::make($mat_khau_moi),
-
+        'mat_khau' => $input['mat-khau-moi'],
+        'api_code' => null
     ]);
     $nguoidung->save();
-    return Redirect::route('web.auth.dang-nhap')->with('success','Đổi mật khẩu thành công');
+    auth()->user()->tokens->each(function ($token, $key) {
+            $token->delete();
+    });
+    $response=
+        [
+            'message'=>'Đổi mật khẩu thành công vui lòng đăng nhập lại',
+        ];
+    return response()->json($response,200);
 
 }
 
 
-    
+
 }
 
 
