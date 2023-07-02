@@ -1,6 +1,15 @@
+import 'package:dulich/Global/alert.dart';
 import 'package:dulich/Global/color.dart';
+import 'package:dulich/Global/contants.dart';
+import 'package:dulich/Global/url.dart';
+import 'package:dulich/Models/user_object.dart';
+import 'package:dulich/Providers/register_provider.dart';
+import 'package:dulich/Providers/user_provider.dart';
+import 'package:dulich/Views/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../login/login.dart';
 
@@ -15,30 +24,37 @@ class RegisterPage extends StatefulWidget {
 class RegisterPageState extends State<RegisterPage> {
   bool checkPass = true;
   bool checkPass2 = true;
+  bool loading = false;
 
-  TextEditingController txtHoTen = TextEditingController();
-  TextEditingController txtEmail = TextEditingController();
-  TextEditingController txtPassword = TextEditingController();
-  TextEditingController txtPassword2 = TextEditingController();
-  TextEditingController txtSoDienThoai = TextEditingController();
+  TextEditingController txtHoTen = TextEditingController(),
+      txtEmail = TextEditingController(),
+      txtPassword = TextEditingController(),
+      txtPassword2 = TextEditingController(),
+      txtSoDienThoai = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
+  RegisterProvider _regis = RegisterProvider();
 
-  // void _register() async {
-  //   if (formKey.currentState!.validate()) {
-  //     EasyLoading.show(status: 'Vui lòng đợi...');
-  //     bool isRegister = await UserProvider.register(
-  //         txtHoTen.text, txtEmail.text, txtPassword.text, txtSoDienThoai.text);
-
-  //     if (isRegister) {
-  //       EasyLoading.showSuccess('Đăng ký thành công!\nVui lòng đăng nhập');
-  //       EasyLoading.dismiss();
-  //       Navigator.pop(context);
-  //     } else {
-  //       EasyLoading.showError(
-  //           'Đăng ký thất bại!\nVui lòng kiểm tra lại thông tin');
-  //       EasyLoading.dismiss();
-  //     }
+  // void _registerUser() async {
+  //   ApiResponse response = await register(
+  //       txtHoTen.text, txtEmail.text, txtPassword.text, txtSoDienThoai.text, txtPassword2.text);
+  //   if (response.error == null) {
+  //     _saveAndRedirectToHome(response.data as UserObject);
+  //   } else {
+  //     setState(() {
+  //       loading = !loading;
+  //     });
+  //     ScaffoldMessenger.of(context)
+  //         .showSnackBar(SnackBar(content: Text('${response.error}')));
   //   }
+  // }
+
+  // void _saveAndRedirectToHome(UserObject user) async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   await pref.setString('token', user.token ?? '');
+  //   await pref.setInt('userId', user.id ?? 0);
+  //   Navigator.of(context).pushAndRemoveUntil(
+  //       MaterialPageRoute(builder: (context) => Dashboard()), (route) => false);
   // }
 
   @override
@@ -89,8 +105,11 @@ class RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Họ tên không được bỏ trống";
+                    final nameRegExp = RegExp(r'^[a-zA-Z ]*$');
+                    if (value == null || value.isEmpty) {
+                      return 'Họ tên không được bỏ trống';
+                    } else if (!nameRegExp.hasMatch(value)) {
+                      return 'Họ tên không hợp lệ';
                     } else {
                       return null;
                     }
@@ -165,8 +184,10 @@ class RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Số điện thoại không được bỏ trống";
+                    if (value == null || value.isEmpty) {
+                      return 'Số điện thoại không được bỏ trống';
+                    } else if (value.length < 10 || value.length > 10) {
+                      return 'Số điện thoại phải có ít nhất 10 chữ số';
                     } else {
                       return null;
                     }
@@ -190,10 +211,19 @@ class RegisterPageState extends State<RegisterPage> {
                   controller: txtPassword,
                   obscureText: checkPass ? true : false,
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Mật khẩu không được bỏ trống";
-                    } else if (value.length < 6) {
-                      return "Mật khẩu tối thiểu 6 ký tự";
+                    if (value == null || value.isEmpty) {
+                      return 'Mật khẩu không được bỏ trống';
+                    } else if (value.length < 8) {
+                      return 'Mật khẩu cần dài ít nhất 8 ký tự';
+                    } else if (!value.contains(RegExp(r'[a-z]'))) {
+                      return 'Mật khẩu phải chứa ít nhất một chữ cái viết thường';
+                    } else if (!value.contains(RegExp(r'[A-Z]'))) {
+                      return 'Mật khẩu phải chứa ít nhất một chữ cái viết hoa';
+                    } else if (!value.contains(RegExp(r'[0-9]'))) {
+                      return 'Mật khẩu phải chứa ít nhất một chữ số';
+                    } else if (!value
+                        .contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+                      return 'Mật khẩu phải chứa ít nhất một ký tự đặc biệt';
                     } else {
                       return null;
                     }
@@ -246,15 +276,13 @@ class RegisterPageState extends State<RegisterPage> {
                   controller: txtPassword2,
                   obscureText: checkPass2 ? true : false,
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Xác nhận mật khẩu không được bỏ trống";
-                    } else if (value.length < 6) {
-                      return "Mật khẩu tối thiểu 6 ký tự";
-                    } else if (value != txtPassword.text) {
-                      return "Mật khẩu không trùng khớp";
-                    } else {
-                      return null;
+                    if (value == null || value.isEmpty) {
+                      return 'Yêu cầu xác nhận mật khẩu';
                     }
+                    if (value != txtPassword.text) {
+                      return 'Xác nhận mật khẩu không khớp';
+                    }
+                    return null;
                   },
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -287,26 +315,40 @@ class RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 10, left: 15, right: 15),
-                width: double.infinity,
-                // height: size.height * 0.07,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10), color: blueColor),
-                child: TextButton(
-                  onPressed: () {
-                    // _register();
-                  },
-                  child: const Text(
-                    "Tạo tài khoản",
-                    style: TextStyle(
-                        color: whiteColor,
-                        fontSize: 18,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w700),
-                  ),
-                ),
-              ),
+              loading
+                  ? Center(child: CircularProgressIndicator())
+                  : kTextButton(
+                      'Tạo tài khoản',
+                      () {
+                        if (txtEmail.text == "" ||
+                            txtHoTen.text == "" ||
+                            txtPassword.text == "" ||
+                            txtPassword2 == "" ||
+                            txtSoDienThoai == "") {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Alert1(
+                                  title: 'Yêu cầu nhập đầy đủ thông tin',
+                                );
+                              });
+                        } else {
+                          _regis.register(
+                              txtHoTen.text,
+                              context,
+                              txtEmail.text,
+                              txtSoDienThoai.text,
+                              txtPassword.text,
+                              txtPassword2.text);
+
+                          txtEmail.clear();
+                          txtHoTen.clear();
+                          txtSoDienThoai.clear();
+                          txtPassword.clear();
+                          txtPassword2.clear();
+                        }
+                      },
+                    ),
               Container(
                 margin: const EdgeInsets.only(top: 20),
                 height: size.height * 0.2,

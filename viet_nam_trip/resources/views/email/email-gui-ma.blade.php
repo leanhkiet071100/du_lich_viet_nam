@@ -85,7 +85,7 @@
                         <div class="xac-nhan">
                             <h2 class="loi-chao">Xin chào {{$nguoidung->ten}}</h2>
                             <p style="font-family: inherit; font-size: 20px;">Mã phục hồi mật khẩu</p>
-                            <a href="{{route('web.auth.kich-hoat',['id'=>$nguoidung->id, 'token'=>$nguoidung->remember_token])}}" class="kich-hoat">{{$code}}</a>
+                            <a href="" class="kich-hoat">{{$code}}</a>
                         </div>
 
                     </div>

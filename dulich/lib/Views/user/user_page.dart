@@ -2,8 +2,6 @@ import 'package:dulich/Global/color.dart';
 import 'package:dulich/Views/forgot/forgot_pass.dart';
 import 'package:dulich/Views/user/user_change.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../../Global/alert.dart';
 import '../login/login.dart';
 
@@ -15,13 +13,16 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-  int _selectedIndex = 0;
-  // List<Widget> options = <Widget>[
-  //   HomePage(),
-  //   UserPage(),
-  //   Login(),
-  //   SplashPage(),
-  // ];
+  bool _isLoading = false;
+  String? _errorMessage;
+
+  void _logout() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

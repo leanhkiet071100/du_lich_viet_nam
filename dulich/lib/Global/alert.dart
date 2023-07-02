@@ -52,3 +52,45 @@ class Alert extends StatelessWidget {
     );
   }
 }
+
+class Alert1 extends StatelessWidget {
+  final String title;
+  const Alert1({Key? key, required this.title}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      content: Text(title,
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+      title: Row(
+        children: [
+          Icon(
+            Icons.warning_rounded,
+            color: blackColor,
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Text('Thông báo',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: blackColor,
+              ))
+        ],
+      ),
+      actions: [
+        TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(
+              'OK',
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ))
+      ],
+    );
+  }
+}

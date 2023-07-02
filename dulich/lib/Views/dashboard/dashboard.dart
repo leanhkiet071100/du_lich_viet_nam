@@ -1,6 +1,7 @@
 import 'package:dulich/Global/color.dart';
 import 'package:dulich/Views/booking/booking.dart';
 import 'package:dulich/Views/home/home_page.dart';
+import 'package:dulich/Views/maps/maps.dart';
 
 import 'package:dulich/Views/user/user_page.dart';
 import 'package:flutter/material.dart';
@@ -20,11 +21,11 @@ class _DashboardState extends State<Dashboard> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     Booking(),
-    Text(
-      'Maps',
-      style: optionStyle,
-    ),
-    // MapPage(),
+    // Text(
+    //   'Maps',
+    //   style: optionStyle,
+    // ),
+    Map(),
     UserPage()
   ];
 

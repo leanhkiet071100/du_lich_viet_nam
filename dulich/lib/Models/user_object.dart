@@ -1,36 +1,26 @@
 class UserObject {
-  final int? id;
-  final int cap;
-  final String ten;
-  final String? email;
-  final String? password;
-  final String soDienThoai;
-  final String hinhAnh;
-  final String token;
+  int? id;
+  String? ten;
+  String? email;
+  String? sdt;
+  String? token;
 
-  UserObject(this.id, this.cap, this.ten, this.email, this.password,
-      this.soDienThoai, this.hinhAnh, this.token);
+  UserObject({
+    this.id,
+    this.ten,
+    this.email,
+    this.sdt,
+    this.token,
+  });
 
-  UserObject.fromJson(Map<String, dynamic> us)
-      : id = us["id"],
-        cap = us["cap"],
-        ten = us["ten"],
-        email = us["email"],
-        password = "",
-        soDienThoai = us["soDienThoai"],
-        hinhAnh = us["hinhAnh"],
-        token = us["token"];
-
-  Map<String, dynamic> toJon() {
-    return {
-      "id": id,
-      "cap": cap,
-      "ten": ten,
-      "email": email,
-      "password": password,
-      "soDienThoai": soDienThoai,
-      "hinhAnh": hinhAnh,
-      "token": token
-    };
+  // function to convert json data to user model
+  factory UserObject.fromJson(Map<String, dynamic> json) {
+    return UserObject(
+      id: json['user']['id'],
+      ten: json['user']['ten'],
+      email: json['user']['email'],
+      sdt: json['user']['sdt'],
+      token: json['token'],
+    );
   }
 }
