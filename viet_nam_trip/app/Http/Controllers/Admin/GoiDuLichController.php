@@ -189,7 +189,7 @@ class GoiDuLichController extends Controller
     {
         $goi_du_lich = goi_du_lich::find($id);
         $ls_loai_goi_du_lich = loai_goi_du_lich::all();
-        $ls_lich_trinh = lich_trinh::where('goi_du_lich_id', '=', $id)->paginate(10);
+        $ls_lich_trinh = lich_trinh::where('goi_du_lich_id', '=', $id)->orderBy('ngay_lich_trinh')->paginate(10);
         $data= [
             'pageTitle' => $goi_du_lich->ten,
             'goi_du_lich' => $goi_du_lich,

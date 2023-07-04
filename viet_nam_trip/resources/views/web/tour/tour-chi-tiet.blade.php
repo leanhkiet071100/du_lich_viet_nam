@@ -19,8 +19,8 @@
                         </div>
                         <div class="col-md-12 hotel-single mt-4 mb-5 ftco-animate">
                             <div class="row">
-                                <div class="col-md-6 col-12 left">
-                                    <span>Our Best hotels &amp; Rooms</span>
+                                <div class="col-md-8 col-12 left">
+                                    <span>Tour &amp; Rooms</span>
                                     <h2><b>{{ $goi_du_lich->ten }}</b></h2>
                                     <p class="rate mb-5">
                                         <span class="star">
@@ -34,7 +34,7 @@
                                         </span>
                                     </p>
                                 </div>
-                                <div class="col-md-6 col-12 right">
+                                <div class="col-md-4 col-12 right">
                                     <div class="group-price">
                                         <div class="sale-price">
                                             <p><span class="price">{{ number_format($goi_du_lich->gia_nguoi_lon) }}</span>/
@@ -75,122 +75,136 @@
                                 </div>
                             </div>
                         </div>
-                        @if ($ls_lich_trinh->count() > 0)
-                            <section class="section-07 mb-5">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-4 col-12 left">
-                                            @foreach ($ls_lich_trinh as $key => $value)
-                                                <div class="go-tour">
-                                                    <div class="day day-02">
-                                                        <div class="wrapper">
-                                                            <span class="date-left"> Ngày </span>
-                                                            <span class="date-center active">{{ $key + 1 }}</span>
-                                                            <span class="date-right">
-                                                                <span
-                                                                    class="date">{{ date('d/m/Y', strtotime($value->ngay_lich_trinh)) }}</span>
-                                                                <span class="location">{{ $value->ten }}</span>
-                                                            </span>
+                        <div class="col-md-12">
+                        <div class="tour-detail">
+                            <div class="tab-panels">
+                                <div class="map-route">
+                                    @if ($ls_lich_trinh->count() > 0)
+                                        <section class="section-07 mb-5">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-md-4 col-12 left">
+                                                         <div class="go-tour">
+                                                        @foreach ($ls_lich_trinh as $key => $value)
+
+                                                                <div class="day day-{{($key+1)}}">
+                                                                    <div class="wrapper">
+                                                                        <span class="date-left"> Ngày </span>
+                                                                        <span
+                                                                            class="date-center active">{{ $key + 1 }}</span>
+                                                                        <span class="date-right">
+                                                                            <span
+                                                                                class="date">{{ date('d/m/Y', strtotime($value->ngay_lich_trinh)) }}</span>
+                                                                            <span
+                                                                                class="location">{{ $value->ten }}</span>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+
+                                                        @endforeach
                                                         </div>
                                                     </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
 
-                                        <div class="col-md-8 col-12 right timeline-section">
-                                            @foreach ($ls_lich_trinh as $key => $value)
-                                                <div>
-                                                    <h3 id="day-01">{{ $value->ten }}</h3>
-                                                    <div class="excerpt">
-                                                        <span class="line"></span>
-                                                        <title></title>
-                                                        <div style="text-align:justify">
-                                                            <div style="margin-right:6px; text-align:justify">
-                                                                <p>{!! $value->noi_dung !!}
-                                                                </p>
+                                                    <div class="col-md-8 col-12 right timeline-section">
+                                                        @foreach ($ls_lich_trinh as $key => $value)
+                                                            <div>
+                                                                <h3 id="day-{{($key+1)}}">{{ $value->ten }}</h3>
+                                                                <div class="excerpt">
+                                                                    <span class="line"></span>
+                                                                    <title></title>
+                                                                    <div style="text-align:justify">
+                                                                        <div style="margin-right:6px; text-align:justify">
+                                                                            <p>{!! $value->noi_dung !!}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <script defer=""
+                                                                        src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816"
+                                                                        integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw=="
+                                                                        data-cf-beacon="{&quot;rayId&quot;:&quot;7df51bdf3a3da084&quot;,&quot;token&quot;:&quot;c819403ca40043b799392ce067ae0095&quot;,&quot;version&quot;:&quot;2023.4.0&quot;,&quot;si&quot;:100}"
+                                                                        crossorigin="anonymous"></script>
+
+
+                                                                </div>
+                                                                <div class="group-services hashCode d-none">
+                                                                    <div class="item">
+                                                                        <i class="icon icon--calendar"></i>
+                                                                        <label>Khách sạn</label>
+                                                                        <p>VinOasis Phú Quốc</p>
+                                                                    </div>
+                                                                    <div class="item">
+                                                                        <i class="icon icon--fire"></i>
+                                                                        <label>Bữa ăn</label>
+                                                                        <p>1 bửa trưa, 1 bửa tối.</p>
+                                                                    </div>
+                                                                    <div class="item">
+                                                                        <i class="icon icon--map"></i>
+                                                                        <label>Điểm tham quan</label>
+                                                                        <p>1 địa điểm</p>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <script defer=""
-                                                            src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816"
-                                                            integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw=="
-                                                            data-cf-beacon="{&quot;rayId&quot;:&quot;7df51bdf3a3da084&quot;,&quot;token&quot;:&quot;c819403ca40043b799392ce067ae0095&quot;,&quot;version&quot;:&quot;2023.4.0&quot;,&quot;si&quot;:100}"
-                                                            crossorigin="anonymous"></script>
-
-
-                                                    </div>
-                                                    <div class="group-services hashCode d-none">
-                                                        <div class="item">
-                                                            <i class="icon icon--calendar"></i>
-                                                            <label>Khách sạn</label>
-                                                            <p>VinOasis Phú Quốc</p>
-                                                        </div>
-                                                        <div class="item">
-                                                            <i class="icon icon--fire"></i>
-                                                            <label>Bữa ăn</label>
-                                                            <p>1 bửa trưa, 1 bửa tối.</p>
-                                                        </div>
-                                                        <div class="item">
-                                                            <i class="icon icon--map"></i>
-                                                            <label>Điểm tham quan</label>
-                                                            <p>1 địa điểm</p>
-                                                        </div>
+                                                        @endforeach
                                                     </div>
                                                 </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                        @endif
-                        <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
-                            <h4 class="mb-4">Các tour nổi bật</h4>
-                            <div class="row">
-                                @foreach ($goi_du_lich_noi_bats as $key => $value)
-                                    <div class="col-md-4 ftco-animate">
-                                        <div class="destination destination-tour">
-                                            <a href="{{ route('web.tour.show', ['id' => $value->id]) }}"
-                                                class="img img-2 d-flex justify-content-center align-items-center"
-                                                style="background-image: url({{ URL($value->hinh_goi_du_lich ?? 'hinh_test/no-img.jpg') }}); background-size: 100% 100%;">
-                                                <div class="icon d-flex justify-content-center align-items-center">
-                                                    <span class="icon-search2"></span>
-                                                </div>
-                                            </a>
-                                            <div class="text p-3">
-                                                <div class="">
-                                                    <div class="">
-                                                        <h3 class="h3"><b><a
-                                                                    href="{{ route('web.tour.show', ['id' => $value->id]) }}">{{ $value->ten }}</a></b>
-                                                        </h3>
-                                                        <p class="rate">
-                                                            @for ($i = 0; $i < 5; $i++)
-                                                                @if ($i < $value->sao)
-                                                                    <i class="icon-star"></i>
-                                                                @else
-                                                                    <i class="icon-star-o"></i>
-                                                                @endif
-                                                            @endfor
-
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <p>Loại: <b>{{ $value->ten_loai_goi_du_lich }}</b></p>
-                                                <p>Nơi khởi hành: <b>{{ $value->noi_khoi_hanh }}</b></p>
-                                                <p>Giá: <b
-                                                        style="font-weight: 700; color: #fd5056; font-size: 18px;">{{ number_format($value->gia_nguoi_lon) }}</b>
-                                                </p>
-                                                <hr>
-                                                <p class="bottom-area d-flex">
-                                                    <span>
-                                                        {{ date('d/m/Y', strtotime($value->ngay_khoi_hanh)) }}-{{ $value->so_ngay }}
-                                                        ngày</span>
-                                                    <span class="ml-auto"><a href="#">Đặt ngay</a></span>
-                                                </p>
                                             </div>
-                                        </div>
-                                    </div>
-                                @endforeach
+                                        </section>
+                                    @endif
+                                </div>
                             </div>
                         </div>
+                        </div>
+                        @if ($goi_du_lich_noi_bats->count() > 0)
+                            <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
+                                <h4 class="mb-4">Các tour nổi bật</h4>
+                                <div class="row">
+                                    @foreach ($goi_du_lich_noi_bats as $key => $value)
+                                        <div class="col-md-4 ftco-animate">
+                                            <div class="destination destination-tour">
+                                                <a href="{{ route('web.tour.show', ['id' => $value->id]) }}"
+                                                    class="img img-2 d-flex justify-content-center align-items-center"
+                                                    style="background-image: url({{ URL($value->hinh_goi_du_lich ?? 'hinh_test/no-img.jpg') }}); background-size: 100% 100%;">
+                                                    <div class="icon d-flex justify-content-center align-items-center">
+                                                        <span class="icon-search2"></span>
+                                                    </div>
+                                                </a>
+                                                <div class="text p-3">
+                                                    <div class="">
+                                                        <div class="">
+                                                            <h3 class="h3"><b><a
+                                                                        href="{{ route('web.tour.show', ['id' => $value->id]) }}">{{ $value->ten }}</a></b>
+                                                            </h3>
+                                                            <p class="rate">
+                                                                @for ($i = 0; $i < 5; $i++)
+                                                                    @if ($i < $value->sao)
+                                                                        <i class="icon-star"></i>
+                                                                    @else
+                                                                        <i class="icon-star-o"></i>
+                                                                    @endif
+                                                                @endfor
+
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <p>Loại: <b>{{ $value->ten_loai_goi_du_lich }}</b></p>
+                                                    <p>Nơi khởi hành: <b>{{ $value->noi_khoi_hanh }}</b></p>
+                                                    <p>Giá: <b
+                                                            style="font-weight: 700; color: #fd5056; font-size: 18px;">{{ number_format($value->gia_nguoi_lon) }}</b>
+                                                    </p>
+                                                    <hr>
+                                                    <p class="bottom-area d-flex">
+                                                        <span>
+                                                            {{ date('d/m/Y', strtotime($value->ngay_khoi_hanh)) }}-{{ $value->so_ngay }}
+                                                            ngày</span>
+                                                        <span class="ml-auto"><a href="#">Đặt ngay</a></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
                         <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                             <h4 class="mb-5">Check Availability &amp; Booking</h4>
                             <div class="fields">

@@ -11176,7 +11176,7 @@ h5,
 }
 
 .destination .text .one {
-    width: calc(100% - 70px);
+    /* width: calc(100% - 70px); */
 }
 
 .destination .text .two {
@@ -14695,7 +14695,7 @@ button.btn-chi-tiet>a {
     align-items: center;
     -webkit-box-pack: end;
     -ms-flex-pack: end;
-    justify-content: flex-end;
+    justify-content: flex-start;
 }
 
 span.price {
@@ -14720,7 +14720,7 @@ span.price {
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
-    padding-left: 16px;
+    /* padding-left: 16px; */
 }
 
 a.add-to-cart {
@@ -14740,6 +14740,7 @@ a.add-to-cart {
     color: #fff;
     font-weight: 500;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 
 a.add-to-group {
@@ -14776,7 +14777,7 @@ i.fa.fa-shopping-cart {
     margin-bottom: 16px;
 }
 
-.go-tour .day {
+.tour-detail .section-07 .left .go-tour .day {
     position: relative;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -14800,7 +14801,7 @@ i.fa.fa-shopping-cart {
     z-index: 0;
 }
 
-.go-tour .wrapper {
+.tour-detail .section-07 .left .go-tour .day .wrapper {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -14809,17 +14810,17 @@ i.fa.fa-shopping-cart {
     align-items: center;
 }
 
-span.date-left {
+.tour-detail .section-07 .left .go-tour .day .wrapper .date-left {
     width: 40px;
 }
 
-span.date-center.active {
+.tour-detail .section-07 .left .go-tour .day .wrapper .date-center.active {
     background: #fd5056;
     border: 1px solid #fd5056;
     color: #fff;
 }
 
-span.date-right {
+.tour-detail .section-07 .left .go-tour .day .wrapper .date-right {
     padding-left: 10px;
     width: calc(100% - 64px);
     display: -webkit-box;
@@ -14852,13 +14853,13 @@ span.date-center {
     cursor: pointer;
 }
 
-span.date {
+.tour-detail .section-07 .left .go-tour .day .wrapper .date-right .date {
     font-weight: 600;
     font-size: 11px;
 }
 
 
-span.location {
+.tour-detail .section-07 .left .go-tour .day .wrapper .date-right .location {
     font-weight: 700;
 }
 
@@ -15280,9 +15281,9 @@ span.line::after {
 }
 
 .checkout-main.order-tour .customer {
-    display: -webkit-box;
+    display: block;
     display: -ms-flexbox;
-    display: flex;
+    /* display: flex; */
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
@@ -15313,7 +15314,7 @@ span.line::after {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    width: 48%;
+    /* width: 48%; */
     border: 1px solid #e7e7e7;
     border-radius: 10px;
     margin-bottom: 13px;
@@ -15846,7 +15847,7 @@ span.line::after {
     padding-top: 20px;
 }
 
-.checkout-main .payments-warp .payments .payment-item.active .pm-des{
+.checkout-main .payments-warp .payments .payment-item.active .pm-des {
     display: block;
 }
 
@@ -15911,7 +15912,7 @@ span.line::after {
 }
 
 .checkout-main .payments-warp .payments .payment-item .pm-head .check:after {
-    content: "";
+    /* content: ""; */
     display: block;
     position: absolute;
     top: 50%;
@@ -15933,4 +15934,148 @@ span.line::after {
     max-height: 280px;
     overflow-y: auto;
     margin-bottom: 15px;
+}
+
+/* lịch trinh */
+.tour-detail .section-07 {
+    background: #fff;
+}
+
+.tour-detail .section-07 .row {
+    background: #fff;
+    border: 1px solid #e7e7e7;
+    border-radius: 10px;
+}
+
+.tour-detail .section-07 .left {
+    padding: 38px 1rem;
+    background: #f9f9f9;
+    border-radius: 10px 0 0 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    position: relative;
+}
+
+.tour-detail .section-07 .left .go-tour .day {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding-bottom: 34px;
+}
+
+.tour-detail .section-07 .right {
+    padding: 38px 42px 38px 28px;
+}
+
+.tour-detail .section-07 .right .excerpt {
+    max-width: 100%;
+}
+
+.tour-detail .section-07 .right .excerpt {
+    padding-left: 33px;
+    max-width: 100%;
+    position: relative;
+    margin-bottom: 15px;
+    line-height: 24px;
+}
+
+.tour-detail .section-07 .right .excerpt .line {
+    height: calc(100% - 16px);
+    border-left: 0.5px dashed #4d4aef;
+    position: absolute;
+    top: 6px;
+    left: 0;
+    z-index: 1;
+}
+
+.tour-detail .section-07 .right .group-services .item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.tour-detail .section-07 .right .group-services .item label {
+    margin-bottom: 5px;
+}
+
+/* địa điểm */
+.one-h3 .a-one-h3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text .mo-ta {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* btn tìm kiếm tour */
+.tour-search-result__filter__room .btn {
+    background: #8bc34a;
+    -webkit-box-shadow: 0 2px 0 #e2f3ff;
+    box-shadow: 0 2px 0 #e2f3ff;
+    border-radius: 5px;
+}
+
+.g-2,
+.gy-2 {
+    --bs-gutter-y: .5rem;
+}
+
+.g-2,
+.gx-2 {
+    --bs-gutter-x: .5rem;
+}
+
+h3.heading.mb-4 {
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 16px;
+    text-transform: uppercase;
+    color: #2d4271;
+    margin-bottom: 15px;
+}
+
+h3.heading.mb-4 {
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 16px;
+    text-transform: uppercase;
+    color: #2d4271;
+    margin-bottom: 15px;
+}
+
+.col-button {
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: calc(var(--bs-gutter-x)/2);
+    padding-left: calc(var(--bs-gutter-x)/2);
+    margin-top: var(--bs-gutter-y);
 }

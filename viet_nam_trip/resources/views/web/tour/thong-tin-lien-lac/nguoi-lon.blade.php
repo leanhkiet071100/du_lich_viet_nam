@@ -3,7 +3,7 @@
          <span>Họ tên</span>
          <input value="1" data-val="true" data-val-number="The field persontype must be a number." data-val-required="The persontype field is required." name="{{$i}}.persontype" type="hidden">
          <input class="form-control" name="{{$i}}.fullname" placeholder="Vui lòng nhập Họ tên" required="required"
-             type="text" value="{{old($i.'.fullname')}}">
+             type="text" value="{{old($i.'_fullname')}}">
      </div>
      <div class="group-info-sex">
          <span>Giới tính</span>

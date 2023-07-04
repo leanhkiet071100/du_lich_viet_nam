@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             DiaDiemSeeder::class,
             LoaiGoiDuLichSeeder::class,
             GoiDuLichSeeder::class,
+            LichTrinhSeeder::class,
             QuanAnSeeder::class,
             NoiLuuTruSeeder::class,
             BaivietSeeder::class,

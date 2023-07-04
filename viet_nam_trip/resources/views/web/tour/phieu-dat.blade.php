@@ -2,6 +2,12 @@
 
 @section('content')
     @parent
+     @if (session()->has('yes'))
+        <script>
+            alert('{{ session()->get('yes') }}')
+        </script>
+    @endif
+
     @include('web.includes.banner')
     <div class="booking-tour">
         <section class="checkout-head d-none d-lg-block">
@@ -96,7 +102,7 @@
                                     <div class="name">
                                         <label>Họ và Tên <b>*</b></label>
                                         <input class="form-control" id="contact_name" name="Fullname" type="text"
-                                            value="{{old('Fullname')}}">
+                                            value="{{old('Fullname') ?? Auth::user()->ten}}">
                                         <div class="text-center">
                                             @error('Fullname')
                                                 <span style="color:red"> {{ $message }}</span>
@@ -106,7 +112,7 @@
                                     <div class="mail">
                                         <label>Email <b>*</b></label>
                                         <input class="form-control" id="email" name="Email" type="text"
-                                            value="{{ old('Email') }}">
+                                            value="{{ old('Email') ?? Auth::user()->email }}">
                                         <div class="text-center">
                                             @error('Email')
                                                 <span style="color:red"> {{ $message }}</span>
@@ -117,7 +123,7 @@
                                         <label>Số điện thoại <b>*</b></label>
                                         <input class="form-control" id="mobilephone" name="Telephone"
 
-                                            type="text" value="{{old('Telephone')}}">
+                                            type="text" value="{{old('Telephone') ?? Auth::user()->so_dien_thoai}}">
                                         <div class="text-center">
                                             @error('Telephone')
                                                 <span style="color:red"> {{ $message }}</span>
@@ -136,8 +142,8 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="customer">
-                                <h3>Hành khách</h3>
+                            <div class="customer" id="customer">
+                                <h3>khách hàng</h3>
                                 <div class="change">
                                     <div class="change-title">
                                         <h4>Người lớn</h4>
@@ -182,9 +188,7 @@
                             </div>
                             <div class="mb-4">
                                 <div class="form-check checkbox-input-search d-inline-flex  align-items-center">
-                                    <input class="form-check-input me-3" type="radio" checked="checked"
-                                        id="radListCus" name="flexCheckDefault">
-                                    <input type="hidden" value="Input" id="Option">
+                                    <input class="form-check-input me-3 option" type="radio" id="not_tu_van" name="option" value="not_tu_van" {{old('option') == 'not_tu_van' ? 'checked' : ''}}  {{old('option') ?? 'checked'}} >
                                     <div class="col-12">
                                         <label class="form-check-label mt-1 small" for="flexCheckDefault_Option1">
                                             Nhập danh sách khách hàng
@@ -192,9 +196,7 @@
                                     </div>
                                 </div>
                                 <div class="form-check checkbox-input-search d-inline-flex  align-items-center">
-                                    <input class="form-check-input me-3" type="radio" id="radSupport"
-                                        name="flexCheckDefault">
-                                    <input type="hidden" value="NotInput" id="Option">
+                                    <input class="form-check-input me-3 option" type="radio" id="tu_van" name="option" value="tu_van" {{ old('option') == 'tu_van' ? 'checked' : ''}}>
                                     <div class="col-11">
                                         <label class="form-check-label mt-1 small" for="flexCheckDefault_Option1">
                                             Tôi cần được nhân viên tư vấn
@@ -203,7 +205,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="detail-customer">
+                            <div class="detail-customer" id="detail-customer">
                                 <div class="list">
                                     <h3>Thông tin hành khách</h3>
 
@@ -312,7 +314,7 @@
                                 </div> --}}
                                 </div>
                                 <div class="detail">
-                                    <table>
+                                    <table id="table_detail_khach_hang">
                                         <tbody>
                                             <tr>
                                                 <th class="l1">Hành khách</th>
@@ -347,10 +349,10 @@
                                             <td>Phụ thu phòng riêng</td>
                                             <td class="t-price text-right" id="txtPhuThu">1,400,000₫</td>
                                         </tr> --}}
-                                            <tr class="pt hardCode" id="promotiontitle">
+                                            {{-- <tr class="pt hardCode" id="promotiontitle">
                                                 <td id="showpromotiontitle">Khuyến mãi xuân 2023</td>
                                                 <td class="t-price text-right" id="txtKhuyenMai2022"></td>
-                                            </tr>
+                                            </tr> --}}
                                             <tr id="promotiontitletotal" style="display:none">
                                                 <td>Tổng tiền</td>
                                                 <td class="t-price text-right" id="PromotionTotalPrice"></td>
@@ -473,18 +475,32 @@
 @endsection
 @section('js')
     <script type="text/javascript">
+            const detai_constomer = document.querySelector('#detail-customer');
+            const customer = document.querySelector('#customer');
+            const option = document.querySelector('.option:checked').value;
+            const table_detail_khach_hang = document.getElementById('table_detail_khach_hang');
         $(document).ready(function() {
             $('#hotel').addClass('active');
+            // load_danh_sach();
+            if(option == 'tu_van'){
+                tu_van();
+            }else if(option == 'not_tu_van'){
+                not_tu_van();
+            }
+        });
+        var myModalChooseOption = new bootstrap.Modal(document.getElementById('selectOptionTour'), {
+            keyboard: false
+        })
+
+        function load_danh_sach() {
             var adult = document.getElementById("adult").value;
             var children = document.getElementById("children").value;
             var smallchildren = document.getElementById("smallchildren").value;
             load_nguoi_lon(adult);
             load_tre_em(children);
-            load_tre_nho(smallchildren)
-        });
-        var myModalChooseOption = new bootstrap.Modal(document.getElementById('selectOptionTour'), {
-            keyboard: false
-        })
+            load_tre_nho(smallchildren);
+        }
+
 
         function ChooseOption() {
 
@@ -547,6 +563,11 @@
             var children = document.getElementById("children").value;
             var smallchildren = document.getElementById("smallchildren").value;
             tong_hoa_don(adult, children, smallchildren)
+            if(option == 'tu_van'){
+                tu_van();
+            }else if(option == 'not_tu_van'){
+                not_tu_van();
+            }
         }
 
         function load_nguoi_lon(so_luong) {
@@ -648,6 +669,37 @@
                     $('#AmoutPerson').append(AmoutPerson);
                 }
             });
+        }
+        $("#not_tu_van").click(function() {
+            visiblepromotion(0);
+        });
+
+        $("#tu_van").click(function() {
+            visiblepromotion(1);
+        });
+
+        function visiblepromotion(visible) {
+            if (visible == 0) {
+                not_tu_van();
+
+            } else if (visible == 1) {
+                tu_van();
+            }
+        }
+
+        function not_tu_van(){
+            detai_constomer.style.display = "block";
+            customer.style.display = "block";
+             table_detail_khach_hang.style.display = "inline-table";
+            load_danh_sach();
+        }
+        function tu_van(){
+            detai_constomer.style.display = "none";
+            customer.style.display = "none";
+            table_detail_khach_hang.style.display = "none";
+            load_nguoi_lon(0);
+            load_tre_em(0);
+            load_tre_nho(0)
         }
     </script>
 @endsection

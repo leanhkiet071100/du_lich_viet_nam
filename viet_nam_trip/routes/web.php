@@ -352,16 +352,23 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
             Route::name('tour.')->group(function(){
                 Route::get('/', 'TourController@index')->name('index');
                 Route::get('/{id}/show', 'TourController@show')->name('show');
-                Route::get('/booking/{id}', 'TourController@booking')->name('booking');
+                Route::get('/booking/{id}', 'TourController@booking')->name('booking')->middleware('check_login');
                 Route::get('/load-nguoi-lon/{so_luong}', 'TourController@load_nguoi_lon')->name('load-nguoi-lon');
                 Route::get('/load-tre-em/{so_luong}', 'TourController@load_tre_em')->name('load-tre-em');
                 Route::get('/load-tre-nho/{so_luong}', 'TourController@load_tre_nho')->name('load-tre-nho');
                 Route::post('/tong-hoa-don/{id}', 'TourController@tong_hoa_don')->name('tong-hoa-don');
-                Route::get('/thanh-toan/{id}', 'TourController@thanh_toan')->name('thanh-toan');
-                Route::post('/post-thanh-toan/{id}', 'TourController@post_thanh_toan')->name('post-thanh-toan');
+                Route::get('/thanh-toan/{id}', 'TourController@thanh_toan')->name('thanh-toan')->middleware('check_login');
+                Route::post('/post-thanh-toan/{id}/{phieu_dat_id}', 'TourController@post_thanh_toan')->name('post-thanh-toan')->middleware('check_login');
+                Route::post('/post-thanh-toan/{phieu_dat_id}', 'ThanhToanController@post_thanh_toan')->name('vnpay-success');
             });
+
         });
         // thanh toán bằng momo
-        Route::post('/momo-payment', 'CheckoutController@momo_payment')->name('momo-payment');
+        Route::group(['prefix' => 'thanh-toan'], function () {
+            Route::name('thanh-toan.')->group(function(){
+                Route::get('/vnpay-success/{phieu_dat_id}', 'ThanhToanController@vnpay_success')->name('vnpay-success');
+            });
+
+        });
     });
 });

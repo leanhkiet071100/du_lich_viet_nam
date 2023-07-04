@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('phieu_dat_id')->nullable();
             $table->string('ho_ten')->nullable();
-            $table->string('ngay')->nullable();
-            $table->string('thang')->nullable();
-            $table->string('nam')->nullable();
+            $table->boolean('gioi_tinh')->nullable();
+            $table->integer('ngay')->nullable();
+            $table->integer('thang')->nullable();
+            $table->integer('nam')->nullable();
             $table->string('loai')->nullable();
             $table->timestamps();
             $table->softDeletes();

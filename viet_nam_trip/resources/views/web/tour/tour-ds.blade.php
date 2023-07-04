@@ -12,26 +12,32 @@
                         <form action="#">
                             <div class="fields">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Destination, City">
-                                </div>
-                                <div class="form-group">
                                     <div class="select-wrap one-third">
                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                        <select name="" id="" class="form-control"
-                                            placeholder="Keyword search">
-                                            <option value="">Select Location</option>
-                                            <option value="">San Francisco USA</option>
-                                            <option value="">Berlin Germany</option>
-                                            <option value="">Lodon United Kingdom</option>
-                                            <option value="">Paris Italy</option>
+                                        <select name="noi_khoi_hanh" id="" class="form-control"
+                                            placeholder="Nơi khởi hành">
+                                            @foreach ($ls_loai_goi_du_lich as $key => $value)
+                                                <option {{ request()->get('loai_tour') == $value->id ? 'selected' : '' }}
+                                                    value="{{ $value->id }}">{{ $value->ten }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" id="checkin_date" class="form-control" placeholder="Date from">
+                                    <div class="select-wrap one-third">
+                                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                        <select name="loai_tour" id="" class="form-control"
+                                            placeholder="Loại tour">
+                                            @foreach ($ls_loai_goi_du_lich as $key => $value)
+                                                <option {{ request()->get('loai_tour') == $value->id ? 'selected' : '' }}
+                                                    value="{{ $value->id }}">{{ $value->ten }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" id="checkin_date" class="form-control" placeholder="Date to">
+                                    <input value="{{ request()->get('ngay_di') }}" type="text" id="checkin_date"
+                                        name="ngay_di" class="form-control" placeholder="Ngày đi">
                                 </div>
                                 <div class="form-group">
                                     <div class="range-slider">
@@ -53,6 +59,76 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+
+                    <div class="sidebar-wrap bg-light ftco-animate">
+                        <div class="tour-search-result__filter__block mb-4">
+                            <h3 class="heading mb-4">Số nNgày</h3>
+                            <div class="btn-group tour-search-result__filter__room" role="group"
+                                aria-label="Basic example">
+                                <div class="row g-2">
+                                    <div class="col-6 col-button">
+                                        <button type="button" id="SoNguoi1" class="btn w-100" value="1"
+                                            data-url="so_nguoi" checked="">
+                                            1-3
+                                        </button>
+                                    </div>
+                                    <div class="col-6 col-button">
+                                        <button type="button" id="SoNguoi2" class="btn w-100" value="2"
+                                            data-url="so_nguoi" checked="">
+                                            4 - 7
+                                        </button>
+                                    </div>
+                                    <div class="col-6 col-button">
+                                        <button type="button" id="SoNguoi2-4" class="btn w-100" value="3-5"
+                                            data-url="so_nguoi" checked="">
+                                            8 - 14
+                                        </button>
+                                    </div>
+                                    <div class="col-6 col-button">
+                                        <button type="button" id="SoNguoi4" class="btn w-100" value="5"
+                                            data-url="so_nguoi" checked="">
+                                            trên 14
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="sidebar-wrap bg-light ftco-animate">
+                        <div class="tour-search-result__filter__block mb-4">
+                            <h3 class="heading mb-4">Số người</h3>
+                            <div class="btn-group tour-search-result__filter__room" role="group"
+                                aria-label="Basic example">
+                                <div class="row g-2">
+                                    <div class="col-6 col-button">
+                                        <button type="button" id="SoNguoi1" class="btn w-100" value="1"
+                                            data-url="so_nguoi" checked="">
+                                            1 người
+                                        </button>
+                                    </div>
+                                    <div class="col-6 col-button">
+                                        <button type="button" id="SoNguoi2" class="btn w-100" value="2"
+                                            data-url="so_nguoi" checked="">
+                                            2 người
+                                        </button>
+                                    </div>
+                                    <div class="col-6 col-button">
+                                        <button type="button" id="SoNguoi2-4" class="btn w-100" value="3-5"
+                                            data-url="so_nguoi" checked="">
+                                            3-5 người
+                                        </button>
+                                    </div>
+                                    <div class="col-6 col-button">
+                                        <button type="button" id="SoNguoi4" class="btn w-100" value="5"
+                                            data-url="so_nguoi" checked="">
+                                            5+ người
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="sidebar-wrap bg-light ftco-animate">
                         <h3 class="heading mb-4">Star Rating</h3>
@@ -111,7 +187,7 @@
                         @foreach ($ls_goi_du_lich as $key => $value)
                             <div class="col-md-4 ftco-animate">
                                 <div class="destination destination-tour">
-                                    <a href="{{route('web.tour.show', ['id'=>$value->id])}}"
+                                    <a href="{{ route('web.tour.show', ['id' => $value->id]) }}"
                                         class="img img-2 d-flex justify-content-center align-items-center"
                                         style="background-image: url({{ URL($value->hinh_goi_du_lich ?? 'hinh_test/no-img.jpg') }}); background-size: 100% 100%;">
                                         <div class="icon d-flex justify-content-center align-items-center">
@@ -121,7 +197,9 @@
                                     <div class="text p-3">
                                         <div class="">
                                             <div class="">
-                                                <h3 class="h3"><b><a href="{{route('web.tour.show', ['id'=>$value->id])}}">{{ $value->ten }}</a></b></h3>
+                                                <h3 class="h3"><b><a
+                                                            href="{{ route('web.tour.show', ['id' => $value->id]) }}">{{ $value->ten }}</a></b>
+                                                </h3>
                                                 <p class="rate">
                                                     @for ($i = 0; $i < 5; $i++)
                                                         @if ($i < $value->sao)
@@ -134,12 +212,16 @@
                                                 </p>
                                             </div>
                                         </div>
-                                        <p>Loại: <b>{{$value->ten_loai_goi_du_lich}}</b></p>
-                                        <p>Nơi khởi hành: <b>{{$value->noi_khoi_hanh}}</b></p>
-                                        <p>Giá: <b style="font-weight: 700; color: #fd5056; font-size: 18px;">{{number_format($value->gia_nguoi_lon)}}</b></p>
+                                        <p>Loại: <b>{{ $value->ten_loai_goi_du_lich }}</b></p>
+                                        <p>Nơi khởi hành: <b>{{ $value->noi_khoi_hanh }}</b></p>
+                                        <p>Giá: <b
+                                                style="font-weight: 700; color: #fd5056; font-size: 18px;">{{ number_format($value->gia_nguoi_lon) }}</b>
+                                        </p>
                                         <hr>
                                         <p class="bottom-area d-flex">
-                                            <span> {{date('d/m/Y', strtotime($value->ngay_khoi_hanh));}}-{{$value->so_ngay}} ngày</span>
+                                            <span>
+                                                {{ date('d/m/Y', strtotime($value->ngay_khoi_hanh)) }}-{{ $value->so_ngay }}
+                                                ngày</span>
                                             <span class="ml-auto"><a href="#">Đặt ngay</a></span>
                                         </p>
                                     </div>
@@ -150,15 +232,7 @@
                     <div class="row mt-5">
                         <div class="col text-center">
                             <div class="block-27">
-                                <ul>
-                                    <li><a href="#">&lt;</a></li>
-                                    <li class="active"><span>1</span></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#">&gt;</a></li>
-                                </ul>
+                                {{ $ls_goi_du_lich->appends(request()->all())->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
                     </div>

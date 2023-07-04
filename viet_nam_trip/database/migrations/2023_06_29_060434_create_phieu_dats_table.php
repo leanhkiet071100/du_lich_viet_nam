@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('goi_du_lich_id')->nullable();
             $table->foreignId('nguoi_duyet_id')->nullable();
             $table->string('ten')->nullable();
-            $table->string('email')->unique();
+            $table->string('email')->bullable();
             $table->string('so_dien_thoai')->nullable();
             $table->string('dia_chi')->nullable();
             $table->date('ngay_dat')->nullable();

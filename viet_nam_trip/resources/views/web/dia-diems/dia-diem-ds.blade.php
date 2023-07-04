@@ -99,9 +99,9 @@
                                         </div>
                                     </a>
                                     <div class="text p-3">
-                                        <div class="d-flex">
+                                        <div class="">
                                             <div class="one">
-                                                <h3><a href="{{route('web.dia-diem.show', ['id'=>$value->id])}}">{{$value->ten_dia_diem}}</a></h3>
+                                                <h3 class="one-h3"><a class="a-one-h3" href="{{route('web.dia-diem.show', ['id'=>$value->id])}}">{{$value->ten_dia_diem}}</a></h3>
                                                 <p class="rate">
                                                     @for($i = 0; $i < 5; $i++)
                                                         @if ($i < $value->sao)
@@ -115,7 +115,10 @@
                                                 </p>
                                             </div>
                                         </div>
-                                        {!! $value->mo_ta !!}
+                                        <div class="mo-ta">
+                                            {!! $value->mo_ta !!}
+                                        </div>
+
                                         <hr>
                                         <p class="bottom-area d-flex">
                                             <span class="ml-auto"><a href="{{route('web.dia-diem.show', ['id'=>$value->id])}}">{{trans('web.discover')}}</a></span>

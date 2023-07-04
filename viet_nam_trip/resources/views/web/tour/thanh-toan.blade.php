@@ -28,9 +28,10 @@
         </section>
 
         <section class="checkout-main order-tour">
-            <form action="{{ route('web.tour.post-thanh-toan', ['id' => $goi_du_lich->id]) }}" method="POST">
+            <form action="{{ route('web.tour.post-thanh-toan', ['id' => $goi_du_lich->id, 'phieu_dat_id'=>$phieu_dat->id]) }}" method="POST">
                 @csrf
-                <div class="container" a>
+                <input type="hidden" name="redirect" value="redirect">
+                <div class="container">
                     <div class="row">
                         <div class="col-12 top">
                             <div class="product">
@@ -90,13 +91,14 @@
                             <div class="payments-warp">
                                 <h3>Các hình thức thanh toán</h3>
                                 <div class="payments">
-                                    <div class="payment-item payment-item-tien-mat  active" id="payment-item-tien-mat">
+                                    <div class="payment-item payment-item-tien-mat active" id="payment-item-tien-mat">
                                         <div class="pm-head">
                                             <div class="pm-head-icon">
                                                 <i class="fa fa-money" aria-hidden="true"></i>
                                                 <h4>Tiền mặt</h4>
                                             </div>
-                                            <span class="check" id="tienmat"></span>
+                                            {{-- <span class="check" id="tienmat"></span> --}}
+                                            <input class="form-check-input check" id="tienmat" type="radio" name="payments" value="tienmat" checked>
                                         </div>
                                         <div class="pm-des">
                                             <p>
@@ -111,20 +113,47 @@
                                                 integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw=="
                                                 data-cf-beacon="{&quot;rayId&quot;:&quot;7e03b680bbc1198b&quot;,&quot;token&quot;:&quot;c819403ca40043b799392ce067ae0095&quot;,&quot;version&quot;:&quot;2023.4.0&quot;,&quot;si&quot;:100}"
                                                 crossorigin="anonymous"></script>
-
-
                                             <p></p>
+                                        </div>
+                                    </div>
+                                    <div class="payment-item payment-item-momo" id="payment-item-vnpay">
+                                        <div class="pm-head">
+                                            <div class="pm-head-icon">
+                                                <i class="fa fa-credit-card" aria-hidden="true"></i>
+                                                <h4>Thanh toán bằng VNPAY</h4>
+                                            </div>
+                                            {{-- <span class="check" id="momo"></span> --}}
+                                            <input class="form-check-input check" id="vnpay" type="radio" name="payments" value="vn_pay">
+                                        </div>
+                                        <div class="pm-des">
+                                            <p>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="payments">
-                                    <div class="payment-item payment-item-momo" id="payment-item-momo">
+                                    <div class="payment-item payment-item-momo" id="payment-item-momo-qr">
                                         <div class="pm-head">
                                             <div class="pm-head-icon">
                                                 <i class="fa fa-credit-card" aria-hidden="true"></i>
-                                                <h4>Thanh toán bằng Momo</h4>
+                                                <h4>Thanh toán bằng Momo QR</h4>
                                             </div>
-                                            <span class="check" id="momo"></span>
+                                            {{-- <span class="check" id="momo"></span> --}}
+                                            <input class="form-check-input check" id="momo-qr" type="radio" name="payments" value="momo_pay">
+                                        </div>
+                                        <div class="pm-des">
+                                            <p>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="payment-item payment-item-momo" id="payment-item-momo-atm">
+                                        <div class="pm-head">
+                                            <div class="pm-head-icon">
+                                                <i class="fa fa-credit-card" aria-hidden="true"></i>
+                                                <h4>Thanh toán bằng Momo ATM</h4>
+                                            </div>
+                                            {{-- <span class="check" id="momo"></span> --}}
+                                            <input class="form-check-input check" id="momo-atm" type="radio" name="payments" value="momo_atm">
                                         </div>
                                         <div class="pm-des">
                                             <p>
@@ -136,11 +165,7 @@
                             <div class="terms">
                                 <h3>Điều khoản bắt buộc khi đăng ký online</h3>
                                 <div class="term-content">
-
-
                                     <title></title>
-
-
                                     <p><strong>ĐIỀU KIỆN BÁN VÉ CÁC CHƯƠNG TRÌNH DU LỊCH NƯỚC NGOÀI</strong></p>
                                     <p><strong>I.&nbsp;&nbsp;&nbsp; GIÁ VÉ DU LỊCH</strong></p>
                                     <p>Giá vé du lịch được tính theo tiền Đồng (Việt Nam - VNĐ). Trường hợp khách thanh toán
@@ -388,20 +413,41 @@
             $('#hotel').addClass('active');
         });
         $("#tienmat").click(function() {
-            visiblepromotion(1);
-        });
-
-        $("#momo").click(function() {
-            +
             visiblepromotion(0);
         });
 
+        $("#vnpay").click(function() {
+            visiblepromotion(1);
+        });
+
+        $("#momo-atm").click(function() {
+            visiblepromotion(2);
+        });
+
+        $("#momo-qr").click(function() {
+            visiblepromotion(3);
+        });
+
         function visiblepromotion(visible) {
-            if (visible) {
-                $("#payment-item-momo").removeClass('active');
+            if (visible == 0) {
+                $("#payment-item-momo-qr").removeClass('active');
+                $("#payment-item-momo-atm").removeClass('active');
+                $("#payment-item-momo-vnpay").removeClass('active');
                 $("#payment-item-tien-mat").addClass('active');
-            } else {
-                $("#payment-item-momo").addClass('active');
+            } else if (visible == 1) {
+                $("#payment-item-momo-qr").removeClass('active');
+                $("#payment-item-momo-atm").addClass('active');
+                $("#payment-item-momo-vnpay").removeClass('active');
+                $("#payment-item-tien-mat").removeClass('active');
+            } else if (visible == 2) {
+                $("#payment-item-momo-qr").removeClass('active');
+                $("#payment-item-momo-atm").addClass('active');
+                $("#payment-item-momo-vnpay").removeClass('active');
+                $("#payment-item-tien-mat").removeClass('active');
+            } else if (visible == 3) {
+                $("#payment-item-momo-qr").addClass('active');
+                $("#payment-item-momo-atm").removeClass('active');
+                $("#payment-item-momo-vnpay").removeClass('active');
                 $("#payment-item-tien-mat").removeClass('active');
             }
 

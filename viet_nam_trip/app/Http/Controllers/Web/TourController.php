@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\goi_du_lich;
 use App\Models\loai_goi_du_lich;
 use App\Models\lich_trinh;
+use App\Models\phieu_dat;
+use App\Models\hoa_don;
+use App\Models\danh_sach_phieu_dat;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -16,6 +19,7 @@ use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
 use Validator;
 use Illuminate\Support\Facades\Cookie;
+use App\Http\Controllers\Web\ThanhToanController;
 
 class TourController extends Controller
 {
@@ -29,7 +33,7 @@ class TourController extends Controller
         $ls_goi_du_lich = $query->paginate(9);
         $ls_loai_goi_du_lich = loai_goi_du_lich::get();
         $max_tien = goi_du_lich::max('gia_nguoi_lon');
-        dd($max_tien);
+
         $min_tien = goi_du_lich::min('gia_nguoi_lon') ?? 0;
         $data= [
             'pageTitle' => "Tour",
@@ -99,7 +103,7 @@ class TourController extends Controller
                     ->inRandomOrder()
                     ->take(3)
                     ->get();
-        $ls_lich_trinh = lich_trinh::where('goi_du_lich_id', $id)->get();
+        $ls_lich_trinh = lich_trinh::where('goi_du_lich_id', $id)->orderBy('ngay_lich_trinh')->get();
         $data= [
             'pageTitle' => $goi_du_lich->ten,
             'goi_du_lich' => $goi_du_lich,
@@ -222,6 +226,7 @@ class TourController extends Controller
     }
 
     public function thanh_toan(Request $request, $id){
+
         $rule = [
             'Fullname' => 'required',
             'Email'=>'required|email',
@@ -243,28 +248,116 @@ class TourController extends Controller
             'adult' => 'người lớn',
         ];
         $request->validate($rule, $message, $attribute);
+                $data_input = $request->all();
         $goi_du_lich = goi_du_lich::join('loai_goi_du_liches', 'loai_goi_du_liches.id', '=', 'goi_du_liches.loai_id')
                     ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
                     ->find($id);
-        $data_input = $request->all();
+        if($data_input['option'] == "tu_van"){
+            $data_input['adult'] = 0;
+            $data_input['children'] = 0;
+            $data_input['smallchildren'] = 0;
+        }
+
         $tong = ($data_input['adult']* $goi_du_lich->gia_nguoi_lon) + ($data_input['children']* $goi_du_lich->gia_tre_em) + ($data_input['smallchildren']* $goi_du_lich->gia_tre_nho);
         $so_nguoi = ($data_input['adult'] + $data_input['children'] + $data_input['smallchildren']);
-        // $cookie = Cookie::forever('goi_du_lich', 'kiệt');
-        // $get_all_cookies = Cookie::get();
-        // dd($cookie);
+        $ngay_dat = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $phieu_dat = new phieu_dat;
+        $phieu_dat->fill([
+            'nguoi_dung_id',
+            'goi_du_lich_id'=>$id,
+            'ten'=>$data_input['Fullname'],
+            'email'=>$data_input['Email'],
+            'so_dien_thoai'=>$data_input['Telephone'],
+            'ngay_dat'=>$ngay_dat,
+            'dia_chi'=>$data_input['Address'],
+            'so_tre_em'=>$data_input['children'],
+            'so_tre_nho'=>$data_input['smallchildren'],
+            'so_nguoi_lon'=>$data_input['adult'],
+            'ghi_chu'=>$data_input['note'],
+            // 'is_me'=>($data_input['is_me'] == 'on') ? 1 : 0,
+            'tu_van'=>$data_input['option'] == 'tu_van' ? 1 : 0,
+            'trang_thai'=>1,
+        ]);
+        $phieu_dat->save();
 
+        if($data_input['option'] == "not_tu_van"){
+        for($i = 0; $i < $data_input['adult']; $i++){
+            $ds_phieu = new danh_sach_phieu_dat;
+            $ds_phieu->fill([
+                'phieu_dat_id'=>$phieu_dat->id,
+                'ho_ten'=>$data_input[$i.'_fullname'],
+                'gioi_tinh'=>$data_input[$i.'_gender'],
+                'ngay'=>$data_input[$i.'_day'],
+                'thang'=>$data_input[$i.'_month'],
+                'nam'=>$data_input[$i.'_year'],
+                'loai'=>'nguoi-lon',
+            ]);
+            $ds_phieu->save();
+        }
+        for($i = 0; $i < $data_input['children']; $i++){
+            $ds_phieu = new danh_sach_phieu_dat;
+            $ds_phieu->fill([
+                'phieu_dat_id'=>$phieu_dat->id,
+                'ho_ten'=>$data_input[$i.'_fullname_tre_em'],
+                'gioi_tinh'=>$data_input[$i.'_gender_tre_em'],
+                'ngay'=>$data_input[$i.'_day_tre_em'],
+                'thang'=>$data_input[$i.'_month_tre_em'],
+                'nam'=>$data_input[$i.'_year_tre_em'],
+                'loai'=>'tre-em',
+            ]);
+            $ds_phieu->save();
+        }
+        for($i = 0; $i < $data_input['smallchildren']; $i++){
+            $ds_phieu = new danh_sach_phieu_dat;
+            $ds_phieu->fill([
+                'phieu_dat_id'=>$phieu_dat->id,
+                'ho_ten'=>$data_input[$i.'_fullname_tre_nho'],
+                'gioi_tinh'=>$data_input[$i.'_gender_tre_nho'],
+                'ngay'=>$data_input[$i.'_day_tre_nho'],
+                'thang'=>$data_input[$i.'_month_tre_nho'],
+                'nam'=>$data_input[$i.'_year_tre_nho'],
+                'loai'=>'tre-nho',
+            ]);
+            $ds_phieu->save();
+        }
+        }
         $data= [
             'pageTitle' => "Tour",
             'goi_du_lich' => $goi_du_lich,
             'tong_hoa_don'=> $tong,
             'data_input' => $data_input,
             'so_nguoi' => $so_nguoi,
+            'phieu_dat'=>$phieu_dat,
         ];
         return view('web.tour.thanh-toan', $data);
     }
 
-    public function post_thanh_toan(Request $request , $id){
-        dd('kiệt');
+    public function post_thanh_toan(Request $request ,ThanhToanController $thanh_toan, $id, $phieu_dat_id){
+        $data = $request->all();
+        $ngay_thanh_toan = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $goi_du_lich = goi_du_lich::join('loai_goi_du_liches', 'loai_goi_du_liches.id', '=', 'goi_du_liches.loai_id')
+                    ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
+                    ->find($id);
+        $phieu_dat = phieu_dat::find($phieu_dat_id);
+        $tong_hoa_don = ($phieu_dat->so_nguoi_lon* $goi_du_lich->gia_nguoi_lon) + ($phieu_dat->so_tre_em* $goi_du_lich->gia_tre_em) + ($phieu_dat->so_tre_nho* $goi_du_lich->gia_tre_nho);
+        if($data['payments'] == 'tienmat'){
+            $hoa_don = new hoa_don;
+            $hoa_don->fill([
+                'phieu_dat_id'=>$phieu_dat_id,
+                'ngay_thanh_toan'=>$ngay_thanh_toan,
+                'tong_tien'=>$tong_hoa_don,
+                'loai_thanh_toan'=>'tien-mat',
+                'trang_thai'=> 0,
+            ]);
+            $hoa_don->save();
+        return 'tienmat';
+        }else if($data['payments'] == 'momo_atm'){
+            return $thanh_toan->momo_atm($tong_hoa_don);
+        }else if($data['payments'] == 'momo_pay'){
+            return $thanh_toan->momo_pay($tong_hoa_don);
+        }else if($data['payments'] == 'vn_pay'){
+            return $thanh_toan->VN_pay($goi_du_lich->id,$phieu_dat->id,$tong_hoa_don, $data['redirect']);
+        }
         $data= [
             'pageTitle' => "Tour",
         ];
