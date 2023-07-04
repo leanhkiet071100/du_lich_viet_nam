@@ -40,14 +40,14 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.only(left: 10),
+                padding: const EdgeInsets.only(left: 10, top: 20),
                 child: ListTile(
                   title: const Text(
                     'Xin chào,',
                     style: TextStyle(color: blackColor, fontSize: 16),
                   ),
                   subtitle: const Text(
-                    'Nguyễn Văn A',
+                    'Như Quỳnh',
                     style: TextStyle(
                         color: blackColor,
                         fontSize: 18,

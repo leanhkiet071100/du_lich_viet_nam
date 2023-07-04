@@ -19,8 +19,8 @@ class _MapState extends State<Map> {
           markerId: MarkerId('id-1'),
           position: LatLng(10.776817482179952, 106.70312169764179),
           infoWindow: const InfoWindow(
-            title: 'Portland',
-            snippet: 'Population: 639,863',
+            title: 'TP Hồ chí Minh',
+            snippet: 'Population: 639,863,789',
           ),
         ),
       );

@@ -45,15 +45,15 @@ class BookTour extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: 106,
+                        top: 115,
                         child: Container(
-                          width: MediaQuery.of(context).size.width - 20,
+                          width: MediaQuery.of(context).size.width - 25,
                           padding: const EdgeInsets.only(left: 10, right: 10),
                           height: 90,
                           decoration: const BoxDecoration(
                               borderRadius: BorderRadiusDirectional.only(
-                                  bottomEnd: Radius.circular(22),
-                                  bottomStart: Radius.circular(22)),
+                                  bottomEnd: Radius.circular(25),
+                                  bottomStart: Radius.circular(25)),
                               color: Color(0XFFFFFFFF),
                               gradient: LinearGradient(
                                   colors: [Color(0X0D5E9EFF), greencolor],

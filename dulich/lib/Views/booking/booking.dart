@@ -1,10 +1,13 @@
 import 'package:dulich/Views/booking/book_tour.dart';
+import 'package:dulich/Views/booking/booking_detail.dart';
 import 'package:flutter/material.dart';
 
 import '../../Global/color.dart';
 
 class Booking extends StatefulWidget {
-  const Booking({Key? key}) : super(key: key);
+  const Booking({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _BookingState createState() => _BookingState();
@@ -86,7 +89,13 @@ class _BookingState extends State<Booking> {
                       ),
                     ),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TourListScreen()),
+                          );
+                        },
                         icon: Icon(Icons.arrow_circle_right_outlined))
                   ],
                 ),
