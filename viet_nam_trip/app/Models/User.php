@@ -30,6 +30,7 @@ class User extends Authenticatable
         'trang_thai',
         'is_admin',
         'moi',
+        'api_code'
     ];
 
     /**
