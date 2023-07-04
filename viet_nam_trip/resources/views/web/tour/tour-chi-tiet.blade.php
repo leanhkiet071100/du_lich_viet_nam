@@ -37,14 +37,15 @@
                                 <div class="col-md-6 col-12 right">
                                     <div class="group-price">
                                         <div class="sale-price">
-                                            <p><span class="price">{{ number_format($goi_du_lich->gia_nguoi_lon) }}</span>/ khách</p>
+                                            <p><span class="price">{{ number_format($goi_du_lich->gia_nguoi_lon) }}</span>/
+                                                khách</p>
                                         </div>
                                         <div class="saving">
                                         </div>
                                     </div>
                                     <div class="group-add-cart">
-                                        <a href="{{route('web.tour.booking', ['id'=>$goi_du_lich->id])}}" class="add-to-cart" data-bs-toggle="modal"
-                                            data-bs-target="#supportModal">
+                                        <a href="{{ route('web.tour.booking', ['id' => $goi_du_lich->id]) }}"
+                                            class="add-to-cart" data-bs-toggle="modal" data-bs-target="#supportModal">
                                             <i class="fa fa-shopping-cart"></i>
                                             <label>Đặt ngay</label>
                                         </a>
@@ -97,44 +98,44 @@
                                         </div>
 
                                         <div class="col-md-8 col-12 right timeline-section">
-                                             @foreach ($ls_lich_trinh as $key => $value)
-                                            <div>
-                                                <h3 id="day-01">{{$value->ten}}</h3>
-                                                <div class="excerpt">
-                                                    <span class="line"></span>
-                                                    <title></title>
-                                                    <div style="text-align:justify">
-                                                        <div style="margin-right:6px; text-align:justify">
-                                                            <p>{!!$value->noi_dung!!}
-                                                            </p>
+                                            @foreach ($ls_lich_trinh as $key => $value)
+                                                <div>
+                                                    <h3 id="day-01">{{ $value->ten }}</h3>
+                                                    <div class="excerpt">
+                                                        <span class="line"></span>
+                                                        <title></title>
+                                                        <div style="text-align:justify">
+                                                            <div style="margin-right:6px; text-align:justify">
+                                                                <p>{!! $value->noi_dung !!}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <script defer=""
+                                                            src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816"
+                                                            integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw=="
+                                                            data-cf-beacon="{&quot;rayId&quot;:&quot;7df51bdf3a3da084&quot;,&quot;token&quot;:&quot;c819403ca40043b799392ce067ae0095&quot;,&quot;version&quot;:&quot;2023.4.0&quot;,&quot;si&quot;:100}"
+                                                            crossorigin="anonymous"></script>
+
+
+                                                    </div>
+                                                    <div class="group-services hashCode d-none">
+                                                        <div class="item">
+                                                            <i class="icon icon--calendar"></i>
+                                                            <label>Khách sạn</label>
+                                                            <p>VinOasis Phú Quốc</p>
+                                                        </div>
+                                                        <div class="item">
+                                                            <i class="icon icon--fire"></i>
+                                                            <label>Bữa ăn</label>
+                                                            <p>1 bửa trưa, 1 bửa tối.</p>
+                                                        </div>
+                                                        <div class="item">
+                                                            <i class="icon icon--map"></i>
+                                                            <label>Điểm tham quan</label>
+                                                            <p>1 địa điểm</p>
                                                         </div>
                                                     </div>
-                                                    <script defer=""
-                                                        src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816"
-                                                        integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw=="
-                                                        data-cf-beacon="{&quot;rayId&quot;:&quot;7df51bdf3a3da084&quot;,&quot;token&quot;:&quot;c819403ca40043b799392ce067ae0095&quot;,&quot;version&quot;:&quot;2023.4.0&quot;,&quot;si&quot;:100}"
-                                                        crossorigin="anonymous"></script>
-
-
                                                 </div>
-                                                <div class="group-services hashCode d-none">
-                                                    <div class="item">
-                                                        <i class="icon icon--calendar"></i>
-                                                        <label>Khách sạn</label>
-                                                        <p>VinOasis Phú Quốc</p>
-                                                    </div>
-                                                    <div class="item">
-                                                        <i class="icon icon--fire"></i>
-                                                        <label>Bữa ăn</label>
-                                                        <p>1 bửa trưa, 1 bửa tối.</p>
-                                                    </div>
-                                                    <div class="item">
-                                                        <i class="icon icon--map"></i>
-                                                        <label>Điểm tham quan</label>
-                                                        <p>1 địa điểm</p>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             @endforeach
                                         </div>
                                     </div>
@@ -144,96 +145,50 @@
                         <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                             <h4 class="mb-4">Các tour nổi bật</h4>
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="destination">
-                                        <a href="hotel-single.html" class="img img-2"
-                                            style="background-image: url(images/room-4.jpg);"></a>
-                                        <div class="text p-3">
-                                            <div class="d-flex">
-                                                <div class="one">
-                                                    <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                                    <p class="rate">
-                                                        <i class="icon-star"></i>
-                                                        <i class="icon-star"></i>
-                                                        <i class="icon-star"></i>
-                                                        <i class="icon-star"></i>
-                                                        <i class="icon-star-o"></i>
-                                                        <span>8 Rating</span>
-                                                    </p>
+                                @foreach ($goi_du_lich_noi_bats as $key => $value)
+                                    <div class="col-md-4 ftco-animate">
+                                        <div class="destination destination-tour">
+                                            <a href="{{ route('web.tour.show', ['id' => $value->id]) }}"
+                                                class="img img-2 d-flex justify-content-center align-items-center"
+                                                style="background-image: url({{ URL($value->hinh_goi_du_lich ?? 'hinh_test/no-img.jpg') }}); background-size: 100% 100%;">
+                                                <div class="icon d-flex justify-content-center align-items-center">
+                                                    <span class="icon-search2"></span>
                                                 </div>
-                                                <div class="two">
-                                                    <span class="price per-price">$40<br><small>/night</small></span>
+                                            </a>
+                                            <div class="text p-3">
+                                                <div class="">
+                                                    <div class="">
+                                                        <h3 class="h3"><b><a
+                                                                    href="{{ route('web.tour.show', ['id' => $value->id]) }}">{{ $value->ten }}</a></b>
+                                                        </h3>
+                                                        <p class="rate">
+                                                            @for ($i = 0; $i < 5; $i++)
+                                                                @if ($i < $value->sao)
+                                                                    <i class="icon-star"></i>
+                                                                @else
+                                                                    <i class="icon-star-o"></i>
+                                                                @endif
+                                                            @endfor
+
+                                                        </p>
+                                                    </div>
                                                 </div>
+                                                <p>Loại: <b>{{ $value->ten_loai_goi_du_lich }}</b></p>
+                                                <p>Nơi khởi hành: <b>{{ $value->noi_khoi_hanh }}</b></p>
+                                                <p>Giá: <b
+                                                        style="font-weight: 700; color: #fd5056; font-size: 18px;">{{ number_format($value->gia_nguoi_lon) }}</b>
+                                                </p>
+                                                <hr>
+                                                <p class="bottom-area d-flex">
+                                                    <span>
+                                                        {{ date('d/m/Y', strtotime($value->ngay_khoi_hanh)) }}-{{ $value->so_ngay }}
+                                                        ngày</span>
+                                                    <span class="ml-auto"><a href="#">Đặt ngay</a></span>
+                                                </p>
                                             </div>
-                                            <p>Far far away, behind the word mountains, far from the countries</p>
-                                            <hr>
-                                            <p class="bottom-area d-flex">
-                                                <span><i class="icon-map-o"></i> Miami, Fl</span>
-                                                <span class="ml-auto"><a href="#">Book Now</a></span>
-                                            </p>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="destination">
-                                        <a href="hotel-single.html" class="img img-2"
-                                            style="background-image: url(images/room-5.jpg);"></a>
-                                        <div class="text p-3">
-                                            <div class="d-flex">
-                                                <div class="one">
-                                                    <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                                    <p class="rate">
-                                                        <i class="icon-star"></i>
-                                                        <i class="icon-star"></i>
-                                                        <i class="icon-star"></i>
-                                                        <i class="icon-star"></i>
-                                                        <i class="icon-star-o"></i>
-                                                        <span>8 Rating</span>
-                                                    </p>
-                                                </div>
-                                                <div class="two">
-                                                    <span class="price per-price">$40<br><small>/night</small></span>
-                                                </div>
-                                            </div>
-                                            <p>Far far away, behind the word mountains, far from the countries</p>
-                                            <hr>
-                                            <p class="bottom-area d-flex">
-                                                <span><i class="icon-map-o"></i> Miami, Fl</span>
-                                                <span class="ml-auto"><a href="#">Book Now</a></span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="destination">
-                                        <a href="hotel-single.html" class="img img-2"
-                                            style="background-image: url(images/room-6.jpg);"></a>
-                                        <div class="text p-3">
-                                            <div class="d-flex">
-                                                <div class="one">
-                                                    <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                                    <p class="rate">
-                                                        <i class="icon-star"></i>
-                                                        <i class="icon-star"></i>
-                                                        <i class="icon-star"></i>
-                                                        <i class="icon-star"></i>
-                                                        <i class="icon-star-o"></i>
-                                                        <span>8 Rating</span>
-                                                    </p>
-                                                </div>
-                                                <div class="two">
-                                                    <span class="price per-price">$40<br><small>/night</small></span>
-                                                </div>
-                                            </div>
-                                            <p>Far far away, behind the word mountains, far from the countries</p>
-                                            <hr>
-                                            <p class="bottom-area d-flex">
-                                                <span><i class="icon-map-o"></i> Miami, Fl</span>
-                                                <span class="ml-auto"><a href="#">Book Now</a></span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                         <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">

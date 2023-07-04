@@ -29,7 +29,8 @@ class TourController extends Controller
         $ls_goi_du_lich = $query->paginate(9);
         $ls_loai_goi_du_lich = loai_goi_du_lich::get();
         $max_tien = goi_du_lich::max('gia_nguoi_lon');
-        $min_tien = goi_du_lich::min('gia_nguoi_lon');
+        dd($max_tien);
+        $min_tien = goi_du_lich::min('gia_nguoi_lon') ?? 0;
         $data= [
             'pageTitle' => "Tour",
             'ls_goi_du_lich' => $ls_goi_du_lich,
@@ -85,8 +86,6 @@ class TourController extends Controller
         if(!empty($sao_1) || !empty($sao_2) || !empty($sao_3) || !empty($sao_4) || !empty($sao_5)){
         $query->whereIn('sao', $sao);}
 
-
-
         return $query;
     }
 
@@ -94,11 +93,18 @@ class TourController extends Controller
         $goi_du_lich = goi_du_lich::join('loai_goi_du_liches', 'loai_goi_du_liches.id', '=', 'goi_du_liches.loai_id')
                     ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
                     ->find($id);
+        $goi_du_lich_noi_bats = goi_du_lich::join('loai_goi_du_liches', 'loai_goi_du_liches.id', '=', 'goi_du_liches.loai_id')
+                    ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
+                    ->where('noi_bat', 1)
+                    ->inRandomOrder()
+                    ->take(3)
+                    ->get();
         $ls_lich_trinh = lich_trinh::where('goi_du_lich_id', $id)->get();
         $data= [
             'pageTitle' => $goi_du_lich->ten,
             'goi_du_lich' => $goi_du_lich,
             'ls_lich_trinh' => $ls_lich_trinh,
+            'goi_du_lich_noi_bats'=> $goi_du_lich_noi_bats,
         ];
         return view('web.tour.tour-chi-tiet', $data);
     }
