@@ -263,7 +263,7 @@ class TourController extends Controller
         $ngay_dat = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
         $phieu_dat = new phieu_dat;
         $phieu_dat->fill([
-            'nguoi_dung_id',
+            'nguoi_dung_id'=>Auth::user()->id,
             'goi_du_lich_id'=>$id,
             'ten'=>$data_input['Fullname'],
             'email'=>$data_input['Email'],

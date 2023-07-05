@@ -46,4 +46,8 @@ class goi_du_lich extends Model
     public function lich_trinh(){
         return $this->hasMany('App\Models\lich_trinh', 'id', 'goi_du_lich_id');
     }
+
+    public function phieu_dat(){
+        return $this->hasMany('App\Models\phieu_dat', 'goi_du_lich_id', 'id');
+    }
 }

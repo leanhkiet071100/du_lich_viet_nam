@@ -32,4 +32,12 @@ class phieu_dat extends Model
         'trang_thai',
     ];
 
+    //khóa ngoại hình ảnh sản phẩm 1
+    public function hoa_don(){
+        return $this->hasOne('App\Models\hoa_don', 'phieu_dat_id', 'id');
+    }
+
+    public function goi_du_lich(){
+        return $this->belongsTo('App\Models\goi_du_lich', 'goi_du_lich_id', 'id');
+    }
 }

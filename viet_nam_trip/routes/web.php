@@ -65,16 +65,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
             });
         });
 
-        Route::group(['prefix' => 'vai-tro-nguoi-dung'], function () {
-            Route::name('vai-tro-nguoi-dung.')->group(function(){
-                Route::get('/', 'CapNguoiDungController@index')->name('index');
-                Route::get('/create', 'CapNguoiDungController@create')->name('create');
-                Route::post('/store', 'CapNguoiDungController@store')->name('store');
-                Route::get('/{id}/edit', 'CapNguoiDungController@edit')->name('edit');
-                Route::post('/{id}/update', 'CapNguoiDungController@update')->name('update');
-                Route::get('/{id}/destroy', 'CapNguoiDungController@destroy')->name('destroy');
-            });
-        });
+        // Route::group(['prefix' => 'vai-tro-nguoi-dung'], function () {
+        //     Route::name('vai-tro-nguoi-dung.')->group(function(){
+        //         Route::get('/', 'CapNguoiDungController@index')->name('index');
+        //         Route::get('/create', 'CapNguoiDungController@create')->name('create');
+        //         Route::post('/store', 'CapNguoiDungController@store')->name('store');
+        //         Route::get('/{id}/edit', 'CapNguoiDungController@edit')->name('edit');
+        //         Route::post('/{id}/update', 'CapNguoiDungController@update')->name('update');
+        //         Route::get('/{id}/destroy', 'CapNguoiDungController@destroy')->name('destroy');
+        //     });
+        // });
 
         //địa điểm
         Route::group(['prefix' => 'dia-diem'], function () {
@@ -188,6 +188,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
             });
         });
 
+        Route::group(['prefix' => 'tour'], function () {
+            Route::name('tour.')->group(function(){
+                Route::get('/', 'PhieuDatController@index')->name('index');
+            });
+        });
         //khách sạn
         Route::group(['prefix' => 'thong-tin-web'], function () {
             Route::name('thong-tin-web.')->group(function(){
@@ -304,7 +309,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
                 Route::get('/{id}/show', 'KhachSanController@show')->name('show');
             });
         });
-
+        Route::middleware('App\Http\Middleware\CheckLogin')->group(function(){
         //Tài khoản
         Route::prefix('tai-khoan')->group(function(){
             Route::name('tai-khoan.')->group(function(){
@@ -345,8 +350,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
                 Route::get('/danh-gia-san-pham/{id}', 'TaiKhoanController@danh_gia_san_pham')->name('danh-gia-san-pham');
                 Route::post('/post-danh-gia-san-pham/{id}', 'TaiKhoanController@post_danh_gia_san_pham')->name('post-danh-gia-san-pham');
             });
+            });
         });
-
         //tour
         Route::group(['prefix' => 'tour'], function () {
             Route::name('tour.')->group(function(){

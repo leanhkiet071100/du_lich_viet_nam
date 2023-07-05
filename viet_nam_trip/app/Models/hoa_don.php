@@ -20,4 +20,8 @@ class hoa_don extends Model
         'loai_thanh_toan',
         'trang_thai',
     ];
+
+    public function phieu_dat(){
+        return $this->hasOne('App\Models\phieu_dat', 'phieu_dat_id', 'id');
+    }
 }
