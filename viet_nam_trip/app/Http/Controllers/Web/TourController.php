@@ -114,7 +114,6 @@ class TourController extends Controller
     }
 
     public function booking(Request $request, $id){
-
         $goi_du_lich = goi_du_lich::join('loai_goi_du_liches', 'loai_goi_du_liches.id', '=', 'goi_du_liches.loai_id')
                     ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
                     ->find($id);
@@ -248,7 +247,6 @@ class TourController extends Controller
             'adult' => 'người lớn',
         ];
         $request->validate($rule, $message, $attribute);
-                $data_input = $request->all();
         $goi_du_lich = goi_du_lich::join('loai_goi_du_liches', 'loai_goi_du_liches.id', '=', 'goi_du_liches.loai_id')
                     ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
                     ->find($id);
@@ -321,6 +319,7 @@ class TourController extends Controller
             $ds_phieu->save();
         }
         }
+
         $data= [
             'pageTitle' => "Tour",
             'goi_du_lich' => $goi_du_lich,
@@ -347,7 +346,7 @@ class TourController extends Controller
                 'ngay_thanh_toan'=>$ngay_thanh_toan,
                 'tong_tien'=>$tong_hoa_don,
                 'loai_thanh_toan'=>'tien-mat',
-                'trang_thai'=> 0,
+                'trang_thai'=> 2,
             ]);
             $hoa_don->save();
         return 'tienmat';
