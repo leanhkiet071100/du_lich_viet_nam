@@ -13,7 +13,7 @@ class DiaDiemHinhSeeder extends Seeder
      */
     public function run(): void
     {
-         DB::table('dia_diems')->insert([
+         DB::table('dia_diem_hinhs')->insert([
             [
                 'dia_diem_id' => 1,
                 'ten' => 'hinh_test/dia_danh_2.jpg',

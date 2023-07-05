@@ -35,12 +35,17 @@
                                     {{ session()->get('yes') }}
                                 </div>
                             @endif
+                            @if (session()->has('login'))
+                                <script>
+                                    alert('{{ session()->get('login') }}')
+                                </script>
+                            @endif
                             <form action="{{ route('web.auth.post-dang-nhap') }}" method="post"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <input type="email" class="form-control" id="exampleInputEmail1" name="email"
-                                        value="{{ old('email') ?? $email ?? session()->get('email') }}" placeholder="Email">
+                                        value="{{ old('email') ?? ($email ?? session()->get('email')) }}" placeholder="Email">
                                     <div class="text-center">
                                         @error('email')
                                             <span style="color:red"> {{ $message }}</span>
@@ -49,7 +54,8 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control" id="exampleInputPassword1" name="mat-khau"
-                                        value="{{ old('mat-khau') ?? $mat_khau ?? session()->get('mat_khau') }}" placeholder="Password">
+                                        value="{{ old('mat-khau') ?? ($mat_khau ?? session()->get('mat_khau')) }}"
+                                        placeholder="Password">
                                     <div class="text-center">
                                         @error('mat-khau')
                                             <span style="color:red"> {{ $message }}</span>
@@ -70,7 +76,8 @@
                                 </div>
                                 <div class="form-group-register">
                                     <div class="register">
-                                        <p>Bạn chưa có tài khoản ư?</p><a href="{{ route('web.auth.dang-ki') }}">Đăng kí</a>
+                                        <p>Bạn chưa có tài khoản ư?</p><a href="{{ route('web.auth.dang-ki') }}">Đăng
+                                            kí</a>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn vizew-btn w-100 mt-30">ĐĂNG NHẬP</button>

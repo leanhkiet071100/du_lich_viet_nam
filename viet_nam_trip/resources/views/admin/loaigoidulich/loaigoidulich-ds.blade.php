@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="page-title-actions">
-                    <a class="btn-shadow btn-hover-shine mr-3 btn btn-primary" onclick="hien_form_loai_san_pham()">
+                    <a class="btn-shadow btn-hover-shine mr-3 btn btn-primary" onclick="hien_form_them()">
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fa fa-plus fa-w-20"></i>
                         </span>
@@ -186,23 +186,22 @@
 
 
 
-    function hien_form_loai_san_pham() {
+    function hien_form_them() {
         //  var formData = new FormData();
         //  formData.append('idpost', idpost);
-        var url = "{{ route('admin.loai-dia-diem.create') }}";
+        var url = "{{ route('admin.loai-goi-du-lich.create') }}";
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
         $.ajax({
-            url: "{{ route('admin.loai-dia-diem.create') }}",
+            url: url,
             type: 'GET',
             //data: formData,
             contentType: false,
             processData: false,
             success: function(data) {
-                //console.log(data);
                 var create_nhan_hieu = document.getElementById('create-nhan-hieu');
                 create_nhan_hieu.style.display = "block";
                 $('#create-nhan-hieu').html('');
@@ -225,7 +224,7 @@
     function loai_dia_diem_hien($id) {
         var check = document.getElementById("checkhien" + $id).checked;
         var formData = new FormData();
-        var url = "{{ route('admin.loai-dia-diem.hien', '') }}" + '/' + $id;
+        var url = "{{ route('admin.loai-goi-du-lich.hien', '') }}" + '/' + $id;
         formData.append('check', check);
         $.ajaxSetup({
             headers: {

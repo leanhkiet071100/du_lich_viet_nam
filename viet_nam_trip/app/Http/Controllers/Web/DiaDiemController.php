@@ -30,6 +30,7 @@ class DiaDiemController extends Controller
         $tinh = tinh_huyen_xa::where('parent_id', '=', null)->where('loai', '=', 1)->orderBy('ten')->get();
         $huyen = tinh_huyen_xa::where('loai', '=', 2)->orderBy('ten')->get();
         $xa = tinh_huyen_xa::where('loai', '=', 3)->orderBy('ten')->get();
+
         $data= [
             'pageTitle' => "Địa điểm",
             'lsdiadiem' => $lsdiadiem,
@@ -98,8 +99,8 @@ class DiaDiemController extends Controller
                                 ->join('nguoi_dungs','nguoi_dungs.id','=','danh_gia_dia_diems.nguoi_dung_id')
                                 ->select('danh_gia_dia_diems.*', 'nguoi_dungs.ten', 'nguoi_dungs.hinh_dai_dien')
                                 ->with(['danh_gia_dia_diem_hinh'])
-                                ->get();
-
+                                ->paginate(10);
+        $dia_diem->save();
         $data= [
             'pageTitle' => $dia_diem->ten_dia_diem,
             'ls_dia_diem_hinh' => $ls_dia_diem_hinh,
@@ -119,8 +120,14 @@ class DiaDiemController extends Controller
     }
 
     public function post_danh_gia(Request $request, $id){
+        if(!Auth::check()){
+            return response()->json([
+            'status'=>401,
+            'errors'=>"vui lòng đăng nhập",
+        ]);
+        }else{
         $dia_diem_id = $id;
-        $id_user = Auth::user()->id;
+        $id_user = Auth::user()->id ?? null;
         $noi_dung = $request->noi_dung;
         $so_sao = $request->so_sao;
         // $created_at =  Carbon::now('Asia/Bangkok');
@@ -147,8 +154,8 @@ class DiaDiemController extends Controller
         if($hinhbinhluan != null){
             foreach($hinhbinhluan as $value){
                 $file_name = Str::random(10).'.'.$value->getClientOriginalExtension();
-                $imagePath = $value->move(public_path('hinh_danh_gia_dia_diem/'.$danh_gia_id.'/'), $file_name);
-                $ten_file = 'hinh_danh_gia_dia_diem/'.$danh_gia_id.'/'.$file_name;
+                $imagePath = $value->move(public_path('img/hinh_danh_gia_dia_diem/'.$danh_gia_id.'/'), $file_name);
+                $ten_file = 'img/hinh_danh_gia_dia_diem/'.$danh_gia_id.'/'.$file_name;
                 danh_gia_dia_diem_hinh::create([
                     'danh_gia_dia_diem_id' => $danh_gia_id,
                     'ten'=> $ten_file,
@@ -156,11 +163,17 @@ class DiaDiemController extends Controller
                 ]);
             }
         }
+        $avg_danh_gia = danh_gia_dia_diem::avg('sao');
+        $dia_diem = dia_diem::find($dia_diem_id);
+        $dia_diem->update([
+            'sao'=> $avg_danh_gia,
+        ]);
         return response()->json([
                 'status' => 200,
                 'mess'=>'Cảm ơn quý khách rất nhiều !'
             ]);
         }
+    }
     }
 
     public function bai_viet($id){
@@ -172,6 +185,12 @@ class DiaDiemController extends Controller
     }
 
     public function post_bai_viet(Request $request, $id){
+        if(!Auth::check()){
+            return response()->json([
+            'status'=>401,
+            'errors'=>"vui lòng đăng nhập",
+        ]);
+        }else{
         $dia_diem_id = $id;
         $id_user = Auth::user()->id;
         $noi_dung = $request->noi_dung;
@@ -199,5 +218,6 @@ class DiaDiemController extends Controller
                 'mess'=>'Cảm ơn quý khách rất nhiều !'
             ]);
         }
+    }
     }
 }

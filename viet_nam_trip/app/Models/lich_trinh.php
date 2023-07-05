@@ -15,6 +15,8 @@ class lich_trinh extends Model
 
     protected $fillable = [
         'goi_du_lich_id',
+        'ten',
+        'ngay_lich_trinh',
         'noi_dung',
     ];
 

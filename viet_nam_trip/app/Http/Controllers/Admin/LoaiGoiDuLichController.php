@@ -50,14 +50,16 @@ class LoaiGoiDuLichController extends Controller
     }
 
     public function store(Request $request){
+
         $validator = Validator::make($request->all(), [
-            'tennhanhieu' => 'required|unique:loai_dia_diems,ten',
+            'tennhanhieu' => 'required|unique:loai_goi_du_liches,ten',
             'hinhnhanhieu' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ], $messages = [
-            'required' => 'Tên loại gói du lịch không được bỏ trống',
-            'image' => 'đây không phải là hình ảnh',
-            'mimes' => 'hình ảnh phải có đuổi là: jpeg,png,jpg,gif,svg',
-            'unique' => 'Tên địa điểm đã tồn tại',
+            'tennhanhieu.required' => 'Tên loại gói du lịch không được bỏ trống',
+            'hinhnhanhieu.image' => 'đây không phải là hình ảnh',
+            'hinhnhanhieu.mimes' => 'hình ảnh phải có đuổi là: jpeg,png,jpg,gif,svg',
+            'hinhnhanhieu.required' => 'Hình loại gói du lịch không được bỏ trống',
+            'tennhanhieu.unique' => 'Tên địa điểm đã tồn tại',
 
         ]);
         if($validator->fails())
@@ -68,15 +70,12 @@ class LoaiGoiDuLichController extends Controller
             ]);
         }
         else{
-
             $tennhanhieu = $request->tennhanhieu;
             $hinhnhanhieu = $request->file('hinhnhanhieu');
-
             if($request->hasFile('hinhnhanhieu')){
                 $nhanhieu = new loai_goi_du_lich;
                 $nhanhieu->fill([
                     'ten'=>$tennhanhieu,
-                    'hinh_loai_goi_du_lich'=>'',
                     'hien'=>1,
                 ]);
                 $nhanhieu->save();
@@ -88,8 +87,8 @@ class LoaiGoiDuLichController extends Controller
                 //$file_name = time().Str::random(10).'.'.$hinhnhanhieu->getClientOriginalExtension();
                 $file_name = $hinhnhanhieu->getClientoriginalName();
                 // move:  di chuyển hình ảnh; public_path: tạo  thư mục ; $file_name: tên file
-                $imagePath = $hinhnhanhieu->move(public_path('hinh_loai_goi_du_lich/'.$idnhanhieu), $file_name);
-                $nhanhieu->hinh_loai_goi_du_lich = 'hinh_loai_goi_du_lich/'.$idnhanhieu.'/'.$file_name;
+                $imagePath = $hinhnhanhieu->move(public_path('img/hinh_loai_goi_du_lich/'.$idnhanhieu), $file_name);
+                $nhanhieu->hinh_loai_goi_du_lich = 'img/hinh_loai_goi_du_lich/'.$idnhanhieu.'/'.$file_name;
                 $nhanhieu->save();
             }
             return response()->json([
@@ -109,11 +108,13 @@ class LoaiGoiDuLichController extends Controller
     public function update(Request $request, $id){
         $validator = Validator::make($request->all(), [
             'tennhanhieu' => 'required',
-            'hinhnhanhieu' => 'required',
+            'hinhnhanhieu' => '',
         ], $messages = [
-            'required' => 'không được bỏ trống',
-            'image' => 'đây không phải là hình ảnh',
-            'mimes' => 'hình ảnh phải có đuổi là: jpeg,png,jpg,gif,svg',
+            'tennhanhieu.required' => 'Tên loại gói du lịch không được bỏ trống',
+            'hinhnhanhieu.image' => 'đây không phải là hình ảnh',
+            'hinhnhanhieu.mimes' => 'hình ảnh phải có đuổi là: jpeg,png,jpg,gif,svg',
+            'hinhnhanhieu.required' => 'Hình loại gói du lịch không được bỏ trống',
+            'tennhanhieu.unique' => 'Tên địa điểm đã tồn tại',
         ]);
 
         if($validator->fails())
@@ -138,8 +139,8 @@ class LoaiGoiDuLichController extends Controller
                 // getClientOriginalExtension(): lấy đuôi file
                 $file_name = $date.$hinhnhanhieu->getClientoriginalName();
                 // move:  di chuyển hình ảnh; public_path: tạo  thư mục ; $file_name: tên file
-                $imagePath = $hinhnhanhieu->move(public_path('hinh_loai_goi_du_lich/'.$idnhanhieu), $file_name);
-                $nhanhieu->hinh_loai_goi_du_lich = 'hinh_loai_goi_du_lich/'.$idnhanhieu.'/'.$file_name;
+                $imagePath = $hinhnhanhieu->move(public_path('img/hinh_loai_goi_du_lich/'.$idnhanhieu), $file_name);
+                $nhanhieu->hinh_loai_goi_du_lich = 'img/hinh_loai_goi_du_lich/'.$idnhanhieu.'/'.$file_name;
             }
             $nhanhieu->save();
             return response()->json([

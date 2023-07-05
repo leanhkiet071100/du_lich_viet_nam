@@ -184,6 +184,14 @@
                         @endif
                         {{-- bình luận --}}
                         @include('web.dia-diems.dia-diem-danh-gia-ds')
+                        <div class="row mt-5">
+                        <div class="col text-center">
+                            <div class="block-27">
+                                {{ $ls_dia_diem_danh_gia->appends(request()->all())->links('pagination::bootstrap-4') }}
+                            </div>
+                        </div>
+                    </div>
+
                         {{-- booking --}}
                         <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                             <h4 class="mb-5">Check Availability &amp; Booking</h4>

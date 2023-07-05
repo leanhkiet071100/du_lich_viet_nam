@@ -97,8 +97,8 @@ class WebController extends Controller
             // getClientOriginalExtension(): lấy đuôi file
             $file_name = $data['hinh']->getClientoriginalName();
             // move:  di chuyển hình ảnh; public_path: tạo  thư mục ; $file_name: tên file
-            $imagePath = $data['hinh']->move(public_path('hinh_web/'), $file_name);
-            $web->hinh = 'hinh_web/'.$file_name;
+            $imagePath = $data['hinh']->move(public_path('img/hinh_web/'), $file_name);
+            $web->hinh = 'img/hinh_web/'.$file_name;
         }
         $web->save();
         return Redirect::route('admin.thong-tin-web.index')->with('success','Thêm dữ liệu thành công');
@@ -172,8 +172,8 @@ class WebController extends Controller
             // getClientOriginalExtension(): lấy đuôi file
             $file_name = $data['hinh']->getClientoriginalName();
             // move:  di chuyển hình ảnh; public_path: tạo  thư mục ; $file_name: tên file
-            $imagePath = $data['hinh']->move(public_path('hinh_web/'), $file_name);
-            $web->hinh = 'hinh_web/'.$file_name;
+            $imagePath = $data['hinh']->move(public_path('img/hinh_web/'), $file_name);
+            $web->hinh = 'img/hinh_web/'.$file_name;
         }
         $web->save();
 

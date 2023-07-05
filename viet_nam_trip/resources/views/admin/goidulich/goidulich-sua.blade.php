@@ -3,6 +3,11 @@
 @section('title', 'mạng xã hội')
 @section('content')
     @parent
+    @if (session()->has('success'))
+        <script>
+            alert('{{ session()->get('success') }}')
+        </script>
+    @endif
     <!-- Main -->
     <div class="app-main__inner">
 
@@ -21,12 +26,12 @@
                 </div>
             </div>
         </div>
-
+         @include('admin.goidulich.lichtrinh-ds')
         <div class="row">
             <div class="col-md-12">
                 <div class="main-card mb-3 card">
                     <div class="card-body">
-                        <form method="post" enctype="multipart/form-data" action="{{ route('admin.goi-du-lich.store') }}">
+                        <form method="post" enctype="multipart/form-data" action="{{ route('admin.goi-du-lich.update', ['id'=>$goi_du_lich->id]) }}">
                             @csrf
                             <div class="position-relative row form-group">
                                 <label for=""
@@ -39,7 +44,7 @@
                                                 class="hinh-goi-du-lich">
                                                 <img style="width: 100%; cursor: pointer;" class="thumbnail"
                                                     data-toggle="tooltip" title="Click to add image" data-placement="bottom"
-                                                    src="{{ URL('assets/img/add-image-icon.jpg') }}" alt="Add Image">
+                                                    src="{{ URL($goi_du_lich->hinh_goi_du_lich ?? 'assets/img/add-image-icon.jpg') }}" alt="Add Image">
 
                                                 <input name="hinh-goi-du-lich" type="file" onchange="changeImg(this);"
                                                     accept="image/x-png,image/gif,image/jpeg"
@@ -48,23 +53,24 @@
 
                                         </li>
                                     </ul>
-
+                                    <div class="text-center">
+                                        @error('hinh-goi-du-lich')
+                                            <span style="color:red"> {{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                             <div class="position-relative row form-group">
                                 <label for="product_category_id"
                                     class="col-md-3 text-md-right col-form-label">{{ trans('public.category_travel_packages') }}</label>
                                 <div class="col-md-9 col-xl-8">
-                                    <select name="loaisp_id" id="product_category_id" class="form-control">
-                                        <option value="">-- {{ trans('public.category_travel_packages') }} --</option>
+                                    <select name="loai-id" id="product_category_id" class="form-control">
                                         @foreach ($ls_loai_goi_du_lich as $key => $value)
-                                            <option value={{ $value->id }}>
-                                                {{ $value->ten }}
-                                            </option>
+                                            <option {{ old('loai-id') ?? $goi_du_lich->loai_id == $value->id ? 'selected' : '' }} value="{{ $value->id }}">{{ $value->ten }}</option>
                                         @endforeach
                                     </select>
                                     <div class="text-center">
-                                        @error('loaisp_id')
+                                        @error('loai-id')
                                             <span style="color:red"> {{ $message }}</span>
                                         @enderror
                                     </div>
@@ -76,22 +82,9 @@
                                     class="col-md-3 text-md-right col-form-label">{{ trans('public.name') }}</label>
                                 <div class="col-md-9 col-xl-8">
                                     <input name="ten" id="ten" placeholder="{{ trans('public.name') }}"
-                                        type="text" class="form-control" value="{{ old('ten') }}">
+                                        type="text" class="form-control" value="{{ old('ten') ?? $goi_du_lich->ten }}">
                                     <div class="text-center">
                                         @error('ten')
-                                            <span style="color:red"> {{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="position-relative row form-group">
-                                <label for="quoc-gia"
-                                    class="col-md-3 text-md-right col-form-label">{{ trans('public.nation') }}</label>
-                                <div class="col-md-9 col-xl-8">
-                                    <input name="quoc-gia" placeholder="{{ trans('public.nation') }}" type="text"
-                                        class="form-control" value="{{ old('quoc-gia') }}">
-                                    <div class="text-center">
-                                        @error('quoc-gia')
                                             <span style="color:red"> {{ $message }}</span>
                                         @enderror
                                     </div>
@@ -103,7 +96,7 @@
                                 <div class="col-md-9 col-xl-8">
                                     <input name="noi-khoi-hanh" id="noi-khoi-hanh"
                                         placeholder="{{ trans('public.departure_location') }}" type="text"
-                                        class="form-control" value="{{ old('noi-khoi-hanh') }}">
+                                        class="form-control" value="{{ old('noi-khoi-hanh') ?? $goi_du_lich->noi_khoi_hanh }}">
                                     <div class="text-center">
                                         @error('noi-khoi-hanh')
                                             <span style="color:red"> {{ $message }}</span>
@@ -116,7 +109,7 @@
                                     class="col-md-3 text-md-right col-form-label">{{ trans('public.concentrate') }}</label>
                                 <div class="col-md-9 col-xl-8">
                                     <input name="tap-trung" id="tap-trung" placeholder="{{ trans('public.concentrate') }}"
-                                        type="datetime-local" class="form-control" value="{{ old('tap-trung') }}">
+                                        type="datetime-local" class="form-control" value="{{ old('tap-trung') ?? $goi_du_lich->thoi_gian_tap_trung}}">
                                     <div class="text-center">
                                         @error('tap-trung')
                                             <span style="color:red"> {{ $message }}</span>
@@ -130,7 +123,7 @@
                                 <div class="col-md-9 col-xl-8">
                                     <input name="so-nguoi-toi-da" id="so-nguoi-toi-da"
                                         placeholder="{{ trans('public.maximum_number_of_people') }}" type="number"
-                                        class="form-control" value="{{ old('so-nguoi-toi-da') }}">
+                                        class="form-control" value="{{ old('so-nguoi-toi-da') ?? $goi_du_lich->so_nguoi_toi_da}}">
                                     <div class="text-center">
                                         @error('so-nguoi-toi-da')
                                             <span style="color:red"> {{ $message }}</span>
@@ -143,7 +136,9 @@
                                     class="col-md-3 text-md-right col-form-label">{{ trans('public.departure_time') }}</label>
                                 <div class="col-md-9 col-xl-6">
                                     <input name="gio-khoi-hanh" id="gio-khoi-hanh"
-                                        placeholder="{{ trans('public.departure_time') }}" type="text" class="form-control" value="{{ old('gio-khoi-hanh') }}" onfocus="(this.type='time')" id="gio-khoi-hanh" onchange="gio()">
+                                        placeholder="{{ trans('public.departure_time') }}" type="text"
+                                        class="form-control" value="{{ old('gio-khoi-hanh') ?? $goi_du_lich->gio_khoi_hanh }}"
+                                        onfocus="(this.type='time')" id="gio-khoi-hanh" onchange="gio()">
 
                                     <div class="text-center">
                                         @error('gio-khoi-hanh')
@@ -153,31 +148,65 @@
                                 </div>
                                 <div class="col-md-2 ">
                                     <input disabled placeholder="00:00" type="text" class="form-control text-center"
-                                        value="{{old('gio-khoi-hanh')}}" id="value-gio-khoi-hanh">
+                                        value="{{ old('gio-khoi-hanh') }}" id="value-gio-khoi-hanh">
                                 </div>
                             </div>
 
 
                             <div class="position-relative row form-group">
-                                <label for="gia"
-                                    class="col-md-3 text-md-right col-form-label">{{ trans('public.price') }}</label>
+                                <label for="gia-nguoi-lon" class="col-md-3 text-md-right col-form-label">Giá người lớn</label>
                                 <div class="col-md-9 col-xl-7">
-                                    <input name="gia" id="gia" placeholder="{{ trans('public.price') }}" type="text" class="form-control" value="{{ old('ngay-khoi-hanh') }}" onchange="format_curency(this)" onkeypress="return isNumberKey(event)">
+                                    <input name="gia-nguoi-lon" id="gia-nguoi-lon" placeholder="gia-nguoi-lon" type="text" class="form-control" value="{{ number_format(old('gio-nguoi-lon') ?? $goi_du_lich->gia_nguoi_lon) }}"
+                                        onchange="format_curency(this)" onkeypress="return isNumberKey(event)">
                                     <div class="text-center">
-                                        @error('gia')
+                                        @error('gia_nguoi_lon')
                                             <span style="color:red"> {{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-1 ">
-                                    <input disabled placeholder="Product Name" type="text"
-                                        class="form-control text-center" value="VNĐ">
+                                    <input disabled placeholder="Product Name" type="text"  class="form-control text-center" value="VNĐ">
                                 </div>
                             </div>
                             <div class="position-relative row form-group">
-                                <label for="ngay-khoi-hanh" class="col-md-3 text-md-right col-form-label">{{trans('public.departure_day')}}</label>
+                                <label for="gia-tre-em" class="col-md-3 text-md-right col-form-label">Giá trẻ em</label>
+                                <div class="col-md-9 col-xl-7">
+                                    <input name="gia-tre-em" id="gia-tre-em" placeholder="Giá trẻ em"
+                                        type="text" class="form-control" value="{{ number_format(old('gia-tre-em') ?? $goi_du_lich->gia_tre_em) }}"
+                                        onchange="format_curency(this)" onkeypress="return isNumberKey(event)">
+                                    <div class="text-center">
+                                        @error('gia-tre-em')
+                                            <span style="color:red"> {{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-1 ">
+                                    <input disabled placeholder="Product Name" type="text" class="form-control text-center" value="VNĐ">
+                                </div>
+                            </div>
+                            <div class="position-relative row form-group">
+                                <label for="gia-tre-nho"
+                                    class="col-md-3 text-md-right col-form-label">Giá trẻ nhỏ</label>
+                                <div class="col-md-9 col-xl-7">
+                                    <input name="gia-tre-nho" id="gia-tre-nho" placeholder="giá trẻ nhỏ" type="text" class="form-control" value="{{ number_format(old('gia-tre-nho') ?? $goi_du_lich->gia_tre_nho) }}"
+                                        onchange="format_curency(this)" onkeypress="return isNumberKey(event)">
+                                    <div class="text-center">
+                                        @error('gia-tre-nho')
+                                            <span style="color:red"> {{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-1 ">
+                                    <input disabled placeholder="Product Name" type="text" class="form-control text-center" value="VNĐ">
+                                </div>
+                            </div>
+                            <div class="position-relative row form-group">
+                                <label for="ngay-khoi-hanh"
+                                    class="col-md-3 text-md-right col-form-label">{{ trans('public.departure_day') }}</label>
                                 <div class="col-md-9 col-xl-8">
-                                    <input  type="date"  name="ngay-khoi-hanh" id="ngay-khoi-hanh" placeholder="{{trans('public.departure_day')}}" class="form-control" value="{{ old('ngay-khoi-hanh') }}" >
+                                    <input type="date" name="ngay-khoi-hanh" id="ngay-khoi-hanh"
+                                        placeholder="{{ trans('public.departure_day') }}" class="form-control"
+                                        value="{{ old('ngay-khoi-hanh') ??  $goi_du_lich->ngay_khoi_hanh }}">
                                     <div class="text-center">
                                         @error('ngay-khoi-hanh')
                                             <span style="color:red"> {{ $message }}</span>
@@ -186,11 +215,13 @@
                                 </div>
                             </div>
                             <div class="position-relative row form-group">
-                                <label for="so-ngay-du-lich" class="col-md-3 text-md-right col-form-label">{{trans('public.number_of_travel_days')}}</label>
+                                <label for="so-ngay-du-lich"
+                                    class="col-md-3 text-md-right col-form-label">{{ trans('public.number_of_travel_days') }}</label>
                                 <div class="col-md-9 col-xl-8">
-                                    <input name="so-ngay-du-lich" id="so-ngay-du-lich" placeholder="{{trans('public.number_of_travel_days')}}" type="number"
-                                        class="form-control" value="{{ old('so-ngay-du-lich') }}"
-                                        onkeypress="return isNumberKey(event)" max="100" min="0">
+                                    <input name="so-ngay-du-lich" id="so-ngay-du-lich"
+                                        placeholder="{{ trans('public.number_of_travel_days') }}" type="number"
+                                        class="form-control" value="{{ old('so-ngay-du-lich') ??  $goi_du_lich->so_ngay }}"
+                                        onkeypress="return iszero(event)" min="1">
                                     <div class="text-center">
                                         @error('so-ngay-du-lich')
                                             <span style="color:red"> {{ $message }}</span>
@@ -198,19 +229,72 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="position-relative row form-group">
-                                <label for="mota" class="col-md-3 text-md-right col-form-label">{{trans('public.describe')}}</label>
+                                <label for="so-dem-du-lich"
+                                    class="col-md-3 text-md-right col-form-label">Số đêm du lịch</label>
                                 <div class="col-md-9 col-xl-8">
-                                    <textarea class="form-control ckeditor1" id="mota" name="mota" placeholder="{{trans('public.describe')}}"
-                                        value="{{ old('mota') }}">{{ old('mota') }}</textarea>
+                                    <input  onkeypress="return iszero(event)" name="so-dem-du-lich" id="so-dem-du-lich"  class="form-control" value="{{ old('so-dem-du-lich') ?? $goi_du_lich->so_dem}}" placeholder="số đêm du lịch">
                                     <div class="text-center">
-                                        @error('mota')
+                                        @error('so-dem-du-lich')
                                             <span style="color:red"> {{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="position-relative row form-group">
+                                <label for="not-compo"
+                                    class="col-md-3 text-md-right col-form-label">Không compo</label>
+                                <div class="col-md-9 col-xl-8">
+                                    <textarea class="form-control ckeditor1" id="not-compo" name="not-compo" placeholder="{{ trans('public.describe') }}"
+                                        value="{{ old('not-compo') }}">{{ old('not-compo') ?? $goi_du_lich->not_compo }}</textarea>
+                                    <div class="text-center">
+                                        @error('not-compo')
+                                            <span style="color:red"> {{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="position-relative row form-group">
+                                <label for="thong-tin-dich-vu" class="col-md-3 text-md-right col-form-label">Thông tin dịch vụ</label>
+                                <div class="col-md-9 col-xl-8">
+                                    <textarea class="form-control ckeditor1" id="thong-tin-dich-vu" name="thong-tin-dich-vu" placeholder="Thông tin dịch vụ"
+                                        value="{{ old('thong-tin-dich-vu') }}">{{ old('thong-tin-dich-vu') ?? $goi_du_lich->thong_tin_dich_vu}}</textarea>
+                                    <div class="text-center">
+                                        @error('thong-tin-dich-vu')
+                                            <span style="color:red"> {{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="position-relative row form-group">
+                                <label for="dieu-kien-ap-dung" class="col-md-3 text-md-right col-form-label">Điều kiện áp dụng</label>
+                                <div class="col-md-9 col-xl-8">
+                                    <textarea class="form-control ckeditor1" id="dieu-kien-ap-dung" name="dieu-kien-ap-dung" placeholder="Điều kiện áp dụng"
+                                        value="{{ old('dieu-kien-ap-dung') }}">{{ old('dieu-kien-ap-dung') ?? $goi_du_lich->dieu_kien_ap_dung }}</textarea>
+                                    <div class="text-center">
+                                        @error('dieu-kien-ap-dung')
+                                            <span style="color:red"> {{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="position-relative row form-group">
+                                <label for="compo" class="col-md-3 text-md-right col-form-label">compo bao gồm</label>
+                                <div class="col-md-9 col-xl-8">
+                                    <textarea class="form-control ckeditor1" id="compo" name="compo" placeholder="Compo"
+                                        value="{{ old('compo') }}">{{ old('compo') ??   $goi_du_lich->compo}}</textarea>
+                                    <div class="text-center">
+                                        @error('compo')
+                                            <span style="color:red"> {{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
 
                             <div class="position-relative row form-group mb-1">
                                 <div class="col-md-9 col-xl-8 offset-md-2">
@@ -260,6 +344,17 @@
             var value_hoi_gian_mo = document.getElementById('value-thoi-gian-mo');
             value_hoi_gian_mo.value = gio.value;
         }
-        CKEDITOR.replace('mota');
+
+        function iszero(e) {
+            if (!((e.keyCode > 95 && e.keyCode < 106) ||
+                    (e.keyCode > 47 && e.keyCode < 58) ||
+                    e.keyCode == 8)) {
+                return false;
+            }
+        }
+        CKEDITOR.replace('not-compo');
+        CKEDITOR.replace('compo');
+        CKEDITOR.replace('thong-tin-dich-vu');
+        CKEDITOR.replace('dieu-kien-ap-dung');
     </script>
 @endsection
