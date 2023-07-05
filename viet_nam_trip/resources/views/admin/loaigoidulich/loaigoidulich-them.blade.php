@@ -3,14 +3,17 @@
     <div class="col-md-12">
         <div class="main-card mb-3 card">
             <div class="card-body">
-                <form action="" id="formthemnhanhieu" method="post">
+                <form action="" id="formthemnhanhieu" method="post"
+                    data-url={{ route('admin.loai-goi-du-lich.store') }}>
                     @csrf
 
-                    <p class="text-center title">Thêm loại gói du lịch</p>
+                    <p class="text-center title">Thêm {{ trans('public.category_travel_packages') }}</p>
                     <div class="position-relative row form-group">
-                        <label for="name" class="col-md-3 text-md-right col-form-label">{{trans('public.name')}}</label>
+                        <label for="name"
+                            class="col-md-3 text-md-right col-form-label">{{ trans('public.name') }}</label>
                         <div class="col-md-9 col-xl-8">
-                            <input name="tennhanhieu" id="tennhanhieu" placeholder="tên nhãn hiệu" type="text"
+                            <input name="tennhanhieu" id="tennhanhieu"
+                                placeholder="{{ trans('public.category_travel_packages') }}" type="text"
                                 class="form-control" value="">
                         </div>
 
@@ -20,7 +23,8 @@
                     </div>
 
                     <div class="position-relative row form-group">
-                        <label for="" class="col-md-3 text-md-right col-form-label">{{trans('public.img')}}</label>
+                        <label for=""
+                            class="col-md-3 text-md-right col-form-label">{{ trans('public.img') }}</label>
                         <div class="col-md-9 col-xl-8">
                             <ul class="text-nowrap" id="images">
                                 <li class="float-left d-inline-block mr-2 mb-2" style="width: 32%;">
@@ -50,13 +54,13 @@
                                 <span class="btn-icon-wrapper pr-1 opacity-8">
                                     <i class="fa fa-times fa-w-20"></i>
                                 </span>
-                                <span>Hủy</span>
+                                <span>{{ trans('public.cancel') }}</span>
                             </a>
-                            <button class="btn-shadow btn-hover-shine btn btn-primary">
+                            <button type="submit" class="btn-shadow btn-hover-shine btn btn-primary">
                                 <span class="btn-icon-wrapper pr-2 opacity-8">
                                     <i class="fa fa-download fa-w-20"></i>
                                 </span>
-                                <span>Thêm</span>
+                                <span>{{ trans('public.create') }}</span>
                             </button>
                         </div>
                     </div>
@@ -69,55 +73,21 @@
 
 <script type="text/javascript">
     {
-        /*function them_nhan_hieu() {
-            var tennhanhieu = $('#name').val();
-            var hinhnhanhieu = document.getElementById('hinhnhanhieu').files[0];
-            //console.log(hinhnhanhieu);
-            //console.log(tennhanhieu);
-            var formData = new FormData();
-            formData.append('tennhanhieu', tennhanhieu);
-            formData.append('hinhnhanhieu', hinhnhanhieu);
-            // for (const value of formData.values()) {
-            //     console.log(value);
-            // }
-
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                url: "{{ route('admin.loai-dia-diem.store') }}",
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(data) {
-                    console.log(data);
-                    //huy();
-
-                }
-            });
-        }*/
-
         $(document).ready(function() {
-
             $('.thumbnail').click(function() {
                 $(this).siblings('.image').click();
             });
-
             $("#formthemnhanhieu").submit(function(e) {
                 e.preventDefault();
+                var url = $(this).attr('data-url');
                 var tennhanhieu = $('#tennhanhieu').val();
                 var hinhnhanhieu = document.getElementById('hinhnhanhieu').files[0];
                 var formData = new FormData();
                 formData.append('tennhanhieu', tennhanhieu);
                 formData.append('hinhnhanhieu', hinhnhanhieu);
-                // for (const value of formData.values()) {
-                //     console.log(value);
-                // }
+                for (const value of formData.values()) {
+                    console.log(value);
+                }
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -125,7 +95,7 @@
                 });
 
                 $.ajax({
-                    url: "{{ route('admin.loai-dia-diem.store') }}",
+                    url: url,
                     type: 'POST',
                     data: formData,
                     contentType: false,
@@ -139,21 +109,16 @@
                             $('#error-tennhanhieu').append(data.errors.tennhanhieu[0]);
                             $('#error-hinhnhanhieu').html("");
                             $('#error-hinhnhanhieu').append(data.errors.hinhnhanhieu[0]);
-                            // $.each(data.errors, function(key, err_value){
-                            //     $('#saveform_errList').append('<li style="color: red">'+err_value+'</li>');
-                            // });
-                            //console.log(data.error.tennhanhieu);
                         } else {
-                             load();
-                            Swal.fire(
-                                'Thành công',
-                                'thêm thành công',
-                                'success'
-                            )
 
-                            // huy();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Cảm ơn bạn yêu',
+                                text: data.mess,
+                            }).then((result) => {
+                                load();
+                            });
                         }
-
                     }
                 });
             })

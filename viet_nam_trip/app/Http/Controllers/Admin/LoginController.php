@@ -55,6 +55,7 @@ class LoginController extends Controller
                         Auth::login($nguoidung);
                         $request->session()->put('LoggedUser', $nguoidung->id);
                         return redirect()->route('admin.tin-tuc.index');
+
                     }
                     else{
                         return Redirect::route('admin.login')->with(['error' => 'Xin lỗi bạn không có quyền hạn vào trang này']);

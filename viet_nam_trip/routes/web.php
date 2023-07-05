@@ -16,13 +16,13 @@ use Illuminate\Support\Facades\Route;
 
 
 //Nhóm admin
-Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin',  'middleware' => 'App\Http\Middleware\CheckLoginAdmin'], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'], function () {
     Route::name('admin.')->group(function(){
         Route::get('login', 'LoginController@showLoginForm')->name('login');
         Route::post('login_admin', 'LoginController@post_login_admin')->name('post_login_admin');
         Route::post('logout_admin', 'LoginController@logout_admin')->name('logout_admin');
         // Route::group(['middleware' => 'admin'], function () {});
-
+        Route::middleware('App\Http\Middleware\CheckLoginAdmin')->group(function(){
         Route::group(['prefix' => 'bai-viet'], function () {
             Route::name('bai-viet.')->group(function(){
                 Route::get('/', 'BaiVietController@index')->name('index');
@@ -65,16 +65,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
             });
         });
 
-        Route::group(['prefix' => 'vai-tro-nguoi-dung'], function () {
-            Route::name('vai-tro-nguoi-dung.')->group(function(){
-                Route::get('/', 'CapNguoiDungController@index')->name('index');
-                Route::get('/create', 'CapNguoiDungController@create')->name('create');
-                Route::post('/store', 'CapNguoiDungController@store')->name('store');
-                Route::get('/{id}/edit', 'CapNguoiDungController@edit')->name('edit');
-                Route::post('/{id}/update', 'CapNguoiDungController@update')->name('update');
-                Route::get('/{id}/destroy', 'CapNguoiDungController@destroy')->name('destroy');
-            });
-        });
+        // Route::group(['prefix' => 'vai-tro-nguoi-dung'], function () {
+        //     Route::name('vai-tro-nguoi-dung.')->group(function(){
+        //         Route::get('/', 'CapNguoiDungController@index')->name('index');
+        //         Route::get('/create', 'CapNguoiDungController@create')->name('create');
+        //         Route::post('/store', 'CapNguoiDungController@store')->name('store');
+        //         Route::get('/{id}/edit', 'CapNguoiDungController@edit')->name('edit');
+        //         Route::post('/{id}/update', 'CapNguoiDungController@update')->name('update');
+        //         Route::get('/{id}/destroy', 'CapNguoiDungController@destroy')->name('destroy');
+        //     });
+        // });
 
         //địa điểm
         Route::group(['prefix' => 'dia-diem'], function () {
@@ -136,19 +136,19 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
         });
 
         // loại địa điểm
-        Route::group(['prefix' => 'loai-dia-diem'], function () {
-            Route::name('loai-dia-diem.')->group(function(){
-                Route::get('/', 'LoaiDiaDiemController@index')->name('index');
-                Route::get('/load', 'LoaiDiaDiemController@load')->name('load');
-                Route::get('/create', 'LoaiDiaDiemController@create')->name('create');
-                Route::post('/store', 'LoaiDiaDiemController@store')->name('store');
-                Route::get('/{id}/edit', 'LoaiDiaDiemController@edit')->name('edit');
-                Route::post('/{id}/update', 'LoaiDiaDiemController@update')->name('update');
-                Route::delete('/{id}/destroy', 'LoaiDiaDiemController@destroy')->name('destroy');
-                Route::post('/hien/{id}', 'LoaiDiaDiemController@hien')->name('hien');
+        // Route::group(['prefix' => 'loai-dia-diem'], function () {
+        //     Route::name('loai-dia-diem.')->group(function(){
+        //         Route::get('/', 'LoaiDiaDiemController@index')->name('index');
+        //         Route::get('/load', 'LoaiDiaDiemController@load')->name('load');
+        //         Route::get('/create', 'LoaiDiaDiemController@create')->name('create');
+        //         Route::post('/store', 'LoaiDiaDiemController@store')->name('store');
+        //         Route::get('/{id}/edit', 'LoaiDiaDiemController@edit')->name('edit');
+        //         Route::post('/{id}/update', 'LoaiDiaDiemController@update')->name('update');
+        //         Route::delete('/{id}/destroy', 'LoaiDiaDiemController@destroy')->name('destroy');
+        //         Route::post('/hien/{id}', 'LoaiDiaDiemController@hien')->name('hien');
 
-            });
-        });
+        //     });
+        // });
 
         // loại gói du lịch
         Route::group(['prefix' => 'loai-goi-du-lich'], function () {
@@ -160,6 +160,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
                 Route::get('/{id}/edit', 'LoaiGoiDulichController@edit')->name('edit');
                 Route::post('/{id}/update', 'LoaiGoiDulichController@update')->name('update');
                 Route::delete('/{id}/destroy', 'LoaiGoiDulichController@destroy')->name('destroy');
+                Route::post('/hien/{id}', 'LoaiGoiDulichController@hien')->name('hien');
             });
         });
         // gói du lịch
@@ -172,9 +173,26 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
                 Route::get('/{id}/edit', 'GoiDuLichController@edit')->name('edit');
                 Route::post('/{id}/update', 'GoiDuLichController@update')->name('update');
                 Route::delete('/{id}/destroy', 'GoiDuLichController@destroy')->name('destroy');
+                 Route::post('/noi-bat/{id}', 'GoiDuLichController@noi_nat')->name('noi-bat');
             });
         });
 
+        Route::group(['prefix' => 'lich-trinh'], function () {
+            Route::name('lich-trinh.')->group(function(){
+                Route::get('/', 'LichTrinhController@index')->name('index');
+                Route::get('/create/{id_tour}', 'LichTrinhController@create')->name('create');
+                Route::post('/store/{id_tour}', 'LichTrinhController@store')->name('store');
+                Route::get('/{id}/edit/{id_tour}', 'LichTrinhController@edit')->name('edit');
+                Route::post('/{id}/update/{id_tour}', 'LichTrinhController@update')->name('update');
+                Route::delete('/{id}/destroy/{id_tour}', 'LichTrinhController@destroy')->name('destroy');
+            });
+        });
+
+        Route::group(['prefix' => 'tour'], function () {
+            Route::name('tour.')->group(function(){
+                Route::get('/', 'PhieuDatController@index')->name('index');
+            });
+        });
         //khách sạn
         Route::group(['prefix' => 'thong-tin-web'], function () {
             Route::name('thong-tin-web.')->group(function(){
@@ -186,7 +204,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
                 Route::delete('/{id}/destroy', 'WebController@destroy')->name('destroy');
             });
         });
-
+        });
     });
 });
 
@@ -291,7 +309,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
                 Route::get('/{id}/show', 'KhachSanController@show')->name('show');
             });
         });
-
+        Route::middleware('App\Http\Middleware\CheckLogin')->group(function(){
         //Tài khoản
         Route::prefix('tai-khoan')->group(function(){
             Route::name('tai-khoan.')->group(function(){
@@ -332,7 +350,30 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
                 Route::get('/danh-gia-san-pham/{id}', 'TaiKhoanController@danh_gia_san_pham')->name('danh-gia-san-pham');
                 Route::post('/post-danh-gia-san-pham/{id}', 'TaiKhoanController@post_danh_gia_san_pham')->name('post-danh-gia-san-pham');
             });
+            });
         });
+        //tour
+        Route::group(['prefix' => 'tour'], function () {
+            Route::name('tour.')->group(function(){
+                Route::get('/', 'TourController@index')->name('index');
+                Route::get('/{id}/show', 'TourController@show')->name('show');
+                Route::get('/booking/{id}', 'TourController@booking')->name('booking')->middleware('check_login');
+                Route::get('/load-nguoi-lon/{so_luong}', 'TourController@load_nguoi_lon')->name('load-nguoi-lon');
+                Route::get('/load-tre-em/{so_luong}', 'TourController@load_tre_em')->name('load-tre-em');
+                Route::get('/load-tre-nho/{so_luong}', 'TourController@load_tre_nho')->name('load-tre-nho');
+                Route::post('/tong-hoa-don/{id}', 'TourController@tong_hoa_don')->name('tong-hoa-don');
+                Route::get('/thanh-toan/{id}', 'TourController@thanh_toan')->name('thanh-toan')->middleware('check_login');
+                Route::post('/post-thanh-toan/{id}/{phieu_dat_id}', 'TourController@post_thanh_toan')->name('post-thanh-toan')->middleware('check_login');
+                Route::post('/post-thanh-toan/{phieu_dat_id}', 'ThanhToanController@post_thanh_toan')->name('vnpay-success');
+            });
 
+        });
+        // thanh toán bằng momo
+        Route::group(['prefix' => 'thanh-toan'], function () {
+            Route::name('thanh-toan.')->group(function(){
+                Route::get('/vnpay-success/{phieu_dat_id}', 'ThanhToanController@vnpay_success')->name('vnpay-success');
+            });
+
+        });
     });
 });

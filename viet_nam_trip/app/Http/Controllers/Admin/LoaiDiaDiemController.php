@@ -139,8 +139,8 @@ class LoaiDiaDiemController extends Controller
                 // getClientOriginalExtension(): lấy đuôi file
                 $file_name = $date.$hinhnhanhieu->getClientoriginalName();
                 // move:  di chuyển hình ảnh; public_path: tạo  thư mục ; $file_name: tên file
-                $imagePath = $hinhnhanhieu->move(public_path('hinh_loai_dia_diem/'.$idnhanhieu), $file_name);
-                $nhanhieu->hinh_loai_dia_diem = 'hinh_loai_dia_diem/'.$idnhanhieu.'/'.$file_name;
+                $imagePath = $hinhnhanhieu->move(public_path('img/hinh_loai_dia_diem/'.$idnhanhieu), $file_name);
+                $nhanhieu->hinh_loai_dia_diem = 'img/hinh_loai_dia_diem/'.$idnhanhieu.'/'.$file_name;
 
             }
             $nhanhieu->save();

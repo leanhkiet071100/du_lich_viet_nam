@@ -34,29 +34,6 @@
             <ul class="vertical-nav-menu">
                 <li class="app-sidebar__heading">Menu</li>
                 <li class="app-sidebar__heading">{{ trans('public.user') }}</li>
-
-                <li class="" id="li-vai-tro-nguoi-dung">
-
-                    <a href="#">
-                        <i class="metismenu-icon pe-7s-plugin"></i>{{ trans('public.role') }}
-                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                    </a>
-                    <ul>
-
-                        <li>
-                            <a href="{{ Route('admin.vai-tro-nguoi-dung.index') }}" id="vai-tro-nguoi-dung">
-                                <i class="metismenu-icon"></i>{{ trans('public.list') }}
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{{ Route('admin.vai-tro-nguoi-dung.create') }}" id="tao-vai-tro-nguoi-dung">
-                                <i class="metismenu-icon"></i>{{ trans('public.create') }}
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
                 <li class="" id="li-nguoi-dung">
 
                     <a href="#">
@@ -73,37 +50,6 @@
                         <li>
                             <a href="{{ Route('admin.nguoi-dung.create') }}" id="tao-nguoi-dung">
                                 <i class="metismenu-icon"></i>{{ trans('public.create') }}
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{{ Route('admin.vai-tro-nguoi-dung.create') }}" id="tao-bang-excel">
-                                <i class="metismenu-icon"></i>{{ trans('public.create_excel') }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ Route('admin.vai-tro-nguoi-dung.create') }}" id="nguoi-ban-hang">
-                                <i class="metismenu-icon"></i>{{ trans('public.user_sell') }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ Route('admin.vai-tro-nguoi-dung.create') }}" id="nguoi-noi-luu-tru">
-                                <i class="metismenu-icon"></i>{{ trans('public.user_location') }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ Route('admin.vai-tro-nguoi-dung.create') }}" id="nguoi-noi-luu-tru">
-                                <i class="metismenu-icon"></i>{{ trans('public.user_admin') }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ Route('admin.vai-tro-nguoi-dung.create') }}" id="nguoi-noi-luu-tru">
-                                <i class="metismenu-icon"></i>{{ trans('public.request_delete_user') }}
-                            </a>
-                        </li>
-                         <li>
-                            <a href="{{ Route('admin.vai-tro-nguoi-dung.create') }}" id="nguoi-noi-luu-tru">
-                                <i class="metismenu-icon"></i>{{ trans('public.request_dang_ki_user') }}
                             </a>
                         </li>
 
@@ -139,20 +85,6 @@
 
                     </ul>
                 </li>
-                 {{-- <li class="" id="li-loai-dia-diem">
-                    <a href="#">
-                        <i class="metismenu-icon pe-7s-plugin"></i>{{ trans('public.manage_type_location') }}
-                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                    </a>
-                    <ul>
-                        <li>
-                            <a href="{{route('admin.loai-dia-diem.index')}}" id="loai-dia-diem">
-                                <i class="metismenu-icon"></i>{{ trans('public.list') }}
-                            </a>
-                        </li>
-
-                    </ul>
-                </li> --}}
 
                 <li class="app-sidebar__heading">{{ trans('public.booking') }}</li>
                 <li class="" id="li-loai-goi-du-lich">
@@ -183,6 +115,20 @@
                         <li>
                             <a href="{{route('admin.goi-du-lich.create')}}" id="tao-goi-du-lich">
                                 <i class="metismenu-icon"></i>{{ trans('public.create') }}
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="" id="li-tour">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-plugin"></i>Quản lí danh sách tour
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{{route('admin.tour.index')}}" id="tour">
+                                <i class="metismenu-icon"></i>Danh sách tour
                             </a>
                         </li>
 
