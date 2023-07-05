@@ -24,33 +24,33 @@ class _BookingState extends State<Booking> {
             child: Column(
               children: [
                 SizedBox(
-                  height: size.height * 0.02,
+                  height: size.height * 0.05,
                 ),
-                Container(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: ListTile(
-                    title: const Text(
-                      'Xin chào,',
-                      style: TextStyle(color: blackColor, fontSize: 16),
-                    ),
-                    subtitle: const Text(
-                      'Nguyễn Văn A',
-                      style: TextStyle(
-                          color: blackColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700),
-                    ),
-                    trailing: IconButton(
-                        onPressed: () {
-                          //
-                        },
-                        icon: const Icon(
-                          Icons.notifications,
-                          color: blackColor,
-                          size: 26,
-                        )),
-                  ),
-                ),
+                // Container(
+                //   padding: const EdgeInsets.only(left: 10),
+                //   child: ListTile(
+                //     title: const Text(
+                //       'Xin chào,',
+                //       style: TextStyle(color: blackColor, fontSize: 16),
+                //     ),
+                //     subtitle: const Text(
+                //       'Nguyễn Văn A',
+                //       style: TextStyle(
+                //           color: blackColor,
+                //           fontSize: 18,
+                //           fontWeight: FontWeight.w700),
+                //     ),
+                //     trailing: IconButton(
+                //         onPressed: () {
+                //           //
+                //         },
+                //         icon: const Icon(
+                //           Icons.notifications,
+                //           color: blackColor,
+                //           size: 26,
+                //         )),
+                //   ),
+                // ),
                 Container(
                   width: size.width * 0.9,
                   height: size.height * 0.07,
@@ -79,9 +79,9 @@ class _BookingState extends State<Booking> {
                   children: [
                     Container(
                       margin:
-                          EdgeInsets.only(left: 20, right: size.width * 0.3),
+                          EdgeInsets.only(left: 20, right: size.width * 0.45),
                       child: const Text(
-                        'Top 10 tour Miền Bắc',
+                        'Tour Miền Bắc',
                         style: TextStyle(
                             color: blackColor,
                             fontSize: 20,

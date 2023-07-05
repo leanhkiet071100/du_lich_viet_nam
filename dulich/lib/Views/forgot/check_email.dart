@@ -1,8 +1,8 @@
 import 'package:dulich/Global/color.dart';
+import 'package:dulich/Providers/register_provider.dart';
 import 'package:dulich/Views/forgot/confirm_token.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CheckEmail extends StatefulWidget {
   const CheckEmail({Key? key}) : super(key: key);
@@ -16,27 +16,27 @@ class _CheckEmailState extends State<CheckEmail> {
   final formKey = GlobalKey<FormState>();
 
   void _sendEmail() async {
-    // if (formKey.currentState!.validate()) {
-    //   EasyLoading.show(status: 'Vui lòng đợi...');
-    //bool isSuccess = await UserProvider.sendEmail(txtEmail.text);
+    if (formKey.currentState!.validate()) {
+      EasyLoading.show(status: 'Vui lòng đợi...');
+      bool isSuccess = await RegisterProvider.sendEmail(txtEmail.text);
 
-    // if (isSuccess) {
-    //   EasyLoading.showSuccess('Vui lòng kiểm tra email để lấy mã xác minh');
-    //   EasyLoading.dismiss();
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ConfirmToken(
-          email: txtEmail.text,
-        ),
-      ),
-    );
-    // }
-    // else {
-    //   EasyLoading.showInfo(
-    //       'Email không tồn tại trên hệ thống. Vui lòng kiểm tra lại');
-    //   EasyLoading.dismiss();
-    // }
+      if (isSuccess) {
+        EasyLoading.showSuccess('Vui lòng kiểm tra email để lấy mã xác minh');
+        EasyLoading.dismiss();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ConfirmToken(
+              email: txtEmail.text,
+            ),
+          ),
+        );
+      } else {
+        EasyLoading.showInfo(
+            'Email không tồn tại trên hệ thống. Vui lòng kiểm tra lại');
+        EasyLoading.dismiss();
+      }
+    }
   }
 
   @override

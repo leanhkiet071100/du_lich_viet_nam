@@ -147,4 +147,40 @@ class RegisterProvider {
       return false;
     }
   }
+
+  /* ==== QUEN MAT KHAU ==== */
+  static Future<bool> sendEmail(String email) async {
+    final response = await http.post(Uri.parse(passUrl),
+        body: ({
+          'email': email,
+        }));
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<bool> confirmToken(String token) async {
+    final response = await http.post(Uri.parse(''),
+        body: ({
+          'token': token,
+        }));
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<bool> resetPassword(
+      String password, String confirmPassword, String token) async {
+    final response = await http.post(Uri.parse('$token'),
+        body: ({'password': password, 'confirm-password': confirmPassword}));
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
