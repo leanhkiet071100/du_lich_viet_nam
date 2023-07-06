@@ -320,7 +320,7 @@ class TourController extends Controller
             ]);
             $ds_phieu->save();
         }
-        }
+
         $data= [
             'pageTitle' => "Tour",
             'goi_du_lich' => $goi_du_lich,
@@ -330,6 +330,9 @@ class TourController extends Controller
             'phieu_dat'=>$phieu_dat,
         ];
         return view('web.tour.thanh-toan', $data);
+        }else{
+            return Redirect::route('web.tai-khoan.phieu-dat-chi-tiet',['id'=> $phieu_dat->id])->with(['yes'=>'Chúng tôi sẽ liên hệ với bạn sớm nhất có thể']);
+        }
     }
 
     public function post_thanh_toan(Request $request ,ThanhToanController $thanh_toan, $id, $phieu_dat_id){
@@ -344,13 +347,12 @@ class TourController extends Controller
             $hoa_don = new hoa_don;
             $hoa_don->fill([
                 'phieu_dat_id'=>$phieu_dat_id,
-                'ngay_thanh_toan'=>$ngay_thanh_toan,
                 'tong_tien'=>$tong_hoa_don,
                 'loai_thanh_toan'=>'tien-mat',
                 'trang_thai'=> 0,
             ]);
             $hoa_don->save();
-        return 'tienmat';
+        return Redirect::route('web.tai-khoan.phieu-dat-chi-tiet', ['id' =>  $phieu_dat_id])->with(['yes'=>'Đặt tour thành công']);
         }else if($data['payments'] == 'momo_atm'){
             return $thanh_toan->momo_atm($tong_hoa_don);
         }else if($data['payments'] == 'momo_pay'){
@@ -358,9 +360,5 @@ class TourController extends Controller
         }else if($data['payments'] == 'vn_pay'){
             return $thanh_toan->VN_pay($goi_du_lich->id,$phieu_dat->id,$tong_hoa_don, $data['redirect']);
         }
-        $data= [
-            'pageTitle' => "Tour",
-        ];
-        return view('web.tour.thanh-toan', $data);
     }
 }

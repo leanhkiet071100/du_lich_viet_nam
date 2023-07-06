@@ -191,6 +191,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
         Route::group(['prefix' => 'tour'], function () {
             Route::name('tour.')->group(function(){
                 Route::get('/', 'PhieuDatController@index')->name('index');
+                Route::get('/tour-huy/{id}', 'PhieuDatController@tour_huy')->name('tour-huy');
+                Route::get('/form-tour-huy/{id}', 'PhieuDatController@form_tour_huy')->name('form-tour-huy');
+                Route::post('/post-form-tour-huy/{id}', 'PhieuDatController@post_form_tour_huy')->name('post-form-tour-huy');
+                Route::get('/duyet/{id}', 'PhieuDatController@duyet')->name('duyet');
+                Route::get('/duyet-huy/{id}', 'PhieuDatController@duyet_huy')->name('duyet-huy');
+                Route::get('/phieu-dat-chi-tiet/{id}', 'PhieuDatController@phieu_dat_chi_tiet')->name('phieu-dat-chi-tiet');
+
             });
         });
         //khách sạn
@@ -337,18 +344,18 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
                 Route::post('/get-load-xa', 'TaiKhoanController@get_load_xa')->name('get-load-xa');
                 //Đăng xuất
                 Route::get('/logout-user', 'AuthController@dang_xuat')->name('logout-user');
-                //Đơn hàng
-                Route::get('/don-hang', 'TaiKhoanController@don_hang')->name('don-hang');
-                Route::get('/don-hang-cho-xac-nhan', 'TaiKhoanController@don_hang_cho_xac_nhan')->name('don-hang-cho-xac-nhan');
-                Route::get('/don-hang-van-chuyen', 'TaiKhoanController@don_hang_van_chuyen')->name('don-hang-van-chuyen');
-                Route::get('/don-hang-dang-giao', 'TaiKhoanController@don_hang_dang_giao')->name('don-hang-dang-giao');
-                Route::get('/don-hang-hoan-thanh', 'TaiKhoanController@don_hang_hoan_thanh')->name('don-hang-hoan-thanh');
-                Route::get('/don-hang-huy', 'TaiKhoanController@don_hang_huy')->name('don-hang-huy');
-                Route::get('/don-hang-tra-hang', 'TaiKhoanController@don_hang_tra_hang')->name('don-hang-tra-hang');
-                Route::get('/don-hang-chi-tiet/{id}', 'TaiKhoanController@don_hang_chi_tiet')->name('don-hang-chi-tiet');
-                //Đánh giá sản phẩm
-                Route::get('/danh-gia-san-pham/{id}', 'TaiKhoanController@danh_gia_san_pham')->name('danh-gia-san-pham');
-                Route::post('/post-danh-gia-san-pham/{id}', 'TaiKhoanController@post_danh_gia_san_pham')->name('post-danh-gia-san-pham');
+
+                //Tour
+                Route::get('/phieu-dat', 'PhieuDatController@phieu_dat')->name('phieu-dat');
+                Route::get('/phieu-dat-cho-duyet', 'PhieuDatController@phieu_dat_cho_duyet')->name('phieu-dat-cho-duyet');
+                Route::get('/phieu-dat-da-duyet', 'PhieuDatController@phieu_dat_da_duyet')->name('phieu-dat-da-duyet');
+                Route::get('/phieu-dat-duyet-huy', 'PhieuDatController@phieu_dat_duyet_huy')->name('phieu-dat-duyet-huy');
+                Route::get('/phieu-dat-hoan-thanh', 'PhieuDatController@phieu_dat_hoan_thanh')->name('phieu-dat-hoan-thanh');
+                Route::get('/phieu-dat-huy', 'PhieuDatController@phieu_dat_huy')->name('phieu-dat-huy');
+                Route::get('/phieu-dat-chi-tiet/{id}', 'PhieuDatController@phieu_dat_chi_tiet')->name('phieu-dat-chi-tiet');
+                Route::get('/danh-gia-phieu-dat/{id}', 'PhieuDatController@danh_gia_phieu_dat')->name('danh-gia-phieu-dat');
+                Route::post('/post-danh-gia-phieu-dat{id}', 'PhieuDatController@post_danh_gia_phieu_dat')->name('post-danh-gia-phieu-dat');
+                Route::get('/huy-phieu-dat/{id}', 'PhieuDatController@huy_phieu_dat')->name('huy-phieu-dat');
             });
             });
         });

@@ -5,21 +5,17 @@
                 <div class="tt-danh-gia-san-pham">
                     <h3 class="tt">Đánh giá sản phẩm</h3>
                 </div>
-                <form action="" data-url="{{ route('tai-khoan.post-danh-gia-san-pham', ['id' => $san_pham->id]) }}"
+                <form action="" data-url="{{ route('web.tai-khoan.post-danh-gia-phieu-dat', ['id' => $phieu_dat->id]) }}"
                     id="post-form-danh-gia">
                     @csrf
                     <div class="list-product">
                         <div class="detail-product">
                             <div class="img-product">
-                                <img src="{{ URL($san_pham->hinh_anh) }}" alt="Lỗi tải ảnh sản phẩm">
+                                <img src="{{ URL($phieu_dat->goi_du_lich->hinh_goi_du_lich ?? 'hinh_test/no-img.jpg') }}" alt="Lỗi tải ảnh sản phẩm">
                             </div>
                             <div class="info-product">
                                 <div class="name-product">
-                                    <span>{{ $san_pham->ten_san_pham }}</span>
-
-                                </div>
-                                <div class="phan-loai-san-pham">
-                                    <span> Phân loại: {{ $san_pham->ten_loai_san_pham }}</span>
+                                    <span>{{ $phieu_dat->goi_du_lich->ten }}</span>
                                 </div>
                             </div>
                         </div>
@@ -189,6 +185,7 @@
         var noi_dung = $('#content_post').val();
         var hinh = document.getElementById('uploadanhpost').files;
         var so_sao = $('#so-sao').val();
+        console.log(noi_dung, hinh, so_sao);
             formData = new FormData();
             formData.append('noi_dung', noi_dung);
             formData.append('so_sao', so_sao);
@@ -219,7 +216,7 @@
                         Swal.fire({
                             icon: 'success',
                             title: 'Cảm ơn bạn yêu',
-                            text: 'Đã hoàn thành bình luận',
+                            text: 'Đã hoàn thành đánh giá',
                         }).then((result) => {
                             tro_lai();
                         });
@@ -227,7 +224,7 @@
                     console.log(data);
                 }
             });
-        
+
     });
 
     $('#stars').on('click', 'li', function() {

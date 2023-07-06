@@ -31,7 +31,9 @@ class phieu_dat extends Model
         'ngay_huy',
         'trang_thai',
     ];
-
+    static $statuses = [
+        1 => 'Đang chờ duyệt', 2 => 'Đã Duyệt', 3 => 'Chờ duyệt hủy', 4 => 'Đã hủy', 5 => 'Hoàn thành'
+    ];
     //khóa ngoại hình ảnh sản phẩm 1
     public function hoa_don(){
         return $this->hasOne('App\Models\hoa_don', 'phieu_dat_id', 'id');
@@ -40,4 +42,6 @@ class phieu_dat extends Model
     public function goi_du_lich(){
         return $this->belongsTo('App\Models\goi_du_lich', 'goi_du_lich_id', 'id');
     }
+
+
 }

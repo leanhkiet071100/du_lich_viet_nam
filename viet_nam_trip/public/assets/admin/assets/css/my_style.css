@@ -240,6 +240,7 @@ li a {
 .chat-luong-san-pham {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .rating-stars.text-center {
