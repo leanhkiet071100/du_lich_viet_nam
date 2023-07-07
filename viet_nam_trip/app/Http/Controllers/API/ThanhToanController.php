@@ -1,25 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\goi_du_lich;
-use App\Models\loai_goi_du_lich;
-use App\Models\lich_trinh;
-use App\Models\phieu_dat;
-use App\Models\hoa_don;
-use App\Models\danh_sach_phieu_dat;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\Extension\check;
-use Illuminate\Support\Facades\Redirect;
-use Carbon\Carbon;
-use Validator;
-use Illuminate\Support\Facades\Cookie;
-
 
 class ThanhToanController extends Controller
 {

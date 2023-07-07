@@ -4,7 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
+use App\Models\goi_du_lich;
+use App\Models\loai_goi_du_lich;
+use App\Models\lich_trinh;
+use App\Models\phieu_dat;
+use App\Models\hoa_don;
+use App\Models\danh_sach_phieu_dat;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -13,11 +18,8 @@ use App\Http\Controllers\Extension\check;
 use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
 use Validator;
-use Illuminate\Validation\ValidationException;
-use Token;
-use App\Models\phieu_dat;
-use App\Models\hoa_don;
-use App\Models\goi_du_lich;
+use Illuminate\Support\Facades\Cookie;
+use App\Http\Controllers\API\ThanhToanController;
 
 class TourController extends Controller
 {
@@ -77,5 +79,38 @@ class TourController extends Controller
             'phieu_dat'=>$phieu_dat,
         ];
         return response()->json($response,200);
+    }
+
+    public function thanh_toan(Request $request ,ThanhToanController $thanh_toan){
+        $ngay_thanh_toan = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $input['phieu_dat_id'] = $request->input('phieu_dat_id');
+        $input['payments'] = $request->input('payments');
+        $phieu_dat = phieu_dat::find($input['phieu_dat_id']);
+        $goi_du_lich = goi_du_lich::join('loai_goi_du_liches', 'loai_goi_du_liches.id', '=', 'goi_du_liches.loai_id')
+                    ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
+                    ->find($phieu_dat->goi_du_lich_id);
+        $tong_hoa_don = ($phieu_dat->so_nguoi_lon* $goi_du_lich->gia_nguoi_lon) + ($phieu_dat->so_tre_em* $goi_du_lich->gia_tre_em);
+        if( $input['payments'] == 'tienmat'){
+            $hoa_don = new hoa_don;
+            $hoa_don->fill([
+                'phieu_dat_id'=>$phieu_dat->id,
+                'tong_tien'=>$tong_hoa_don,
+                'loai_thanh_toan'=>'tien-mat',
+                'trang_thai'=> 2,
+            ]);
+            $hoa_don->save();
+        $response=
+        [
+            'message'=>'Thanh toán thành công',
+            'phieu_dat'=>$phieu_dat,
+        ];
+        return response()->json($response,200);
+        }else if($data['payments'] == 'momo_atm'){
+            return $thanh_toan->momo_atm($tong_hoa_don);
+        }else if($data['payments'] == 'momo_pay'){
+            return $thanh_toan->momo_pay($tong_hoa_don);
+        }else if($data['payments'] == 'vn_pay'){
+            return $thanh_toan->VN_pay($goi_du_lich->id,$phieu_dat->id,$tong_hoa_don, $data['redirect']);
+        }
     }
 }

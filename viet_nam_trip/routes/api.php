@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::post('quen-mat-khau-xac-nhan',[AuthController::class,'quen_mat_khau_xac_nhan']);
     Route::post('post-doi-mat-khau',[AuthController::class,'post_doi_mat_khau']);
     Route::post('dat-tour',[TourController::class,'dat_tour']);
+    Route::post('thanh-toan',[TourController::class,'thanh_toan']);
 });
 
 Route::apiResource('luutru',KhachSanController::class);

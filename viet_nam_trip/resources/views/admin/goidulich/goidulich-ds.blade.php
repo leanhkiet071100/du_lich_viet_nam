@@ -7,6 +7,15 @@
             alert('{{ session()->get('success') }}')
         </script>
     @endif
+    @if (session()->has('yes'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Cảm ơn bạn yêu',
+                text: '{{ session()->get('yes') }}',
+            })
+        </script>
+    @endif
     <!-- Main -->
     <div class="app-main__inner">
         <div class="app-page-title">
@@ -16,9 +25,9 @@
                         <i class="pe-7s-ticket icon-gradient bg-mean-fruit"></i>
                     </div>
                     <div>
-                        {{trans('public.travel_packages')}}
+                        {{ trans('public.travel_packages') }}
                         <div class="page-title-subheading">
-                           {{trans('public.manage_title')}}
+                            {{ trans('public.manage_title') }}
                         </div>
                     </div>
                 </div>
@@ -28,7 +37,7 @@
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fa fa-plus fa-w-20"></i>
                         </span>
-                        {{trans('public.create')}}
+                        {{ trans('public.create') }}
                     </a>
                 </div>
             </div>
@@ -66,7 +75,8 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="" class="input-lable">{{ trans('public.end_date') }}</label>
+                                            <label for=""
+                                                class="input-lable">{{ trans('public.end_date') }}</label>
                                             <input type="date" name="to" id="to" class="form-control"
                                                 value="{{ request()->get('to') }}">
                                         </div>
@@ -80,15 +90,19 @@
                                     </div> --}}
                                     <div class="col-md-3">
                                         <div class="form-group form-group-checked">
-                                            <label for="" class="input-lable">{{ trans('public.presently') }}</label>
-                                            <input type="checkbox" name="hien" id="hien" class="form-control" @if(request()->get('hien', null) == 'on') checked="checked" @endif>
+                                            <label for=""
+                                                class="input-lable">{{ trans('public.presently') }}</label>
+                                            <input type="checkbox" name="hien" id="hien" class="form-control"
+                                                @if (request()->get('hien', null) == 'on') checked="checked" @endif>
                                         </div>
                                     </div>
 
                                     <div class="col-md-3">
                                         <div class="form-group form-group-checked">
-                                            <label for="" class="input-lable">{{ trans('public.outstanding') }}</label>
-                                            <input type="checkbox" name="noi-bat" id="status" class="form-control" @if(request()->get('noi-bat', null) == 'on') checked="checked" @endif>
+                                            <label for=""
+                                                class="input-lable">{{ trans('public.outstanding') }}</label>
+                                            <input type="checkbox" name="noi-bat" id="status" class="form-control"
+                                                @if (request()->get('noi-bat', null) == 'on') checked="checked" @endif>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -124,13 +138,13 @@
                         <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th class="text-center">{{trans('public.STT')}}</th>
-                                    <th class="text-center">{{trans('public.name')}}</th>
-                                    <th class="text-center">{{trans('public.category_travel_packages')}}</th>
-                                    <th class="text-center">{{trans('public.maximum_number_of_people')}}</th>
+                                    <th class="text-center">{{ trans('public.STT') }}</th>
+                                    <th class="text-center">{{ trans('public.name') }}</th>
+                                    <th class="text-center">{{ trans('public.category_travel_packages') }}</th>
+                                    <th class="text-center">Trạng thái</th>
                                     {{-- <th class="text-center">Featured</th> --}}
-                                    <th class="text-center">{{trans('Nổi bật')}}</th>
-                                    <th class="text-center">{{trans('public.function')}}</th>
+                                    <th class="text-center">{{ trans('Nổi bật') }}</th>
+                                    <th class="text-center">{{ trans('public.function') }}</th>
                                 </tr>
                             </thead>
 
@@ -145,7 +159,8 @@
                                                         <div class="widget-content-left">
                                                             <img style="height: 60px; width:60px;" data-toggle="tooltip"
                                                                 title="Image" data-placement="bottom"
-                                                                src="{{URL($value->hinh_goi_du_lich  ?? 'assets/img/no-img.jpg')}}" alt="">
+                                                                src="{{ URL($value->hinh_goi_du_lich ?? 'assets/img/no-img.jpg') }}"
+                                                                alt="">
                                                         </div>
                                                     </div>
                                                     <div class="widget-content-left flex2">
@@ -156,8 +171,32 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="text-center">{{$value->ten_loai_goi_du_lich}}</td>
-                                        <td class="text-center">{{$value->so_nguoi_toi_da}}</td>
+                                        <td class="text-center">{{ $value->ten_loai_goi_du_lich }}</td>
+                                        <td class="text-center">
+                                            @switch($value->trang_thai)
+                                                @case(1)
+                                                    <span class="btn btn-primary">Đang chuẩn bị</span>
+                                                @break
+
+                                                @case(2)
+                                                    <span class="btn btn-secondary">Đang đi</span>
+                                                @break
+
+                                                @case(3)
+                                                    <span class="btn btn-success">Hoàn thành</span>
+                                                @break
+
+                                                @case(4)
+                                                    <span class="btn btn-danger">Đã hủy</span>
+                                                @break
+
+                                                @case(5)
+                                                    <span>Hoàn thành</span>
+                                                @break
+
+                                                @default
+                                            @endswitch
+                                        </td>
                                         <td class="td-radio">
                                             <div class=" check-magana text-center td-radio">
                                                 {{-- <input class="form-check-input" type="checkbox" value=""\
@@ -169,10 +208,13 @@
                                             </div>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ route('admin.goi-du-lich.edit', ['id' => $value->id]) }}"
-                                                class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">
-                                                Chi tiết
-                                            </a>
+                                            @if ($value->trang_thai == 1 || $value->trang_thai == 2)
+                                                <a href="{{ route('admin.goi-du-lich.tour-hoan-thanh', ['id' => $value->id]) }}"
+                                                    class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">
+                                                    Hoàn thành
+                                                </a>
+                                            @endif
+
                                             <a href="{{ route('admin.goi-du-lich.edit', ['id' => $value->id]) }}"
                                                 data-toggle="tooltip" title="Edit" data-placement="bottom"
                                                 class="btn btn-outline-warning border-0 btn-sm">

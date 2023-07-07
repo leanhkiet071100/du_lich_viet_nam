@@ -1,7 +1,7 @@
-@extends('layouts.layoutuser')
+@extends('web.layouts.app')
 
 @section('title', 'mạng xã hội')
-@section('sidebar')
+@section('content')
     @parent
     <!-- Main -->
     @if (session()->has('success'))
@@ -9,15 +9,16 @@
             alert('{{ session()->get('success') }}')
         </script>
     @endif
+     @include('web.includes.banner')
     <section class="time-line-user">
         <div class="container">
             <div class="row">
-                @include('layouts.menu-tai-khoan')
+                @include('web.includes.menu-tai-khoan')
                 <div class="col-lg-10 col-md-9 order-md-1 order-1">
                     <div class="don-hang-box">
-                        @include('layouts.menu-don-hang')
+                        @include('web.includes.menu-don-hang')
                     </div>
-                    @foreach ($don_hang as $key => $value)
+                    @foreach ($phieu_dat as $key => $value)
                         <div class="box-hoa-don">
                             <div class="don-hang-box">
                                 <div class="detail-info-title info-title-don-hang">
@@ -25,27 +26,23 @@
                                     <div class="trang-thai">
                                         @switch($value->trang_thai)
                                             @case(1)
-                                                <span>Chờ xác nhận</span>
+                                                <span>Đang chờ duyệt</span>
                                             @break
 
                                             @case(2)
-                                                <span>Vận chuyển</span>
+                                                <span>Đã Duyệt</span>
                                             @break
 
                                             @case(3)
-                                                <span>Đang giao</span>
+                                                <span>Chờ duyệt hủy</span>
                                             @break
 
                                             @case(4)
-                                                <span>Hoàn thành</span>
+                                                <span>Đã hủy</span>
                                             @break
 
                                             @case(5)
-                                                <span>Trả hàng</span>
-                                            @break
-
-                                            @case(0)
-                                                <span>Hủy hàng</span>
+                                                <span>Hoàn thành</span>
                                             @break
 
                                             @default
@@ -53,29 +50,26 @@
 
                                     </div>
                                 </div>
-                                @foreach ($don_hang_chi_tiet as $key2 => $value2)
-                                    @if ($value2->ma_hoa_don == $value->id)
-                                        <div class="list-product">
-                                            <div class="detail-product">
-                                                <div class="img-product">
-                                                    <img src="{{ URL($value2->hinh_anh) }}" alt="">
-                                                </div>
-                                                <div class="info-product">
-                                                    <div class="name-product">
-                                                        <span>{{ $value2->ten_san_pham }}</span>
+                                <div class="list-product">
+                                    <div class="detail-product">
+                                        <div class="img-product">
+                                            <img src="{{ URL($value->goi_du_lich->hinh_goi_du_lich ?? 'hinh_test/no-img.jpg') }}" alt="">
+                                        </div>
+                                        <div class="info-product">
+                                            <div class="name-product">
+                                                <span>{{ $value->goi_du_lich->ten }}</span>
 
-                                                    </div>
-                                                    <div class="">
-                                                        <span> x{{ $value2->so_luong }}</span>
-                                                    </div>
-                                                </div>
                                             </div>
-                                            <div class="price-product">
-                                                {{ number_format($value2->gia_san_pham, 2, ',', '.') }}
+                                            <div class="">
+                                                <span> {{ ( ($value->so_nguoi_lon ?? 0) + ($value->so_tre_em ?? 0)  + ($value->so_tre_nho?? 0)) }} Người</span>
                                             </div>
                                         </div>
-                                    @endif
-                                @endforeach
+                                    </div>
+                                    <div class="price-product">
+                                        {{ number_format($value->hoa_don->tong_tien ?? 0) }}
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="chi-tiet-chuc-nang">
                                 <div class="tong-tien">
@@ -83,7 +77,7 @@
                                         <span>Thành tiền:</span>
                                     </div>
                                     <div class="span-tien">
-                                        <span> {{ number_format($value->tien_hoa_don, 2, ',', '.') }}</span>
+                                        <span> {{ number_format($value->hoa_don->tong_tien ?? 0) }}</span>
                                     </div>
                                 </div>
                                 <div class="chuc-nang">
@@ -91,7 +85,8 @@
                                         <button class="btn-danh-gia">Đánh giá</button>
                                     </div> --}}
                                     <div class="chi-tiet">
-                                        <button class="btn-chi-tiet"><a href="{{route('tai-khoan.don-hang-chi-tiet',['id'=>$value->id])}}">Chi tiết</a></button>
+                                        <a href="{{ route('web.tai-khoan.phieu-dat-chi-tiet', ['id' => $value->id]) }}"><button
+                                                class="btn-chi-tiet">Chi tiết</button></a>
                                     </div>
                                 </div>
                             </div>
@@ -107,9 +102,9 @@
 @section('js')
     <script type="text/javascript">
         $(document).ready(function() {
+            $('#duyet-huy').addClass('active');
             $('#li-don-hang').addClass('tk-active');
             $('#home').removeClass('active');
-            $('#hoan-thanh').addClass('active');
         });
     </script>
 

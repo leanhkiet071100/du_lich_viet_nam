@@ -127,11 +127,7 @@
                 </div>
             </div>
         </div>
-        @section('create')
-        <div class="create-nhan-hieu" id="create-nhan-hieu">
 
-        </div>
-        @endsection
     </div>
     <!-- End Main -->
 @endsection
@@ -228,64 +224,6 @@
         create_nhan_hieu.style.display = "none";
         remove_them_layout();
     }
-
-    // function loadnhanhieu() {
-    //     $.ajax({
-    //         url: "{{ route('admin.loai-dia-diem.load') }}",
-    //         type: "GET",
-    //         dataType: "json",
-    //         success: function(data) {
-    //             console.log(data);
-    //             $('#table-dsnhanhieu').html("");
-    //             $.each(data.lsnhanhieu, function(key, item) {
-    //                 $('#table-dsnhanhieu').append('<tr>\
-    //                                     <td class="text-center text-muted">' + (key + 1) + '</td>\
-    //                                     <td class="td-hinh">\
-    //                                         <div class="widget-content-center ">\
-    //                                             <img style="height: 60px; width: 60px" data-toggle="tooltip" title="Image"\
-    //                                                 data-placement="bottom" src="{{ URL('') }}/' + item
-    //                     .hinh_nhan_hieu + '"\
-    //                                                 alt="">\
-    //                                         </div>\
-    //                                     </td>\
-    //                                     <td>\
-    //                                         <div class="widget-content p-0">\
-    //                                             <div class="widget-content-wrapper">\
-    //                                                 <div class="widget-content-left flex2">\
-    //                                                     <div class="widget-heading">' + item.ten_nhan_hieu + '</div>\
-    //                                                 </div>\
-    //                                             </div>\
-    //                                         </div>\
-    //                                     </td>\
-    //                                     <td class="td-radio">\
-    //                                         <div class=" check-magana text-center td-radio">\
-    //                                             {{-- <input class="form-check-input" type="checkbox" value=""\
-    //                                                 id="defaultCheck1"> --}}\
-    //                                             <input class="" type="checkbox" value="" id="checkhien' + item.id +  '" onchange="nhan_hieu_hien(' + item.id + ')"  ' + (item.hien == 1 ? "checked" : "") +'>\
-    //                                         </div>\
-    //                                     </td>\
-    //                                     <td class="text-center">\
-    //                                         <a data-url="{{ route('admin.loai-dia-diem.edit', '') }}\/' + item.id + '" data-toggle="tooltip" title="Edit"\
-    //                                             data-placement="bottom" class="btn btn-outline-warning border-0 btn-sm edit_nhanhieu" id="edit_nhanhieu">\
-    //                                             <span class="btn-icon-wrapper opacity-8">\
-    //                                                 <i class="fa fa-edit fa-w-20"></i>\
-    //                                             </span>\
-    //                                         </a>\
-    //                                         <form class="d-inline" action="" method="post">\
-    //                                             <button class="delete_nhanhieu btn btn-hover-shine btn-outline-danger border-0 btn-sm "\
-    //                                                 type="button" data-toggle="tooltip" title="Delete"\
-    //                                                 data-placement="bottom" value="' + item.id +'" id="delete_nhanhieu" data-url="{{ route('admin.loai-dia-diem.destroy', '') }}\/' + item.id + '">\
-    //                                                 <span class="btn-icon-wrapper opacity-8">\
-    //                                                     <i class="fa fa-trash fa-w-20"></i>\
-    //                                                 </span>\
-    //                                             </button>\
-    //                                         </form>\
-    //                                     </td>\
-    //                                 </tr>');
-    //             });
-    //         }
-    //     })
-    // }
 
     function load(){
         location.reload()

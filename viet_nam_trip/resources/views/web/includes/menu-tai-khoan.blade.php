@@ -34,11 +34,6 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('web.tai-khoan.dia-chi') }}" id="dia-chi">
-                                        <i class="metismenu-icon"></i>Địa chỉ
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="{{ Route('web.tai-khoan.doi-mat-khau') }}" id="doi-mat-khau">
                                         <i class="metismenu-icon"></i>Đổi mật khẩu
                                     </a>
@@ -48,8 +43,8 @@
                             </ul>
                         </li>
                         <li class="" id="li-don-hang">
-                            <a href="{{ Route('web.tai-khoan.don-hang') }}">
-                                <i class="fa fa-credit-card"></i> Đơn hàng
+                            <a href="{{ route('web.tai-khoan.phieu-dat') }}">
+                                <i class="fa fa-credit-card"></i> Tour
                                 {{-- <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i> --}}
                             </a>
                         </li>

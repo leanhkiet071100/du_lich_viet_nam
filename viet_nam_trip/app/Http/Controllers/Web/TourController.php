@@ -247,6 +247,7 @@ class TourController extends Controller
             'adult' => 'người lớn',
         ];
         $request->validate($rule, $message, $attribute);
+                $data_input = $request->all();
         $goi_du_lich = goi_du_lich::join('loai_goi_du_liches', 'loai_goi_du_liches.id', '=', 'goi_du_liches.loai_id')
                     ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
                     ->find($id);
@@ -318,7 +319,6 @@ class TourController extends Controller
             ]);
             $ds_phieu->save();
         }
-        }
 
         $data= [
             'pageTitle' => "Tour",
@@ -329,6 +329,9 @@ class TourController extends Controller
             'phieu_dat'=>$phieu_dat,
         ];
         return view('web.tour.thanh-toan', $data);
+        }else{
+            return Redirect::route('web.tai-khoan.phieu-dat-chi-tiet',['id'=> $phieu_dat->id])->with(['yes'=>'Chúng tôi sẽ liên hệ với bạn sớm nhất có thể']);
+        }
     }
 
     public function post_thanh_toan(Request $request ,ThanhToanController $thanh_toan, $id, $phieu_dat_id){
@@ -343,13 +346,12 @@ class TourController extends Controller
             $hoa_don = new hoa_don;
             $hoa_don->fill([
                 'phieu_dat_id'=>$phieu_dat_id,
-                'ngay_thanh_toan'=>$ngay_thanh_toan,
                 'tong_tien'=>$tong_hoa_don,
                 'loai_thanh_toan'=>'tien-mat',
                 'trang_thai'=> 2,
             ]);
             $hoa_don->save();
-        return 'tienmat';
+        return Redirect::route('web.tai-khoan.phieu-dat-chi-tiet', ['id' =>  $phieu_dat_id])->with(['yes'=>'Đặt tour thành công']);
         }else if($data['payments'] == 'momo_atm'){
             return $thanh_toan->momo_atm($tong_hoa_don);
         }else if($data['payments'] == 'momo_pay'){
@@ -357,9 +359,5 @@ class TourController extends Controller
         }else if($data['payments'] == 'vn_pay'){
             return $thanh_toan->VN_pay($goi_du_lich->id,$phieu_dat->id,$tong_hoa_don, $data['redirect']);
         }
-        $data= [
-            'pageTitle' => "Tour",
-        ];
-        return view('web.tour.thanh-toan', $data);
     }
 }
