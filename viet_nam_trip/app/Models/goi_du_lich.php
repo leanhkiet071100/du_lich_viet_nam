@@ -32,6 +32,7 @@ class goi_du_lich extends Model
         'thong_tin_dich_vu',
         'dieu_kien_ap_dung',
         'trang_thai',
+        'sao',
         'noi_bat',
     ];
 
@@ -49,5 +50,9 @@ class goi_du_lich extends Model
 
     public function phieu_dat(){
         return $this->hasMany('App\Models\phieu_dat', 'goi_du_lich_id', 'id');
+    }
+
+    public function goi_du_lich_binh_luan(){
+        return $this->hasMany('App\Models\goi_du_lich_binh_luan', 'goi_du_lich_id', 'id');
     }
 }

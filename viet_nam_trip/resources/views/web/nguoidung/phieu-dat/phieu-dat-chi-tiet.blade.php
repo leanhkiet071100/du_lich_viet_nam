@@ -325,17 +325,22 @@
                                             </div>
                                             <div class="btn-tour-chuc-nang">
                                                 <div class="danh-gia">
-                                                    <button
-                                                        onclick="hien_form_danh_gia({{ $phieu_dat->id }})"
-                                                        class="btn-danh-gia btn btn-hover-shine btn-outline-success border-0 btn-sm">
-                                                        Đánh giá
-                                                    </button>
+                                                    @if ($danh_gia == null)
+                                                        <button onclick="hien_form_danh_gia({{ $phieu_dat->id }})"
+                                                            class="btn-danh-gia btn btn-hover-shine btn-outline-success border-0 btn-sm">
+                                                            Đánh giá
+                                                        </button>
+                                                    @else
+                                                        <button data-url="{{route('web.tai-khoan.danh-gia-phieu-dat-sua',['id'=>$phieu_dat->id, 'danh_gia_id'=>$danh_gia->id])}}" id="form_danh_gia_sua"
+                                                            class="btn-danh-gia btn btn-hover-shine btn-outline-success border-0 btn-sm form_danh_gia_sua">
+                                                            Đánh giá
+                                                        </button>
+                                                    @endif
+
                                                 </div>
 
                                                 <div class="huy-tour">
-                                                    <button
-                                                        onclick="hien_form_danh_gia_san_pham({{ $value->ma_san_pham }})"
-                                                        class="btn-huy-tour btn btn-hover-shine btn-outline-danger border-0 btn-sm">
+                                                    <button id="form_huy_tour"  class="btn-huy-tour btn btn-hover-shine btn-outline-danger border-0 btn-sm" data-url="{{route('web.tai-khoan.huy-phieu-dat',['id'=>$phieu_dat->id])}}">
                                                         Hủy tour
                                                     </button>
                                                 </div>
@@ -368,7 +373,7 @@
         });
 
         function hien_form_danh_gia(id) {
-            var url =  "{{ route('web.tai-khoan.danh-gia-phieu-dat', '') }}" + '/' + id;;
+            var url = "{{ route('web.tai-khoan.danh-gia-phieu-dat', '') }}" + '/' + id;;
             var form_danh_gia = document.getElementById("form-danh-gia");
             $.ajaxSetup({
                 headers: {
@@ -390,5 +395,59 @@
                 }
             });
         }
+
+        $(".form_danh_gia_sua").click(function(e) {
+            e.preventDefault();
+             var form_danh_gia = document.getElementById("form-danh-gia");
+            var url = $(this).attr('data-url');
+            console.log(url);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: url,
+                type: 'GET',
+                // data: formData,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    add_them_layout();
+                    form_danh_gia.style.display = "block";
+                    $('#form-danh-gia').html("");
+                    $('#form-danh-gia').append(data);
+
+                }
+            });
+        });
+
+        $("#form_huy_tour").click(function(e) {
+            e.preventDefault();
+             var form_danh_gia = document.getElementById("form-danh-gia");
+            var url = $(this).attr('data-url');
+            console.log(url);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: url,
+                type: 'GET',
+                // data: formData,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    add_them_layout();
+                    form_danh_gia.style.display = "block";
+                    $('#form-danh-gia').html("");
+                    $('#form-danh-gia').append(data);
+
+                }
+            });
+        });
     </script>
 @endsection

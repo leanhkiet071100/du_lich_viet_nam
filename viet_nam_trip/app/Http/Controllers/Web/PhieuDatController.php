@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\phieu_dat;
 use App\Models\hoa_don;
 use App\Models\danh_sach_phieu_dat;
-
+use App\Models\goi_du_lich;
+use App\Models\goi_du_lich_binh_luan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -115,10 +116,14 @@ class PhieuDatController extends Controller
                             ->orderByRaw('id DESC')
                             ->find($id);
         $ds_nguoi_tham_gia = danh_sach_phieu_dat::where('phieu_dat_id','=',$id)->get();
+        $danh_gia = goi_du_lich_binh_luan::where('nguoi_dung_id','=',$iduser)
+                                            ->where('goi_du_lich_id','=',$phieu_dat->goi_du_lich->id)
+                                            ->first();
         $data= [
             'pageTitle' => "Phiếu đặt",
             'phieu_dat' => $phieu_dat,
             'ds_nguoi_tham_gia'=>$ds_nguoi_tham_gia,
+            'danh_gia'=>$danh_gia,
         ];
 
         return view('web.nguoidung.phieu-dat.phieu-dat-chi-tiet', $data);
@@ -136,32 +141,53 @@ class PhieuDatController extends Controller
         return view('web.nguoidung.phieu-dat.form_danh_gia_san_pham', $data);
     }
 
-    public function post_danh_gia_san_pham(Request $request, $id){
+    public function danh_gia_phieu_dat_sua($id, $danh_gia_id){
+           $iduser = Auth::user()->id;
+        $phieu_dat = phieu_dat::with(['hoa_don', 'goi_du_lich'])
+                            ->find($id);
+
+        $danh_gia = goi_du_lich_binh_luan::where('nguoi_dung_id','=',$iduser)
+                                            ->where('goi_du_lich_id','=',$phieu_dat->goi_du_lich->id)
+                                            ->find($danh_gia_id);
+        $data= [
+            'phieu_dat' => $phieu_dat,
+            'danh_gia' => $danh_gia,
+        ];
+
+        return view('web.nguoidung.phieu-dat.form_danh_gia_sua', $data);
+    }
+
+    public function post_danh_gia_phieu_dat_sua(Request $request, $id, $danh_gia_id){
         $phieu_dat_id = $id;
         $id_user = Auth::user()->id;
         $noi_dung = $request->noi_dung;
         $so_sao = $request->so_sao;
         // $created_at =  Carbon::now('Asia/Bangkok');
-        $trang_thai = 1;
-        $hinhbinhluan= $request->file('hinhanh');
-        if($so_sao == null || $so_sao == 0 ){
+        // $hinhbinhluan= $request->file('hinhanh');
+        if($so_sao == null || $so_sao == 0 || $noi_dung == null || $noi_dung == ''){
             return response()->json([
                 'status' => 400,
-                'mess'=>'vui lòng đánh giá sản phẩm',
+                'mess'=>'Vui lòng nhập đầy đủ thông tin',
             ]);
         }else{
-        $sanpham_binhluan = new sanpham_binhluan;
-        $sanpham_binhluan->fill([
-            'ma_san_pham'=>$ma_san_pham,
-            'ma_nguoi_dung'=>$id_user,
-            'id_binh_luan_cha'=>null,
-            'noi_dung'=>$noi_dung,
-            'danh_gia'=>$so_sao,
-            'hien'=>1,
-            'trang_thai'=>1,
-        ]);
-        $sanpham_binhluan->save();
+        $phieu_dat = phieu_dat::where('nguoi_dung_id','=',$id_user)
+                                ->with(['hoa_don', 'goi_du_lich'])
+                                ->find($id);
 
+        $goi_du_lich_binh_luan = goi_du_lich_binh_luan::find($danh_gia_id);
+        $goi_du_lich_binh_luan->update([
+            'goi_du_lich_id'=>$phieu_dat->goi_du_lich->id,
+            'nguoi_dung_id'=>$id_user,
+            'noi_dung'=>$noi_dung,
+            'sao'=>$so_sao,
+        ]);
+        $sao_goi_du_lich = goi_du_lich_binh_luan::avg('sao');
+        $goi_du_lich = goi_du_lich::find($phieu_dat->goi_du_lich->id);
+        $goi_du_lich->update([
+            'sao'=>$sao_goi_du_lich,
+        ]);
+
+        /*
         $id_sanpham_binhluan = $sanpham_binhluan->id;
 
         if($hinhbinhluan != null){
@@ -178,12 +204,24 @@ class PhieuDatController extends Controller
                 ]);
             }
         }
+        */
         return response()->json([
                 'status' => 200,
                 'mess'=>'Cảm ơn quý khách rất nhiều !'
-                                    ]);
-                                }
-        //return view('nguoidung.donhang.form_danh_gia_san_pham')->with(['san_pham'=>$san_pham]);
+            ]);
+        }
+
     }
     //kết thúc đánh giá sản phẩm
+
+    //hủy tour
+    public function huy_phieu_dat($id){
+        $phieu_dat = phieu_dat::with(['hoa_don', 'goi_du_lich'])
+                            ->find($id);
+        $data= [
+            'phieu_dat' => $phieu_dat,
+        ];
+
+        return view('web.nguoidung.phieu-dat.form_huy_tour', $data);
+    }
 }

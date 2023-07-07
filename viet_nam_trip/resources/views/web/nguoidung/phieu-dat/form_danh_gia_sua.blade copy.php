@@ -5,13 +5,15 @@
                 <div class="tt-danh-gia-san-pham">
                     <h3 class="tt">Đánh giá sản phẩm</h3>
                 </div>
-                <form action="" data-url="{{ route('web.tai-khoan.post-danh-gia-phieu-dat', ['id' => $phieu_dat->id]) }}"
+                <form action=""
+                    data-url="{{ route('web.tai-khoan.post-danh-gia-phieu-dat-sua', ['id' => $phieu_dat->id, 'danh_gia_id'=>$danh_gia->id]) }}"
                     id="post-form-danh-gia">
                     @csrf
                     <div class="list-product">
                         <div class="detail-product">
                             <div class="img-product">
-                                <img src="{{ URL($phieu_dat->goi_du_lich->hinh_goi_du_lich ?? 'hinh_test/no-img.jpg') }}" alt="Lỗi tải ảnh sản phẩm">
+                                <img src="{{ URL($phieu_dat->goi_du_lich->hinh_goi_du_lich ?? 'hinh_test/no-img.jpg') }}"
+                                    alt="Lỗi tải ảnh sản phẩm">
                             </div>
                             <div class="info-product">
                                 <div class="name-product">
@@ -26,27 +28,23 @@
                         </div>
                         <div class='rating-stars text-center'>
                             <ul id='stars'>
-                                <li class='star' title='Rất tệ' data-value='1'>
-                                    <i class='fa fa-star fa-fw'></i>
-                                </li>
-                                <li class='star' title='Tệ' data-value='2'>
-                                    <i class='fa fa-star fa-fw'></i>
-                                </li>
-                                <li class='star' title='Tốt' data-value='3'>
-                                    <i class='fa fa-star fa-fw'></i>
-                                </li>
-                                <li class='star' title='Tuyệt vời' data-value='4'>
-                                    <i class='fa fa-star fa-fw'></i>
-                                </li>
-                                <li class='star' title='WOW!!!' data-value='5'>
-                                    <i class='fa fa-star fa-fw'></i>
-                                </li>
+                                @for ($i = 0; $i < 5; $i++)
+                                    @if ($i < $danh_gia->sao)
+                                        <li class='star selected' data-value='{{($i + 1)}}'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                    @else
+                                        <li class='star' data-value='{{($i + 1)}}'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                    @endif
+                                @endfor
                             </ul>
                         </div>
-                        <input type="hidden" id="so-sao" class="so-sao">
+                        <input type="hidden" id="so-sao" class="so-sao" value="{{$danh_gia->sao}}">
                     </div>
                     <div class="description text-danh-gia" id="noidungbaiviet">
-                        <textarea class="content-post" name="content_post" id="content_post" rows="3" placeholder="Đánh giá sản phẩm"></textarea>
+                        <textarea class="content-post" name="content_post" id="content_post" rows="3" placeholder="Đánh giá sản phẩm">{{$danh_gia->noi_dung}}</textarea>
                         {{-- <div class="attachments">
                             <ul>
                                 <li>
@@ -70,7 +68,8 @@
                         </div> --}}
                         <div class="chuc-nang">
                             <div class="chi-tiet">
-                                <button type="button" class="btn-chi-tiet" id="btn-tro-lai" onclick="tro_lai()">Trở lại</button>
+                                <button type="button" class="btn-chi-tiet" id="btn-tro-lai" onclick="tro_lai()">Trở
+                                    lại</button>
                             </div>
                             <div class="danh-gia">
                                 <button type="submit" class="btn-danh-gia">Hoàn thành</button>
@@ -186,43 +185,43 @@
         // var hinh = document.getElementById('uploadanhpost').files;
         var so_sao = $('#so-sao').val();
         console.log(noi_dung, so_sao);
-            formData = new FormData();
-            formData.append('noi_dung', noi_dung);
-            formData.append('so_sao', so_sao);
-            // for (var i = 0; i < hinh.length; i++) {
-            //     formData.append('hinhanh[]', hinh[i]);
-            // }
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            })
+        formData = new FormData();
+        formData.append('noi_dung', noi_dung);
+        formData.append('so_sao', so_sao);
+        // for (var i = 0; i < hinh.length; i++) {
+        //     formData.append('hinhanh[]', hinh[i]);
+        // }
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        })
 
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(data) {
-                    if (data.status == 400) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Úi...!!!',
-                            text: data.mess,
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                if (data.status == 400) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Úi...!!!',
+                        text: data.mess,
 
-                        })
-                    } else {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Cảm ơn bạn yêu',
-                            text: 'Đã hoàn thành đánh giá',
-                        }).then((result) => {
-                            tro_lai();
-                        });
-                    }
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Cảm ơn bạn yêu',
+                        text: 'Đã hoàn thành đánh giá',
+                    }).then((result) => {
+                        tro_lai();
+                    });
                 }
-            });
+            }
+        });
 
     });
 
