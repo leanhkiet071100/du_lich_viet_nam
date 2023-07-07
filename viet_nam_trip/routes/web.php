@@ -174,6 +174,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
                 Route::post('/{id}/update', 'GoiDuLichController@update')->name('update');
                 Route::delete('/{id}/destroy', 'GoiDuLichController@destroy')->name('destroy');
                  Route::post('/noi-bat/{id}', 'GoiDuLichController@noi_nat')->name('noi-bat');
+                  Route::get('/tour-hoan-thanh/{id}', 'GoiDuLichController@tour_hoan_thanh')->name('tour-hoan-thanh');
             });
         });
 
@@ -197,6 +198,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
                 Route::get('/duyet/{id}', 'PhieuDatController@duyet')->name('duyet');
                 Route::get('/duyet-huy/{id}', 'PhieuDatController@duyet_huy')->name('duyet-huy');
                 Route::get('/phieu-dat-chi-tiet/{id}', 'PhieuDatController@phieu_dat_chi_tiet')->name('phieu-dat-chi-tiet');
+                Route::get('/hoan-tien/{id}', 'PhieuDatController@hoan_tien')->name('hoan-tien');
+
 
             });
         });
@@ -359,6 +362,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
                 Route::post('/post-danh-gia-phieu-dat-sua/{id}/{danh_gia_id}', 'PhieuDatController@post_danh_gia_phieu_dat_sua')->name('post-danh-gia-phieu-dat-sua');
                 Route::get('/huy-phieu-dat/{id}', 'PhieuDatController@huy_phieu_dat')->name('huy-phieu-dat');
                 Route::post('/post-huy-phieu-dat/{id}', 'PhieuDatController@post_huy_phieu_dat')->name('post-huy-phieu-dat');
+                Route::get('/hoan-lai-phieu-dat/{id}', 'PhieuDatController@hoan_lai_phieu_dat')->name('hoan-lai-phieu-dat');
             });
             });
         });

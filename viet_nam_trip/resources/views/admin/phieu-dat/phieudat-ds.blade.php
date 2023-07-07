@@ -29,7 +29,6 @@
                                     <th class="text-center">STT</th>
                                     <th class="text-center">Họ tên</th>
                                     <th class="text-center">Số điện thoại</th>
-                                    <th class="text-center">Tư vấn</th>
                                     <th class="text-center">Ngày khởi hành</th>
                                     <th class="text-center">Ngày đặt</th>
                                     <th class="text-center">Thanh toán</th>
@@ -44,14 +43,6 @@
                                         <td class="text-center">{{ $value->ten }} </td>
                                         <td class="text-center"> {{ $value->so_dien_thoai }}</td>
                                         <td class="text-center">
-                                            @if ($value->tu_van == 1)
-                                                <span class="badge badge-danger">Cần tư vấn</span>
-                                            @else
-                                                <span class="badge badge-success">Xem danh sách</span>
-                                            @endif
-
-                                        </td>
-                                        <td class="text-center">
                                             {{ date('d/m/Y', strtotime($value->goi_du_lich->ngay_khoi_hanh)) }}</td>
                                         <td class="text-center">{{ date('d/m/Y', strtotime($value->ngay_dat)) }}</td>
                                         @if ($value->hoa_don == null)
@@ -59,7 +50,6 @@
                                                 <td class="text-center td-trang-thai-hoa-don">
                                                     <span class="badge badge-warning">Đã hủy</span>
                                                 </td>
-
                                             @else
                                                 <td class="text-center td-trang-thai-hoa-don">
                                                     <span class="badge badge-success">Chờ tư vấn</span>
@@ -97,7 +87,7 @@
                                             id="td-trang-thai{{ $value->id }}">
                                             @switch($value->trang_thai)
                                                 @case(1)
-                                                   <span class="badge badge-warning">Đang chờ duyệt</span>
+                                                    <span class="badge badge-warning">Đang chờ duyệt</span>
                                                 @break
 
                                                 @case(2)
@@ -119,12 +109,23 @@
                                                 @default
                                             @endswitch
                                         </td>
-                                        <td class="text-center td-chuc-nang{{ $value->id }}" id="td-chuc-nang{{ $value->id }}">
+                                        <td class="text-center td-chuc-nang{{ $value->id }}"
+                                            id="td-chuc-nang{{ $value->id }}">
                                             @switch($value->trang_thai)
                                                 @case(1)
-                                                    <button onclick="duyet({{ $value->id }})" class="btn btn-hover-shine btn-outline-success border-0 btn-sm">
+                                                    <button onclick="duyet({{ $value->id }})"
+                                                        class="btn btn-hover-shine btn-outline-success border-0 btn-sm">
                                                         Duyệt
                                                     </button>
+                                                @break
+
+                                                @case(4)
+                                                    @if ($value->hoa_don->trang_thai == 2)
+                                                        <button onclick="hoan_tien({{ $value->id }})"
+                                                            class="btn btn-hover-shine btn-outline-success border-0 btn-sm">
+                                                            Hoàn tiền
+                                                        </button>
+                                                    @endif
                                                 @break
 
                                                 @case(3)
@@ -133,9 +134,11 @@
                                                         Duyệt hủy
                                                     </button>
                                                 @break
+
                                                 @default
                                             @endswitch
-                                            <a href="{{route('admin.tour.phieu-dat-chi-tiet', ['id'=>$value->id])}}" class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">Chi
+                                            <a href="{{ route('admin.tour.phieu-dat-chi-tiet', ['id' => $value->id]) }}"
+                                                class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">Chi
                                                 tiết </a>
                                             @if ($value->trang_thai != 4 && $value->trang_thai != 5)
                                                 <button onclick="form_huy({{ $value->id }})"
@@ -257,7 +260,7 @@
             remove_them_layout();
         }
 
-        function duyet(id){
+        function duyet(id) {
             var url = "{{ route('admin.tour.duyet', '') }}" + '/' + id;
             $.ajaxSetup({
                 headers: {
@@ -272,12 +275,12 @@
                 processData: false,
                 success: function(data) {
                     if (data.status == 400) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Úi...!!!',
-                        text: 'Error',
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Úi...!!!',
+                            text: 'Error',
 
-                    })
+                        })
                     } else {
                         Swal.fire({
                             icon: 'success',
@@ -292,7 +295,42 @@
             });
         }
 
-        function duyet_huy(id){
+         function hoan_tien(id) {
+            var url = "{{ route('admin.tour.hoan-tien', '') }}" + '/' + id;
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: url,
+                type: 'GET',
+                // data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if (data.status == 400) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Úi...!!!',
+                            text: data.mess,
+
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Cảm ơn bạn',
+                            text: data.mess,
+                        }).then((result) => {
+                            load();
+                        });
+
+                    }
+                }
+            });
+        }
+
+        function duyet_huy(id) {
             var url = "{{ route('admin.tour.duyet-huy', '') }}" + '/' + id;
             $.ajaxSetup({
                 headers: {
@@ -307,12 +345,12 @@
                 processData: false,
                 success: function(data) {
                     if (data.status == 400) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Úi...!!!',
-                        text: 'Error',
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Úi...!!!',
+                            text: 'Error',
 
-                    })
+                        })
                     } else {
                         Swal.fire({
                             icon: 'success',

@@ -16133,3 +16133,9 @@ h3.heading.mb-4 {
     display: flex;
     align-items: center;
 }
+input#DiscountCode {
+    width: 100px;
+    max-width: 110px;
+    margin: 5px;
+    max-height: 44px;
+}

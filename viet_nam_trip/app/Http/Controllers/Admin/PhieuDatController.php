@@ -159,6 +159,28 @@ class PhieuDatController extends Controller
             }
     }
 
+     public function hoan_tien (Request $request, $id){
+            $phieu_dat = phieu_dat::find($id);
+            $hoa_don = hoa_don::where('phieu_dat_id', $phieu_dat->id)->first();
+
+            if($hoa_don == null){
+                return response()->json([
+                    'status' => 400,
+                    'mess'=>'Thấy bại',
+                ]);
+            }else{
+                if($hoa_don->trang_thai == 2){
+                    $hoa_don->update([
+                        'trang_thai' => 3,
+                    ]);
+                }
+                return response()->json([
+                    'status' => 200,
+                    'mess'=>'Hoàn trả thành công',
+                ]);
+            }
+    }
+
     public function phieu_dat_chi_tiet (Request $request, $id){
         $iduser = Auth::user()->id;
         $phieu_dat = phieu_dat::with(['hoa_don', 'goi_du_lich'])

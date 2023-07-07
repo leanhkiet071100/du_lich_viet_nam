@@ -8,6 +8,7 @@ use App\Models\goi_du_lich;
 use App\Models\loai_goi_du_lich;
 use App\Models\lich_trinh;
 use App\Models\User;
+use App\Models\phieu_dat;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -287,5 +288,23 @@ class GoiDuLichController extends Controller
         }
         $goi_du_lich->save();
         return Redirect::route('admin.goi-du-lich.index');
+    }
+
+    public function tour_hoan_thanh(Request $request, $id)
+    {
+        $ngay_hien_tai = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $goi_du_lich = goi_du_lich::find($id);
+        $phieu_dats = phieu_dat::where('trang_thai', 2)->where('goi_du_lich_id', $id)->get();
+        $goi_du_lich->update([
+            'trang_thai'=>3,
+        ]);
+        foreach($phieu_dats as $key=>$value)
+        {
+            $value->update([
+                'trang_thai'=> 5,
+            ]);
+        }
+
+        return Redirect::route('admin.goi-du-lich.index')->with('yes', 'gói du lịch đã hoàn thành');
     }
 }

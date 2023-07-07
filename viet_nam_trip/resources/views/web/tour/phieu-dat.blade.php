@@ -2,7 +2,7 @@
 
 @section('content')
     @parent
-     @if (session()->has('yes'))
+    @if (session()->has('yes'))
         <script>
             alert('{{ session()->get('yes') }}')
         </script>
@@ -102,7 +102,7 @@
                                     <div class="name">
                                         <label>Họ và Tên <b>*</b></label>
                                         <input class="form-control" id="contact_name" name="Fullname" type="text"
-                                            value="{{old('Fullname') ?? Auth::user()->ten}}">
+                                            value="{{ old('Fullname') ?? Auth::user()->ten }}">
                                         <div class="text-center">
                                             @error('Fullname')
                                                 <span style="color:red"> {{ $message }}</span>
@@ -121,9 +121,8 @@
                                     </div>
                                     <div class="phone">
                                         <label>Số điện thoại <b>*</b></label>
-                                        <input class="form-control" id="mobilephone" name="Telephone"
-
-                                            type="text" value="{{old('Telephone') ?? Auth::user()->so_dien_thoai}}">
+                                        <input class="form-control" id="mobilephone" name="Telephone" type="text"
+                                            value="{{ old('Telephone') ?? Auth::user()->so_dien_thoai }}">
                                         <div class="text-center">
                                             @error('Telephone')
                                                 <span style="color:red"> {{ $message }}</span>
@@ -133,7 +132,7 @@
                                     <div class="addess">
                                         <label>Địa chỉ</label>
                                         <input class="form-control" id="address" name="Address" type="text"
-                                            value="{{old('Address')}}">
+                                            value="{{ old('Address') }}">
                                         <div class="text-center">
                                             @error('Address')
                                                 <span style="color:red"> {{ $message }}</span>
@@ -152,7 +151,8 @@
                                     <div class="change-number">
                                         <span class="minus btn-click"><i class="fa fa-minus-circle"
                                                 id="adultMinus"></i></span>
-                                        <input class="number" type="number" value="{{old('adult') ?? 1}}" id="adult" name="adult">
+                                        <input class="number" type="number" value="{{ old('adult') ?? 1 }}" id="adult"
+                                            name="adult">
                                         <span class="plus btn-click"><i class="fa fa-plus-circle" id="adultPlus"></i></span>
                                     </div>
                                 </div>
@@ -164,8 +164,8 @@
                                     <div class="change-number">
                                         <span class="minus btn-click"><i
                                                 class="fa fa-minus-circle"id="childrenMinus"></i></span>
-                                        <input class="number" type="number" value="{{old('children') ?? 0}}" id="children"
-                                            name="children">
+                                        <input class="number" type="number" value="{{ old('children') ?? 0 }}"
+                                            id="children" name="children">
                                         <span class="plus btn-click"><i class="fa fa-plus-circle"
                                                 id="childrenPlus"></i></span>
                                     </div>
@@ -179,8 +179,8 @@
                                     <div class="change-number">
                                         <span class="minus btn-click"><i class="fa fa-minus-circle"
                                                 id="smallchildrenMinus"></i></span>
-                                        <input class="number" type="number" value="{{old('smallchildren') ?? 0}}" id="smallchildren"
-                                            name="smallchildren">
+                                        <input class="number" type="number" value="{{ old('smallchildren') ?? 0 }}"
+                                            id="smallchildren" name="smallchildren">
                                         <span class="plus btn-click"><i class="fa fa-plus-circle"
                                                 id="smallchildrenPlus"></i></span>
                                     </div>
@@ -188,7 +188,10 @@
                             </div>
                             <div class="mb-4">
                                 <div class="form-check checkbox-input-search d-inline-flex  align-items-center">
-                                    <input class="form-check-input me-3 option" type="radio" id="not_tu_van" name="option" value="not_tu_van" {{old('option') == 'not_tu_van' ? 'checked' : ''}}  {{old('option') ?? 'checked'}} >
+                                    <input class="form-check-input me-3 option" type="radio" id="not_tu_van"
+                                        name="option" value="not_tu_van"
+                                        {{ old('option') == 'not_tu_van' ? 'checked' : '' }}
+                                        {{ old('option') ?? 'checked' }}>
                                     <div class="col-12">
                                         <label class="form-check-label mt-1 small" for="flexCheckDefault_Option1">
                                             Nhập danh sách khách hàng
@@ -196,7 +199,8 @@
                                     </div>
                                 </div>
                                 <div class="form-check checkbox-input-search d-inline-flex  align-items-center">
-                                    <input class="form-check-input me-3 option" type="radio" id="tu_van" name="option" value="tu_van" {{ old('option') == 'tu_van' ? 'checked' : ''}}>
+                                    <input class="form-check-input me-3 option" type="radio" id="tu_van"
+                                        name="option" value="tu_van" {{ old('option') == 'tu_van' ? 'checked' : '' }}>
                                     <div class="col-11">
                                         <label class="form-check-label mt-1 small" for="flexCheckDefault_Option1">
                                             Tôi cần được nhân viên tư vấn
@@ -226,9 +230,9 @@
                                 </div>
                             </div>
                             <div class="customer-save">
-                            <h3>Quý khách có ghi chú lưu ý gì, hãy nói với chúng tôi !</h3>
-                            <div class="customer-save-inner">
-                                {{-- <label class="checker">
+                                <h3>Quý khách có ghi chú lưu ý gì, hãy nói với chúng tôi !</h3>
+                                <div class="customer-save-inner">
+                                    {{-- <label class="checker">
                                     Hút thuốc
                                     <input type="checkbox" class="note-more" value="hút thuốc">
                                     <span class="checkmark"></span>
@@ -258,11 +262,11 @@
                                     <input type="checkbox" class="note-more" value="phụ nữ có thai">
                                     <span class="checkmark"></span>
                                 </label> --}}
-                                <p>Ghi chú thêm</p>
-                                <textarea class="form-control" cols="20" id="note" name="note"
-                                    placeholder="Vui lòng nhập nội dung lời nhắn bằng tiếng Anh hoặc tiếng Việt" rows="5"></textarea>
+                                    <p>Ghi chú thêm</p>
+                                    <textarea class="form-control" cols="20" id="note" name="note"
+                                        placeholder="Vui lòng nhập nội dung lời nhắn bằng tiếng Anh hoặc tiếng Việt" rows="5"></textarea>
+                                </div>
                             </div>
-                        </div>
                         </div>
                         <div class="col-md-4 col-12 right">
                             {{-- <div class="box-support">
@@ -349,10 +353,21 @@
                                             <td>Phụ thu phòng riêng</td>
                                             <td class="t-price text-right" id="txtPhuThu">1,400,000₫</td>
                                         </tr> --}}
-                                            {{-- <tr class="pt hardCode" id="promotiontitle">
-                                                <td id="showpromotiontitle">Khuyến mãi xuân 2023</td>
-                                                <td class="t-price text-right" id="txtKhuyenMai2022"></td>
-                                            </tr> --}}
+                                            <tr class="cuppon">
+                                                <td>Mã giảm giá</td>
+                                                <td class="cp-form text-right">
+                                                    <form action="#">
+                                                        <input class="form-control" id="DiscountCode" name="DiscountCode"
+                                                            placeholder="Thêm mã" required="required" type="text"
+                                                            value="">
+                                                        <input type="hidden" id="hdDiscountCode">
+                                                        <input type="hidden" id="hdDiscountCode-Price" value="0">
+                                                        &nbsp;
+                                                        <input type="button" class="btn btn-success"
+                                                            id="btnDiscountCode" value="Áp dụng">
+                                                    </form>
+                                                </td>
+                                            </tr>
                                             <tr id="promotiontitletotal" style="display:none">
                                                 <td>Tổng tiền</td>
                                                 <td class="t-price text-right" id="PromotionTotalPrice"></td>
@@ -475,16 +490,16 @@
 @endsection
 @section('js')
     <script type="text/javascript">
-            const detai_constomer = document.querySelector('#detail-customer');
-            const customer = document.querySelector('#customer');
-            const option = document.querySelector('.option:checked').value;
-            const table_detail_khach_hang = document.getElementById('table_detail_khach_hang');
+        const detai_constomer = document.querySelector('#detail-customer');
+        const customer = document.querySelector('#customer');
+        const option = document.querySelector('.option:checked').value;
+        const table_detail_khach_hang = document.getElementById('table_detail_khach_hang');
         $(document).ready(function() {
             $('#hotel').addClass('active');
             // load_danh_sach();
-            if(option == 'tu_van'){
+            if (option == 'tu_van') {
                 tu_van();
-            }else if(option == 'not_tu_van'){
+            } else if (option == 'not_tu_van') {
                 not_tu_van();
             }
         });
@@ -563,9 +578,9 @@
             var children = document.getElementById("children").value;
             var smallchildren = document.getElementById("smallchildren").value;
             tong_hoa_don(adult, children, smallchildren)
-            if(option == 'tu_van'){
+            if (option == 'tu_van') {
                 tu_van();
-            }else if(option == 'not_tu_van'){
+            } else if (option == 'not_tu_van') {
                 not_tu_van();
             }
         }
@@ -687,13 +702,14 @@
             }
         }
 
-        function not_tu_van(){
+        function not_tu_van() {
             detai_constomer.style.display = "block";
             customer.style.display = "block";
-             table_detail_khach_hang.style.display = "inline-table";
+            table_detail_khach_hang.style.display = "inline-table";
             load_danh_sach();
         }
-        function tu_van(){
+
+        function tu_van() {
             detai_constomer.style.display = "none";
             customer.style.display = "none";
             table_detail_khach_hang.style.display = "none";

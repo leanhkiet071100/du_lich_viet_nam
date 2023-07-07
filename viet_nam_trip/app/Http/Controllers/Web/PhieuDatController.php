@@ -250,4 +250,24 @@ class PhieuDatController extends Controller
             ]);
         }
     }
+
+    public function hoan_lai_phieu_dat(Request $request, $id){
+        $phieu_dat_id = $id;
+        $id_user = Auth::user()->id;
+        $phieu_dat = phieu_dat::where('nguoi_dung_id','=',$id_user)
+                                ->with(['hoa_don', 'goi_du_lich'])
+                                ->where('trang_thai',3)
+                                ->find($id);
+        $ngay_huy = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $phieu_dat->update([
+            'ngay_huy'=> null,
+            'li_do_huy'=> null,
+            'trang_thai'=> 1,
+        ]);
+        return response()->json([
+                'status' => 200,
+                'mess'=>'Cảm ơn quý khách rất nhiều !'
+            ]);
+
+    }
 }

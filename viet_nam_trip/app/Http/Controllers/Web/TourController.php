@@ -247,6 +247,7 @@ class TourController extends Controller
             'adult' => 'người lớn',
         ];
         $request->validate($rule, $message, $attribute);
+                $data_input = $request->all();
         $goi_du_lich = goi_du_lich::join('loai_goi_du_liches', 'loai_goi_du_liches.id', '=', 'goi_du_liches.loai_id')
                     ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
                     ->find($id);

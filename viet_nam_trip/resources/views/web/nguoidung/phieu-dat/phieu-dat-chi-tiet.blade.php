@@ -353,9 +353,9 @@
                                                 @if ($phieu_dat->trang_thai != 5 && $phieu_dat->trang_thai != 4)
                                                     @if ($phieu_dat->trang_thai == 3)
                                                         <div class="huy-tour">
-                                                            <button id="form_huy_tour"
+                                                            <button id="hoan_lai_phieu_dat"
                                                                 class="btn-huy-tour btn btn-hover-shine btn-outline-danger border-0 btn-sm"
-                                                                data-url="{{ route('web.tai-khoan.huy-phieu-dat', ['id' => $phieu_dat->id]) }}">
+                                                                data-url="{{ route('web.tai-khoan.hoan-lai-phieu-dat', ['id' => $phieu_dat->id]) }}">
                                                                 Hoàn lại
                                                             </button>
                                                         </div>
@@ -471,6 +471,47 @@
 
                 }
             });
+        });
+
+        $("#hoan_lai_phieu_dat").click(function(e) {
+            e.preventDefault();
+            var url = $(this).attr('data-url');
+            console.log(url);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            Swal.fire({
+                title: 'Bạn có chắc không muốn hủy nữa chứ',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Tôi đồng ý'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        // data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(data) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Cảm ơn bạn yêu',
+                                text: 'Đã hoàn lại thành công',
+                            }).then((result) => {
+                                tro_lai();
+                            });
+
+                        }
+                    });
+                }
+            })
+
         });
     </script>
 @endsection
