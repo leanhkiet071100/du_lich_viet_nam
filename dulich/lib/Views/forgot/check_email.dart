@@ -96,7 +96,7 @@ class _CheckEmailState extends State<CheckEmail> {
               Container(
                 padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
                 child: TextFormField(
-                  //controller: txtEmail,
+                  controller: txtEmail,
                   decoration: InputDecoration(
                     hintText: "Nhập email",
                     enabledBorder: OutlineInputBorder(

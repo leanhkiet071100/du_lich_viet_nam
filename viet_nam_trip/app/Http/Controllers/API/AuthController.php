@@ -224,8 +224,8 @@ public function quen_mat_khau_xac_nhan(Request $request){
 }
 public function post_doi_mat_khau(Request $request){
         $rule = [
-        'mat-khau-moi'=> 'required|min:6| max:50',
-        'xac-nhan-mat-khau-moi' => 'required|min:6| max:50|same:mat-khau-moi',
+        'mat_khau_moi'=> 'required|min:6| max:50',
+        'xac_nhan_mat_khau_moi' => 'required|min:6| max:50|same:mat_khau_moi',
         ];$message =[
         'required' => ':attribute không được để trống',
         'min' => ':attribute phải lớn hơn :min', // lớn hơn  (không phải độ dài)
@@ -234,17 +234,17 @@ public function post_doi_mat_khau(Request $request){
         'image'=> ':attribute phải là hình ảnh',
         'same' => 'Không trùng mật khẩu',
         ];$attribute = [
-        'xac-nhan-mat-khau'=>'Xác nhận mật khẩu',
-        'ma-xac-nhan' => 'Ma xác nhận',
+        'xac_nhan_mat_khau_moi'=>'Xác nhận mật khẩu',
+        'mat_khau_moi' => 'Ma xác nhận',
         ];
 
     $request->validate($rule, $message, $attribute);
     $nguoidung  = auth()->user();
-    $input['mat-khau-moi'] = $request->input('mat-khau-moi');
-    $input['xac-nhan-mat-khau-moi']= $request->input('xac-nhan-mat-khau-moi');
+    $input['mat_khau_moi'] = $request->input('mat_khau_moi');
+    $input['xac_nhan_mat_khau_moi']= $request->input('xac_nhan_mat_khau_moi');
 
     $nguoidung->update([
-        'mat_khau' => $input['mat-khau-moi'],
+        'mat_khau' => $input['mat_khau_moi'],
         'api_code' => null
     ]);
     $nguoidung->save();

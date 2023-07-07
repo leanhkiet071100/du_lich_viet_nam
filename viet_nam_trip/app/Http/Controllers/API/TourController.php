@@ -43,8 +43,8 @@ class TourController extends Controller
         $request->validate($rule, $message, $attribute);
 
         $input['Fullname'] = $request->input('Fullname');
-        $input['Email'] = $request->input('Fullname');
-        $input['Telephone'] = $request->input('Fullname');
+        $input['Email'] = $request->input('Email');
+        $input['Telephone'] = $request->input('Telephone');
         $input['adult'] = $request->input('adult');
         $input['children'] = $request->input('children');
         $input['goi_du_lich_id'] = $request->input('goi_du_lich_id');

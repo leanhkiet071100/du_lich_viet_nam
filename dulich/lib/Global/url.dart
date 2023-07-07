@@ -3,6 +3,7 @@ const String loginUrl = baseUrl + "login";
 const String regisUrl = baseUrl + "register";
 const String logoutUrl = baseUrl + "logout";
 const String passUrl = baseUrl + "post-quen-mat-khau";
+const String tourUrl = baseUrl + "dat-tour";
 const Map<String, String> headers = {"Content-Type": "application/json"};
 
 class ApiResponse {

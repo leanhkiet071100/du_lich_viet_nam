@@ -1,5 +1,6 @@
 import 'package:dulich/Global/alert.dart';
 import 'package:dulich/Global/color.dart';
+import 'package:dulich/Views/booking/book_now.dart';
 import 'package:flutter/material.dart';
 
 class Tour {
