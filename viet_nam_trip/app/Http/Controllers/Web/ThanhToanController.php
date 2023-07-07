@@ -122,13 +122,14 @@ class ThanhToanController extends Controller
     }
 
     public function VN_pay($goi_du_lich_id,$ma_don_hang,$tong_hoa_don, $redirect){
-        $url = "http://127.0.0.1:8000/thanh-toan/vnpay-success/".$ma_don_hang;
+        $url = route('web.thanh-toan.vnpay-success', ['phieu_dat_id' => $ma_don_hang]);
+        $ramdom = Str::random(10);
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = $url;
         $vnp_TmnCode = "MAJSGG4N";//Mã website tại VNPAY
         $vnp_HashSecret = "ZAUBUPADSOYEBLJJSUIUZLVSZURQKBPW"; //Chuỗi bí mật
 
-        $vnp_TxnRef = $ma_don_hang; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+        $vnp_TxnRef = Str::random(10).$ma_don_hang; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = 'thanh toán đơn hàng';
         $vnp_OrderType = 'billpayment';
         $vnp_Amount = $tong_hoa_don * 100;
@@ -205,6 +206,6 @@ class ThanhToanController extends Controller
             'trang_thai'=> 1,
         ]);
         $hoa_don->save();
-        return Redirect::route('web.trang-chu.index')->with('success','thanh toán thành công');
+        return Redirect::route('web.tai-khoan.phieu-dat-chi-tiet', ['id'=>$phieu_dat_id])->with('yes','Đặt tour thành công');
     }
 }
