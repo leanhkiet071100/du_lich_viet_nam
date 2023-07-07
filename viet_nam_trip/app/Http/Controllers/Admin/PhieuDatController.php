@@ -161,8 +161,7 @@ class PhieuDatController extends Controller
 
     public function phieu_dat_chi_tiet (Request $request, $id){
         $iduser = Auth::user()->id;
-        $phieu_dat = phieu_dat::where('nguoi_dung_id','=',$iduser)
-                            ->with(['hoa_don', 'goi_du_lich'])
+        $phieu_dat = phieu_dat::with(['hoa_don', 'goi_du_lich'])
                             ->orderByRaw('id DESC')
                             ->find($id);
         $ds_nguoi_tham_gia = danh_sach_phieu_dat::where('phieu_dat_id','=',$id)->get();

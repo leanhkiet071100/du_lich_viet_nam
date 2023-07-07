@@ -5,13 +5,14 @@
                 <div class="tt-danh-gia-san-pham">
                     <h3 class="tt">Đánh giá sản phẩm</h3>
                 </div>
-                <form action="" data-url="{{ route('web.tai-khoan.post-danh-gia-phieu-dat', ['id' => $phieu_dat->id]) }}"
+                <form data-url="{{ route('web.tai-khoan.post-huy-phieu-dat', ['id' => $phieu_dat->id]) }}"
                     id="post-form-danh-gia">
                     @csrf
                     <div class="list-product">
                         <div class="detail-product">
                             <div class="img-product">
-                                <img src="{{ URL($phieu_dat->goi_du_lich->hinh_goi_du_lich ?? 'hinh_test/no-img.jpg') }}" alt="Lỗi tải ảnh sản phẩm">
+                                <img src="{{ URL($phieu_dat->goi_du_lich->hinh_goi_du_lich ?? 'hinh_test/no-img.jpg') }}"
+                                    alt="Lỗi tải ảnh sản phẩm">
                             </div>
                             <div class="info-product">
                                 <div class="name-product">
@@ -20,12 +21,33 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="huy-tour">
+                        @foreach (\App\Models\phieu_dat::$huy as $key => $value)
+                            <div class="form-check">
+                                <input class="form-check-input li-do-huy input-check-lo-do-huy" type="radio"
+                                    name="li-do-huy" value="{{ $value }}">
+                                <label class="form-check-label label-check-lo-do-huy" for="flexRadioDefault1">
+                                    {{ $value }}
+                                </label>
+                            </div>
+                        @endforeach
+                        <div class="form-check">
+                            <input class="form-check-input li-do-huy input-check-lo-do-huy" type="radio"
+                                name="li-do-huy" checked>
+                            <label class="form-check-label label-check-lo-do-huy" for="flexRadioDefault1">
+                                Khác
+                            </label>
+                        </div>
+                    </div>
+                    <div class="description text-danh-gia" id="li-do-huy-tour">
+                        <textarea class="content-post" name="content_post" id="content_post" rows="3" placeholder="Lí do hủy"></textarea>
+                    </div>
                     <div class="description text-danh-gia" id="noidungbaiviet">
-                        <textarea class="content-post" name="content_post" id="content_post" rows="3" placeholder="Đánh giá sản phẩm"></textarea>
+
                         <div class="chuc-nang">
                             <div class="chi-tiet">
-                                <button type="button" class="btn-chi-tiet" id="btn-tro-lai" onclick="tro_lai()">Trở lại</button>
+                                <button type="button" class="btn-chi-tiet" id="btn-tro-lai" onclick="tro_lai()">Trở
+                                    lại</button>
                             </div>
                             <div class="danh-gia">
                                 <button type="submit" class="btn-danh-gia">Hoàn thành</button>
@@ -54,51 +76,6 @@
     });
     // điều chỉnh sao
     $(document).ready(function() {
-
-        /* 1. Visualizing things on Hover - See next part for action on click */
-        $('#stars li').on('mouseover', function() {
-            var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
-
-            // Now highlight all the stars that's not after the current hovered star
-            $(this).parent().children('li.star').each(function(e) {
-                if (e < onStar) {
-                    $(this).addClass('hover');
-                } else {
-                    $(this).removeClass('hover');
-                }
-            });
-
-        }).on('mouseout', function() {
-            $(this).parent().children('li.star').each(function(e) {
-                $(this).removeClass('hover');
-            });
-        });
-
-
-        /* 2. Action to perform on click */
-        $('#stars li').on('click', function() {
-            var onStar = parseInt($(this).data('value'), 10); // The star currently selected
-            var stars = $(this).parent().children('li.star');
-
-            for (i = 0; i < stars.length; i++) {
-                $(stars[i]).removeClass('selected');
-            }
-
-            for (i = 0; i < onStar; i++) {
-                $(stars[i]).addClass('selected');
-            }
-
-            // JUST RESPONSE (Not needed)
-            var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
-            var msg = "";
-            if (ratingValue > 1) {
-                msg = "Thanks! You rated this " + ratingValue + " stars.";
-            } else {
-                msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
-            }
-            responseMessage(msg);
-
-        });
 
 
     });
@@ -137,53 +114,63 @@
     $("#post-form-danh-gia").submit(function(e) {
         e.preventDefault();
         var url = $(this).attr('data-url');
-        var noi_dung = $('#content_post').val();
-        // var hinh = document.getElementById('uploadanhpost').files;
-        var so_sao = $('#so-sao').val();
-        console.log(noi_dung, so_sao);
-            formData = new FormData();
-            formData.append('noi_dung', noi_dung);
-            formData.append('so_sao', so_sao);
-            // for (var i = 0; i < hinh.length; i++) {
-            //     formData.append('hinhanh[]', hinh[i]);
-            // }
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        var li_do = document.querySelector('.li-do-huy:checked').value;
+        if (li_do == 'on') {
+            var noi_dung = $('#content_post').val();
+
+        } else {
+            var noi_dung = li_do
+        }
+        console.log(noi_dung);
+        formData = new FormData();
+        formData.append('noi_dung', noi_dung);
+        // for (const value of formData.values()) {
+        //     console.log(value);
+        // }
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        })
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                if (data.status == 400) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Úi...!!!',
+                        text: data.mess,
+
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Đã hủy thành công',
+                        text: data.mess,
+                    }).then((result) => {
+                        tro_lai();
+                    });
                 }
-            })
-
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(data) {
-                    if (data.status == 400) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Úi...!!!',
-                            text: data.mess,
-
-                        })
-                    } else {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Cảm ơn bạn yêu',
-                            text: 'Đã hoàn thành đánh giá',
-                        }).then((result) => {
-                            tro_lai();
-                        });
-                    }
-                }
-            });
-
+            }
+        });
     });
 
-    $('#stars').on('click', 'li', function() {
-        var gia_tri_so_sao = $(this).attr('data-value')
-        var so_sao = document.getElementById('so-sao');
-        so_sao.value = gia_tri_so_sao;
+    $(".li-do-huy").click(function() {
+        var li_do = document.querySelector('.li-do-huy:checked').value;
+        option(li_do);
     });
+
+    function option(e) {
+        var li_do_huy_tour = document.getElementById('li-do-huy-tour');
+        if (e == 'on') {
+            li_do_huy_tour.style.display = 'block';
+        } else {
+            li_do_huy_tour.style.display = 'none';
+        }
+    }
 </script>

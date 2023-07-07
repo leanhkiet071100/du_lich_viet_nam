@@ -358,6 +358,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
                 Route::get('/danh-gia-phieu-dat-sua/{id}/{danh_gia_id}', 'PhieuDatController@danh_gia_phieu_dat_sua')->name('danh-gia-phieu-dat-sua');
                 Route::post('/post-danh-gia-phieu-dat-sua/{id}/{danh_gia_id}', 'PhieuDatController@post_danh_gia_phieu_dat_sua')->name('post-danh-gia-phieu-dat-sua');
                 Route::get('/huy-phieu-dat/{id}', 'PhieuDatController@huy_phieu_dat')->name('huy-phieu-dat');
+                Route::post('/post-huy-phieu-dat/{id}', 'PhieuDatController@post_huy_phieu_dat')->name('post-huy-phieu-dat');
             });
             });
         });

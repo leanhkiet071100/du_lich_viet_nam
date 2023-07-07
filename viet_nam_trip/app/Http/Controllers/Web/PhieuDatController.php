@@ -224,4 +224,30 @@ class PhieuDatController extends Controller
 
         return view('web.nguoidung.phieu-dat.form_huy_tour', $data);
     }
+
+    public function post_huy_phieu_dat(Request $request, $id){
+        $phieu_dat_id = $id;
+        $id_user = Auth::user()->id;
+        $noi_dung = $request->noi_dung;
+        if($noi_dung == null || $noi_dung == ''){
+            return response()->json([
+                'status' => 400,
+                'mess'=>'Vui lòng nhập đầy đủ thông tin',
+            ]);
+        }else{
+        $phieu_dat = phieu_dat::where('nguoi_dung_id','=',$id_user)
+                                ->with(['hoa_don', 'goi_du_lich'])
+                                ->find($id);
+        $ngay_huy = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $phieu_dat->update([
+            'ngay_huy'=>$ngay_huy,
+            'li_do_huy'=>$noi_dung,
+            'trang_thai'=> 3,
+        ]);
+        return response()->json([
+                'status' => 200,
+                'mess'=>'Cảm ơn quý khách rất nhiều !'
+            ]);
+        }
+    }
 }

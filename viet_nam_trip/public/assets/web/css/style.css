@@ -16118,3 +16118,18 @@ h3.heading.mb-4 {
     border: none;
     color: white;
 }
+
+.label-check-lo-do-huy {
+    font-size: 20px;
+}
+
+.input-check-lo-do-huy {
+    font-size: 16px;
+}
+
+.huy-tour .form-check {
+    /* vertical-align: middle; */
+    margin: 10px 20px;
+    display: flex;
+    align-items: center;
+}

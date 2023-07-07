@@ -34,6 +34,13 @@ class phieu_dat extends Model
     static $statuses = [
         1 => 'Đang chờ duyệt', 2 => 'Đã Duyệt', 3 => 'Chờ duyệt hủy', 4 => 'Đã hủy', 5 => 'Hoàn thành'
     ];
+
+    static $huy = [
+        1 => 'Tôi có việc bận không thể đi được',
+        2 => 'Tôi muốn đổi gói du lịch khác',
+        3 => 'Tôi không có nhu cầu đi nữa',
+        4 => 'Tôi không được giải đáp thắc mắc',
+    ];
     //khóa ngoại hình ảnh sản phẩm 1
     public function hoa_don(){
         return $this->hasOne('App\Models\hoa_don', 'phieu_dat_id', 'id');

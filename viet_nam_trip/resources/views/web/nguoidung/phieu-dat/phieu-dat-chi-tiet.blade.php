@@ -107,6 +107,15 @@
                                                     </div>
                                                 </div>
                                             @endif
+                                            @if ($phieu_dat->ngay_huy != null)
+                                                <div class="position-relative row form-group">
+                                                    <label for="description"
+                                                        class="col-md-3 text-md-right col-form-label">Ngày hủy</label>
+                                                    <div class="col-md-9 col-xl-8">
+                                                        <p>{{ date('d-m-Y', strtotime($phieu_dat->ngay_huy)) }}</p>
+                                                    </div>
+                                                </div>
+                                            @endif
                                             @if ($phieu_dat->goi_du_lich != null)
                                                 <div class="position-relative row form-group">
                                                     <label for="description"
@@ -325,28 +334,42 @@
                                             </div>
                                             <div class="btn-tour-chuc-nang">
                                                 <div class="danh-gia">
-                                                    @if ($danh_gia == null)
-                                                        <button onclick="hien_form_danh_gia({{ $phieu_dat->id }})"
-                                                            class="btn-danh-gia btn btn-hover-shine btn-outline-success border-0 btn-sm">
-                                                            Đánh giá
-                                                        </button>
+                                                    @if ($phieu_dat->trang_thai == 5)
+                                                        @if ($danh_gia == null)
+                                                            <button onclick="hien_form_danh_gia({{ $phieu_dat->id }})"
+                                                                class="btn-danh-gia btn btn-hover-shine btn-outline-success border-0 btn-sm">
+                                                                Đánh giá
+                                                            </button>
+                                                        @else
+                                                            <button
+                                                                data-url="{{ route('web.tai-khoan.danh-gia-phieu-dat-sua', ['id' => $phieu_dat->id, 'danh_gia_id' => $danh_gia->id]) }}"
+                                                                id="form_danh_gia_sua"
+                                                                class="btn-danh-gia btn btn-hover-shine btn-outline-success border-0 btn-sm form_danh_gia_sua">
+                                                                Đánh giá
+                                                            </button>
+                                                        @endif
+                                                    @endif
+                                                </div>
+                                                @if ($phieu_dat->trang_thai != 5 && $phieu_dat->trang_thai != 4)
+                                                    @if ($phieu_dat->trang_thai == 3)
+                                                        <div class="huy-tour">
+                                                            <button id="form_huy_tour"
+                                                                class="btn-huy-tour btn btn-hover-shine btn-outline-danger border-0 btn-sm"
+                                                                data-url="{{ route('web.tai-khoan.huy-phieu-dat', ['id' => $phieu_dat->id]) }}">
+                                                                Hoàn lại
+                                                            </button>
+                                                        </div>
                                                     @else
-                                                        <button data-url="{{route('web.tai-khoan.danh-gia-phieu-dat-sua',['id'=>$phieu_dat->id, 'danh_gia_id'=>$danh_gia->id])}}" id="form_danh_gia_sua"
-                                                            class="btn-danh-gia btn btn-hover-shine btn-outline-success border-0 btn-sm form_danh_gia_sua">
-                                                            Đánh giá
-                                                        </button>
+                                                        <div class="huy-tour">
+                                                            <button id="form_huy_tour"
+                                                                class="btn-huy-tour btn btn-hover-shine btn-outline-danger border-0 btn-sm"
+                                                                data-url="{{ route('web.tai-khoan.huy-phieu-dat', ['id' => $phieu_dat->id]) }}">
+                                                                Hủy tour
+                                                            </button>
+                                                        </div>
                                                     @endif
 
-                                                </div>
-
-                                                <div class="huy-tour">
-                                                    <button id="form_huy_tour"  class="btn-huy-tour btn btn-hover-shine btn-outline-danger border-0 btn-sm" data-url="{{route('web.tai-khoan.huy-phieu-dat',['id'=>$phieu_dat->id])}}">
-                                                        Hủy tour
-                                                    </button>
-                                                </div>
-
-
-
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -398,7 +421,7 @@
 
         $(".form_danh_gia_sua").click(function(e) {
             e.preventDefault();
-             var form_danh_gia = document.getElementById("form-danh-gia");
+            var form_danh_gia = document.getElementById("form-danh-gia");
             var url = $(this).attr('data-url');
             console.log(url);
 
@@ -425,7 +448,7 @@
 
         $("#form_huy_tour").click(function(e) {
             e.preventDefault();
-             var form_danh_gia = document.getElementById("form-danh-gia");
+            var form_danh_gia = document.getElementById("form-danh-gia");
             var url = $(this).attr('data-url');
             console.log(url);
 
