@@ -1,5 +1,8 @@
 import 'package:dulich/Global/color.dart';
+import 'package:dulich/Providers/tour_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import '../../Global/alert.dart';
 
 class AlertTour extends StatefulWidget {
   const AlertTour({
@@ -15,15 +18,22 @@ class AlertTourState extends State<AlertTour> {
   DateTime _selectedDate = DateTime.now();
   int _adultCount = 1;
   int _childCount = 0;
+  bool loading = false;
+  var format = NumberFormat.currency(locale: 'vi_VN', symbol: '₫');
 
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
+  final adultController = TextEditingController();
+  final childController = TextEditingController();
+  TourProvider _tour = TourProvider();
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: size.height * 0.08,
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -37,7 +47,7 @@ class AlertTourState extends State<AlertTour> {
         backgroundColor: miniColor,
         title: Center(
           child: Text(
-            "Đặt tour du lịch",
+            'Đặt tour du lịch',
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
@@ -48,7 +58,6 @@ class AlertTourState extends State<AlertTour> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 16),
               Text(
                 'Ngày Khởi Hành:',
                 style: TextStyle(
@@ -97,6 +106,7 @@ class AlertTourState extends State<AlertTour> {
                       setState(() {
                         if (_adultCount > 1) {
                           _adultCount--;
+                          adultController.text = _adultCount.toString();
                         }
                       });
                     },
@@ -107,6 +117,7 @@ class AlertTourState extends State<AlertTour> {
                     onPressed: () {
                       setState(() {
                         _adultCount++;
+                        adultController.text = _adultCount.toString();
                       });
                     },
                   ),
@@ -129,6 +140,7 @@ class AlertTourState extends State<AlertTour> {
                       setState(() {
                         if (_childCount > 0) {
                           _childCount--;
+                          childController.text = _childCount.toString();
                         }
                       });
                     },
@@ -139,6 +151,7 @@ class AlertTourState extends State<AlertTour> {
                     onPressed: () {
                       setState(() {
                         _childCount++;
+                        childController.text = _childCount.toString();
                       });
                     },
                   ),
@@ -154,7 +167,7 @@ class AlertTourState extends State<AlertTour> {
               ),
               SizedBox(height: 8),
               Text(
-                'Người Lớn: ${_adultCount * 2786000} VNĐ',
+                'Người Lớn: ${format.format(_adultCount * 78276161)}',
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -162,7 +175,7 @@ class AlertTourState extends State<AlertTour> {
               ),
               SizedBox(height: 8),
               Text(
-                'Trẻ Em: ${_childCount * 1393000} VNĐ',
+                'Trẻ Em: ${format.format(_childCount * 3427945)}',
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -289,23 +302,47 @@ class AlertTourState extends State<AlertTour> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    child: ElevatedButton(
-                        onPressed: () {},
-                        child: const Text(
-                          'Đặt tour',
-                          style: TextStyle(
-                              height: 1.5,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700),
+                  loading
+                      ? Center(child: CircularProgressIndicator())
+                      : Container(
+                          child: ElevatedButton(
+                              onPressed: () {
+                                if (_nameController.text == "" ||
+                                    _emailController.text == "" ||
+                                    _phoneController.text == "") {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Alert1(
+                                          title:
+                                              'Yêu cầu nhập đầy đủ thông tin',
+                                        );
+                                      });
+                                } else {
+                                  _tour.dattour(
+                                      _nameController.text,
+                                      context,
+                                      _emailController.text,
+                                      _phoneController.text,
+                                      _adultCount.toString(),
+                                      _childCount.toString());
+                                }
+                              },
+                              child: const Text(
+                                'Đặt tour',
+                                style: TextStyle(
+                                    height: 1.5,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(blueColor),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white),
+                              )),
                         ),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(blueColor),
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                        )),
-                  ),
                   Container(
                     child: ElevatedButton(
                       onPressed: () {
