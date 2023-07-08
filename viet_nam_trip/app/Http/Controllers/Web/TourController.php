@@ -206,10 +206,33 @@ class TourController extends Controller
                     ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
                     ->find($id);
         $AmoutPerson  = $request->AmoutPerson;
-        if($goi_du_lich->so_nguoi_con_lai == null){
 
+        if($goi_du_lich->so_nguoi_con_lai == null){
+            if($AmoutPerson <= $goi_du_lich->so_nguoi_toi_da){
+                return response()->json([
+                    'status' => 200,
+                    'mess'=>'Thêm thành công',
+                ]);
+            }else{
+                return response()->json([
+                    'status' => 400,
+                    'mess'=> 'Tour đã đủ người',
+                ]);
+            }
+        }else{
+            if($AmoutPerson <= $goi_du_lich->so_nguoi_con_lai){
+                return response()->json([
+                    'status' => 200,
+                    'mess'=>'Thêm thành công',
+                ]);
+            }else{
+                return response()->json([
+                    'status' => 400,
+                    'mess'=>'Đã đủ người',
+                ]);
+            }
         }
-        return 'kieetj';
+
     }
 
     public function thanh_toan(Request $request, $id){

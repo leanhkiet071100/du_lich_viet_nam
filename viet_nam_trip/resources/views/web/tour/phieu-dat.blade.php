@@ -382,9 +382,9 @@
                                             </tr>
                                             <tr class="pt">
                                                 <td>số chỗ đã đặt</td>
-                                                <td class="t-price text-right" id="txtGiamGiaLastMinute">còn <span
-                                                        id="remainLastMinuteGuest">6 </span> / <span
-                                                        id="totalLastMinuteGuest">7</span> chỗ</td>
+                                                <td class="t-price text-right" id="txtGiamGiaLastMinute"> <span
+                                                        id="remainLastMinuteGuest">{{$goi_du_lich->so_nguoi_con_lai ?? 0}} </span> / <span
+                                                        id="totalLastMinuteGuest">{{$goi_du_lich->so_nguoi_toi_da}}</span> chỗ</td>
                                             </tr>
                                             {{-- <tr>
                                             <td>Người lớn và trẻ em</td>
@@ -577,7 +577,7 @@
             var adult = document.getElementById("adult").value;
             var children = document.getElementById("children").value;
             var smallchildren = document.getElementById("smallchildren").value;
-            tong_hoa_don(adult, children, smallchildren)
+            tong_hoa_don(adult, children, smallchildren);
             if (option == 'tu_van') {
                 tu_van();
             } else if (option == 'not_tu_van') {
@@ -585,7 +585,7 @@
             }
         }
 
-        function kiem_tra_so_luong(){
+        function kiem_tra_so_luong(adult, children, smallchildren,iIndexId){
             var goi_du_lich_id = document.getElementById("goi_du_lich_id").value;
             var url = "{{ route('web.tour.so-nguoi-con-lai', '') }}" + '/' + goi_du_lich_id;
             var AmoutPerson = Number(adult) + Number(children) + Number(smallchildren);
@@ -604,7 +604,11 @@
                 contentType: false,
                 processData: false,
                 success: function(data) {
+                    if(data.status == 400){
+                        alert(data.mess)
+                    }else{
 
+                    }
                 }
             });
         }
