@@ -344,6 +344,7 @@
                 contentType: false,
                 processData: false,
                 success: function(data) {
+                    console.log(data);
                     if (data.status == 400) {
                         Swal.fire({
                             icon: 'error',

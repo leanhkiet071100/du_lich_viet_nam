@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\phieu_dat;
 use App\Models\danh_sach_phieu_dat;
+use App\Models\goi_du_lich;
 use App\Models\hoa_don;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
@@ -77,9 +78,17 @@ class PhieuDatController extends Controller
             ]);
         }else{
             $phieu_dat = phieu_dat::find($id);
+            $goi_du_lich = goi_du_lich::find($phieu_dat->goi_du_lich_id);
             $hoa_don = hoa_don::where('phieu_dat_id', $phieu_dat->id)->first();
+            $so_nguoi = $phieu_dat->so_nguoi_lon + $phieu_dat->so_tre_em + $phieu_dat->so_tre_nho;
+            $so_nguoi_con_lai = $goi_du_lich->so_nguoi_con_lai + $so_nguoi;
+
             $ngay_huy = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
             $noi_dung = $request->input('content-post');
+
+            $goi_du_lich->update([
+                'so_nguoi_con_lai'=>$so_nguoi_con_lai,
+            ]);
             $phieu_dat->update([
                 'ngay_huy'=>$ngay_huy,
                 'li_do_huy'=>$noi_dung,
@@ -139,7 +148,13 @@ class PhieuDatController extends Controller
 
     public function duyet_huy(Request $request, $id){
             $phieu_dat = phieu_dat::find($id);
+            $goi_du_lich = goi_du_lich::find($phieu_dat->goi_du_lich_id);
             $hoa_don = hoa_don::where('phieu_dat_id', $phieu_dat->id)->first();
+            $so_nguoi = $phieu_dat->so_nguoi_lon + $phieu_dat->so_tre_em + $phieu_dat->so_tre_nho;
+            $so_nguoi_con_lai = $goi_du_lich->so_nguoi_con_lai + $so_nguoi;
+            $goi_du_lich->update([
+                'so_nguoi_con_lai'=>$so_nguoi_con_lai,
+            ]);
             $phieu_dat->update([
                 'nguoi_duyet_id'=>Auth::user()->id,
                 'trang_thai'=> 4,

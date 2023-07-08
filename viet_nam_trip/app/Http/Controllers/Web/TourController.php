@@ -236,7 +236,6 @@ class TourController extends Controller
     }
 
     public function thanh_toan(Request $request, $id){
-
         $rule = [
             'Fullname' => 'required',
             'Email'=>'required|email',
@@ -258,7 +257,7 @@ class TourController extends Controller
             'adult' => 'người lớn',
         ];
         $request->validate($rule, $message, $attribute);
-                $data_input = $request->all();
+        $data_input = $request->all();
         $goi_du_lich = goi_du_lich::join('loai_goi_du_liches', 'loai_goi_du_liches.id', '=', 'goi_du_liches.loai_id')
                     ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
                     ->find($id);
@@ -267,9 +266,14 @@ class TourController extends Controller
             $data_input['children'] = 0;
             $data_input['smallchildren'] = 0;
         }
-
+        $so_nguoi_con_lai;
         $tong = ($data_input['adult']* $goi_du_lich->gia_nguoi_lon) + ($data_input['children']* $goi_du_lich->gia_tre_em) + ($data_input['smallchildren']* $goi_du_lich->gia_tre_nho);
         $so_nguoi = ($data_input['adult'] + $data_input['children'] + $data_input['smallchildren']);
+        if($goi_du_lich->so_nguoi_con_lai == null){
+             $so_nguoi_con_lai = ($goi_du_lich->so_nguoi_toi_da - $so_nguoi);
+        }else{
+             $so_nguoi_con_lai = ($goi_du_lich->so_nguoi_con_lai -  $so_nguoi);
+        }
         $ngay_dat = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
         $phieu_dat = new phieu_dat;
         $phieu_dat->fill([
@@ -284,12 +288,13 @@ class TourController extends Controller
             'so_tre_nho'=>$data_input['smallchildren'],
             'so_nguoi_lon'=>$data_input['adult'],
             'ghi_chu'=>$data_input['note'],
-            // 'is_me'=>($data_input['is_me'] == 'on') ? 1 : 0,
             'tu_van'=>$data_input['option'] == 'tu_van' ? 1 : 0,
             'trang_thai'=>1,
         ]);
         $phieu_dat->save();
-
+        $goi_du_lich->update([
+            'so_nguoi_con_lai'=>$so_nguoi_con_lai,
+        ]);
         if($data_input['option'] == "not_tu_van"){
         for($i = 0; $i < $data_input['adult']; $i++){
             $ds_phieu = new danh_sach_phieu_dat;
@@ -359,7 +364,7 @@ class TourController extends Controller
                 'phieu_dat_id'=>$phieu_dat_id,
                 'tong_tien'=>$tong_hoa_don,
                 'loai_thanh_toan'=>'tien-mat',
-                'trang_thai'=> 1,
+                'trang_thai'=> 0,
             ]);
             $hoa_don->save();
         return Redirect::route('web.tai-khoan.phieu-dat-chi-tiet', ['id' =>  $phieu_dat_id])->with(['yes'=>'Đặt tour thành công']);
