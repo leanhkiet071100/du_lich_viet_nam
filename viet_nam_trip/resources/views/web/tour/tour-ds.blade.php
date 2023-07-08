@@ -11,24 +11,15 @@
                         <h3 class="heading mb-4">Tìm tour</h3>
                         <form action="#">
                             <div class="fields">
-                                <div class="form-group">
-                                    <div class="select-wrap one-third">
-                                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                        <select name="noi_khoi_hanh" id="" class="form-control"
-                                            placeholder="Nơi khởi hành">
-                                            @foreach ($ls_loai_goi_du_lich as $key => $value)
-                                                <option {{ request()->get('loai_tour') == $value->id ? 'selected' : '' }}
-                                                    value="{{ $value->id }}">{{ $value->ten }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
+
                                 <div class="form-group">
                                     <div class="select-wrap one-third">
                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                         <select name="loai_tour" id="" class="form-control"
                                             placeholder="Loại tour">
+                                            <option value="">Loại gói du lịch</option>
                                             @foreach ($ls_loai_goi_du_lich as $key => $value)
+
                                                 <option {{ request()->get('loai_tour') == $value->id ? 'selected' : '' }}
                                                     value="{{ $value->id }}">{{ $value->ten }}</option>
                                             @endforeach
@@ -36,21 +27,32 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input value="{{ request()->get('ngay_di') }}" type="text" id="checkin_date"
-                                        name="ngay_di" class="form-control" placeholder="Ngày đi">
+                                    <div class="select-wrap one-third">
+                                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+
+                                        <select name="noi_khoi_hanh" id="" class="form-control"
+                                            placeholder="Nơi khởi hành">
+                                            <option>Nơi khởi hành</option>
+                                            @foreach ($noi_khoi_hanh as $key => $value)
+                                                <option
+                                                    {{ request()->get('noi_khoi_hanh') == $value->noi_khoi_hanh ? 'selected' : '' }}
+                                                    value="{{ $value->noi_khoi_hanh }}">{{ $value->noi_khoi_hanh }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input value="{{ request()->get('ngay_di') }}" type="date" name="ngay_di" class="form-control" placeholder="Ngày đi" min="{{$day_now}}">
                                 </div>
                                 <div class="form-group">
                                     <div class="range-slider">
                                         <span>
-                                            <input type="number" value="0" min="0" max="{{ $max_tien }}" />
+                                            <input name="min_tien" type="number" value="{{ request()->get('min_tien') ?? 0 }}" min="0" max="{{ $max_tien }}" />
                                             -
-                                            <input type="number" value="{{ $max_tien }}" min="0"
-                                                max="{{ $max_tien }}" />
+                                            <input name="max_tien" type="number" value="{{ request()->get('max_tien') ?? $max_tien }}" min="0"  max="{{ $max_tien }}" />
                                         </span>
-                                        <input value="1000" min="0" max="{{ $max_tien }}" step="500"
-                                            type="range" />
-                                        <input value="{{ $max_tien }}" min="0" max="{{ $max_tien }}"
-                                            step="500" type="range" />
+                                        <input value="{{ request()->get('min_tien') ?? 0 }}" min="0" max="{{ $max_tien }}" step="500" type="range" />
+                                        <input value="{{ request()->get('max_tien') ?? $max_tien }}" min="0" max="{{ $max_tien }}" step="500" type="range" />
                                         </svg>
                                     </div>
                                 </div>
@@ -128,57 +130,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="sidebar-wrap bg-light ftco-animate">
-                        <h3 class="heading mb-4">Star Rating</h3>
-                        <div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="sao-5"
-                                    @if (request()->get('sao-5') == 'on') checked @endif>
-                                <label class="form-check-label" for="exampleCheck1">
-                                    <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                                class="icon-star"></i><i class="icon-star"></i><i
-                                                class="icon-star"></i></span></p>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="sao-4"
-                                    @if (request()->get('sao-4') == 'on') checked @endif>
-                                <label class="form-check-label" for="exampleCheck1">
-                                    <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                                class="icon-star"></i><i class="icon-star"></i><i
-                                                class="icon-star-o"></i></span></p>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="sao-3"
-                                    @if (request()->get('sao-3') == 'on') checked @endif>
-                                <label class="form-check-label" for="exampleCheck1">
-                                    <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                                class="icon-star"></i><i class="icon-star-o"></i><i
-                                                class="icon-star-o"></i></span></p>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="sao-2"
-                                    @if (request()->get('sao-2') == 'on') checked @endif>
-                                <label class="form-check-label" for="exampleCheck1">
-                                    <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                                class="icon-star-o"></i><i class="icon-star-o"></i><i
-                                                class="icon-star-o"></i></span></p>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="sao-1"
-                                    @if (request()->get('sao-1') == 'on') checked @endif>
-                                <label class="form-check-label" for="exampleCheck1">
-                                    <p class="rate"><span><i class="icon-star"></i><i class="icon-star-o"></i><i
-                                                class="icon-star-o"></i><i class="icon-star-o"></i><i
-                                                class="icon-star-o"></i></span></p>
-                                </label>
-                            </div>
-
                         </div>
                     </div>
                 </div>

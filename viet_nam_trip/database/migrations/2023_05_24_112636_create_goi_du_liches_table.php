@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('noi_khoi_hanh')->nullable();
             $table->timestamp('thoi_gian_tap_trung')->nullable();
             $table->string('so_nguoi_toi_da')->nullable();
+            $table->string('so_nguoi_con_lai')->nullable();
             $table->time('gio_khoi_hanh')->nullable();
             $table->date('ngay_khoi_hanh')->nullable();
             $table->integer('gia_nguoi_lon')->nullable();

@@ -13498,7 +13498,7 @@ back ground full
 .tong-tien {
     display: flex;
     justify-content: flex-end;
-    margin: 0 0 30px 0;
+    /* margin: 0 0 30px 0; */
     align-items: center;
 }
 
@@ -13565,7 +13565,7 @@ button.btn-chi-tiet:hover {
 .chuc-nang {
     display: flex;
     justify-content: flex-end;
-    margin: 20px 0;
+    /* margin: 20px 0; */
 }
 
 .name-product {
@@ -14418,242 +14418,6 @@ img.hinh-mang-xa-hoi {
     height: 14px;
 }
 
-/* hóa đơn */
-.don-hang {
-    justify-content: space-between;
-    margin: 0 10px;
-}
-
-.don-hang-chon {
-    color: #000000;
-}
-
-.don-hang-chon:hover {
-    color: #7fad39;
-}
-
-.don-hang-chon.active {
-    border-bottom: solid;
-    border-color: #7fad39;
-    color: #7fad39;
-}
-
-.don-hang-box {
-    position: relative;
-    background: #fff;
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 43%);
-    margin-top: 20px;
-    background-size: cover;
-    padding: 20px;
-    width: 100%;
-}
-
-.list-product {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.img-product {
-    min-width: 80px;
-    float: left;
-    margin-right: 20px;
-}
-
-.img-product img {
-    width: 80px;
-    height: 80px;
-}
-
-.detail-product {
-    display: flex;
-    margin: 10px 20px 10px 0;
-    position: relative;
-}
-
-.detail-product {}
-
-.price-product {
-    font-size: 18px;
-    color: #D62D2D;
-    font-weight: 700;
-}
-
-.trang-thai {
-    line-height: 24px;
-    color: #ee4d2d;
-    text-align: right;
-    text-transform: uppercase;
-    white-space: nowrap;
-}
-
-.info-title-don-hang {
-    display: flex;
-    justify-content: space-between;
-}
-
-.chi-tiet-chuc-nang {
-    background-color: #fffefb;
-    padding: 20px;
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 50%);
-}
-
-.tong-tien {
-    display: flex;
-    justify-content: flex-end;
-    margin: 0 0 30px 0;
-    align-items: center;
-}
-
-.span-thanh-tien {
-    margin: 0 10px 0 0;
-    font-size: 14px;
-    line-height: 20px;
-    color: rgba(0, 0, 0, .8);
-}
-
-.span-tien {
-    color: #ee4d2d;
-    font-size: 24px;
-    line-height: 30px;
-}
-
-button.btn-danh-gia {
-    background: #7fad39;
-    min-width: 150px;
-    min-height: 40px;
-    padding: 8px 20px;
-    outline: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-transform: capitalize;
-    border-radius: 2px;
-    outline: 0;
-    border: none;
-    color: white;
-}
-
-button.btn-chi-tiet {
-    min-width: 150px;
-    min-height: 40px;
-    padding: 8px 20px;
-    outline: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-transform: capitalize;
-    border-radius: 2px;
-    outline: 0;
-    border: none;
-    background: aliceblue;
-}
-
-.danh-gia {
-    margin: 0 0 0 10px;
-    align-items: center;
-    text-overflow: ellipsis;
-    text-align: end;
-    margin: 20px;
-}
-
-button.btn-chi-tiet {
-    margin: 0 0 0 10px;
-    align-items: center;
-    text-overflow: ellipsis;
-}
-
-.chuc-nang {
-    display: flex;
-    justify-content: flex-end;
-    margin: 20px 0;
-}
-
-.name-product {
-    text-align: justify;
-}
-
-button.btn-chi-tiet>a {
-    color: black;
-}
-
-/* chi tiết đơn hàng */
-.card-body {
-    flex: 1 1 auto;
-    padding: 1.25rem;
-}
-
-.widget-content {
-    padding: 1rem;
-    flex-direction: row;
-    align-items: center;
-}
-
-.widget-content .widget-content-wrapper {
-    display: flex;
-    flex: 1;
-    position: relative;
-    align-items: center;
-}
-
-.display_data p {
-    font-size: 20px;
-    margin-bottom: 0;
-    line-height: 37px;
-}
-
-.chi-tiet-tien-don-hang {
-    background-color: #fafafa;
-    border-top: 1px solid rgba(0, 0, 0, .09);
-}
-
-.chi-tiet-tien {
-    padding: 0 24px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    text-align: right;
-    border-bottom: 1px dotted rgba(0, 0, 0, .09);
-}
-
-.ten-tien {
-    padding: 13px 10px;
-    color: rgba(0, 0, 0, .54);
-    font-size: 20px;
-}
-
-.gia-tien {
-    padding: 13px 0 13px 10px;
-    width: 240px;
-    border-left: 1px dotted rgba(0, 0, 0, .09);
-    justify-content: flex-end;
-    word-wrap: break-word;
-    color: rgba(0, 0, 0, .8);
-}
-
-.tt-chi-tiet-don-hang {
-    padding: 20px 24px;
-    font-size: 20px;
-    line-height: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.trang-thai-chi-tiet .trang-thai {
-    color: #ee4d2d;
-    text-transform: uppercase;
-}
-
-.tt-chia {
-    margin: 0 20px;
-}
-
-.tro-lai a {
-    color: rgba(0, 0, 0, .54);
-}
-
-.tro-lai a:hover {
-    color: #7fad39;
-}
 
 .rep-commment {
     display: none;
@@ -16093,8 +15857,9 @@ h3.heading.mb-4 {
 .card-body.display_data h2 {
     color: #28a745;
 }
+
 .chuc-nang .chi-tiet {
-    margin: 20px;
+    margin-top: 10px;
 }
 
 .btn-tour-chuc-nang {
@@ -16133,6 +15898,7 @@ h3.heading.mb-4 {
     display: flex;
     align-items: center;
 }
+
 input#DiscountCode {
     width: 100px;
     max-width: 110px;

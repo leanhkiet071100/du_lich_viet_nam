@@ -112,15 +112,24 @@ class PhieuDatController extends Controller
 
     public function duyet(Request $request, $id){
             $phieu_dat = phieu_dat::find($id);
+            $ngay_hien_tai = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
             $hoa_don = hoa_don::where('phieu_dat_id', $phieu_dat->id)->first();
             $phieu_dat->update([
                 'nguoi_duyet_id'=>Auth::user()->id,
                 'trang_thai'=> 2,
             ]);
             if($hoa_don->trang_thai == 0){
-                $hoa_don->update([
+                if($hoa_don->loai_thanh_toan == 'tien-mat'){
+                    $hoa_don->update([
+                        'trang_thai' => 1,
+                        'ngay_thanh_toan'=>$ngay_hien_tai,
+                    ]);
+                }else{
+                    $hoa_don->update([
                     'trang_thai' => 1,
-                ]);
+                    ]);
+                }
+
             }
             return response()->json([
                 'status' => 200,
@@ -194,6 +203,15 @@ class PhieuDatController extends Controller
         ];
 
         return view('admin.phieu-dat.phieu-dat-chi-tiet', $data);
+
+    }
+
+    public function hoa_don_view (Request $request){
+        $data= [
+            'pageTitle' => "Phiếu đặt",
+
+        ];
+        return view('hoa_don.hoa-don-view', $data);
 
     }
 }
