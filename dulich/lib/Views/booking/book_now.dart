@@ -1,19 +1,21 @@
 import 'package:dulich/Global/color.dart';
+import 'package:dulich/Models/goi_dulich.dart';
 import 'package:dulich/Providers/tour_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../Global/alert.dart';
 
 class AlertTour extends StatefulWidget {
-  const AlertTour({
-    Key? key,
-  }) : super(key: key);
+  GoiDuLich tour;
+  AlertTour({Key? key, required this.tour}) : super(key: key);
 
   @override
-  AlertTourState createState() => AlertTourState();
+  AlertTourState createState() => AlertTourState(tour);
 }
 
 class AlertTourState extends State<AlertTour> {
+  GoiDuLich tour;
+  AlertTourState(this.tour);
   String _selectedTour = "";
   DateTime _selectedDate = DateTime.now();
   int _adultCount = 1;
@@ -26,6 +28,7 @@ class AlertTourState extends State<AlertTour> {
   final _phoneController = TextEditingController();
   final adultController = TextEditingController();
   final childController = TextEditingController();
+  final _goiController = TextEditingController();
   TourProvider _tour = TourProvider();
 
   @override
@@ -167,7 +170,7 @@ class AlertTourState extends State<AlertTour> {
               ),
               SizedBox(height: 8),
               Text(
-                'Người Lớn: ${format.format(_adultCount * 78276161)}',
+                'Người Lớn: ${format.format(_adultCount * tour.gia_nguoi_lon)}',
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -175,7 +178,7 @@ class AlertTourState extends State<AlertTour> {
               ),
               SizedBox(height: 8),
               Text(
-                'Trẻ Em: ${format.format(_childCount * 3427945)}',
+                'Trẻ Em: ${format.format(_childCount * tour.gia_tre_em)}',
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -325,7 +328,8 @@ class AlertTourState extends State<AlertTour> {
                                       _emailController.text,
                                       _phoneController.text,
                                       _adultCount.toString(),
-                                      _childCount.toString());
+                                      _childCount.toString(),
+                                      tour.id.toString());
                                 }
                               },
                               child: const Text(

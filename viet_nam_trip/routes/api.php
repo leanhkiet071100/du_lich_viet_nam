@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\KhachSanController;
 use App\Http\Controllers\API\TourController;
+use App\Http\Controllers\API\GoiDuLichController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,9 +24,9 @@ Route::post('post-quen-mat-khau',[AuthController::class,'post_quen_mat_khau']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-
     return $request->user();
 });
+
 Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::post('logout',[AuthController::class,'logout']);
     Route::post('quen-mat-khau-xac-nhan',[AuthController::class,'quen_mat_khau_xac_nhan']);
@@ -34,3 +36,4 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 });
 
 Route::apiResource('luutru',KhachSanController::class);
+Route::apiResource('list-tour',TourController::class);

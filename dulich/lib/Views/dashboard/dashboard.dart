@@ -1,5 +1,6 @@
 import 'package:dulich/Global/color.dart';
 import 'package:dulich/Views/booking/booking.dart';
+import 'package:dulich/Views/booking/booking_detail.dart';
 import 'package:dulich/Views/home/home_page.dart';
 import 'package:dulich/Views/maps/maps.dart';
 
@@ -20,7 +21,7 @@ class _DashboardState extends State<Dashboard> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    Booking(),
+    TourListScreen(),
     // Text(
     //   'Maps',
     //   style: optionStyle,

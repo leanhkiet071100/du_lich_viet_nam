@@ -1,18 +1,20 @@
 import 'package:dulich/Global/color.dart';
 import 'package:dulich/Views/booking/component/payment_detail.dart';
+import 'package:dulich/Views/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 
 class PaymentScreen extends StatefulWidget {
+  PaymentScreen({
+    Key? key,
+  }) : super(key: key);
+
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
+  @override
   String _paymentMethod = 'Tiền mặt';
-  bool _saveCard = false;
-  TextEditingController _cardNumberController = TextEditingController();
-  TextEditingController _expirationDateController = TextEditingController();
-  TextEditingController _securityCodeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const Dashboard(),
+              ),
+            );
           },
           child: const Icon(
             Icons.arrow_back_ios,
@@ -30,7 +37,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         backgroundColor: miniColor,
         title: Center(
           child: Text(
-            "Thanh toán",
+            "Thanh toán         ",
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
@@ -41,9 +48,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             OrderDetailsScreen(
-                tourName: 'Nhu quyn',
+                tourName: 'Nhu Quynh',
                 tourDate: '08/07/2023',
-                tourSdt: '0948518542',
+                tourSdt: '0945898185',
                 numberOfAdults: 2,
                 numberOfChildren: 1),
             SizedBox(height: 10.0),

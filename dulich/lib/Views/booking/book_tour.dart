@@ -135,7 +135,7 @@ class BookTour extends StatelessWidget {
                 ),
               ]));
         },
-        childCount: 2,
+        childCount: 1,
       ),
     );
   }

@@ -35,7 +35,7 @@ class RegisterProvider {
           builder: (BuildContext context) {
             return AlertDialog(
               content: Text('Vui lòng kiểm tra email để kích hoạt tài khoản! ',
-                  style: GoogleFonts.quicksand(
+                  style: TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.black)),
               title: Row(
                 children: [
@@ -47,7 +47,7 @@ class RegisterProvider {
                     width: 10,
                   ),
                   Text('Đăng kí thành công',
-                      style: GoogleFonts.quicksand(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: blackColor,
                       ))
@@ -60,7 +60,7 @@ class RegisterProvider {
                     },
                     child: Text(
                       'Đóng',
-                      style: GoogleFonts.quicksand(
+                      style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.black),
@@ -74,7 +74,7 @@ class RegisterProvider {
                     },
                     child: Text(
                       'Đăng Nhập',
-                      style: GoogleFonts.quicksand(
+                      style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.black),
@@ -89,7 +89,7 @@ class RegisterProvider {
           builder: (BuildContext context) {
             return AlertDialog(
               content: Text('Đăng kí thất bại',
-                  style: GoogleFonts.quicksand(
+                  style: TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.black)),
               title: Row(
                 children: [
@@ -101,7 +101,7 @@ class RegisterProvider {
                     width: 10,
                   ),
                   Text('Thông báo',
-                      style: GoogleFonts.quicksand(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: blackColor,
                       ))
@@ -114,7 +114,7 @@ class RegisterProvider {
                     },
                     child: Text(
                       'OK',
-                      style: GoogleFonts.quicksand(
+                      style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.black),

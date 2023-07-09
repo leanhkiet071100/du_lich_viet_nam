@@ -13,7 +13,7 @@ class PostNew extends StatefulWidget {
 class _PostNewState extends State<PostNew> {
   List<String> imgs = [
     'https://vcdn-dulich.vnecdn.net/2020/01/08/sac-mau-cua-bien-vnexpress-1-6641-1578454676.jpg',
-    'https://media.vov.vn/sites/default/files/styles/large/public/2020-09/99-thuyen_hoa.jpg',
+    'https://vcdn-dulich.vnecdn.net/2020/01/08/sac-mau-cua-bien-vnexpress-1-6641-1578454676.jpg',
     'https://gonatour.vn/vnt_upload/gallery/09_2019/ba_li.jpg',
     'https://photo-mekongasean.epicdn.me/w950/Uploaded/2023/aopohun/2021_10_11/kinh-nghiem-du-lich-trang-an-6883-9681.jpg',
   ];

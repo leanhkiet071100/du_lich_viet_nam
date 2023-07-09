@@ -1,5 +1,5 @@
 import 'package:dulich/Global/color.dart';
-import 'package:dulich/Global/contants.dart';
+import 'package:dulich/Models/tour_object.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -24,6 +24,7 @@ class OrderDetailsScreen extends StatefulWidget {
 
 class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   final format = NumberFormat.currency(locale: 'vi_VN', symbol: '₫');
+  TourObject tour = TourObject();
   int total = 0;
   @override
   Widget build(BuildContext context) {
@@ -180,7 +181,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                             ),
                           ),
                           Text(
-                            '2',
+                            '1',
                             style: TextStyle(
                               fontSize: 16,
                               color: blackColor,
@@ -204,7 +205,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   child: Align(
                     alignment: Alignment.bottomRight,
                     child: Text(
-                      'Total price: ' + format.format(48517818),
+                      'Total price: ' + format.format(10000000),
                       style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.bold,

@@ -23,6 +23,21 @@ use App\Http\Controllers\API\ThanhToanController;
 
 class TourController extends Controller
 {
+    public function FixImg(goi_du_lich $goidulich)
+    {
+        if(Storage::disk('public')->exists($goidulich->hinh_goi_du_lich)){
+            $goidulich->hinh_noi_luu_tru = Storage::url($goidulich->hinh_goi_du_lich);
+        }else{
+            $goidulich->image = 'image/no_image_placeholder.png';
+        }
+    }
+
+    public function index()
+    {
+        $lstDattour = goi_du_lich ::select('id','ten','hinh_goi_du_lich','noi_khoi_hanh','ngay_khoi_hanh','gia_nguoi_lon','gia_tre_em','thong_tin_dich_vu')->get();
+        return response()->json($lstDattour);
+    }
+
     public function dat_tour(Request $request){
         $rule = [
             'Fullname' => 'required',
@@ -80,6 +95,7 @@ class TourController extends Controller
         ];
         return response()->json($response,200);
     }
+    
 
     public function thanh_toan(Request $request ,ThanhToanController $thanh_toan){
         $ngay_thanh_toan = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();

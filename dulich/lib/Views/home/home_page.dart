@@ -23,7 +23,6 @@ class _HomePageState extends State<HomePage> {
   ];
   List imgs = [
     'https://vcdn-dulich.vnecdn.net/2020/01/08/sac-mau-cua-bien-vnexpress-1-6641-1578454676.jpg',
-    'https://media.vov.vn/sites/default/files/styles/large/public/2020-09/99-thuyen_hoa.jpg'
   ];
   List<Route> historicalfigures = [
     MaterialPageRoute(builder: (_) => HotelPage()),
@@ -152,7 +151,34 @@ class _HomePageState extends State<HomePage> {
           name: 'Hoàng Thao Seaview',
           adress: 'Bãi biển, Khu 4, Cát Tiến, Quy nhơn, bình định',
           phone: '+84 3202 13184',
-        )
+        ),
+        // SliverToBoxAdapter(
+        //   child: Column(
+        //     children: [
+        //       Container(
+        //         margin: EdgeInsets.only(
+        //             top: 10, right: size.width * 0.6, bottom: 10),
+        //         child: const Text(
+        //           'Tour du lịch',
+        //           style: TextStyle(
+        //               color: blackColor,
+        //               fontSize: 20,
+        //               fontWeight: FontWeight.w700),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        // BookTour(
+        //     imgText:
+        //         'https://dulichviet.com.vn/images/bandidau/NOI-DIA/Sapa/ban-cat-cat-du-lich-sapa-gia-re.jpg',
+        //     title: 'Tour Du lịch Hà Nội - Lào Cai - Sapa',
+        //     time: '4 ngày 3 đêm'),
+        // BookTour(
+        //     imgText:
+        //         'https://dulichviet.com.vn/images/bandidau/NOI-DIA/Ha-Giang/du-lich-ha-giang-gia-tot-du-lich-viet(3).jpg',
+        //     title: 'Du lịch Hè Tour Đông Bắc Hà Nội - Hà Giang - Cao Bằng',
+        //     time: '6 ngày 5 đêm'),
       ]),
     );
   }

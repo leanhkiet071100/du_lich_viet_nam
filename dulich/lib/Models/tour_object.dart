@@ -4,6 +4,7 @@ class TourObject {
   String? telephone;
   int? adukt;
   int? children;
+  DateTime? ngaydat;
   int? goi_du_lich_id;
 
   TourObject({
@@ -12,6 +13,7 @@ class TourObject {
     this.telephone,
     this.adukt,
     this.children,
+    this.ngaydat,
     this.goi_du_lich_id,
   });
 
@@ -22,6 +24,7 @@ class TourObject {
       telephone: json['telephone'],
       adukt: json['adukt'],
       children: json['children'],
+      ngaydat: json['ngaydat'],
       goi_du_lich_id: json['goi_du_lich_id'],
     );
   }
