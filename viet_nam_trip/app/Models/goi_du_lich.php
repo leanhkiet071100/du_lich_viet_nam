@@ -20,6 +20,7 @@ class goi_du_lich extends Model
         'noi_khoi_hanh',
         'thoi_gian_tap_trung',
         'so_nguoi_toi_da',
+        'so_nguoi_con_lai',
         'gio_khoi_hanh',
         'ngay_khoi_hanh',
         'gia_nguoi_lon',

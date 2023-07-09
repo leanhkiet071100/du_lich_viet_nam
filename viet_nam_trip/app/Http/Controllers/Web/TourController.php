@@ -26,69 +26,46 @@ class TourController extends Controller
     public function index(Request $request)
     {
         $query = goi_du_lich::query();
+
         $totalbaiviets = $query->count();
         $query= $this->handleFilters($query, $request);
+        //$query = goi_du_lich::where('ngay_khoi_hanh', '=','2023-06-08');
+
         $query= $query->join('loai_goi_du_liches', 'loai_goi_du_liches.id', '=', 'goi_du_liches.loai_id')
                     ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich');
+
         $ls_goi_du_lich = $query->paginate(9);
+
         $ls_loai_goi_du_lich = loai_goi_du_lich::get();
         $max_tien = goi_du_lich::max('gia_nguoi_lon');
-
+        $noi_khoi_hanh = goi_du_lich::select('noi_khoi_hanh')->distinct()->get();
         $min_tien = goi_du_lich::min('gia_nguoi_lon') ?? 0;
+        $day_now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
         $data= [
             'pageTitle' => "Tour",
             'ls_goi_du_lich' => $ls_goi_du_lich,
             'ls_loai_goi_du_lich' => $ls_loai_goi_du_lich,
             'max_tien' => $max_tien,
             'min_tien' => $min_tien,
+            'noi_khoi_hanh'=>$noi_khoi_hanh,
+            'day_now'=> $day_now,
         ];
         return view('web.tour.tour-ds', $data);
     }
 
     private function handleFilters($query, $request){
-        $ten = $request->get('ten', null);
-        $mua_du_lich = $request->get('mua-du-lich', null);
-        $tinh = $request->get('tinh', null);
-        $huyen = $request->get('huyen', null);
-        $xa = $request->get('xa', null);
-        $sao_1 = $request->get('sao-1', null);
-        $sao_2 = $request->get('sao-2', null);
-        $sao_3 = $request->get('sao-3', null);
-        $sao_4 = $request->get('sao-4', null);
-        $sao_5 = $request->get('sao-5', null);
-        $sao = [];
-        if (!empty($ten)) {
-            $query->where('ten_dia_diem', 'like', '%' . $ten . '%');
+        $loai_tour = $request->get('loai_tour', null);
+        $noi_khoi_hanh = $request->get('noi_khoi_hanh', null);
+        $ngay_di = $request->get('ngay_di', null);
+        $min_tien = $request->get('min_tien', null);
+        $max_tien = $request->get('max_tien', null);
+
+        if (!empty($loai_tour)) {
+            $query->where('loai_id', '=', 1);
         }
-        if (!empty($mua_du_lich)) {
-            $query->where('mua_du_lich', 'like', '%' . $mua_du_lich . '%');
+        if (!empty($noi_khoi_hanh)) {
+            $query->where('noi_khoi_hanh', 'like', $noi_khoi_hanh);
         }
-        if (!empty($tinh)) {
-            $query->where('tinh', 'like', '%' . $tinh . '%');
-        }
-        if (!empty($huyen)) {
-            $query->where('huyen', 'like', '%' . $huyen . '%');
-        }
-        if (!empty($xa)) {
-            $query->where('xa', 'like', '%' . $xa . '%');
-        }
-        if (!empty($sao_1)) {
-            $sao[] = 1;
-        }
-        if (!empty($sao_2)) {
-             $sao[] = 2;
-        }
-        if (!empty($sao_3)) {
-             $sao[] = 3;
-        }
-        if (!empty($sao_4)) {
-            $sao[] = 4;
-        }
-        if (!empty($sao_5)) {
-            $sao[] = 5;
-        }
-        if(!empty($sao_1) || !empty($sao_2) || !empty($sao_3) || !empty($sao_4) || !empty($sao_5)){
-        $query->whereIn('sao', $sao);}
 
         return $query;
     }
@@ -224,6 +201,17 @@ class TourController extends Controller
         return number_format($tong);
     }
 
+    public function so_nguoi_con_lai(Request $request, $id){
+        $goi_du_lich = goi_du_lich::join('loai_goi_du_liches', 'loai_goi_du_liches.id', '=', 'goi_du_liches.loai_id')
+                    ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
+                    ->find($id);
+        $AmoutPerson  = $request->AmoutPerson;
+        if($goi_du_lich->so_nguoi_con_lai == null){
+
+        }
+        return 'kieetj';
+    }
+
     public function thanh_toan(Request $request, $id){
 
         $rule = [
@@ -348,7 +336,7 @@ class TourController extends Controller
                 'phieu_dat_id'=>$phieu_dat_id,
                 'tong_tien'=>$tong_hoa_don,
                 'loai_thanh_toan'=>'tien-mat',
-                'trang_thai'=> 2,
+                'trang_thai'=> 1,
             ]);
             $hoa_don->save();
         return Redirect::route('web.tai-khoan.phieu-dat-chi-tiet', ['id' =>  $phieu_dat_id])->with(['yes'=>'Đặt tour thành công']);

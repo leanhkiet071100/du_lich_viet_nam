@@ -107,6 +107,24 @@
                                                     </div>
                                                 </div>
                                             @endif
+                                            @if ($phieu_dat->ngay_dat != null)
+                                                <div class="position-relative row form-group">
+                                                    <label for="description"
+                                                        class="col-md-3 text-md-right col-form-label">Ngày đặt</label>
+                                                    <div class="col-md-9 col-xl-8">
+                                                        <p>{{ date('d-m-Y', strtotime($phieu_dat->ngay_dat)) }}</p>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            @if ($phieu_dat->ngay_duyet != null)
+                                                <div class="position-relative row form-group">
+                                                    <label for="description"
+                                                        class="col-md-3 text-md-right col-form-label">Ngày duyệt</label>
+                                                    <div class="col-md-9 col-xl-8">
+                                                        <p>{{ date('d-m-Y', strtotime($phieu_dat->ngay_duyet)) }}</p>
+                                                    </div>
+                                                </div>
+                                            @endif
                                             @if ($phieu_dat->ngay_huy != null)
                                                 <div class="position-relative row form-group">
                                                     <label for="description"
@@ -140,7 +158,7 @@
                                                             Ngày thanh toán
                                                         </label>
                                                         <div class="col-md-9 col-xl-8">
-                                                            <p>{{ $phieu_dat->hoa_don->ngay_thanh_toan }}</p>
+                                                            <p>{{ date('d-m-Y', strtotime($phieu_dat->hoa_don->ngay_thanh_toan)) }}</p>
                                                         </div>
                                                     </div>
                                                 @endif
@@ -356,7 +374,7 @@
                                                             <button id="hoan_lai_phieu_dat"
                                                                 class="btn-huy-tour btn btn-hover-shine btn-outline-danger border-0 btn-sm"
                                                                 data-url="{{ route('web.tai-khoan.hoan-lai-phieu-dat', ['id' => $phieu_dat->id]) }}">
-                                                                Hoàn lại
+                                                                Chờ xác nhận
                                                             </button>
                                                         </div>
                                                     @else

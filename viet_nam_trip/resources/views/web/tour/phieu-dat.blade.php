@@ -585,6 +585,30 @@
             }
         }
 
+        function kiem_tra_so_luong(){
+            var goi_du_lich_id = document.getElementById("goi_du_lich_id").value;
+            var url = "{{ route('web.tour.so-nguoi-con-lai', '') }}" + '/' + goi_du_lich_id;
+            var AmoutPerson = Number(adult) + Number(children) + Number(smallchildren);
+            formData = new FormData();
+            formData.append('AmoutPerson', AmoutPerson);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+
+                }
+            });
+        }
+
         function load_nguoi_lon(so_luong) {
             var url = "{{ route('web.tour.load-nguoi-lon', '') }}" + '/' + so_luong;
             var gia_nguoi_lon = document.getElementById("gia-nguoi-lon").value;
@@ -685,6 +709,7 @@
                 }
             });
         }
+
         $("#not_tu_van").click(function() {
             visiblepromotion(0);
         });

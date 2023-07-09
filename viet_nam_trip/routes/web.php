@@ -199,10 +199,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
                 Route::get('/duyet-huy/{id}', 'PhieuDatController@duyet_huy')->name('duyet-huy');
                 Route::get('/phieu-dat-chi-tiet/{id}', 'PhieuDatController@phieu_dat_chi_tiet')->name('phieu-dat-chi-tiet');
                 Route::get('/hoan-tien/{id}', 'PhieuDatController@hoan_tien')->name('hoan-tien');
-
+                Route::get('/hoa-don-view', 'PhieuDatController@hoa_don_view')->name('goa-don-view');
 
             });
         });
+
+
         //khách sạn
         Route::group(['prefix' => 'thong-tin-web'], function () {
             Route::name('thong-tin-web.')->group(function(){
@@ -376,6 +378,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
                 Route::get('/load-tre-em/{so_luong}', 'TourController@load_tre_em')->name('load-tre-em');
                 Route::get('/load-tre-nho/{so_luong}', 'TourController@load_tre_nho')->name('load-tre-nho');
                 Route::post('/tong-hoa-don/{id}', 'TourController@tong_hoa_don')->name('tong-hoa-don');
+                Route::post('/so-nguoi-con-lai/{id}', 'TourController@so_nguoi_con_lai')->name('so-nguoi-con-lai');
                 Route::get('/thanh-toan/{id}', 'TourController@thanh_toan')->name('thanh-toan')->middleware('check_login');
                 Route::post('/post-thanh-toan/{id}/{phieu_dat_id}', 'TourController@post_thanh_toan')->name('post-thanh-toan')->middleware('check_login');
                 Route::post('/post-thanh-toan/{phieu_dat_id}', 'ThanhToanController@post_thanh_toan')->name('vnpay-success');
