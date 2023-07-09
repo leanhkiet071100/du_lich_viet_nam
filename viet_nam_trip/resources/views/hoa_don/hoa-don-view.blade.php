@@ -113,7 +113,7 @@
             height: 11in;
             margin: 0 auto;
             overflow: hidden;
-            padding: 1.5in;
+            padding: 1in 1in;
             /* width: 8.5in; */
         }
 
