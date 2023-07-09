@@ -5,9 +5,9 @@ import 'package:dulich/Global/url.dart';
 import 'package:dulich/Models/hotel_object.dart';
 
 class HotelProvider {
-  static List<Hotel> parseHotels(String responseBody) {
-    final parse = jsonDecode(responseBody)['data'].cast<Map<String, dynamic>>();
-    return parse.map<Hotel>((e) => Hotel.fromJson(e)).toList();
+  static List<Hotel> parseHotels(String reponseBody) {
+    final pased = jsonDecode(reponseBody).cast<Map<String, dynamic>>();
+    return pased.map<Hotel>((e) => Hotel.fromJson(e)).toList();
   }
 
   static Future<List<Hotel>> fetchPosts() async {
@@ -21,7 +21,6 @@ class HotelProvider {
     final response = await http.get(Uri.parse(hotelUrl), headers: {
       'Content-type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
     });
     return parseHotels(response.body);
   }

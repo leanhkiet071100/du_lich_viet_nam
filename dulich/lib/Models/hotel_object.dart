@@ -1,5 +1,6 @@
 class Hotel {
   final int id;
+  final int dia_diem_id;
   final String ten_noi_luu_tru;
   final String tinh;
   final String huyen;
@@ -8,11 +9,12 @@ class Hotel {
   final String so_dien_thoai;
   final String hinh_noi_luu_tru;
 
-  Hotel(this.id, this.ten_noi_luu_tru, this.tinh, this.huyen, this.xa,
-      this.dia_chi, this.so_dien_thoai, this.hinh_noi_luu_tru);
+  Hotel(this.id, this.dia_diem_id, this.ten_noi_luu_tru, this.tinh, this.huyen,
+      this.xa, this.dia_chi, this.so_dien_thoai, this.hinh_noi_luu_tru);
 
   Hotel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
+        dia_diem_id = json['dia_diem_id'],
         ten_noi_luu_tru = json['ten_noi_luu_tru'],
         tinh = json['tinh'],
         huyen = json['huyen'],
