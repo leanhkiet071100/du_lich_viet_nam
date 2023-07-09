@@ -199,7 +199,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
                 Route::get('/duyet-huy/{id}', 'PhieuDatController@duyet_huy')->name('duyet-huy');
                 Route::get('/phieu-dat-chi-tiet/{id}', 'PhieuDatController@phieu_dat_chi_tiet')->name('phieu-dat-chi-tiet');
                 Route::get('/hoan-tien/{id}', 'PhieuDatController@hoan_tien')->name('hoan-tien');
-                Route::get('/hoa-don-view', 'PhieuDatController@hoa_don_view')->name('goa-don-view');
+                Route::get('/hoa-don-view', 'PhieuDatController@hoa_don_view')->name('hoa-don-view');
+                Route::get('/xuat-hoa-don', 'PhieuDatController@xuat_hoa_don')->name('xuat-hoa-don');
 
             });
         });

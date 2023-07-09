@@ -8,7 +8,6 @@
         </script>
     @endif
 
-    @include('web.includes.banner')
     <div class="booking-tour">
         <section class="checkout-head d-none d-lg-block">
             <div class="container">
@@ -63,6 +62,7 @@
                                     <div class="entry">
                                         <div class="entry-inner">
                                             <input type="hidden" id="goi_du_lich_id" value="{{ $goi_du_lich->id }}">
+                                            <input type="hidden" id="kiem_tra_so_luong" value="{{ $goi_du_lich->so_nguoi_con_lai == 1 ? '0' : '1' }}">
                                             <span>
                                                 <p>Khởi hành:
                                                     <b>{{ date('d/m/Y', strtotime($goi_du_lich->ngay_khoi_hanh)) }} -
@@ -383,8 +383,10 @@
                                             <tr class="pt">
                                                 <td>số chỗ đã đặt</td>
                                                 <td class="t-price text-right" id="txtGiamGiaLastMinute"> <span
-                                                        id="remainLastMinuteGuest">{{$goi_du_lich->so_nguoi_con_lai ?? 0}} </span> / <span
-                                                        id="totalLastMinuteGuest">{{$goi_du_lich->so_nguoi_toi_da}}</span> chỗ</td>
+                                                        id="remainLastMinuteGuest">{{ $goi_du_lich->so_nguoi_con_lai == null ? 0 : $goi_du_lich->so_nguoi_toi_da - $goi_du_lich->so_nguoi_con_lai }}
+                                                    </span> / <span
+                                                        id="totalLastMinuteGuest">{{ $goi_du_lich->so_nguoi_toi_da }}</span>
+                                                    chỗ</td>
                                             </tr>
                                             {{-- <tr>
                                             <td>Người lớn và trẻ em</td>
@@ -531,10 +533,23 @@
             let btnName = e.currentTarget.getElementsByTagName('i')[0].id;
             let iIndex = btnName.lastIndexOf('_');
             let iIndexId = btnName.slice(iIndex + 1);
+
+            //kiểm tra số lượng
+            var adult = document.getElementById("adult").value;
+            var children = document.getElementById("children").value;
+            var smallchildren = document.getElementById("smallchildren").value;
+            kiem_tra_so_luong(adult, children, smallchildren);
+            var kt_sl = document.getElementById("kiem_tra_so_luong").value;
+
             if (iIndexId == "adultPlus" || iIndexId == "adultMinus") {
                 var adult = document.getElementById("adult").value;
                 if (iIndexId == "adultPlus") {
-                    adult = Number(adult) + 1;
+
+                    if (kt_sl == 0) {
+                        alert('tour đã đủ người')
+                    } else {
+                        adult = Number(adult) + 1;
+                    }
                 } else if (iIndexId == "adultMinus") {
                     if (Number(adult) == 1 || Number(adult) < 0) {
                         alert('số khách tối thiểu là 1');
@@ -548,7 +563,12 @@
             } else if (iIndexId == "childrenPlus" || iIndexId == "childrenMinus") {
                 var children = document.getElementById("children").value;
                 if (iIndexId == "childrenPlus") {
-                    children = Number(children) + 1;
+                    if (kt_sl == 0) {
+                        alert('tour đã đủ người')
+                    } else {
+                        children = Number(children) + 1;
+                    }
+
                 } else if (iIndexId == "childrenMinus") {
                     if (Number(children) <= 0) {
                         alert('số khách tối thiểu là 1');
@@ -562,7 +582,12 @@
             } else if (iIndexId == "smallchildrenPlus" || iIndexId == "smallchildrenMinus") {
                 var smallchildren = document.getElementById("smallchildren").value;
                 if (iIndexId == "smallchildrenPlus") {
-                    smallchildren = Number(smallchildren) + 1;
+                    if (kt_sl == 0) {
+                        alert('tour đã đủ người')
+                    } else {
+                        smallchildren = Number(smallchildren) + 1;
+                    }
+
                 } else if (iIndexId == "smallchildrenMinus") {
                     if (Number(smallchildren) <= 0) {
                         alert('số khách tối thiểu là 1');
@@ -578,6 +603,7 @@
             var children = document.getElementById("children").value;
             var smallchildren = document.getElementById("smallchildren").value;
             tong_hoa_don(adult, children, smallchildren);
+            kiem_tra_so_luong(adult, children, smallchildren);
             if (option == 'tu_van') {
                 tu_van();
             } else if (option == 'not_tu_van') {
@@ -585,7 +611,7 @@
             }
         }
 
-        function kiem_tra_so_luong(adult, children, smallchildren,iIndexId){
+        function kiem_tra_so_luong(adult, children, smallchildren) {
             var goi_du_lich_id = document.getElementById("goi_du_lich_id").value;
             var url = "{{ route('web.tour.so-nguoi-con-lai', '') }}" + '/' + goi_du_lich_id;
             var AmoutPerson = Number(adult) + Number(children) + Number(smallchildren);
@@ -604,10 +630,11 @@
                 contentType: false,
                 processData: false,
                 success: function(data) {
-                    if(data.status == 400){
-                        alert(data.mess)
-                    }else{
+                    if (data.status == 400) {
+                        document.getElementById("kiem_tra_so_luong").value = 0;
 
+                    } else {
+                        document.getElementById("kiem_tra_so_luong").value = 1
                     }
                 }
             });

@@ -26,14 +26,13 @@ class TourController extends Controller
     public function index(Request $request)
     {
         $query = goi_du_lich::query();
-
         $totalbaiviets = $query->count();
-        $query= $this->handleFilters($query, $request);
-        //$query = goi_du_lich::where('ngay_khoi_hanh', '=','2023-06-08');
 
+
+        //$query = goi_du_lich::where('ngay_khoi_hanh', '=','2023-06-08');
         $query= $query->join('loai_goi_du_liches', 'loai_goi_du_liches.id', '=', 'goi_du_liches.loai_id')
                     ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich');
-
+        $query= $this->handleFilters($query, $request);
         $ls_goi_du_lich = $query->paginate(9);
 
         $ls_loai_goi_du_lich = loai_goi_du_lich::get();
@@ -59,12 +58,50 @@ class TourController extends Controller
         $ngay_di = $request->get('ngay_di', null);
         $min_tien = $request->get('min_tien', null);
         $max_tien = $request->get('max_tien', null);
-
+        $so_nguoi = $request->get('so_nguoi', null);
+        $so_ngay = $request->get('so_ngay', null);
+        //dd($so_nguoi);
         if (!empty($loai_tour)) {
-            $query->where('loai_id', '=', 1);
+            $query->where('loai_id', $loai_tour);
         }
         if (!empty($noi_khoi_hanh)) {
             $query->where('noi_khoi_hanh', 'like', $noi_khoi_hanh);
+        }
+
+        if (!empty($ngay_di)) {
+            $query->where('ngay_khoi_hanh', '=', $ngay_di);
+        }
+
+        if (!empty($max_tien)) {
+            $query->where('gia_nguoi_lon', '<=', $max_tien);
+        }
+
+        if (!empty($min_tien)) {
+            $query->where('gia_nguoi_lon', '>=', $min_tien);
+        }
+
+        if (!empty($so_ngay)) {
+            if($so_ngay == 1){
+                $query->whereIn('so_ngay', ['1', '2', '3']);
+            }else if($so_ngay == 2){
+                $query->whereIn('so_ngay', ['4', '5', '6', '7', '8']);
+            }else if($so_ngay == 3){
+                $query->whereIn('so_ngay', ['8', '9', '10', '11', '12', '13', '14']);
+            }else if($so_ngay == 4){
+                $query->where('so_ngay', '>', '14');
+            }
+        }
+
+         if (!empty($so_nguoi)) {
+            if($so_nguoi == 1){
+                $query->whereIn('so_nguoi_toi_da', ['1', '2', '3']);
+            }else if($so_nguoi == 2){
+                $query->whereIn('so_nguoi_toi_da', ['4', '5', '6', '7', '8']);
+            }else if($so_nguoi == 3){
+                $query->whereIn('so_nguoi_toi_da', ['8', '9', '10', '11', '12', '13', '14']);
+            }else if($so_nguoi == 4){
+                $query->where('so_nguoi_toi_da', '>', '14');
+            }
         }
 
         return $query;
@@ -208,7 +245,7 @@ class TourController extends Controller
         $AmoutPerson  = $request->AmoutPerson;
 
         if($goi_du_lich->so_nguoi_con_lai == null){
-            if($AmoutPerson <= $goi_du_lich->so_nguoi_toi_da){
+            if($AmoutPerson < $goi_du_lich->so_nguoi_toi_da){
                 return response()->json([
                     'status' => 200,
                     'mess'=>'Thêm thành công',
@@ -220,7 +257,7 @@ class TourController extends Controller
                 ]);
             }
         }else{
-            if($AmoutPerson <= $goi_du_lich->so_nguoi_con_lai){
+            if($AmoutPerson < $goi_du_lich->so_nguoi_con_lai){
                 return response()->json([
                     'status' => 200,
                     'mess'=>'Thêm thành công',
