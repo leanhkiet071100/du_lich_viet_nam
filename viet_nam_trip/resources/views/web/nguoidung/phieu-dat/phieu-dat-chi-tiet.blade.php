@@ -211,7 +211,7 @@
                                                                 @break
 
                                                                 @case(1)
-                                                                    <p>Đã trả tiền</p>
+                                                                    <p>Đã thanh toán</p>
                                                                 @break
 
                                                                 @case(2)

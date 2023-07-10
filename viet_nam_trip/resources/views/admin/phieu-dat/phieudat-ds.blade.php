@@ -59,7 +59,7 @@
                                             <td class="text-center td-trang-thai-hoa-don{{ $value->hoa_don->trang_thai }}">
                                                 @switch($value->hoa_don->trang_thai)
                                                     @case(1)
-                                                        <span class="badge badge-success">Đã trả tiền</span>
+                                                        <span class="badge badge-success">Dã thanh toán</span>
                                                     @break
 
                                                     @case(2)
@@ -109,8 +109,7 @@
                                                 @default
                                             @endswitch
                                         </td>
-                                        <td class="text-center td-chuc-nang{{ $value->id }}"
-                                            id="td-chuc-nang{{ $value->id }}">
+                                        <td class="text-center td-chuc-nang{{ $value->id }}"  id="td-chuc-nang{{ $value->id }}">
                                             @switch($value->trang_thai)
                                                 @case(1)
                                                     <button onclick="duyet({{ $value->id }})"
@@ -144,6 +143,11 @@
                                                 <button onclick="form_huy({{ $value->id }})"
                                                     class="btn btn-hover-shine btn-outline-danger border-0 btn-sm">Hủy</button>
                                             @endif
+                                            @if ($value->hoa_don->trang_thai ?? '0'  == 1 || $value->trang_thai == 2  )
+                                                <a href="{{route('admin.tour.xuat-hoa-don',['phieu_dat_id'=>$value->id])}}" class="btn btn-hover-shine btn-outline-info border-0 btn-sm">Xuất hóa đơn</a>
+                                            @endif
+
+
                                         </td>
 
                                     </tr>

@@ -1,10 +1,9 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>HÓA ĐƠN DU LỊCH</title>
-    <style>
-
+     <style>
         .page-break {
             page-break-after: always;
         }
@@ -54,7 +53,7 @@
         /* heading */
 
         h1 {
-            font: bold 100% sans-serif;
+            font: bold 100%;
             letter-spacing: 0.5em;
             text-align: center;
             text-transform: uppercase;
@@ -116,6 +115,7 @@
             overflow: hidden;
             padding: 1in 1in;
             /* width: 8.5in; */
+            font-family: DejaVu Sans, sans-serif;
         }
 
         body {
@@ -216,7 +216,7 @@
         table.meta,
         table.balance {
             float: right;
-            width: 36%;
+            width: 40%;
         }
 
         table.meta:after,
@@ -253,17 +253,19 @@
         }
 
         table.inventory td:nth-child(2) {
-            width: 38%;
+            width: 30%;
+            text-align: center;
         }
 
         table.inventory td:nth-child(3) {
             text-align: right;
-            width: 12%;
+            width: 15%;
+            text-align: center;
         }
 
         table.inventory td:nth-child(4) {
-            text-align: right;
-            width: 12%;
+            text-align: center;
+            width: 20%;
         }
 
         table.inventory td:nth-child(5) {
@@ -373,86 +375,130 @@
         @page {
             margin: 0;
         }
+
+        .thong-tin-du-lich {
+            width: 50%;
+            text-align: justify;
+        }
+
+        .thong-tin-khach-hang {
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
 </head>
 
 <body>
-    <?php /*
     <header>
-        <h1>HOA ĐƠN DU LỊCH</h1>
+        <h1>HÓA ĐƠN DU LỊCH</h1>
         <address contenteditable>
-            <p></p>
-            <p>{{$web->dia_chi ?? 'số 12 đường N14 Quận 1 Thành Phố Hồ Chí Minh'}}</p>
-            <p>{{$web->so_dien_thoai ?? '0365688058'}}</p>
+            <p>{{ $web->ten ?? 'Công ty TNHH Du LỊCH VIỆT NAM' }}</p>
+            <p>{{ $web->dia_chi ?? 'số 12 đường N14 Quận 1 Thành Phố Hồ Chí Minh' }}</p>
+            <p>{{ $web->so_dien_thoai ?? '0365688058' }}</p>
         </address>
 
     </header>
     <article>
+        <div class="thong-tin-khach-hang">
+            <address contenteditable class="thong-tin-du-lich">
+                <p>{{ $phieu_dat->goi_du_lich->ten }}y</p>
+            </address>
+            <table class="meta">
+                <tr>
+                    <th><span contenteditable>Họ tên khách hàng</span></th>
+                    <td><span contenteditable>{{ $phieu_dat->ten }}</span></td>
+                </tr>
+                <tr>
+                    <th><span contenteditable>Số điện thoại</span></th>
+                    <td><span contenteditable>{{ $phieu_dat->so_dien_thoai }}</span></td>
+                </tr>
+                <tr>
+                    <th><span contenteditable>Tổng hóa đơn</span></th>
+                    <td>{{ number_format($phieu_dat->hoa_don->tong_tien) }}</td>
+                </tr>
+                <tr>
+                    <th><span contenteditable>Loại thanh toán</span></th>
+                    <td><span contenteditable>
+                            @switch($phieu_dat->hoa_don->loai_thanh_toan)
+                                @case('tien-mat')
+                                    <p>Tiền mặt</p>
+                                @break
 
-        <address contenteditable>
-            <p>Some Company<br>c/o Some Guy</p>
-        </address>
-        <table class="meta">
-            <tr>
-                <th><span contenteditable>Invoice #</span></th>
-                <td><span contenteditable>101138</span></td>
-            </tr>
-            <tr>
-                <th><span contenteditable>Date</span></th>
-                <td><span contenteditable>January 1, 2012</span></td>
-            </tr>
-            <tr>
-                <th><span contenteditable>Amount Due</span></th>
-                <td><span id="prefix" contenteditable>$</span><span>600.00</span></td>
-            </tr>
-        </table>
+                                @case('vn-pay')
+                                    <p>VNPAY</p>
+                                @break
+
+                                @case('momo-atm')
+                                    <p>Momo ATM</p>
+                                @break
+
+                                @case('momo-qr')
+                                    <p>Momo QR</p>
+                                @break
+
+                                @default
+                            @endswitch
+                        </span></td>
+                </tr>
+                <tr>
+                    <th><span contenteditable>Ngày thanh toán</span></th>
+                    <td><span
+                            contenteditable>{{ date('d-m-Y', strtotime($phieu_dat->hoa_don->ngay_thanh_toan)) }}</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
         <table class="inventory">
             <thead>
                 <tr>
-                    <th><span contenteditable>Item</span></th>
-                    <th><span contenteditable>Description</span></th>
-                    <th><span contenteditable>Rate</span></th>
-                    <th><span contenteditable>Quantity</span></th>
-                    <th><span contenteditable>Price</span></th>
+                    <th><span contenteditable>Loại</span></th>
+                    <th><span contenteditable>Giá tiền</span></th>
+                    <th><span contenteditable>Số lượng</span></th>
+                    <th><span contenteditable>Thành tiền</span></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><a class="cut">-</a><span contenteditable>Front End Consultation</span></td>
-                    <td><span contenteditable>Experience Review</span></td>
-                    <td><span data-prefix>$</span><span contenteditable>150.00</span></td>
-                    <td><span contenteditable>4</span></td>
-                    <td><span data-prefix>$</span><span>600.00</span></td>
+                    <td><span contenteditable>Người lớn</span></td>
+                    <td><span data-prefix>{{ number_format($phieu_dat->goi_du_lich->gia_nguoi_lon) }}</td>
+                    <td><span contenteditable>{{$phieu_dat->so_nguoi_lon}}</span></td>
+                    <td><span data-prefix>{{ number_format($phieu_dat->goi_du_lich->gia_nguoi_lon * $phieu_dat->so_nguoi_lon ) }}</td>
+                </tr>
+                <tr>
+                    <td><span contenteditable>Trẻ em</span></td>
+                    <td><span data-prefix>{{ number_format($phieu_dat->goi_du_lich->gia_tre_em) }}</td>
+                    <td><span contenteditable>{{$phieu_dat->so_tre_em}}</span></td>
+                    <td>{{ number_format($phieu_dat->goi_du_lich->gia_tre_em * $phieu_dat->so_tre_em ) }}</td>
+                </tr>
+                <tr>
+                    <td><span contenteditable>Trẻ nhỏ</span></td>
+                    <td><span data-prefix>{{ number_format($phieu_dat->goi_du_lich->gia_tre_nho) }}</td>
+                    <td><span contenteditable>{{$phieu_dat->so_tre_nho}}</span></td>
+                    <td>{{ number_format($phieu_dat->goi_du_lich->gia_tre_nho * $phieu_dat->so_tre_nho ) }}</td>
                 </tr>
             </tbody>
         </table>
-        <a class="add">+</a>
         <table class="balance">
             <tr>
-                <th><span contenteditable>Total</span></th>
-                <td><span data-prefix>$</span><span>600.00</span></td>
+                <th><span contenteditable>Tổng tiền</span></th>
+                <td><span data-prefix>{{ number_format($phieu_dat->hoa_don->tong_tien) }}</td>
             </tr>
             <tr>
-                <th><span contenteditable>Amount Paid</span></th>
-                <td><span data-prefix>$</span><span contenteditable>0.00</span></td>
+                <th><span contenteditable>Số tiền giảm</span></th>
+                <td><span data-prefix>0</td>
             </tr>
             <tr>
-                <th><span contenteditable>Balance Due</span></th>
-                <td><span data-prefix>$</span><span>600.00</span></td>
+                <th><span contenteditable>Tiền thuế</span></th>
+                <td><span data-prefix>0</td>
+            </tr>
+            <tr>
+                <th><span contenteditable>Thành tiền</span></th>
+                <td><span data-prefix>{{ number_format($phieu_dat->hoa_don->tong_tien) }}</td>
             </tr>
         </table>
     </article>
-    <aside>
-        <h1><span contenteditable>Additional Notes</span></h1>
-        <div contenteditable>
-            <p>A finance charge of 1.5% will be made on unpaid balances after 30 days.</p>
-        </div>
-    </aside> */
-    ?>
 
-    <h1>trang số 1</h1>
-    <div class="page-break">kiệt</div>
-    <h1>Page 2</h1>
 </body>
 
 </html>

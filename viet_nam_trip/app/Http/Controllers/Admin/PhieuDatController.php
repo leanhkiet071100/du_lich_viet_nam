@@ -223,10 +223,16 @@ class PhieuDatController extends Controller
 
     }
 
-    public function hoa_don_view (Request $request){
-        $data= [
-            'pageTitle' => "Phiếu đặt",
-
+    public function hoa_don_view (Request $request, $phieu_dat_id){
+        $user = User::get();
+        $phieu_dat = phieu_dat::with(['hoa_don', 'goi_du_lich'])
+                            ->orderByRaw('id DESC')
+                            ->find($phieu_dat_id);
+        $web = web::orderBy('id')->first();
+        $data = [
+            'phieu_dat' => $phieu_dat,
+            'user' => $user,
+            'web'=>$web,
         ];
         return view('hoa_don.hoa-don-view', $data);
 
@@ -238,15 +244,17 @@ class PhieuDatController extends Controller
         $phieu_dat = phieu_dat::with(['hoa_don', 'goi_du_lich'])
                             ->orderByRaw('id DESC')
                             ->find($phieu_dat_id);
+        $ds_nguoi_tham_gia = danh_sach_phieu_dat::where('phieu_dat_id','=',$phieu_dat_id)->get();
         $web = web::orderBy('id')->first();
         $data = [
             'phieu_dat' => $phieu_dat,
             'user' => $user,
             'web'=>$web,
+            'ds_nguoi_tham_gia' => $ds_nguoi_tham_gia,
         ];
 
         $pdf = PDF::loadView('hoa_don.hoa-don-view', $data);
-        $pdf->setOption(['dpi' => 100, 'defaultFont' => 'sans-serif', 'encoding'=>'utf8']);
+        $pdf->setOption(['dpi' => 100, 'defaultFont' => 'sans-serif', 'encoding'=>'utf-8']);
         return $pdf->stream();
         //return $pdf->download('hoa_don.pdf');
 
