@@ -1,15 +1,16 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <title>Invoice</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="license" href="https://www.opensource.org/licenses/mit-license/">
-    <script src="script.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>HÓA ĐƠN DU LỊCH</title>
     <style>
-        /* reset */
+
+        .page-break {
+            page-break-after: always;
+        }
 
         * {
+
             border: 0;
             box-sizing: content-box;
             color: inherit;
@@ -376,18 +377,18 @@
 </head>
 
 <body>
+    <?php /*
     <header>
-        <h1>Invoice</h1>
+        <h1>HOA ĐƠN DU LỊCH</h1>
         <address contenteditable>
-            <p>Jonathan Neal</p>
-            <p>101 E. Chapman Ave<br>Orange, CA 92866</p>
-            <p>(800) 555-1234</p>
+            <p></p>
+            <p>{{$web->dia_chi ?? 'số 12 đường N14 Quận 1 Thành Phố Hồ Chí Minh'}}</p>
+            <p>{{$web->so_dien_thoai ?? '0365688058'}}</p>
         </address>
-        <span><img alt="" src="http://www.jonathantneal.com/examples/invoice/logo.png"><input type="file"
-                accept="image/*"></span>
+
     </header>
     <article>
-        <h1>Recipient</h1>
+
         <address contenteditable>
             <p>Some Company<br>c/o Some Guy</p>
         </address>
@@ -446,7 +447,12 @@
         <div contenteditable>
             <p>A finance charge of 1.5% will be made on unpaid balances after 30 days.</p>
         </div>
-    </aside>
+    </aside> */
+    ?>
+
+    <h1>trang số 1</h1>
+    <div class="page-break">kiệt</div>
+    <h1>Page 2</h1>
 </body>
 
 </html>

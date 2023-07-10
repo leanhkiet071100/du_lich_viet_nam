@@ -9,6 +9,7 @@ use App\Models\danh_sach_phieu_dat;
 use App\Models\goi_du_lich;
 use App\Models\hoa_don;
 use App\Models\User;
+use App\Models\web;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -231,10 +232,21 @@ class PhieuDatController extends Controller
 
     }
 
-    public function xuat_hoa_don(Request $request){
+    public function xuat_hoa_don(Request $request, $phieu_dat_id ){
         // $pdf = \App::make('dompdf.wrapper');
         $user = User::get();
-        $pdf = PDF::loadView('hoa_don.hoa-don-view',['user' => $user]);
+        $phieu_dat = phieu_dat::with(['hoa_don', 'goi_du_lich'])
+                            ->orderByRaw('id DESC')
+                            ->find($phieu_dat_id);
+        $web = web::orderBy('id')->first();
+        $data = [
+            'phieu_dat' => $phieu_dat,
+            'user' => $user,
+            'web'=>$web,
+        ];
+
+        $pdf = PDF::loadView('hoa_don.hoa-don-view', $data);
+        $pdf->setOption(['dpi' => 100, 'defaultFont' => 'sans-serif', 'encoding'=>'utf8']);
         return $pdf->stream();
         //return $pdf->download('hoa_don.pdf');
 
