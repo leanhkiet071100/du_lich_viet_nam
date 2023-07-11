@@ -371,28 +371,7 @@
         location.reload()
     }
 
-    function loai_dia_diem_hien($id) {
-        var check = document.getElementById("checkhien" + $id).checked;
-        var formData = new FormData();
-        var url = "{{ route('admin.loai-dia-diem.hien', '') }}" + '/' + $id;
-        formData.append('check', check);
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(data) {
-                //window.location.reload(); load lại trang
-                console.log(data)
-            }
-        });
-    }
+
 
    </script>
 @endsection
