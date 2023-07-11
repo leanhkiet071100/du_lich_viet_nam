@@ -1,6 +1,7 @@
 // errors
 import 'package:dulich/Global/color.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const serverError = 'Server error';
 const unauthorized = 'Unauthorized';
@@ -15,6 +16,12 @@ errorSnackBar(BuildContext context, String text) {
       duration: const Duration(seconds: 1),
     ),
   );
+}
+
+//-------Get TOKEN------------//
+Future<String?> getToken() async {
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  return pref.getString("token");
 }
 
 // --- input decoration

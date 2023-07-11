@@ -232,18 +232,18 @@ class _LoginState extends State<Login> {
                   child: CircularProgressIndicator(),
                 )
               : kTextButton("Đăng nhập", () {
-                  // if (formKey.currentState!.validate()) {
-                  //   setState(() {
-                  //     loading = true;
-                  //     _loginUser();
-                  //   });
-                  // }
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const Dashboard(),
-                    ),
-                  );
+                  if (formKey.currentState!.validate()) {
+                    setState(() {
+                      loading = true;
+                      _loginUser();
+                    });
+                  }
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const Dashboard(),
+                  //   ),
+                  // );
                 }),
           Container(
             margin: const EdgeInsets.only(top: 10),

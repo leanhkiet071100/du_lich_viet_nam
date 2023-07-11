@@ -1,7 +1,5 @@
 import 'package:dulich/Global/color.dart';
-import 'package:dulich/Views/booking/booking_detail.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Alert extends StatelessWidget {
   final String title;
