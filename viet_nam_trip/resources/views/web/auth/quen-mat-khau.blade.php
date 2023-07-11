@@ -2,8 +2,8 @@
 
 @section('content')
     @parent
-    @include('web.includes.banner')
-    <!-- dăng nhập -->
+    {{-- @include('web.includes.banner')
+    <!-- dăng nhập --> --}}
     <section class="ftco-section contact-section ftco-degree-bg">
         <div class="vizew-login-area section-padding-80">
             <div class="container">

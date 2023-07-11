@@ -2,7 +2,7 @@
 
 @section('content')
     @parent
-    @include('web.includes.banner')
+
     <section class="ftco-section ftco-degree-bg">
         <div class="container">
             <div class="row">

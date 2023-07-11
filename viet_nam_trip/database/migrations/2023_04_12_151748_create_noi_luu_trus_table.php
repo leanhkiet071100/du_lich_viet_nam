@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('dia_chi');
             $table->string('so_dien_thoai');
             $table->string('hinh_noi_luu_tru');
+            $table->string('mo_ta')->nullable();
             $table->boolean('noi_bat')->nullable();
             $table->text('trang_thai')->nullable();
             $table->timestamps();

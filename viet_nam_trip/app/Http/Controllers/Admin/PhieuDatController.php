@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\phieu_dat;
 use App\Models\danh_sach_phieu_dat;
+use App\Models\goi_du_lich;
 use App\Models\hoa_don;
+use App\Models\User;
+use App\Models\web;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -14,7 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Validator;
-
+use PDF;
 
 class PhieuDatController extends Controller
 {
@@ -77,9 +80,17 @@ class PhieuDatController extends Controller
             ]);
         }else{
             $phieu_dat = phieu_dat::find($id);
+            $goi_du_lich = goi_du_lich::find($phieu_dat->goi_du_lich_id);
             $hoa_don = hoa_don::where('phieu_dat_id', $phieu_dat->id)->first();
+            $so_nguoi = $phieu_dat->so_nguoi_lon + $phieu_dat->so_tre_em + $phieu_dat->so_tre_nho;
+            $so_nguoi_con_lai = $goi_du_lich->so_nguoi_con_lai + $so_nguoi;
+
             $ngay_huy = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
             $noi_dung = $request->input('content-post');
+
+            $goi_du_lich->update([
+                'so_nguoi_con_lai'=>$so_nguoi_con_lai,
+            ]);
             $phieu_dat->update([
                 'ngay_huy'=>$ngay_huy,
                 'li_do_huy'=>$noi_dung,
@@ -139,7 +150,13 @@ class PhieuDatController extends Controller
 
     public function duyet_huy(Request $request, $id){
             $phieu_dat = phieu_dat::find($id);
+            $goi_du_lich = goi_du_lich::find($phieu_dat->goi_du_lich_id);
             $hoa_don = hoa_don::where('phieu_dat_id', $phieu_dat->id)->first();
+            $so_nguoi = $phieu_dat->so_nguoi_lon + $phieu_dat->so_tre_em + $phieu_dat->so_tre_nho;
+            $so_nguoi_con_lai = $goi_du_lich->so_nguoi_con_lai + $so_nguoi;
+            $goi_du_lich->update([
+                'so_nguoi_con_lai'=>$so_nguoi_con_lai,
+            ]);
             $phieu_dat->update([
                 'nguoi_duyet_id'=>Auth::user()->id,
                 'trang_thai'=> 4,
@@ -206,12 +223,40 @@ class PhieuDatController extends Controller
 
     }
 
-    public function hoa_don_view (Request $request){
-        $data= [
-            'pageTitle' => "Phiếu đặt",
-
+    public function hoa_don_view (Request $request, $phieu_dat_id){
+        $user = User::get();
+        $phieu_dat = phieu_dat::with(['hoa_don', 'goi_du_lich'])
+                            ->orderByRaw('id DESC')
+                            ->find($phieu_dat_id);
+        $web = web::orderBy('id')->first();
+        $data = [
+            'phieu_dat' => $phieu_dat,
+            'user' => $user,
+            'web'=>$web,
         ];
         return view('hoa_don.hoa-don-view', $data);
+
+    }
+
+    public function xuat_hoa_don(Request $request, $phieu_dat_id ){
+        // $pdf = \App::make('dompdf.wrapper');
+        $user = User::get();
+        $phieu_dat = phieu_dat::with(['hoa_don', 'goi_du_lich'])
+                            ->orderByRaw('id DESC')
+                            ->find($phieu_dat_id);
+        $ds_nguoi_tham_gia = danh_sach_phieu_dat::where('phieu_dat_id','=',$phieu_dat_id)->get();
+        $web = web::orderBy('id')->first();
+        $data = [
+            'phieu_dat' => $phieu_dat,
+            'user' => $user,
+            'web'=>$web,
+            'ds_nguoi_tham_gia' => $ds_nguoi_tham_gia,
+        ];
+
+        $pdf = PDF::loadView('hoa_don.hoa-don-view', $data);
+        $pdf->setOption(['dpi' => 100, 'defaultFont' => 'sans-serif', 'encoding'=>'utf-8']);
+        return $pdf->stream();
+        //return $pdf->download('hoa_don.pdf');
 
     }
 }
