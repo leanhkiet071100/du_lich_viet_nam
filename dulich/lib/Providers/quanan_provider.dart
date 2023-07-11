@@ -16,7 +16,7 @@ class QuanAnProvider {
     return parseRes(response.body);
   }
 
-  static Future<List<QuanAn>> getAllHotel() async {
+  static Future<List<QuanAn>> getAllRes() async {
     var token = await getToken();
     final response = await http.post(Uri.parse(quanAnUrl), headers: {
       'Content-type': 'application/json',

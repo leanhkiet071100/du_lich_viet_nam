@@ -1,7 +1,8 @@
+import 'package:dulich/Models/quanan_object.dart';
+import 'package:dulich/Providers/quanan_provider.dart';
+import 'package:dulich/Views/food/food.dart';
 import 'package:dulich/Views/food/food_detail.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../../Global/color.dart';
 import '../dashboard/dashboard.dart';
 
@@ -52,136 +53,19 @@ class _FoodPageState extends State<FoodPage> {
         ],
       ),
       body: SafeArea(
-          child: InkWell(
-        onTap: (() {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => FoodDetail()));
-        }),
-        child: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (context, index) => Card(
-            child: Container(
-              margin: const EdgeInsets.all(5),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Load hình ảnh
-                  Container(
-                    padding: EdgeInsets.only(left: 5, right: 5),
-                    width: 110,
-                    height: 100,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      child: Image.network(
-                        'https://nhahanghoangthao.vn/wp-content/uploads/elementor/thumbs/about-pej7lc7dey04g6jovubyff0fyeqn8dyu0gx5q6unwg.jpg',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  // Tên nơi lưu trú
-
-                  SizedBox(
-                    width: size.width * 0.02,
-                    height: size.height * 0.02,
-                  ),
-                  // Tên nơi lưu trú
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Hoàng Thao Seaview',
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      SizedBox(
-                        width: size.width * 0.02,
-                        height: size.height * 0.01,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const Icon(
-                            Icons.loyalty,
-                            color: Colors.orange,
-                            size: 14,
-                          ),
-                          SizedBox(
-                            width: size.width * 0.02,
-                          ),
-                          Container(
-                            child: Text(
-                              "Bãi biển, Khu 4, Cát Tiến, Quy nhơn..",
-                              maxLines: 2,
-                              textAlign: TextAlign.start,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        width: size.width * 0.02,
-                        height: size.height * 0.01,
-                      ),
-                      //Load số điện thoại
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.phone,
-                            color: Colors.greenAccent[400],
-                            size: 14,
-                          ),
-                          SizedBox(
-                            width: size.width * 0.02,
-                          ),
-                          Text(
-                            '+84 3202 13184',
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: size.width * 0.02,
-                        height: size.height * 0.01,
-                      ),
-                      // dữ liệu tĩnh
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.location_on,
-                            color: Colors.red,
-                            size: 14,
-                          ),
-                          SizedBox(
-                            width: size.width * 0.02,
-                          ),
-                          Text(
-                            'Bình Định',
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      )),
+        child: FutureBuilder<List<QuanAn>>(
+            future: QuanAnProvider.fetchPosts(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Food(listRes: snapshot.data!);
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('Có lỗi rồi'),
+                );
+              }
+              return Center(child: CircularProgressIndicator());
+            }),
+      ),
     );
   }
 }

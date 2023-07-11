@@ -27,7 +27,7 @@ class KhachSanController extends Controller
      */
     public function index()
     {
-        $lstDiaDiem = noi_luu_tru ::select('id','dia_diem_id','ten_noi_luu_tru','tinh','huyen','xa','dia_chi','so_dien_thoai','hinh_noi_luu_tru')->get();
+        $lstDiaDiem = noi_luu_tru ::select('id','dia_diem_id','ten_noi_luu_tru','tinh','huyen','xa','dia_chi','so_dien_thoai','hinh_noi_luu_tru','mo_ta')->get();
         // foreach($lstDiaDiem as $dia)
         // {
         //     $this->FixImg($dia);

@@ -26,7 +26,8 @@ class QuanAnController extends Controller
      */
     public function index()
     {
-        $lstQuanAn = quan_an ::select('id','dia_diem_id','ten_quan_an','tinh','huyen','xa','dia_chi','so_dien_thoai','hinh_quan_an')->get();
+        $lstQuanAn = quan_an::select('id','dia_diem_id','ten_quan_an','tinh','huyen','xa','dia_chi','so_dien_thoai','hinh_quan_an')->get();
+        //$lstQuanAn = quan_an::all();
         // foreach($lstDiaDiem as $dia)
         // {
         //     $this->FixImg($dia);
