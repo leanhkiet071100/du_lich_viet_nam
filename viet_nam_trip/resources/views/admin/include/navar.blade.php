@@ -717,9 +717,9 @@
                          <ul class="nav flex-column">
                              <li class="nav-item-divider mt-0 nav-item"></li>
                              <li class="nav-item-btn text-center nav-item">
-                                 <button class="btn-shine btn-wide btn-pill btn btn-warning btn-sm">
-                                     <i class="fa fa-cog fa-spin mr-2"></i>View Details
-                                 </button>
+                                 <a href="{{route('web.trang-chu.index')}}" class="btn-shine btn-wide btn-pill btn btn-warning btn-sm">
+                                     <i class="fa fa-cog fa-spin mr-2"></i>Xem trang web
+                                 </a>
                              </li>
                          </ul>
                      </div>

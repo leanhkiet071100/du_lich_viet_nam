@@ -13,16 +13,15 @@ return new class extends Migration
     {
         Schema::create('noi_luu_trus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('dia_diem_id');
-            $table->foreignId('nguoi_dung_id');
+            $table->foreignId('dia_diem_id')->nullable();
             $table->string('ten_noi_luu_tru');
-            $table->foreignId('tinh_id')->nullable();
-            $table->foreignId('huyen_id')->nullable();
-            $table->foreignId('xa_id')->nullable();
+            $table->string('tinh')->nullable();
+            $table->string('huyen')->nullable();
+            $table->string('xa')->nullable();
             $table->string('dia_chi');
             $table->string('so_dien_thoai');
             $table->string('hinh_noi_luu_tru');
-            $table->boolean('hien')->nullable();
+            $table->boolean('noi_bat')->nullable();
             $table->text('trang_thai')->nullable();
             $table->timestamps();
             $table->softDeletes();

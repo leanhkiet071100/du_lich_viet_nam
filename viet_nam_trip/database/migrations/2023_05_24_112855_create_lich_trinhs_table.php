@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('lich_trinhs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('goi_du_lich_id');
+            $table->string('ten');
+            $table->date('ngay_lich_trinh');
             $table->text('noi_dung');
             $table->timestamps();
             $table->softDeletes();

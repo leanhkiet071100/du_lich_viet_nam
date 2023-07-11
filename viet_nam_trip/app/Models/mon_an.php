@@ -14,11 +14,9 @@ class mon_an extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'ten',
         'quan_an_id',
         'ten_mon',
         'gia_ban',
-        'hien',
         'noi_bat',
         'trang_thai',
     ];

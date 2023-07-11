@@ -172,7 +172,8 @@ class DiaDiemController extends Controller
         $ls_huyen_tinh =tinh_huyen_xa::where('loai','=',2)->where('parent_id','=',$tinh_dia_diem->id)->get();
         $ls_xa_huyen =tinh_huyen_xa::where('loai','=',3)->where('parent_id','=',$huyen_dia_diem->id)->get();
         $data= [
-            'pageTitle' => trans('public.create_location'),
+            'pageTitle' => $dia_diem->ten_dia_diem,
+            'title'=> $dia_diem->ten_dia_diem,
             'tinh'=>$tinh,
             'huyen'=>$huyen,
             'xa'=>$xa,

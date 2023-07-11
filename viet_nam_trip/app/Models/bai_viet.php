@@ -15,6 +15,7 @@ class bai_viet extends Model
 
     protected $fillable = [
         'nguoi_dung_id',
+        'dia_diem_id',
         'tieu_de',
         'phu_de',
         'hinh_anh_bai_viet',
@@ -24,7 +25,7 @@ class bai_viet extends Model
         'noi_bat',
         'trang_thai',
     ];
-    
+
     public function bai_Viet_binh_luan(){
         return $this->belongsTo(bai_Viet_binh_luan::class, 'bai_viet_id', 'id');
     }

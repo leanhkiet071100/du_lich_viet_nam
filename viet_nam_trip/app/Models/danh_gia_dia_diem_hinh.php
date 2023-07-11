@@ -20,6 +20,6 @@ class danh_gia_dia_diem_hinh extends Model
     ];
 
     public function danh_gia_dia_diem(){
-        return $this->hasMany(danh_gia_dia_diem::class, 'ma_san_pham', 'id');
+        return $this->hasMany('App\Models\danh_gia_dia_diem', 'danh_gia_dia_diem_id');
     }
 }

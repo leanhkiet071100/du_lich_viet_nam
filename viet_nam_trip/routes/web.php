@@ -22,7 +22,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
         Route::post('login_admin', 'LoginController@post_login_admin')->name('post_login_admin');
         Route::post('logout_admin', 'LoginController@logout_admin')->name('logout_admin');
         // Route::group(['middleware' => 'admin'], function () {});
-
+        Route::middleware('App\Http\Middleware\CheckLoginAdmin')->group(function(){
         Route::group(['prefix' => 'bai-viet'], function () {
             Route::name('bai-viet.')->group(function(){
                 Route::get('/', 'BaiVietController@index')->name('index');
@@ -65,16 +65,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
             });
         });
 
-        Route::group(['prefix' => 'vai-tro-nguoi-dung'], function () {
-            Route::name('vai-tro-nguoi-dung.')->group(function(){
-                Route::get('/', 'CapNguoiDungController@index')->name('index');
-                Route::get('/create', 'CapNguoiDungController@create')->name('create');
-                Route::post('/store', 'CapNguoiDungController@store')->name('store');
-                Route::get('/{id}/edit', 'CapNguoiDungController@edit')->name('edit');
-                Route::post('/{id}/update', 'CapNguoiDungController@update')->name('update');
-                Route::get('/{id}/destroy', 'CapNguoiDungController@destroy')->name('destroy');
-            });
-        });
+        // Route::group(['prefix' => 'vai-tro-nguoi-dung'], function () {
+        //     Route::name('vai-tro-nguoi-dung.')->group(function(){
+        //         Route::get('/', 'CapNguoiDungController@index')->name('index');
+        //         Route::get('/create', 'CapNguoiDungController@create')->name('create');
+        //         Route::post('/store', 'CapNguoiDungController@store')->name('store');
+        //         Route::get('/{id}/edit', 'CapNguoiDungController@edit')->name('edit');
+        //         Route::post('/{id}/update', 'CapNguoiDungController@update')->name('update');
+        //         Route::get('/{id}/destroy', 'CapNguoiDungController@destroy')->name('destroy');
+        //     });
+        // });
 
         //địa điểm
         Route::group(['prefix' => 'dia-diem'], function () {
@@ -93,8 +93,39 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
             });
         });
 
+        Route::group(['prefix' => 'quan-an'], function () {
+            Route::name('quan-an.')->group(function(){
+                Route::get('/', 'QuanAnController@index')->name('index');
+                Route::get('/create', 'QuanAnController@create')->name('create');
+                Route::post('/store', 'QuanAnController@store')->name('store');
+                Route::get('/{id}/edit', 'QuanAnController@edit')->name('edit');
+                Route::post('/{id}/update', 'QuanAnController@update')->name('update');
+                Route::get('/{id}/show', 'QuanAnController@show')->name('show');
+                Route::delete('/{id}/destroy', 'QuanAnController@destroy')->name('destroy');
+                Route::post('/noi-bat/{id}', 'QuanAnController@noi_nat')->name('noi-bat');
+                //load tỉnh thành Việt Nam
+                Route::post('/get-load-huyen', 'QuanAnController@get_load_huyen')->name('get-load-huyen');
+                Route::post('/get-load-xa', 'QuanAnController@get_load_xa')->name('get-load-xa');
+            });
+        });
+
+        // món ăn
+        Route::group(['prefix' => 'mon-an'], function () {
+            Route::name('mon-an.')->group(function(){
+                Route::get('/', 'MonAnController@index')->name('index');
+                Route::get('/load', 'MonAnController@load')->name('load');
+                Route::get('/create/{idquan}', 'MonAnController@create')->name('create');
+                Route::post('/quan-an/{idquan}/store', 'MonAnController@store')->name('store');
+                Route::get('{id}/edit/quan-an/{idquan}', 'MonAnController@edit')->name('edit');
+                Route::post('/{id}/update', 'MonAnController@update')->name('update');
+                Route::delete('/{id}/destroy', 'MonAnController@destroy')->name('destroy');
+
+            });
+        });
+
+
         //hình địa điểm
-         Route::group(['prefix' => 'dia-diem-hinh'], function () {
+        Route::group(['prefix' => 'dia-diem-hinh'], function () {
             Route::name('dia-diem-hinh.')->group(function(){
                 Route::get('/{id}', 'DiaDiemHinhController@index')->name('index');
                 Route::post('/store', 'DiaDiemHinhController@store')->name('store');
@@ -103,20 +134,21 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
                 Route::get('/load_hinh/{id}', 'DiaDiemHinhController@load_hinh')->name('load_hinh');
             });
         });
-        // loại địa điểm
-        Route::group(['prefix' => 'loai-dia-diem'], function () {
-            Route::name('loai-dia-diem.')->group(function(){
-                Route::get('/', 'LoaiDiaDiemController@index')->name('index');
-                Route::get('/load', 'LoaiDiaDiemController@load')->name('load');
-                Route::get('/create', 'LoaiDiaDiemController@create')->name('create');
-                Route::post('/store', 'LoaiDiaDiemController@store')->name('store');
-                Route::get('/{id}/edit', 'LoaiDiaDiemController@edit')->name('edit');
-                Route::post('/{id}/update', 'LoaiDiaDiemController@update')->name('update');
-                Route::delete('/{id}/destroy', 'LoaiDiaDiemController@destroy')->name('destroy');
-                Route::post('/hien/{id}', 'LoaiDiaDiemController@hien')->name('hien');
 
-            });
-        });
+        // loại địa điểm
+        // Route::group(['prefix' => 'loai-dia-diem'], function () {
+        //     Route::name('loai-dia-diem.')->group(function(){
+        //         Route::get('/', 'LoaiDiaDiemController@index')->name('index');
+        //         Route::get('/load', 'LoaiDiaDiemController@load')->name('load');
+        //         Route::get('/create', 'LoaiDiaDiemController@create')->name('create');
+        //         Route::post('/store', 'LoaiDiaDiemController@store')->name('store');
+        //         Route::get('/{id}/edit', 'LoaiDiaDiemController@edit')->name('edit');
+        //         Route::post('/{id}/update', 'LoaiDiaDiemController@update')->name('update');
+        //         Route::delete('/{id}/destroy', 'LoaiDiaDiemController@destroy')->name('destroy');
+        //         Route::post('/hien/{id}', 'LoaiDiaDiemController@hien')->name('hien');
+
+        //     });
+        // });
 
         // loại gói du lịch
         Route::group(['prefix' => 'loai-goi-du-lich'], function () {
@@ -128,6 +160,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
                 Route::get('/{id}/edit', 'LoaiGoiDulichController@edit')->name('edit');
                 Route::post('/{id}/update', 'LoaiGoiDulichController@update')->name('update');
                 Route::delete('/{id}/destroy', 'LoaiGoiDulichController@destroy')->name('destroy');
+                Route::post('/hien/{id}', 'LoaiGoiDulichController@hien')->name('hien');
             });
         });
         // gói du lịch
@@ -140,8 +173,38 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
                 Route::get('/{id}/edit', 'GoiDuLichController@edit')->name('edit');
                 Route::post('/{id}/update', 'GoiDuLichController@update')->name('update');
                 Route::delete('/{id}/destroy', 'GoiDuLichController@destroy')->name('destroy');
+                 Route::post('/noi-bat/{id}', 'GoiDuLichController@noi_nat')->name('noi-bat');
+                  Route::get('/tour-hoan-thanh/{id}', 'GoiDuLichController@tour_hoan_thanh')->name('tour-hoan-thanh');
             });
         });
+
+        Route::group(['prefix' => 'lich-trinh'], function () {
+            Route::name('lich-trinh.')->group(function(){
+                Route::get('/', 'LichTrinhController@index')->name('index');
+                Route::get('/create/{id_tour}', 'LichTrinhController@create')->name('create');
+                Route::post('/store/{id_tour}', 'LichTrinhController@store')->name('store');
+                Route::get('/{id}/edit/{id_tour}', 'LichTrinhController@edit')->name('edit');
+                Route::post('/{id}/update/{id_tour}', 'LichTrinhController@update')->name('update');
+                Route::delete('/{id}/destroy/{id_tour}', 'LichTrinhController@destroy')->name('destroy');
+            });
+        });
+
+        Route::group(['prefix' => 'tour'], function () {
+            Route::name('tour.')->group(function(){
+                Route::get('/', 'PhieuDatController@index')->name('index');
+                Route::get('/tour-huy/{id}', 'PhieuDatController@tour_huy')->name('tour-huy');
+                Route::get('/form-tour-huy/{id}', 'PhieuDatController@form_tour_huy')->name('form-tour-huy');
+                Route::post('/post-form-tour-huy/{id}', 'PhieuDatController@post_form_tour_huy')->name('post-form-tour-huy');
+                Route::get('/duyet/{id}', 'PhieuDatController@duyet')->name('duyet');
+                Route::get('/duyet-huy/{id}', 'PhieuDatController@duyet_huy')->name('duyet-huy');
+                Route::get('/phieu-dat-chi-tiet/{id}', 'PhieuDatController@phieu_dat_chi_tiet')->name('phieu-dat-chi-tiet');
+                Route::get('/hoan-tien/{id}', 'PhieuDatController@hoan_tien')->name('hoan-tien');
+                Route::get('/hoa-don-view/{phieu_dat_id}', 'PhieuDatController@hoa_don_view')->name('hoa-don-view');
+                Route::get('/xuat-hoa-don/{phieu_dat_id}', 'PhieuDatController@xuat_hoa_don')->name('xuat-hoa-don');
+
+            });
+        });
+
 
         //khách sạn
         Route::group(['prefix' => 'thong-tin-web'], function () {
@@ -154,13 +217,37 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
                 Route::delete('/{id}/destroy', 'WebController@destroy')->name('destroy');
             });
         });
-
+        });
     });
 });
 
 //nnhóm web
 Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
     Route::name('web.')->group(function(){
+        //Auth
+        Route::group(['prefix' => ''], function () {
+            Route::name('auth.')->group(function(){
+                //Đăng nhập
+                Route::get('/dang-nhap', 'AuthController@dang_nhap')->name('dang-nhap');
+                Route::post('/dang-nhap', 'AuthController@post_dang_nhap')->name('post-dang-nhap');
+                Route::get('/kich-hoat-lai/{email}', 'AuthController@kich_hoat_lai')->name('kich-hoat-lai');
+                //Đăng kí
+                Route::get('/dang-ki', 'AuthController@dang_ki')->name('dang-ki');
+                Route::post('/dang-ki','AuthController@post_dang_ki')->name('post-dang-ki');
+                Route::get('/kich-hoat/{id}/{token}','AuthController@kich_hoat')->name('kich-hoat');
+                Route::get('/kich-hoat-api/{id}/{email}','AuthController@kich_hoat_api')->name('kich-hoat-api');
+
+                //quên mật khẩu
+                Route::get('/quen-mat-khau', 'AuthController@quen_mat_khau')->name('quen-mat-khau');
+                Route::post('/quen-mat-khau', 'AuthController@post_quen_mat_khau')->name('post-quen-mat-khau');
+                Route::get('/quen-mat-khau-ma/{email}', 'AuthController@quen_mat_khau_ma')->name('quen-mat-khau-ma');
+                Route::post('/quen-mat-khau-xac-nhan/{email}', 'AuthController@quen_mat_khau_xac_nhan')->name('quen-mat-khau-xac-nhan');
+                Route::get('/quen-mat-khau-gui-lai-ma/{email}', 'AuthController@quen_mat_khau_gui_lai_ma')->name('quen-mat-khau-gui-lai-ma');
+                Route::get('/doi-mat-khau/{email}', 'AuthController@doi_mat_khau')->name('doi-mat-khau');
+                Route::post('/post-doi-mat-khau/{email}', 'AuthController@post_doi_mat_khau')->name('post-doi-mat-khau');
+
+            });
+        });
 
         //trang chủ
         Route::group(['prefix' => ''], function () {
@@ -174,6 +261,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
             Route::name('dia-diem.')->group(function(){
                 Route::get('/', 'DiaDiemController@index')->name('index');
                 Route::get('/{id}/show', 'DiaDiemController@show')->name('show');
+                Route::get('/danh-gia/{id}','DiaDiemController@danh_gia')->name('danh-gia');
+                Route::post('/post-danh-gia/{id}','DiaDiemController@post_danh_gia')->name('post-danh-gia');
+                Route::get('/bai-viet/{id}','DiaDiemController@bai_viet')->name('bai-viet');
+                Route::post('/post-bai-viet/{id}','DiaDiemController@post_bai_viet')->name('post-bai-viet');
             });
 
         });
@@ -182,6 +273,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
             Route::name('tin-tuc.')->group(function(){
                 Route::get('/', 'TinTucController@index')->name('index');
                 Route::get('/{id}/show', 'TinTucController@show')->name('show');
+
+                  //bình luận tin tức
+                Route::post('/binh-luan-tin-tuc/{id}','TinTucController@binh_luan_bai_viet')->name('binh-luan-tin-tuc');
+                Route::post('/load-binh-luan-tin-tuc','TinTucController@load_binh_luan')->name('load-binh-luan-tin-tuc');
             });
         });
 
@@ -190,6 +285,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
             Route::name('bai-viet.')->group(function(){
                 Route::get('/', 'BaiVietController@index')->name('index');
                 Route::get('/{id}/show', 'BaiVietController@show')->name('show');
+
+                //bình luận bài viết
+                Route::post('/binh-luan-bai-viet/{id}','BaiVietController@binh_luan_bai_viet')->name('binh-luan-bai-viet');
+                Route::post('/load-binh-luan-bai-viet','BaiVietController@load_binh_luan')->name('load-binh-luan-bai-viet');
             });
         });
 
@@ -223,10 +322,76 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
                 Route::get('/{id}/show', 'KhachSanController@show')->name('show');
             });
         });
+        Route::middleware('App\Http\Middleware\CheckLogin')->group(function(){
+        //Tài khoản
+        Route::prefix('tai-khoan')->group(function(){
+            Route::name('tai-khoan.')->group(function(){
+                // load trang người dung
+                Route::get('/', 'TaiKhoanController@index')->name('tai-khoan');
+                // thay đổi thông tin tài khoản
+                Route::post('/', 'TaiKhoanController@thay_doi_tai_khoan')->name('post-tai-khoan');
+                // đổi  mật khẩu
+                Route::get('/doi-mat-khau', 'TaiKhoanController@doi_mat_khau')->name('doi-mat-khau');
+                Route::post('/doi-mat-khau', 'TaiKhoanController@post_doi_mat_khau')->name('post-doi-mat-khau');
+                // load địa chỉ
+                Route::get('/dia-chi', 'TaiKhoanController@dia_chi')->name('dia-chi');
+                //load form thêm địa chỉ
+                Route::get('/get-dia-chi', 'TaiKhoanController@get_dia_chi')->name('get-dia-chi');
+                // thêm địa chỉ
+                Route::post('/post-dia-chi', 'TaiKhoanController@post_dia_chi')->name('post-dia-chi');
+                //load form sửa địa chỉ
+                Route::get('/get-dia-chi-sua/{id}', 'TaiKhoanController@get_dia_chi_sua')->name('get-dia-chi-sua');
+                //sửa địa chỉ
+                Route::post('/post-dia-chi-sua/{id}', 'TaiKhoanController@post_dia_chi_sua')->name('post-dia-chi-sua');
+                //thiết lập địa chỉ mặc định
+                Route::post('/thiet-lap-dia-chi', 'TaiKhoanController@thiet_lap_dia_chi')->name('thiet-lap-dia-chi');
+                //load tỉnh thành Việt Nam
+                Route::post('/get-load-huyen', 'TaiKhoanController@get_load_huyen')->name('get-load-huyen');
+                Route::post('/get-load-xa', 'TaiKhoanController@get_load_xa')->name('get-load-xa');
+                //Đăng xuất
+                Route::get('/logout-user', 'AuthController@dang_xuat')->name('logout-user');
 
+                //Tour
+                Route::get('/phieu-dat', 'PhieuDatController@phieu_dat')->name('phieu-dat');
+                Route::get('/phieu-dat-cho-duyet', 'PhieuDatController@phieu_dat_cho_duyet')->name('phieu-dat-cho-duyet');
+                Route::get('/phieu-dat-da-duyet', 'PhieuDatController@phieu_dat_da_duyet')->name('phieu-dat-da-duyet');
+                Route::get('/phieu-dat-duyet-huy', 'PhieuDatController@phieu_dat_duyet_huy')->name('phieu-dat-duyet-huy');
+                Route::get('/phieu-dat-hoan-thanh', 'PhieuDatController@phieu_dat_hoan_thanh')->name('phieu-dat-hoan-thanh');
+                Route::get('/phieu-dat-huy', 'PhieuDatController@phieu_dat_huy')->name('phieu-dat-huy');
+                Route::get('/phieu-dat-chi-tiet/{id}', 'PhieuDatController@phieu_dat_chi_tiet')->name('phieu-dat-chi-tiet');
+                Route::get('/danh-gia-phieu-dat/{id}', 'PhieuDatController@danh_gia_phieu_dat')->name('danh-gia-phieu-dat');
+                Route::post('/post-danh-gia-phieu-dat/{id}', 'PhieuDatController@post_danh_gia_phieu_dat')->name('post-danh-gia-phieu-dat');
+                Route::get('/danh-gia-phieu-dat-sua/{id}/{danh_gia_id}', 'PhieuDatController@danh_gia_phieu_dat_sua')->name('danh-gia-phieu-dat-sua');
+                Route::post('/post-danh-gia-phieu-dat-sua/{id}/{danh_gia_id}', 'PhieuDatController@post_danh_gia_phieu_dat_sua')->name('post-danh-gia-phieu-dat-sua');
+                Route::get('/huy-phieu-dat/{id}', 'PhieuDatController@huy_phieu_dat')->name('huy-phieu-dat');
+                Route::post('/post-huy-phieu-dat/{id}', 'PhieuDatController@post_huy_phieu_dat')->name('post-huy-phieu-dat');
+                Route::get('/hoan-lai-phieu-dat/{id}', 'PhieuDatController@hoan_lai_phieu_dat')->name('hoan-lai-phieu-dat');
+            });
+            });
+        });
+        //tour
+        Route::group(['prefix' => 'tour'], function () {
+            Route::name('tour.')->group(function(){
+                Route::get('/', 'TourController@index')->name('index');
+                Route::get('/{id}/show', 'TourController@show')->name('show');
+                Route::get('/booking/{id}', 'TourController@booking')->name('booking')->middleware('check_login');
+                Route::get('/load-nguoi-lon/{so_luong}', 'TourController@load_nguoi_lon')->name('load-nguoi-lon');
+                Route::get('/load-tre-em/{so_luong}', 'TourController@load_tre_em')->name('load-tre-em');
+                Route::get('/load-tre-nho/{so_luong}', 'TourController@load_tre_nho')->name('load-tre-nho');
+                Route::post('/tong-hoa-don/{id}', 'TourController@tong_hoa_don')->name('tong-hoa-don');
+                Route::post('/so-nguoi-con-lai/{id}', 'TourController@so_nguoi_con_lai')->name('so-nguoi-con-lai');
+                Route::get('/thanh-toan/{id}', 'TourController@thanh_toan')->name('thanh-toan')->middleware('check_login');
+                Route::post('/post-thanh-toan/{id}/{phieu_dat_id}', 'TourController@post_thanh_toan')->name('post-thanh-toan')->middleware('check_login');
+                Route::post('/post-thanh-toan/{phieu_dat_id}', 'ThanhToanController@post_thanh_toan')->name('vnpay-success');
+            });
 
+        });
+        // thanh toán bằng momo
+        Route::group(['prefix' => 'thanh-toan'], function () {
+            Route::name('thanh-toan.')->group(function(){
+                Route::get('/vnpay-success/{phieu_dat_id}', 'ThanhToanController@vnpay_success')->name('vnpay-success');
+            });
 
-
-
+        });
     });
 });

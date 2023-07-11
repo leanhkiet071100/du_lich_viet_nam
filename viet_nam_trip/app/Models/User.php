@@ -26,9 +26,11 @@ class User extends Authenticatable
         'remember_token',
         'so_dien_thoai',
         'hinh_dai_dien',
-        'cap_id',
+        'cap',
         'trang_thai',
+        'is_admin',
         'moi',
+        'api_code'
     ];
 
     /**

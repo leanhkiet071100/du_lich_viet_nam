@@ -17,6 +17,7 @@ class dia_diem extends Model
         'ten_dia_diem',
         'vi_do',
         'mua_du_lich',
+        'sao',
         'mo_ta',
         'noi_dung',
         'hinh_anh_dia_diem',
