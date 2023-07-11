@@ -6,6 +6,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\KhachSanController;
 use App\Http\Controllers\API\TourController;
 use App\Http\Controllers\API\GoiDuLichController;
+use App\Http\Controllers\API\QuanAnController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +38,5 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 });
 
 Route::apiResource('luutru',KhachSanController::class);
+Route::apiResource('quan-an',QuanAnController::class);
 Route::apiResource('list-tour',TourController::class);

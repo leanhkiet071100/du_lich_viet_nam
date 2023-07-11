@@ -16,7 +16,7 @@ class AlertTour extends StatefulWidget {
 class AlertTourState extends State<AlertTour> {
   GoiDuLich tour;
   AlertTourState(this.tour);
-  String _selectedTour = "";
+
   DateTime _selectedDate = DateTime.now();
   int _adultCount = 1;
   int _childCount = 0;
@@ -28,7 +28,7 @@ class AlertTourState extends State<AlertTour> {
   final _phoneController = TextEditingController();
   final adultController = TextEditingController();
   final childController = TextEditingController();
-  final _goiController = TextEditingController();
+
   TourProvider _tour = TourProvider();
 
   @override
@@ -50,7 +50,7 @@ class AlertTourState extends State<AlertTour> {
         backgroundColor: miniColor,
         title: Center(
           child: Text(
-            'Đặt tour du lịch',
+            'Đặt tour du lịch        ',
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
@@ -323,7 +323,7 @@ class AlertTourState extends State<AlertTour> {
                                       });
                                 } else {
                                   _tour.dattour(
-                                      _nameController.text,
+                                      tour.ten,
                                       context,
                                       _emailController.text,
                                       _phoneController.text,

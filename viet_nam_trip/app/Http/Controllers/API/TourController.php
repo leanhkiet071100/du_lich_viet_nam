@@ -63,15 +63,15 @@ class TourController extends Controller
         $input['Email'] = $request->input('Email');
         $input['Telephone'] = $request->input('Telephone');
         $input['adult'] = $request->input('adult');
-        $input['children'] = $request->input('children');
+        $input['child'] = $request->input('child');
         $input['goi_du_lich_id'] = $request->input('goi_du_lich_id');
 
         $goi_du_lich = goi_du_lich::join('loai_goi_du_liches', 'loai_goi_du_liches.id', '=', 'goi_du_liches.loai_id')
                     ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
                     ->find($input['goi_du_lich_id']);
 
-        $tong = ($input['adult'] * $goi_du_lich->gia_nguoi_lon) + ($input['children'] *  $goi_du_lich->gia_tre_em);
-        $so_nguoi = ($input['adult'] + $input['children']);
+        $tong = ($input['adult'] * $goi_du_lich->gia_nguoi_lon) + ($input['child'] *  $goi_du_lich->gia_tre_em);
+        $so_nguoi = ($input['adult'] + $input['child']);
         $ngay_dat = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
         $phieu_dat = new phieu_dat;
         $phieu_dat->fill([
@@ -81,7 +81,7 @@ class TourController extends Controller
             'email'=>$input['Email'],
             'so_dien_thoai'=>$input['Telephone'],
             'ngay_dat'=>$ngay_dat,
-            'so_tre_em'=>$input['children'],
+            'so_tre_em'=>$input['child'],
             'so_nguoi_lon'=>$input['adult'],
             'trang_thai'=>1,
         ]);
@@ -95,7 +95,7 @@ class TourController extends Controller
         ];
         return response()->json($response,200);
     }
-
+    
 
     public function thanh_toan(Request $request ,ThanhToanController $thanh_toan){
         $ngay_thanh_toan = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
@@ -129,7 +129,6 @@ class TourController extends Controller
             return $thanh_toan->VN_pay($goi_du_lich->id,$phieu_dat->id,$tong_hoa_don, $data['redirect']);
         }
     }
-
     public function get_thanh_toan(Request $request){
         $id_user = auth()->user()->id;
         $phieu_dat = phieu_dat::join('goi_du_liches','goi_du_liches.id','=', 'phieu_dats.goi_du_lich_id')
@@ -139,10 +138,10 @@ class TourController extends Controller
                                 ->first();
         $response=
         [
-            'message'=>'Phiếu đặt',
+            // 'message'=>'Phiếu đặt',
             // 'user'=>auth()->user(),
             'phieu_dat'=>$phieu_dat,
         ];
-        return response()->json($response,200);
+        return response()->json($phieu_dat);
     }
 }

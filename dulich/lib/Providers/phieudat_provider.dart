@@ -1,97 +1,60 @@
-import 'package:dulich/Global/color.dart';
+import 'dart:convert';
 import 'package:dulich/Global/contants.dart';
 import 'package:dulich/Global/url.dart';
-import 'package:flutter/material.dart';
+import 'package:dulich/Models/phieu_dat.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-class RegisterProvider {
-  Future<void> phieudat(
-      String phieu_dat_id, BuildContext context, String payments) async {
-    var token = await getToken();
-    var url = phieuDatUrl;
-    var response = await http.post(Uri.parse(url), headers: <String, String>{
-      "Accept": "application/json",
-      'Authorization': 'Bearer $token',
-    }, body: {
-      'phieu_dat_id': phieu_dat_id,
-      'payments': payments,
-    });
-    print(response.body);
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Row(
-                children: [
-                  Icon(
-                    Icons.check_circle,
-                    color: blackColor,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text('Đăng kí thành công',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: blackColor,
-                      ))
-                ],
-              ),
-              actions: [
-                TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'OK',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ))
-              ],
-            );
-          });
-    } else {
-      print('error');
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              content: Text('Đặt tour thất bại',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.black)),
-              title: Row(
-                children: [
-                  Icon(
-                    Icons.warning_rounded,
-                    color: blackColor,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text('Thông báo',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: blackColor,
-                      ))
-                ],
-              ),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      'OK',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ))
-              ],
-            );
-          });
-    }
+class PhieuDatProvider {
+  static List<PhieuDat> parsePhieu(String responseBody) {
+    final parse = jsonDecode(responseBody)['data'].cast<Map<String, dynamic>>();
+    return parse.map<PhieuDat>((e) => PhieuDat.fromJson(e)).toList();
   }
+
+  static Future<dynamic> getToken() async {
+    /* ==== Lấy token từ Storage ==== */
+    SharedPreferences pres = await SharedPreferences.getInstance();
+    var token = pres.getString('token');
+    return token;
+  }
+
+  static Future<List<PhieuDat>> getAllPhieu() async {
+    var token = await getToken();
+    final response = await http.get(Uri.parse(phieuDatUrl), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+    return parsePhieu(response.body);
+  }
+  // static List<PhieuDat> parsePhieu(String reponseBody) {
+  //   final pased = jsonDecode(reponseBody).cast<Map<String,dynamic>>();
+  //   return pased.map<PhieuDat>((e) => PhieuDat.fromJson(e)).toList();
+  // }
+
+  // static Future<List<PhieuDat>> fetchPosts() async {
+  //   var token = await getToken();
+  //   final response = await http.get(Uri.parse(phieuDatUrl), headers: {
+  //     'Accept': 'application/json',
+  //     'Authorization': 'Bearer $token',
+  //   });
+  //   return parsePhieu(response.body);
+  // }
+
+  // static Future<dynamic> getToken() async {
+  //   /* ==== Lấy token từ Storage ==== */
+  //   SharedPreferences pres = await SharedPreferences.getInstance();
+  //   var token = pres.getString('token');
+  //   return token;
+  // }
+
+  // static Future<List<PhieuDat>> getAllPhieu() async {
+  //   var token = await getToken();
+  //   final response = await http.get(Uri.parse(phieuDatUrl), headers: {
+  //     'Content-type': 'application/json',
+  //     'Accept': 'application/json',
+  //     'Authorization': 'Bearer $token',
+  //   });
+  //   return parsePhieu(response.body);
+  // }
 }

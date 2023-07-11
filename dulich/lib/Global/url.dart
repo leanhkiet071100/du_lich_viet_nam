@@ -6,7 +6,8 @@ const String passUrl = baseUrl + "post-quen-mat-khau";
 const String tourUrl = baseUrl + "dat-tour";
 const String hotelUrl = baseUrl + "luutru";
 const String goiDuLichUrl = baseUrl + "list-tour";
-const String phieuDatUrl = baseUrl + "thanh-toan";
+const String phieuDatUrl = baseUrl + "get-thanh-toan";
+const String quanAnUrl = baseUrl + "quan-an";
 const Map<String, String> headers = {"Content-Type": "application/json"};
 
 class ApiResponse {

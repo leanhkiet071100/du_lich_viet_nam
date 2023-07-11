@@ -1,16 +1,21 @@
+import 'package:dulich/Models/hotel_object.dart';
+import 'package:dulich/Views/hotel/hotel_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../Global/color.dart';
 
 class HotelDetail extends StatefulWidget {
-  const HotelDetail({Key? key}) : super(key: key);
+  Hotel listDl;
+  HotelDetail({Key? key, required this.listDl}) : super(key: key);
 
   @override
-  _HotelDetailState createState() => _HotelDetailState();
+  _HotelDetailState createState() => _HotelDetailState(listDl);
 }
 
 class _HotelDetailState extends State<HotelDetail> {
+  Hotel listDl;
+  _HotelDetailState(this.listDl);
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -28,7 +33,10 @@ class _HotelDetailState extends State<HotelDetail> {
           onPressed: () {},
           child: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HotelPage()),
+                  (route) => false);
             },
             icon: const Icon(
               Icons.arrow_back_ios,
@@ -42,7 +50,7 @@ class _HotelDetailState extends State<HotelDetail> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.network(
-              'https://www.hoteljob.vn/files/quang-ba-khach-san.jpg',
+              listDl.hinh_noi_luu_tru,
               fit: BoxFit.cover,
               width: MediaQuery.of(context).size.width,
               height: 232,
@@ -50,7 +58,7 @@ class _HotelDetailState extends State<HotelDetail> {
             Container(
               margin: const EdgeInsets.fromLTRB(10, 10, 130, 10),
               child: Text(
-                'lt.tenLuuTru',
+                listDl.ten_noi_luu_tru,
                 style: const TextStyle(
                     height: 1.5,
                     fontSize: 24,
@@ -75,7 +83,12 @@ class _HotelDetailState extends State<HotelDetail> {
                   ),
                   Flexible(
                     child: Text(
-                      'Trường định 2, Bình hòa, Tây SƠn, Bình Định',
+                      listDl.dia_chi +
+                          ', ' +
+                          listDl.xa +
+                          ', ' +
+                          listDl.huyen +
+                          ' ',
                       softWrap: true,
                       overflow: TextOverflow.clip,
                       style: const TextStyle(
@@ -107,7 +120,7 @@ class _HotelDetailState extends State<HotelDetail> {
                   ),
                   Flexible(
                     child: Text(
-                      '069851246',
+                      listDl.so_dien_thoai,
                       softWrap: true,
                       overflow: TextOverflow.clip,
                       style: const TextStyle(

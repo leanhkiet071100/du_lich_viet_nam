@@ -65,7 +65,6 @@ class TourProvider {
       'Fullname': name,
       'Email': email,
       'Telephone': sdt,
-      // 'ngaydat': ngaydat,
       'adult': adult,
       'child': child,
       'goi_du_lich_id': goi_du_lich_id

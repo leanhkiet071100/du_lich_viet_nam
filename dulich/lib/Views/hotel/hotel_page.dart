@@ -1,19 +1,29 @@
+import 'package:dulich/Models/goi_dulich.dart';
 import 'package:dulich/Models/hotel_object.dart';
 import 'package:dulich/Providers/hotel_provider.dart';
 import 'package:dulich/Views/dashboard/dashboard.dart';
 import 'package:dulich/Views/hotel/hotel.dart';
-import 'package:dulich/Views/hotel/hotel_detail.dart';
+import 'package:dulich/Views/hotel/hotel_search.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../Global/color.dart';
 
 class HotelPage extends StatefulWidget {
-  const HotelPage({Key? key}) : super(key: key);
+  const HotelPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _HotelPageState createState() => _HotelPageState();
 }
 
 class _HotelPageState extends State<HotelPage> {
+  late Hotel id;
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -22,10 +32,10 @@ class _HotelPageState extends State<HotelPage> {
         toolbarHeight: size.height * 0.1,
         leading: GestureDetector(
           onTap: () {
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const Dashboard()),
-                (route) => false);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Dashboard()),
+            );
           },
           child: const Icon(
             Icons.arrow_back_ios,
@@ -43,7 +53,13 @@ class _HotelPageState extends State<HotelPage> {
         actions: [
           Container(
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HotelSearch()),
+                    (route) => false);
+              },
               icon: Icon(
                 Icons.search,
                 color: Colors.black,
@@ -52,26 +68,18 @@ class _HotelPageState extends State<HotelPage> {
           ),
         ],
       ),
-      body: SafeArea(
-        child: InkWell(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => HotelDetail()));
-          },
-          child: FutureBuilder<List<Hotel>>(
-              future: HotelProvider.getAllHotel(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return HotetScreen(listHotels: snapshot.data!);
-                } else if (snapshot.hasError) {
-                  return Center(
-                    child: Text('Có lỗi rồi'),
-                  );
-                }
-                return Center(child: CircularProgressIndicator());
-              }),
-        ),
-      ),
+      body: FutureBuilder<List<Hotel>>(
+          future: HotelProvider.getAllHotel(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return HotetScreen(listHotels: snapshot.data!);
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text('Có lỗi rồi'),
+              );
+            }
+            return Center(child: CircularProgressIndicator());
+          }),
     );
   }
 }

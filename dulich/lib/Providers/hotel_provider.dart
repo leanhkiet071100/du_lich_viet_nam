@@ -24,4 +24,22 @@ class HotelProvider {
     });
     return parseHotels(response.body);
   }
+
+  //Tìm kiếm lưu trú
+  static Future<List<Hotel>> searchHotels(String searchString) async {
+    List<Hotel> lstResult = [];
+    List<dynamic> data = await getAllHotel();
+
+    if (searchString == '') return lstResult = [];
+
+    for (var e in data) {
+      Hotel co = Hotel.fromJson(e);
+      if (co.ten_noi_luu_tru
+          .toUpperCase()
+          .contains(searchString.toUpperCase())) {
+        lstResult.add(co);
+      }
+    }
+    return lstResult;
+  }
 }
