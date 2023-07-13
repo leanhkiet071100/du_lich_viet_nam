@@ -249,63 +249,66 @@ class _TourDetailScreenState extends State<TourDetailScreen> {
           ),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.network(tour.hinh_goi_du_lich),
-          const SizedBox(height: 16),
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Text(
-              tour.thong_tin_dich_vu,
-              style: TextStyle(
-                  height: 1.5,
-                  color: blackColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(right: 10),
-            child: Align(
-              alignment: Alignment.bottomRight,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.network(tour.hinh_goi_du_lich),
+            const SizedBox(height: 16),
+            Container(
+              padding: EdgeInsets.all(10),
               child: Text(
-                'Giá: ' + format.format(tour.gia_nguoi_lon),
-                textAlign: TextAlign.left,
+                tour.thong_tin_dich_vu,
                 style: TextStyle(
                     height: 1.5,
-                    color: Colors.red,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700),
+                    color: blackColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400),
               ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 150, right: 100),
-            child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AlertTour(
-                        tour: tour,
-                      ),
-                    ),
-                  );
-                },
-                child: const Text(
-                  'Đặt tour',
+            Container(
+              padding: EdgeInsets.only(right: 10),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: Text(
+                  'Giá: ' + format.format(tour.gia_nguoi_lon),
+                  textAlign: TextAlign.left,
                   style: TextStyle(
-                      height: 1.5, fontSize: 16, fontWeight: FontWeight.w700),
+                      height: 1.5,
+                      color: Colors.red,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700),
                 ),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(blueColor),
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                )),
-          ),
-        ],
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(left: 150, right: 100, bottom: 20),
+              child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AlertTour(
+                          tour: tour,
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'Đặt tour',
+                    style: TextStyle(
+                        height: 1.5, fontSize: 16, fontWeight: FontWeight.w700),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(blueColor),
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                  )),
+            ),
+          ],
+        ),
       ),
     );
   }

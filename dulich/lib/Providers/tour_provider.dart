@@ -85,7 +85,7 @@ class TourProvider {
                   SizedBox(
                     width: 10,
                   ),
-                  Text('Đăng kí thành công',
+                  Text('Đặt tour thành công',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: blackColor,

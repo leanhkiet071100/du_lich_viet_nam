@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:dulich/Global/color.dart';
 import 'package:dulich/Global/url.dart';
+import 'package:dulich/Models/user_object.dart';
+import 'package:dulich/Views/forgot/forgot_pass.dart';
 import 'package:dulich/Views/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -129,7 +131,7 @@ class RegisterProvider {
   static Future<dynamic> getToken() async {
     /* ==== Lấy token từ Storage ==== */
     SharedPreferences pres = await SharedPreferences.getInstance();
-    var token = pres.getString('access_token');
+    var token = pres.getString('token');
     return token;
   }
 
@@ -161,10 +163,76 @@ class RegisterProvider {
     }
   }
 
-  static Future<bool> confirmToken(String token) async {
-    final response = await http.post(Uri.parse(''),
+// =====================CODE PASSWORDS =================
+  // Future<void> verifyCode(
+  //   String code,
+  //   BuildContext context,
+  // ) async {
+  //   var response =
+  //       await http.post(Uri.parse(codeUrl), headers: <String, String>{
+  //     "Accept": "application/json"
+  //   }, body: {
+  //     'code': code,
+  //   });
+  //   if (response.statusCode == 200) {
+  //     // Kiểm tra xem mã xác nhận của người dùng có chính xác không
+  //     var jsonData = jsonDecode(response.body);
+  //     if (jsonData['success']) {
+  //       // Hiển thị trang đặt lại mật khẩu
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(builder: (context) => ForgotPass()),
+  //       );
+  //     } else {
+  //       // Hiển thị thông báo lỗi nếu mã xác nhận không chính xác
+  //       showDialog(
+  //         context: context,
+  //         builder: (BuildContext context) {
+  //           return AlertDialog(
+  //             title: Text('Lỗi'),
+  //             content: Text('Mã xác nhận không chính xác.'),
+  //             actions: <Widget>[
+  //               TextButton(
+  //                 child: Text('Đóng'),
+  //                 onPressed: () {
+  //                   Navigator.of(context).pop();
+  //                 },
+  //               ),
+  //             ],
+  //           );
+  //         },
+  //       );
+  //     }
+  //   } else {
+  //     // Hiển thị thông báo lỗi nếu API endpoint trả về mã phản hồi không thành công
+  //     showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           title: Text('Lỗi'),
+  //           content: Text('Không thể xác minh mã xác nhận.'),
+  //           actions: <Widget>[
+  //             ElevatedButton(
+  //               child: Text('Đóng'),
+  //               onPressed: () {
+  //                 Navigator.of(context).pop();
+  //               },
+  //             ),
+  //           ],
+  //         );
+  //       },
+  //     );
+  //   }
+  // }
+  static Future<bool> confirmToken(String code) async {
+    var token = await getToken();
+    final response = await http.post(Uri.parse(codeUrl),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
         body: ({
-          'token': token,
+          'code': code,
         }));
     if (response.statusCode == 200) {
       return true;
@@ -173,11 +241,80 @@ class RegisterProvider {
     }
   }
 
+//===========RESET PASSWORD =================
   static Future<bool> resetPassword(
-      String password, String confirmPassword, String token) async {
-    final response = await http.post(Uri.parse('$token'),
-        body: ({'password': password, 'confirm-password': confirmPassword}));
+      String mat_khau_moi, String xac_nhan_mat_khau_moi, String code) async {
+    var token = await getToken();
+    final response = await http.post(Uri.parse(codeUrl),
+        headers: ({
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        }),
+        body: ({
+          'mat_khau_moi': mat_khau_moi,
+          'xac_nhan_mat_khau_moi': xac_nhan_mat_khau_moi,
+        }));
     if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //==================CHANGE PASSWORD ==============
+  static Future<bool> changePassword(
+      String password, String new_password, String confirm_password) async {
+    var token = await getToken();
+    final response = await http.post(Uri.parse(baseUrl + 'change-pass'),
+        body: jsonEncode({
+          'password': password,
+          'new_password': new_password,
+          'confirm_password': confirm_password,
+        }),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        });
+    final jsonRespon = jsonDecode(response.body);
+    if (jsonRespon["status_code"] == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //======== UPDATE INFO =========
+  static Future<UserObject> getUser() async {
+    var token = await getToken();
+    final response = await http.get(Uri.parse(baseUrl + 'user'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+    SharedPreferences pres = await SharedPreferences.getInstance();
+    String user = response.body;
+    pres.setString('user', user);
+    return UserObject.fromJson(jsonDecode(response.body));
+  }
+
+  static Future<bool> updateInfor(
+    String name,
+    String phone,
+  ) async {
+    var token = await getToken();
+    final response = await http.post(Uri.parse(baseUrl + 'update-info'),
+        body: jsonEncode({
+          'name': name,
+          'phone': phone,
+        }),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        });
+    final jsonRespon = jsonDecode(response.body);
+    if (jsonRespon["0"] == 200) {
       return true;
     } else {
       return false;

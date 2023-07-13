@@ -1,7 +1,6 @@
 import 'package:dulich/Models/quanan_object.dart';
 import 'package:dulich/Providers/quanan_provider.dart';
 import 'package:dulich/Views/food/food.dart';
-import 'package:dulich/Views/food/food_detail.dart';
 import 'package:flutter/material.dart';
 import '../../Global/color.dart';
 import '../dashboard/dashboard.dart';

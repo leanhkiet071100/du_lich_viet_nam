@@ -22,6 +22,7 @@ class AlertTourState extends State<AlertTour> {
   int _childCount = 0;
   bool loading = false;
   var format = NumberFormat.currency(locale: 'vi_VN', symbol: '₫');
+  int total = 0;
 
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -61,130 +62,6 @@ class AlertTourState extends State<AlertTour> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Ngày Khởi Hành:',
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-              ),
-              SizedBox(height: 8),
-              ElevatedButton(
-                  onPressed: () async {
-                    final selectedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime(DateTime.now().year + 1),
-                    );
-                    if (selectedDate != null) {
-                      setState(() {
-                        _selectedDate = selectedDate;
-                      });
-                    }
-                  },
-                  child: Text(_selectedDate == null
-                      ? 'Chọn ngày khởi hành'
-                      : '${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}'),
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(blueColor),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                  )),
-              SizedBox(height: 16),
-              Text(
-                'Số Người Lớn:',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black),
-              ),
-              SizedBox(height: 8),
-              Row(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.remove),
-                    onPressed: () {
-                      setState(() {
-                        if (_adultCount > 1) {
-                          _adultCount--;
-                          adultController.text = _adultCount.toString();
-                        }
-                      });
-                    },
-                  ),
-                  Text('$_adultCount'),
-                  IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () {
-                      setState(() {
-                        _adultCount++;
-                        adultController.text = _adultCount.toString();
-                      });
-                    },
-                  ),
-                ],
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Số Trẻ Em:',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black),
-              ),
-              SizedBox(height: 8),
-              Row(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.remove),
-                    onPressed: () {
-                      setState(() {
-                        if (_childCount > 0) {
-                          _childCount--;
-                          childController.text = _childCount.toString();
-                        }
-                      });
-                    },
-                  ),
-                  Text('$_childCount'),
-                  IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () {
-                      setState(() {
-                        _childCount++;
-                        childController.text = _childCount.toString();
-                      });
-                    },
-                  ),
-                ],
-              ),
-              SizedBox(height: 32),
-              Text(
-                'Giá Tour:',
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-              ),
-              SizedBox(height: 8),
-              Text(
-                'Người Lớn: ${format.format(_adultCount * tour.gia_nguoi_lon)}',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black),
-              ),
-              SizedBox(height: 8),
-              Text(
-                'Trẻ Em: ${format.format(_childCount * tour.gia_tre_em)}',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black),
-              ),
-              SizedBox(height: 32),
               Text(
                 'Thông Tin Liên Hệ:',
                 textAlign: TextAlign.center,
@@ -299,6 +176,159 @@ class AlertTourState extends State<AlertTour> {
                   ),
                 ),
               ),
+              SizedBox(height: 8),
+              Text(
+                'Ngày Khởi Hành:',
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+              ),
+              SizedBox(height: 8),
+              ElevatedButton(
+                  onPressed: () async {
+                    final selectedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(DateTime.now().year + 1),
+                    );
+                    if (selectedDate != null) {
+                      setState(() {
+                        _selectedDate = selectedDate;
+                      });
+                    }
+                  },
+                  child: Text(_selectedDate == null
+                      ? 'Chọn ngày khởi hành'
+                      : '${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}'),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(blueColor),
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                  )),
+              SizedBox(height: 16),
+              Text(
+                'Số Người Lớn:',
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black),
+              ),
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.remove),
+                    onPressed: () {
+                      setState(() {
+                        if (_adultCount > 1) {
+                          _adultCount--;
+                          adultController.text = _adultCount.toString();
+                        }
+                      });
+                    },
+                  ),
+                  Text('$_adultCount'),
+                  IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () {
+                      setState(() {
+                        _adultCount++;
+                        adultController.text = _adultCount.toString();
+                      });
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
+              Text(
+                'Số Trẻ Em:',
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black),
+              ),
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.remove),
+                    onPressed: () {
+                      setState(() {
+                        if (_childCount > 0) {
+                          _childCount--;
+                          childController.text = _childCount.toString();
+                        }
+                      });
+                    },
+                  ),
+                  Text('$_childCount'),
+                  IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () {
+                      setState(() {
+                        _childCount++;
+                        childController.text = _childCount.toString();
+                      });
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(height: 8),
+              Text(
+                'Giá :',
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+              ),
+              SizedBox(height: 8),
+              Container(
+                padding: EdgeInsets.only(left: 40),
+                child: Text(
+                  'Người Lớn: ${format.format(_adultCount * tour.gia_nguoi_lon)}',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black),
+                ),
+              ),
+              SizedBox(height: 8),
+              Container(
+                padding: EdgeInsets.only(left: 40),
+                child: Text(
+                  'Trẻ Em: ${format.format(_childCount * tour.gia_tre_em)}',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black),
+                ),
+              ),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Text(
+                    'Tổng giá :',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                  SizedBox(width: 8),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Text(
+                      '${format.format(_childCount * tour.gia_tre_em + _adultCount * tour.gia_nguoi_lon)}',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.red),
+                    ),
+                  ),
+                ],
+              ),
               SizedBox(
                 height: 10,
               ),
@@ -323,7 +353,7 @@ class AlertTourState extends State<AlertTour> {
                                       });
                                 } else {
                                   _tour.dattour(
-                                      tour.ten,
+                                      _nameController.text,
                                       context,
                                       _emailController.text,
                                       _phoneController.text,

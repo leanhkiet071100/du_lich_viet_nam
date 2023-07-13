@@ -17,8 +17,10 @@ class mon_an extends Model
         'quan_an_id',
         'ten_mon',
         'gia_ban',
+        'hinh_mon_an',
         'noi_bat',
         'trang_thai',
+
     ];
 
     public function quan_an(){

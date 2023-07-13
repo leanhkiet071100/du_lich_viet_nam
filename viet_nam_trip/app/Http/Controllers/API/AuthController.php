@@ -117,6 +117,7 @@ public function logout(Request $request)
 //-----------------------------------------------------------//
 //                           API Quên mật khẩu
 //----------------------------------------------------------//
+
 public function changePassword(Request $request)
     {
         $attrs = $request->validate([
@@ -143,123 +144,147 @@ public function changePassword(Request $request)
     }
 
 
-public function user(){
-    $response=[
-        "user"=>auth()->user()];
-    return response()->json($response,200);
-}
-// quên mật khẩu
 
 
-public function post_quen_mat_khau(Request $request){
+        public function post_quen_mat_khau(Request $request){
 
-     $this->validate($request,
-        [
-            'email' => 'required|email|max:255',
-        ],
-        [
-            'email.required' => 'Vui lòng nhập email',
-            'email.email' => 'Không đúng định dạng email',
-        ]);
-    // thông tin của web
-    $web = web::orderBy('id')->first();
-    $ten_web = $web->ten ?? 'web';
-    $email_web = $web->email ?? 'web.@gmail.com';
-    // $hinh_anh = logo::orderBy('id')->first();
-    // thông tin người dung
-    $email = $request->input('email');
-    $nguoidung = User::where('email', $email)->first();
-    if($nguoidung == null){
-        return response()->json([
-            'message' => 'Email chưa đăng kí',
-        ], 201);
-    } else {
-    $code = mt_rand(100000, 999999);
-    Mail::send('email.email-gui-ma',compact('nguoidung', 'code'), function($email) use($web, $nguoidung){
-        if($web != null){
-            $email->from($web->email,$web->ten);
-        }else{
-            $email->from('0306191038@caothang.edu.vn','Trang web');
+        $this->validate($request,
+            [
+                'email' => 'required|email|max:255',
+            ],
+            [
+                'email.required' => 'Vui lòng nhập email',
+                'email.email' => 'Không đúng định dạng email',
+            ]);
+        // thông tin của web
+        $web = web::orderBy('id')->first();
+        $ten_web = $web->ten ?? 'web';
+        $email_web = $web->email ?? 'web.@gmail.com';
+        // $hinh_anh = logo::orderBy('id')->first();
+        // thông tin người dung
+        $email = $request->input('email');
+        $nguoidung = User::where('email', $email)->first();
+        if($nguoidung == null){
+            return response()->json([
+                'message' => 'Email chưa đăng kí',
+            ], 201);
+        } else {
+        $code = mt_rand(100000, 999999);
+        Mail::send('email.email-gui-ma',compact('nguoidung', 'code'), function($email) use($web, $nguoidung){
+            if($web != null){
+                $email->from($web->email,$web->ten);
+            }else{
+                $email->from('0306191038@caothang.edu.vn','Trang web');
+            }
+            $email->to($nguoidung->email,$nguoidung->ten)->subject('XÁC NHẬN QUÊN MẬT KHẨU');
+        });
+        //$request->put($nguoidung->email, $code);
+
+            $token= $nguoidung->createToken('user')->plainTextToken;
+            $nguoidung->update([
+                'api_code'=> $code,
+            ]);
+            $response=
+            [
+                'message'=>'Vui lòng kiểm tra mail',
+                'user'=>$nguoidung,
+                'token'=>$token,
+            ];
+            return response()->json($response,200);
         }
-        $email->to($nguoidung->email,$nguoidung->ten)->subject('XÁC NHẬN QUÊN MẬT KHẨU');
-    });
-    //$request->put($nguoidung->email, $code);
+    }
 
-        $token= $nguoidung->createToken('user')->plainTextToken;
+    public function quen_mat_khau_xac_nhan(Request $request){
+        $this->validate($request,
+            [
+                'code' => 'required',
+            ],
+            [
+                'code.required' => 'Không được bỏ trống',
+            ]);
+        $input['code']=$request->input('code');
+        if(auth()->user()->api_code == $input['code']){
+            $response=
+            [
+                'message'=>'Mã xác nhận đúng',
+            ];
+            return response()->json($response,200);
+        }else{
+        $response=
+            [
+                'message'=>'Mã xác nhận sai vui lòng nhập lại',
+            ];
+            return response()->json($response,401);
+        }
+    }
+    public function post_doi_mat_khau(Request $request){
+            $rule = [
+            'mat_khau_moi'=> 'required|min:6| max:50',
+            'xac_nhan_mat_khau_moi' => 'required|min:6| max:50|same:mat_khau_moi',
+            ];$message =[
+            'required' => ':attribute không được để trống',
+            'min' => ':attribute phải lớn hơn :min', // lớn hơn  (không phải độ dài)
+            'max' => ':attribute phải nhỏ hơn :max', // nhỏ hơn
+            'numeric' => ':attribute phải là số',
+            'image'=> ':attribute phải là hình ảnh',
+            'same' => 'Không trùng mật khẩu',
+            ];$attribute = [
+            'xac_nhan_mat_khau_moi'=>'Xác nhận mật khẩu',
+            'mat_khau_moi' => 'Ma xác nhận',
+            ];
+
+        $request->validate($rule, $message, $attribute);
+        $nguoidung  = auth()->user();
+        $input['mat_khau_moi'] = $request->input('mat_khau_moi');
+        $input['xac_nhan_mat_khau_moi']= $request->input('xac_nhan_mat_khau_moi');
+
         $nguoidung->update([
-            'api_code'=> $code,
+            'mat_khau'=> Hash::make($input['mat_khau_moi']),
+            'api_code' => null
         ]);
+        $nguoidung->save();
+        auth()->user()->tokens->each(function ($token, $key) {
+                $token->delete();
+        });
         $response=
-        [
-            'message'=>'Vui lòng kiểm tra mail',
-            'user'=>$nguoidung,
-            'token'=>$token,
-        ];
+            [
+                'message'=>'Đổi mật khẩu thành công vui lòng đăng nhập lại',
+            ];
+        return response()->json($response,200);
+
+    }
+    public function user(){
+        $response=[
+            "user"=>auth()->user()];
         return response()->json($response,200);
     }
-}
 
-public function quen_mat_khau_xac_nhan(Request $request){
-    $this->validate($request,
-        [
-            'code' => 'required',
-        ],
-        [
-            'code.required' => 'Không được bỏ trống',
+//===========UPDATE_USER ============//
+
+    public function update(Request $request)
+    {
+        // Lấy thông tin người dùng hiện tại
+        $user = Auth::user();
+
+        // Kiểm tra tính hợp lệ của dữ liệu được gửi lên
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            // 'email' => 'required|email|max:255',
+            'phone' => 'required',
         ]);
-    $input['code']=$request->input('code');
-    if(auth()->user()->api_code == $input['code']){
-        $response=
-        [
-            'message'=>'Mã xác nhận đúng',
-        ];
-        return response()->json($response,200);
-    }else{
-       $response=
-        [
-            'message'=>'Mã xác nhận sai vui lòng nhập lại',
-        ];
-        return response()->json($response,200);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
+
+        // Cập nhật thông tin cá nhân của người dùng
+        $user->ten = $request->name;
+        // $user->email = $request->email;
+        $user->so_dien_thoai = $request->phone;
+        $user->save();
+
+        return response()->json(['message' => 'Thông tin cá nhân đã được cập nhật thành công.', 200]);
     }
-}
-public function post_doi_mat_khau(Request $request){
-        $rule = [
-        'mat_khau_moi'=> 'required|min:6| max:50',
-        'xac_nhan_mat_khau_moi' => 'required|min:6| max:50|same:mat_khau_moi',
-        ];$message =[
-        'required' => ':attribute không được để trống',
-        'min' => ':attribute phải lớn hơn :min', // lớn hơn  (không phải độ dài)
-        'max' => ':attribute phải nhỏ hơn :max', // nhỏ hơn
-        'numeric' => ':attribute phải là số',
-        'image'=> ':attribute phải là hình ảnh',
-        'same' => 'Không trùng mật khẩu',
-        ];$attribute = [
-        'xac_nhan_mat_khau_moi'=>'Xác nhận mật khẩu',
-        'mat_khau_moi' => 'Ma xác nhận',
-        ];
-
-    $request->validate($rule, $message, $attribute);
-    $nguoidung  = auth()->user();
-    $input['mat_khau_moi'] = $request->input('mat_khau_moi');
-    $input['xac_nhan_mat_khau_moi']= $request->input('xac_nhan_mat_khau_moi');
-
-    $nguoidung->update([
-        'mat_khau' => $input['mat_khau_moi'],
-        'api_code' => null
-    ]);
-    $nguoidung->save();
-    auth()->user()->tokens->each(function ($token, $key) {
-            $token->delete();
-    });
-    $response=
-        [
-            'message'=>'Đổi mật khẩu thành công vui lòng đăng nhập lại',
-        ];
-    return response()->json($response,200);
-
-}
-
-
 
 }
 

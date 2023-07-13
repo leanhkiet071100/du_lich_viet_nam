@@ -132,7 +132,7 @@ class TourController extends Controller
     public function get_thanh_toan(Request $request){
         $id_user = auth()->user()->id;
         $phieu_dat = phieu_dat::join('goi_du_liches','goi_du_liches.id','=', 'phieu_dats.goi_du_lich_id')
-                                ->select('phieu_dats.id','phieu_dats.ten', 'phieu_dats.email', 'phieu_dats.so_dien_thoai', 'phieu_dats.ten', 'phieu_dats.so_nguoi_lon', 'phieu_dats.so_tre_em', 'goi_du_liches.ten','goi_du_liches.gia_nguoi_lon', 'goi_du_liches.gia_tre_em', 'goi_du_liches.ngay_khoi_hanh' )
+                                ->select('phieu_dats.id','phieu_dats.ten', 'phieu_dats.email', 'phieu_dats.so_dien_thoai', 'phieu_dats.so_nguoi_lon', 'goi_du_liches.gia_nguoi_lon' )
                                 ->where('nguoi_dung_id','=',$id_user)
                                 ->orderBy('phieu_dats.id', 'DESC')
                                 ->first();

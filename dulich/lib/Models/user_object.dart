@@ -14,13 +14,20 @@ class UserObject {
   });
 
   // function to convert json data to user model
-  factory UserObject.fromJson(Map<String, dynamic> json) {
-    return UserObject(
-      id: json['user']['id'],
-      ten: json['user']['ten'],
-      email: json['user']['email'],
-      sdt: json['user']['sdt'],
-      token: json['token'],
-    );
+  UserObject.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        ten = json['ten'],
+        email = json['email'],
+        sdt = json['sdt'],
+        token = json['token'];
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "ten": ten,
+      "email": email,
+      "sdt": sdt,
+      "token": token,
+    };
   }
 }

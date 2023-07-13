@@ -1,62 +1,85 @@
+import 'dart:convert';
+import 'package:dulich/Global/alert.dart';
 import 'package:dulich/Global/color.dart';
+import 'package:dulich/Global/contants.dart';
+import 'package:dulich/Models/user_object.dart';
+import 'package:dulich/Providers/register_provider.dart';
+import 'package:dulich/Views/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class UserChange extends StatefulWidget {
-  const UserChange({Key? key}) : super(key: key);
+class EditInforPage extends StatefulWidget {
+  const EditInforPage({Key? key}) : super(key: key);
 
   @override
-  _UserChangeState createState() => _UserChangeState();
+  State<StatefulWidget> createState() => EditInforPageState();
 }
 
-class _UserChangeState extends State<UserChange> {
+class EditInforPageState extends State<EditInforPage> {
   TextEditingController txtEmail = TextEditingController();
   TextEditingController txtHoTen = TextEditingController();
   TextEditingController txtSoDienThoai = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-  late int stateHoTen;
-  late int stateEmail;
-  late int stateSDT;
-  String dropdownValueHoTen = 'Công khai';
-  String dropdownValueEmail = 'Chỉ mình tôi';
-  String dropdownValueSDT = 'Công khai';
+  _loadData() async {
+    SharedPreferences pres = await SharedPreferences.getInstance();
+    setState(() {});
+    txtEmail.text = (pres.getString('email') ?? '');
+  }
 
-  // void _updateInfor() async {
-  //   if (formKey.currentState!.validate()) {
-  //     EasyLoading.show(status: 'Vui lòng đợi...');
-  //     bool isSuccess = await UserProvider.updateInfor(txtHoTen.text,
-  //         txtEmail.text, txtSoDienThoai.text, stateHoTen, stateSDT, stateEmail);
-  //     if (isSuccess) {
-  //       txtEmail.text = txtEmail.text;
-  //       txtHoTen.text = txtHoTen.text;
-  //       txtSoDienThoai.text = txtSoDienThoai.text;
-  //       stateHoTen = stateHoTen;
-  //       stateSDT = stateSDT;
-  //       stateEmail = stateEmail;
-  //       SharedPreferences pres = await SharedPreferences.getInstance();
-  //       UserObject newUser = await UserProvider.getUser();
-  //       String user = jsonEncode(newUser.toJson());
-  //       pres.setString('user', user);
-  //       EasyLoading.showSuccess('Cập nhật thành công');
-  //       EasyLoading.dismiss();
-  //     } else {
-  //       EasyLoading.showError('Cập nhật thất bại');
-  //       EasyLoading.dismiss();
-  //     }
-  //   }
-  // }
+  snackBar(String? message) {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message!),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _loadData();
-  // }
+  void _updateInfor() async {
+    if (formKey.currentState!.validate()) {
+      snackBar('Vui lòng đợi...');
+      bool isSuccess = await RegisterProvider.updateInfor(
+          txtHoTen.text, txtSoDienThoai.text);
+      if (isSuccess) {
+        txtEmail.text = txtEmail.text;
+        txtHoTen.text = txtHoTen.text;
+        txtSoDienThoai.text = txtSoDienThoai.text;
+
+        UserObject newUser = await RegisterProvider.getUser();
+
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return Alert1(title: 'Cập nhật thành công');
+            });
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Dashboard()),
+        );
+        EasyLoading.dismiss();
+      } else {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return Alert1(title: 'Cập nhật thất bại');
+            });
+        EasyLoading.dismiss();
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
@@ -70,7 +93,7 @@ class _UserChangeState extends State<UserChange> {
         elevation: 0,
         backgroundColor: miniColor,
         title: const Text(
-          'Thông tin cá nhân',
+          'Cập nhật thông tin',
           style: TextStyle(color: blackColor, fontSize: 24),
         ),
         centerTitle: true,
@@ -79,64 +102,17 @@ class _UserChangeState extends State<UserChange> {
         child: Form(
           key: formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.only(
-                    top: 20, left: 15, right: 15, bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "Họ tên",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                        color: blackColor,
-                      ),
-                    ),
-                    Container(
-                      height: 35,
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7),
-                        color: const Color(0XFFE4E6EB),
-                      ),
-                      child: DropdownButton<String>(
-                        value: dropdownValueHoTen,
-                        icon: const FaIcon(
-                          FontAwesomeIcons.chevronDown,
-                          color: blackColor,
-                          size: 14,
-                        ),
-                        elevation: 1,
-                        borderRadius: BorderRadius.circular(10),
-                        underline: const SizedBox(),
-                        style: const TextStyle(
-                          color: blackColor,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownValueHoTen = newValue!;
-                            if (newValue == 'Công khai') {
-                              stateHoTen = 1;
-                            } else {
-                              stateHoTen = 0;
-                            }
-                          });
-                        },
-                        items: <String>['Công khai', 'Chỉ mình tôi']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ],
+                padding: const EdgeInsets.only(left: 15, bottom: 10),
+                child: Text(
+                  "Họ tên",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Color(0XFF242A37),
+                  ),
                 ),
               ),
               Container(
@@ -150,7 +126,7 @@ class _UserChangeState extends State<UserChange> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(width: 1, color: blueColor),
+                      borderSide: const BorderSide(width: 1, color: greencolor),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
@@ -163,137 +139,46 @@ class _UserChangeState extends State<UserChange> {
                   },
                 ),
               ),
+              // Container(
+              //   padding: const EdgeInsets.only(left: 15, right: 15),
+              //   child: Text(
+              //     "Email",
+              //     style: TextStyle(
+              //       fontWeight: FontWeight.bold,
+              //       fontSize: 16,
+              //       color: Color(0XFF242A37),
+              //     ),
+              //   ),
+              // ),
+              // Container(
+              //   padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
+              //   child: TextFormField(
+              //     readOnly: true,
+              //     controller: txtEmail,
+              //     decoration: InputDecoration(
+              //       fillColor: const Color(0X1A242A37),
+              //       filled: true,
+              //       enabledBorder: OutlineInputBorder(
+              //         borderSide:
+              //             const BorderSide(width: 1, color: Color(0XFFF1F2F6)),
+              //         borderRadius: BorderRadius.circular(10),
+              //       ),
+              //       focusedBorder: OutlineInputBorder(
+              //         borderSide: const BorderSide(width: 1, color: greencolor),
+              //         borderRadius: BorderRadius.circular(10),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Container(
-                alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "Email",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                      ),
-                    ),
-                    Container(
-                      height: 35,
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7),
-                        color: const Color(0XFFE4E6EB),
-                      ),
-                      child: DropdownButton<String>(
-                        value: dropdownValueEmail,
-                        icon: const FaIcon(
-                          FontAwesomeIcons.chevronDown,
-                          size: 14,
-                        ),
-                        elevation: 1,
-                        borderRadius: BorderRadius.circular(10),
-                        underline: const SizedBox(),
-                        style: const TextStyle(
-                          color: blackColor,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownValueEmail = newValue!;
-                          });
-                          if (newValue == 'Công khai') {
-                            stateEmail = 1;
-                          } else {
-                            stateEmail = 0;
-                          }
-                        },
-                        items: <String>['Công khai', 'Chỉ mình tôi']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
-                child: TextFormField(
-                  readOnly: true,
-                  controller: txtEmail,
-                  decoration: InputDecoration(
-                    fillColor: const Color(0X1A242A37),
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(width: 1, color: Color(0XFFF1F2F6)),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(width: 1, color: blueColor),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                padding: const EdgeInsets.only(left: 15, bottom: 10),
+                child: Text(
+                  "Số điện thoại",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Color(0XFF242A37),
                   ),
-                ),
-              ),
-              Container(
-                alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "Số điện thoại",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                      ),
-                    ),
-                    Container(
-                      height: 35,
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7),
-                        color: const Color(0XFFE4E6EB),
-                      ),
-                      child: DropdownButton<String>(
-                        value: dropdownValueSDT,
-                        icon: const FaIcon(
-                          FontAwesomeIcons.chevronDown,
-                          color: blackColor,
-                          size: 14,
-                        ),
-                        elevation: 1,
-                        borderRadius: BorderRadius.circular(10),
-                        underline: const SizedBox(),
-                        style: const TextStyle(
-                          color: blackColor,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownValueSDT = newValue!;
-                          });
-                          if (newValue == 'Công khai') {
-                            stateSDT = 1;
-                          } else {
-                            stateSDT = 0;
-                          }
-                        },
-                        items: <String>['Công khai', 'Chỉ mình tôi']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ],
                 ),
               ),
               Container(
@@ -307,39 +192,26 @@ class _UserChangeState extends State<UserChange> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(width: 1, color: blueColor),
+                      borderSide: const BorderSide(width: 1, color: greencolor),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Số điện thoại không được bỏ trống";
-                    } else if (value.length < 10) {
-                      return "Số điện thoại không hợp lệ";
+                    if (value == null || value.isEmpty) {
+                      return 'Số điện thoại không được bỏ trống';
+                    } else if (value.length < 10 || value.length > 10) {
+                      return 'Số điện thoại phải có ít nhất 10 chữ số';
                     } else {
                       return null;
                     }
                   },
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
-                width: 374,
-                height: 50,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10), color: blueColor),
-                child: TextButton(
-                  onPressed: () {
-                    // _updateInfor();
-                  },
-                  child: const Text(
-                    "Cập nhật thông tin cá nhân",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700),
-                  ),
-                ),
+              kTextButton(
+                'Cập nhật thông tin cá nhân',
+                () {
+                  _updateInfor();
+                },
               ),
               Container(
                 margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
@@ -357,6 +229,7 @@ class _UserChangeState extends State<UserChange> {
                     style: TextStyle(
                         color: Color(0XFF242A37),
                         fontSize: 18,
+                        fontFamily: 'Roboto',
                         fontWeight: FontWeight.w700),
                   ),
                 ),

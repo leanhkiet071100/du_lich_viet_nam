@@ -1,6 +1,7 @@
 import 'package:dulich/Global/color.dart';
-import 'package:dulich/Views/forgot/forgot_pass.dart';
+import 'package:dulich/Providers/register_provider.dart';
 import 'package:dulich/Views/user/user_change.dart';
+import 'package:dulich/Views/user/user_password.dart';
 import 'package:flutter/material.dart';
 import '../../Global/alert.dart';
 import '../login/login.dart';
@@ -13,6 +14,7 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+  RegisterProvider _code = RegisterProvider();
   bool _isLoading = false;
   String? _errorMessage;
 
@@ -51,39 +53,39 @@ class _UserPageState extends State<UserPage> {
                   fontWeight: FontWeight.w800,
                 ),
               ),
-              subtitle: InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const UserChange()));
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.border_color_rounded,
-                      color: blackColor,
-                      size: 15,
-                    ),
-                    SizedBox(
-                      width: size.width * 0.025,
-                      height: size.height * 0.05,
-                    ),
-                    const Text(
-                      'Chỉnh sửa thông tin',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+              subtitle: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.border_color_rounded,
+                    color: blackColor,
+                    size: 15,
+                  ),
+                  SizedBox(
+                    width: size.width * 0.025,
+                    height: size.height * 0.05,
+                  ),
+                  Container(
+                    child: TextButton(
+                      onPressed: (() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const EditInforPage()));
+                      }),
+                      child: Text(
+                        'Chỉnh sửa thông tin',
+                        style: TextStyle(
+                          color: blackColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               )),
-          SizedBox(
-            height: size.height * 0.05,
-          ),
           InkWell(
             splashColor: greencolor,
             onTap: () {
@@ -93,10 +95,10 @@ class _UserPageState extends State<UserPage> {
                     return Alert(
                       title: 'Bạn có chắc chắn đổi mật khẩu không?',
                       onAction: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ForgotPass()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => const EditInforPage()));
                       },
                     );
                   });
@@ -140,7 +142,7 @@ class _UserPageState extends State<UserPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ForgotPass()));
+                                builder: (context) => ChangePasswordPage()));
                       },
                     );
                   });

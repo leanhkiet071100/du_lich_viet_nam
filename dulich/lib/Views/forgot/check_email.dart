@@ -1,4 +1,6 @@
+import 'package:dulich/Global/alert.dart';
 import 'package:dulich/Global/color.dart';
+import 'package:dulich/Global/contants.dart';
 import 'package:dulich/Providers/register_provider.dart';
 import 'package:dulich/Views/forgot/confirm_token.dart';
 import 'package:flutter/material.dart';
@@ -14,30 +16,7 @@ class CheckEmail extends StatefulWidget {
 class _CheckEmailState extends State<CheckEmail> {
   TextEditingController txtEmail = TextEditingController();
   final formKey = GlobalKey<FormState>();
-
-  void _sendEmail() async {
-    if (formKey.currentState!.validate()) {
-      EasyLoading.show(status: 'Vui lòng đợi...');
-      bool isSuccess = await RegisterProvider.sendEmail(txtEmail.text);
-
-      if (isSuccess) {
-        EasyLoading.showSuccess('Vui lòng kiểm tra email để lấy mã xác minh');
-        EasyLoading.dismiss();
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ConfirmToken(
-              email: txtEmail.text,
-            ),
-          ),
-        );
-      } else {
-        EasyLoading.showInfo(
-            'Email không tồn tại trên hệ thống. Vui lòng kiểm tra lại');
-        EasyLoading.dismiss();
-      }
-    }
-  }
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -122,26 +101,51 @@ class _CheckEmailState extends State<CheckEmail> {
                   },
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(left: 15, right: 15),
-                width: 374,
-                height: 50,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10), color: blueColor),
-                child: TextButton(
-                  onPressed: () {
-                    _sendEmail();
-                  },
-                  child: const Text(
-                    "Gửi",
-                    style: TextStyle(
-                        color: whiteColor,
-                        fontSize: 18,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w700),
-                  ),
-                ),
-              ),
+              loading
+                  ? Center(child: CircularProgressIndicator())
+                  : kTextButton('Gửi', () async {
+                      if (formKey.currentState!.validate()) {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Alert1(
+                                title: 'Vui lòng chờ...',
+                              );
+                            });
+
+                        bool isSuccess =
+                            await RegisterProvider.sendEmail(txtEmail.text);
+                        if (isSuccess) {
+                          // showDialog(
+                          //     context: context,
+                          //     builder: (BuildContext context) {
+                          //       return Alert1(
+                          //         title:
+                          //             'Vui lòng kiểm tra email để lấy mã xác minh',
+                          //       );
+                          //     });
+                          EasyLoading.dismiss();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ConfirmToken(
+                                email: txtEmail.text,
+                              ),
+                            ),
+                          );
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Alert1(
+                                    title:
+                                        'Email không tồn tại trên hệ thống. Vui lòng kiểm tra lại');
+                              });
+
+                          EasyLoading.dismiss();
+                        }
+                      }
+                    })
             ],
           ),
         ),
