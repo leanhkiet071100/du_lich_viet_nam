@@ -47,7 +47,7 @@ class _UserPageState extends State<UserPage> {
                 ),
               ),
               title: const Text(
-                'NGUYỄN THỊ NHƯ QUỲNH',
+                'Như Quỳnh',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w800,
@@ -139,10 +139,10 @@ class _UserPageState extends State<UserPage> {
                     return Alert(
                       title: 'Bạn có chắc chắn đổi mật khẩu không?',
                       onAction: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ChangePasswordPage()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => ChangePasswordPage()));
                       },
                     );
                   });

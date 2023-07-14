@@ -3,6 +3,7 @@ import 'package:dulich/Global/color.dart';
 import 'package:dulich/Global/url.dart';
 import 'package:dulich/Providers/register_provider.dart';
 import 'package:dulich/Views/booking/component/payment.dart';
+import 'package:dulich/Views/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:dulich/Models/tour_object.dart';
@@ -97,8 +98,7 @@ class TourProvider {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => PaymentScreen()),
+                        MaterialPageRoute(builder: (context) => Dashboard()),
                       );
                     },
                     child: Text(

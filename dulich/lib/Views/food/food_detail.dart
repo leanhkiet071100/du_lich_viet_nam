@@ -1,8 +1,5 @@
 import 'package:dulich/Models/mon_an.dart';
 import 'package:dulich/Models/quanan_object.dart';
-import 'package:dulich/Providers/monan_provider.dart';
-import 'package:dulich/Providers/quanan_provider.dart';
-import 'package:dulich/Views/food/food_list.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../Global/color.dart';

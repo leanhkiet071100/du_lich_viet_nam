@@ -6,7 +6,6 @@ import 'package:dulich/Models/user_object.dart';
 import 'package:dulich/Views/forgot/forgot_pass.dart';
 import 'package:dulich/Views/login/login.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -245,7 +244,7 @@ class RegisterProvider {
   static Future<bool> resetPassword(
       String mat_khau_moi, String xac_nhan_mat_khau_moi, String code) async {
     var token = await getToken();
-    final response = await http.post(Uri.parse(codeUrl),
+    final response = await http.post(Uri.parse(passUrl),
         headers: ({
           'Accept': 'application/json',
           'Authorization': 'Bearer $token',

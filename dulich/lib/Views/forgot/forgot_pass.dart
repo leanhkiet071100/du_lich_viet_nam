@@ -37,8 +37,8 @@ class _ForgotPassState extends State<ForgotPass> {
   }
 
   void _resetPassword() async {
+    snackBar('Vui lòng đợi...');
     if (formKey.currentState!.validate()) {
-      snackBar('Vui lòng đợi...');
       bool isSuccess = await RegisterProvider.resetPassword(
           txtPassword.text, txtPassword2.text, code);
 
