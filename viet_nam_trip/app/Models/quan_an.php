@@ -20,6 +20,7 @@ class quan_an extends Model
         'huyen',
         'xa',
         'dia_chi',
+        'mo_ta',
         'so_dien_thoai',
         'hinh_quan_an',
         'mo_ta',

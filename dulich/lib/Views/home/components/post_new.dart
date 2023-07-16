@@ -11,11 +11,23 @@ class PostNew extends StatefulWidget {
 }
 
 class _PostNewState extends State<PostNew> {
+  List<String> ten = [
+    'Sắc màu của biển',
+    'Cầu Bàn Tay',
+    'Vẻ đẹp Hội An',
+    'Huế Mộng Mơ',
+  ];
   List<String> imgs = [
     'https://vcdn-dulich.vnecdn.net/2020/01/08/sac-mau-cua-bien-vnexpress-1-6641-1578454676.jpg',
-    'https://vcdn-dulich.vnecdn.net/2020/01/08/sac-mau-cua-bien-vnexpress-1-6641-1578454676.jpg',
-    'https://gonatour.vn/vnt_upload/gallery/09_2019/ba_li.jpg',
-    'https://photo-mekongasean.epicdn.me/w950/Uploaded/2023/aopohun/2021_10_11/kinh-nghiem-du-lich-trang-an-6883-9681.jpg',
+    'https://www.anhdulich.vn/storage/sliders/slide4.jpg',
+    'https://bcp.cdnchinhphu.vn/334894974524682240/2022/8/24/giai-nhat-thuyen-hoa-1661307085778425095586.jpg',
+    'https://sdl.thuathienhue.gov.vn/UploadFiles/TinTuc/2019/2/27/visithue_viet%20nam%20tuoi%20dep%202.jpg',
+  ];
+  List<String> tinh = [
+    'Quy Nhơn - Bình Định',
+    'Đà Nẵng',
+    'Hội An ',
+    'Thừa Thiên - Huế',
   ];
 
   @override
@@ -54,15 +66,15 @@ class _PostNewState extends State<PostNew> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                "Sắc màu của biển",
+                              Text(
+                                ten[index],
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w700,
                                     color: whiteColor),
                               ),
-                              const Text(
-                                "Quy Nhơn - Bình Định",
+                              Text(
+                                tinh[index],
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,

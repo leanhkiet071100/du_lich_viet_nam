@@ -1,3 +1,4 @@
+import 'package:dulich/Global/color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -31,7 +32,11 @@ class _MapState extends State<Map> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Google Maps'),
+        backgroundColor: whiteColor,
+        title: const Text(
+          'Google Maps',
+          style: TextStyle(color: blackColor),
+        ),
       ),
       body: GoogleMap(
         onMapCreated: _onMapCreated,
@@ -45,3 +50,51 @@ class _MapState extends State<Map> {
     );
   }
 }
+
+// class Map extends StatefulWidget {
+//   const Map({Key? key}) : super(key: key);
+
+//   @override
+//   _MapState createState() => _MapState();
+// }
+
+// class _MapState extends State<Map> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("Google"),
+//       ),
+//       body: MyWebView(url: "https://www.google.com/maps"),
+//     );
+//   }
+// }
+
+// class MyWebView extends StatefulWidget {
+//   final String url;
+
+//   MyWebView({required this.url});
+
+//   @override
+//   _MyWebViewState createState() => _MyWebViewState();
+// }
+
+// class _MyWebViewState extends State<MyWebView> {
+//   late WebView _webView;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _webView = WebView(
+//       initialUrl: widget.url,
+//       javascriptMode: JavascriptMode.unrestricted,
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: _webView,
+//     );
+//   }
+// }

@@ -18,6 +18,7 @@ class noi_luu_tru extends Model
         'tinh',
         'huyen',
         'xa',
+        'mo_ta',
         'dia_chi',
         'so_dien_thoai',
         'hinh_noi_luu_tru',

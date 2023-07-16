@@ -1,11 +1,9 @@
-import 'package:dulich/Models/goi_dulich.dart';
 import 'package:dulich/Models/hotel_object.dart';
 import 'package:dulich/Providers/hotel_provider.dart';
 import 'package:dulich/Views/dashboard/dashboard.dart';
 import 'package:dulich/Views/hotel/hotel.dart';
 import 'package:dulich/Views/hotel/hotel_search.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../Global/color.dart';
 
 class HotelPage extends StatefulWidget {
@@ -18,7 +16,6 @@ class HotelPage extends StatefulWidget {
 }
 
 class _HotelPageState extends State<HotelPage> {
-  late Hotel id;
   @override
   void initState() {
     super.initState();

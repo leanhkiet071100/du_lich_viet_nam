@@ -2,12 +2,14 @@ const String baseUrl = "http://192.168.100.52:8000/api/";
 const String loginUrl = baseUrl + "login";
 const String regisUrl = baseUrl + "register";
 const String logoutUrl = baseUrl + "logout";
-const String passUrl = baseUrl + "post-quen-mat-khau";
+const String passUrl = baseUrl + "post-doi-mat-khau";
+const String codeUrl = baseUrl + "code";
 const String tourUrl = baseUrl + "dat-tour";
 const String hotelUrl = baseUrl + "luutru";
 const String goiDuLichUrl = baseUrl + "list-tour";
-const String phieuDatUrl = baseUrl + "get-thanh-toan";
+const String phieuDatUrl = baseUrl + "phieu-dat";
 const String quanAnUrl = baseUrl + "quan-an";
+const String monAnUrl = baseUrl + "mon-an";
 const Map<String, String> headers = {"Content-Type": "application/json"};
 
 class ApiResponse {

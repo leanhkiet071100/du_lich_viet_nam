@@ -1,9 +1,9 @@
 import 'dart:async';
-
+import 'package:dulich/Global/alert.dart';
+import 'package:dulich/Providers/register_provider.dart';
 import 'package:dulich/Views/forgot/forgot_pass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../Global/color.dart';
@@ -30,24 +30,32 @@ class ConfirmTokenState extends State<ConfirmToken> {
   final formKey = GlobalKey<FormState>();
   bool isCompleted = false;
 
-  void _sendEmail() async {
-    //EasyLoading.show(status: 'Đang kiểm tra...');
-    // bool isSuccess =
-    //     await UserProvider.confirmToken(txtCode.text.toUpperCase());
-    // if (isSuccess) {
-    //   EasyLoading.showSuccess('Xác nhận thành công');
-    //   EasyLoading.dismiss();
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ForgotPass(),
-      ),
-    );
-
-    // else {
-    //   EasyLoading.showError('Xác nhận thất bại');
-    //   EasyLoading.dismiss();
-    // }
+  void _code() async {
+    snackBar('Đang kiểm tra...');
+    bool isSuccess =
+        await RegisterProvider.confirmToken(txtCode.text.toUpperCase());
+    if (isSuccess) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Alert1(title: 'Xác nhận thành công');
+          });
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ForgotPass(
+            code: txtCode.text,
+          ),
+        ),
+      );
+    } else {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Alert1(title: 'Mã xác nhận không chính xác!');
+          });
+      EasyLoading.dismiss();
+    }
   }
 
   @override
@@ -105,8 +113,9 @@ class ConfirmTokenState extends State<ConfirmToken> {
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.only(
                       top: 20, left: 15, right: 15, bottom: 10),
-                  child: const Text(
-                    "Nhập mã xác minh gồm 6 chữ số mà chúng tôi đã gửi cho bạn qua email.",
+                  child: Text(
+                    "Nhập mã xác minh gồm 6 chữ số mà chúng tôi đã gửi cho bạn qua email.\n" +
+                        email,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -180,7 +189,7 @@ class ConfirmTokenState extends State<ConfirmToken> {
                       color: isCompleted ? blueColor : const Color(0XFFB1BCD0)),
                   child: TextButton(
                     onPressed: () {
-                      isCompleted ? _sendEmail() : null;
+                      isCompleted ? _code() : null;
                     },
                     child: const Text(
                       "Tiếp tục",

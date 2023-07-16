@@ -1,6 +1,10 @@
 import 'package:dulich/Global/color.dart';
-import 'package:dulich/Views/forgot/forgot_pass.dart';
+import 'package:dulich/Providers/register_provider.dart';
+
+import 'package:dulich/Views/tour/tour_history.dart';
+import 'package:dulich/Views/tour/tour_tab.dart';
 import 'package:dulich/Views/user/user_change.dart';
+import 'package:dulich/Views/user/user_password.dart';
 import 'package:flutter/material.dart';
 import '../../Global/alert.dart';
 import '../login/login.dart';
@@ -13,6 +17,7 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+  RegisterProvider _code = RegisterProvider();
   bool _isLoading = false;
   String? _errorMessage;
 
@@ -45,61 +50,50 @@ class _UserPageState extends State<UserPage> {
                 ),
               ),
               title: const Text(
-                'NGUYỄN THỊ NHƯ QUỲNH',
+                'Nhu Quynh',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w800,
                 ),
               ),
-              subtitle: InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const UserChange()));
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.border_color_rounded,
-                      color: blackColor,
-                      size: 15,
-                    ),
-                    SizedBox(
-                      width: size.width * 0.025,
-                      height: size.height * 0.05,
-                    ),
-                    const Text(
-                      'Chỉnh sửa thông tin',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              )),
-          SizedBox(
-            height: size.height * 0.05,
-          ),
-          InkWell(
-            splashColor: greencolor,
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Alert(
-                      title: 'Bạn có chắc chắn đổi mật khẩu không?',
-                      onAction: () {
+              subtitle: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.border_color_rounded,
+                    color: blackColor,
+                    size: 15,
+                  ),
+                  SizedBox(
+                    width: size.width * 0.025,
+                    height: size.height * 0.05,
+                  ),
+                  Container(
+                    child: TextButton(
+                      onPressed: (() {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ForgotPass()));
-                      },
-                    );
-                  });
+                                builder: (context) => const EditInforPage()));
+                      }),
+                      child: Text(
+                        'Chỉnh sửa thông tin',
+                        style: TextStyle(
+                          color: blackColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )),
+          InkWell(
+            splashColor: greencolor,
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => TourHistory()));
             },
             child: Container(
                 width: double.infinity,
@@ -140,7 +134,7 @@ class _UserPageState extends State<UserPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ForgotPass()));
+                                builder: (context) => ChangePasswordPage()));
                       },
                     );
                   });
@@ -156,45 +150,6 @@ class _UserPageState extends State<UserPage> {
                     children: [
                       Text(
                         'Đổi mật khẩu',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(
-                        width: size.width * 0.5,
-                        height: size.height * 0.05,
-                      ),
-                      const Icon(Icons.arrow_circle_right_outlined,
-                          color: blackColor, size: 20),
-                    ],
-                  ),
-                )),
-          ),
-          InkWell(
-            splashColor: greencolor,
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Alert(
-                      title: 'Bạn có chắc chắn xóa tài khoản không?',
-                      onAction: () {},
-                    );
-                  });
-            },
-            child: Container(
-                width: double.infinity,
-                height: size.height * 0.08,
-                padding: const EdgeInsets.only(left: 5, right: 5),
-                child: Card(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        ' Xóa tài khoản',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontSize: 16,

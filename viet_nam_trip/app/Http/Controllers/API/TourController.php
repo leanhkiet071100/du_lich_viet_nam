@@ -38,6 +38,7 @@ class TourController extends Controller
         return response()->json($lstDattour);
     }
 
+
     public function dat_tour(Request $request){
         $rule = [
             'Fullname' => 'required',
@@ -86,7 +87,14 @@ class TourController extends Controller
             'trang_thai'=>1,
         ]);
         $phieu_dat->save();
-
+            $hoa_don = new hoa_don;
+            $hoa_don->fill([
+                'phieu_dat_id'=>$phieu_dat->id,
+                'tong_tien'=>$tong,
+                'loai_thanh_toan'=>'tien-mat',
+                'trang_thai'=> 2,
+            ]);
+            $hoa_don->save();
       $response=
         [
             'message'=>'Đặt tour thành công',
@@ -107,14 +115,14 @@ class TourController extends Controller
                     ->find($phieu_dat->goi_du_lich_id);
         $tong_hoa_don = ($phieu_dat->so_nguoi_lon* $goi_du_lich->gia_nguoi_lon) + ($phieu_dat->so_tre_em* $goi_du_lich->gia_tre_em);
         if( $input['payments'] == 'tienmat'){
-            $hoa_don = new hoa_don;
-            $hoa_don->fill([
-                'phieu_dat_id'=>$phieu_dat->id,
-                'tong_tien'=>$tong_hoa_don,
-                'loai_thanh_toan'=>'tien-mat',
-                'trang_thai'=> 2,
-            ]);
-            $hoa_don->save();
+            // $hoa_don = new hoa_don;
+            // $hoa_don->fill([
+            //     'phieu_dat_id'=>$phieu_dat->id,
+            //     'tong_tien'=>$tong_hoa_don,
+            //     'loai_thanh_toan'=>'tien-mat',
+            //     'trang_thai'=> 2,
+            // ]);
+            // $hoa_don->save();
         $response=
         [
             'message'=>'Thanh toán thành công',
@@ -132,7 +140,7 @@ class TourController extends Controller
     public function get_thanh_toan(Request $request){
         $id_user = auth()->user()->id;
         $phieu_dat = phieu_dat::join('goi_du_liches','goi_du_liches.id','=', 'phieu_dats.goi_du_lich_id')
-                                ->select('phieu_dats.id','phieu_dats.ten', 'phieu_dats.email', 'phieu_dats.so_dien_thoai', 'phieu_dats.ten', 'phieu_dats.so_nguoi_lon', 'phieu_dats.so_tre_em', 'goi_du_liches.ten','goi_du_liches.gia_nguoi_lon', 'goi_du_liches.gia_tre_em', 'goi_du_liches.ngay_khoi_hanh' )
+                                ->select('phieu_dats.id','phieu_dats.ten', 'phieu_dats.email', 'phieu_dats.so_dien_thoai', 'phieu_dats.so_nguoi_lon', 'goi_du_liches.gia_nguoi_lon' )
                                 ->where('nguoi_dung_id','=',$id_user)
                                 ->orderBy('phieu_dats.id', 'DESC')
                                 ->first();

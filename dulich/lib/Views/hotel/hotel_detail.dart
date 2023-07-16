@@ -147,7 +147,7 @@ class _HotelDetailState extends State<HotelDetail> {
             Container(
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
               child: Text(
-                'Nếu không muốn mất thêm những khoản chi phí dịch vụ liên quan, khách sạn của bạn nên có một trang web riêng với đầy đủ thông tin về khách sạn và các dịch vụ đặt phòng trực tuyến riêng. Hiện nay, không ít du khách chỉ tìm đến các website đặt phòng trung gian để tham khảo giá, reviews,…của khách sạn có ý định chọn, rồi tìm đến trang web chính thức của khách sạn đó để thực hiện đặt phòng, vì họ cho rằng như thế sẽ an toàn và tiết kiệm hơn.',
+                listDl.mo_ta,
                 textAlign: TextAlign.justify,
                 style: const TextStyle(
                   fontSize: 16,
