@@ -46,15 +46,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
             title: Text('VNPay'),
           ),
           SizedBox(height: 16.0),
-          CheckboxListTile(
-            title: Text('Tôi đồng ý với các điều khoản thanh toán'),
-            value: _isAgreedToTerms,
-            onChanged: (value) {
-              setState(() {
-                _isAgreedToTerms = value!;
-              });
-            },
-          ),
+          // CheckboxListTile(
+          //   title: Text('Tôi đồng ý với các điều khoản thanh toán'),
+          //   value: _isAgreedToTerms,
+          //   onChanged: (value) {
+          //     setState(() {
+          //       _isAgreedToTerms = value!;
+          //     });
+          //   },
+          // ),
         ],
       ),
     );

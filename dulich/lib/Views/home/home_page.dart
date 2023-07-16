@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(color: blackColor, fontSize: 16),
                 ),
                 subtitle: const Text(
-                  'Như Quỳnh',
+                  'Nhu Quynh',
                   style: TextStyle(
                       color: blackColor,
                       fontSize: 18,

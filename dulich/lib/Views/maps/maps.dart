@@ -33,7 +33,10 @@ class _MapState extends State<Map> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: whiteColor,
-        title: const Text('Google Maps'),
+        title: const Text(
+          'Google Maps',
+          style: TextStyle(color: blackColor),
+        ),
       ),
       body: GoogleMap(
         onMapCreated: _onMapCreated,

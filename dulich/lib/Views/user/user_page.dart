@@ -1,6 +1,6 @@
 import 'package:dulich/Global/color.dart';
 import 'package:dulich/Providers/register_provider.dart';
-import 'package:dulich/Views/tour/tour.dart';
+
 import 'package:dulich/Views/tour/tour_history.dart';
 import 'package:dulich/Views/tour/tour_tab.dart';
 import 'package:dulich/Views/user/user_change.dart';
@@ -50,7 +50,7 @@ class _UserPageState extends State<UserPage> {
                 ),
               ),
               title: const Text(
-                'Như Quỳnh',
+                'Nhu Quynh',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w800,
@@ -89,39 +89,6 @@ class _UserPageState extends State<UserPage> {
                   ),
                 ],
               )),
-          // InkWell(
-          //   splashColor: greencolor,
-          //   onTap: () {
-          //     Navigator.push(context,
-          //         MaterialPageRoute(builder: (context) => UserDetailPage()));
-          //   },
-          //   child: Container(
-          //       width: double.infinity,
-          //       height: size.height * 0.08,
-          //       padding: const EdgeInsets.only(left: 5, right: 5),
-          //       child: Card(
-          //         child: Row(
-          //           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //           crossAxisAlignment: CrossAxisAlignment.center,
-          //           children: [
-          //             Text(
-          //               'Thông tin cá nhân',
-          //               textAlign: TextAlign.left,
-          //               style: TextStyle(
-          //                 fontSize: 16,
-          //                 fontWeight: FontWeight.w400,
-          //               ),
-          //             ),
-          //             SizedBox(
-          //               width: size.width * 0.5,
-          //               height: size.height * 0.05,
-          //             ),
-          //             const Icon(Icons.arrow_circle_right_outlined,
-          //                 color: blackColor, size: 20),
-          //           ],
-          //         ),
-          //       )),
-          // ),
           InkWell(
             splashColor: greencolor,
             onTap: () {
@@ -183,45 +150,6 @@ class _UserPageState extends State<UserPage> {
                     children: [
                       Text(
                         'Đổi mật khẩu',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(
-                        width: size.width * 0.5,
-                        height: size.height * 0.05,
-                      ),
-                      const Icon(Icons.arrow_circle_right_outlined,
-                          color: blackColor, size: 20),
-                    ],
-                  ),
-                )),
-          ),
-          InkWell(
-            splashColor: greencolor,
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Alert(
-                      title: 'Bạn có chắc chắn xóa tài khoản không?',
-                      onAction: () {},
-                    );
-                  });
-            },
-            child: Container(
-                width: double.infinity,
-                height: size.height * 0.08,
-                padding: const EdgeInsets.only(left: 5, right: 5),
-                child: Card(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        ' Xóa tài khoản',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontSize: 16,

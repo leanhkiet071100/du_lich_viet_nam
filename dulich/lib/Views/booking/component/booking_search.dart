@@ -1,13 +1,8 @@
 import 'package:dulich/Global/color.dart';
 import 'package:dulich/Models/goi_dulich.dart';
-import 'package:dulich/Models/hotel_object.dart';
 import 'package:dulich/Providers/goidulich_provider.dart';
-import 'package:dulich/Providers/hotel_provider.dart';
-import 'package:dulich/Views/hotel/hotel_detail.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-
 import '../booking_detail.dart';
 
 class BookingSearch extends StatefulWidget {
@@ -24,7 +19,7 @@ class _BookingSearchState extends State<BookingSearch> {
   ScrollController _scrollController = ScrollController();
   int _currentMax = 11;
 
-  _loadHotels() async {
+  _loadTour() async {
     final data = await GoiDuLichProvider.getAllTour();
     setState(() {
       lstGOisTemp = data;
@@ -35,7 +30,7 @@ class _BookingSearchState extends State<BookingSearch> {
     }
   }
 
-  void _searchHotels() async {
+  void _searchTours() async {
     setState(() {});
     if (_txtSearch.text.isEmpty) {
       lstGoi = lstGOisTemp;
@@ -52,7 +47,7 @@ class _BookingSearchState extends State<BookingSearch> {
   @override
   void initState() {
     super.initState();
-    _loadHotels();
+    _loadTour();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
@@ -90,7 +85,7 @@ class _BookingSearchState extends State<BookingSearch> {
                 border: InputBorder.none,
               ),
               onChanged: (text) {
-                _searchHotels();
+                _searchTours();
               },
             ),
           ),
@@ -109,8 +104,8 @@ class _BookingSearchState extends State<BookingSearch> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => BookingDetail(
-                        list: lstGoi,
+                      builder: (context) => TourDetailScreen(
+                        tour: lstGoi[index],
                       ),
                     ),
                   );
