@@ -13547,7 +13547,7 @@ button.btn-chi-tiet {
 }
 
 .danh-gia {
-    margin: 0 0 0 10px;
+    margin: 10px 0 0 10px;
     align-items: center;
     text-overflow: ellipsis;
 }
@@ -15200,7 +15200,7 @@ span.line::after {
 }
 
 .checkout-main.order-tour .detail-customer .block .group-info .group-info-name {
-    width: 25%;
+    width: 40%;
 }
 
 .checkout-main.order-tour .detail-customer .block .group-info>* {
@@ -15904,4 +15904,12 @@ input#DiscountCode {
     max-width: 110px;
     margin: 5px;
     max-height: 44px;
+}
+
+.checkout-main.order-tour .detail-customer .block .group-info .group-info-birthday {
+    width: 35%;
+}
+
+.checkout-main.order-tour .detail-customer .block .group-info .group-info-sex {
+    width: 20%;
 }

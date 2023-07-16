@@ -2,58 +2,36 @@
 
 @section('content')
     @parent
-      @if (session()->has('yes'))
+    @if (session()->has('yes'))
         <script>
-            alert('{{session()->get('yes')}}');
+            alert('{{ session()->get('yes') }}');
         </script>
     @endif
-    <div class="hero-wrap js-fullheight" style="background-image: url({{URL('assets/web/images/bg_1.jpg')}});">
+    <div class="hero-wrap js-fullheight" style="background-image: url({{ URL('assets/web/images/bg_1.jpg') }});">
         <div class="overlay"></div>
         <div class="container">
             <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start"
                 data-scrollax-parent="true">
                 <div class="col-md-9 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
-                    <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><strong>Explore
-                            <br></strong> your amazing city</h1>
-                    <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Find great places to stay, eat, shop,
-                        or visit from local experts</p>
-                    <div class="block-17 my-4">
-                        <form action="" method="post" class="d-block d-flex">
-                            <div class="fields d-block d-flex">
-                                <div class="textfield-search one-third">
-                                    <input type="text" class="form-control" placeholder="Ex: food, service, hotel">
-                                </div>
-                                <div class="select-wrap one-third">
-                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                    <select name="" id="" class="form-control" placeholder="Keyword search">
-                                        <option value="">Where</option>
-                                        <option value="">San Francisco USA</option>
-                                        <option value="">Berlin Germany</option>
-                                        <option value="">Lodon United Kingdom</option>
-                                        <option value="">Paris Italy</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <input type="submit" class="search-submit btn btn-primary" value="Search">
-                        </form>
-                    </div>
+
                     <p>Or browse the highlights</p>
                     <p class="browse d-md-flex">
                         <span class="d-flex justify-content-md-center align-items-md-center"><a href="#"><i
-                                    class="flaticon-fork"></i>Restaurant</a></span>
+                                    class="flaticon-fork"></i>Nhà hàng</a></span>
                         <span class="d-flex justify-content-md-center align-items-md-center"><a href="#"><i
-                                    class="flaticon-hotel"></i>Hotel</a></span>
-                        <span class="d-flex justify-content-md-center align-items-md-center"><a href="#"><i
-                                    class="flaticon-meeting-point"></i>Places</a></span>
-                        <span class="d-flex justify-content-md-center align-items-md-	center"><a href="#"><i
-                                    class="flaticon-shopping-bag"></i>Shopping</a></span>
+                                    class="flaticon-hotel"></i>Khách sạn</a></span>
+                        <span class="d-flex justify-content-md-center align-items-md-center"><a
+                                href="{{ route('web.dia-diem.index') }}"><i class="flaticon-meeting-point"></i>Địa
+                                điểm</a></span>
+                        <span class="d-flex justify-content-md-center align-items-md-	center"><a
+                                href="{{ route('web.tour.index') }}"><i class="flaticon-shopping-bag"></i>Tour</a></span>
                     </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <section class="ftco-section services-section bg-light">
+    {{-- <section class="ftco-section services-section bg-light">
         <div class="container">
             <div class="row d-flex">
                 <div class="col-md-3 d-flex align-self-stretch ftco-animate">
@@ -102,40 +80,43 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     @if ($ls_dia_diem_noi_bat->count() > 0)
-    <section class="ftco-section ftco-destination">
-        <div class="container">
-            <div class="row justify-content-start mb-5 pb-3">
-                <div class="col-md-7 heading-section ftco-animate">
-                    <span class="subheading">Địa điểm</span>
-                    <h2 class="mb-4"><strong>Địa điểm Nổi bật </strong></h2>
+        <section class="ftco-section ftco-destination">
+            <div class="container">
+                <div class="row justify-content-start mb-5 pb-3">
+                    <div class="col-md-7 heading-section ftco-animate">
+                        <span class="subheading">Địa điểm</span>
+                        <h2 class="mb-4"><strong>Địa điểm Nổi bật </strong></h2>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="destination-slider owl-carousel ftco-animate">
-                         @foreach ($ls_dia_diem_noi_bat as $key => $value)
-                        <div class="item">
-                            <div class="destination">
-                                <a href="{{route('web.dia-diem.show',['id'=>$value->id])}}" class="img d-flex justify-content-center align-items-center"
-                                    style="background-image: url({{URL($value->hinh_anh_dia_diem)}});">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="icon-search2"></span>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="destination-slider owl-carousel ftco-animate">
+                            @foreach ($ls_dia_diem_noi_bat as $key => $value)
+                                <div class="item">
+                                    <div class="destination">
+                                        <a href="{{ route('web.dia-diem.show', ['id' => $value->id]) }}"
+                                            class="img d-flex justify-content-center align-items-center"
+                                            style="background-image: url({{ URL($value->hinh_anh_dia_diem) }});">
+                                            <div class="icon d-flex justify-content-center align-items-center">
+                                                <span class="icon-search2"></span>
+                                            </div>
+                                        </a>
+                                        <div class="text p-3">
+                                            <h3><a
+                                                    href="{{ route('web.dia-diem.show', ['id' => $value->id]) }}">{{ $value->ten_dia_diem }}</a>
+                                            </h3>
+                                            {{-- <span class="listing">15 Listing</span> --}}
+                                        </div>
                                     </div>
-                                </a>
-                                <div class="text p-3">
-                                    <h3><a href="{{route('web.dia-diem.show',['id'=>$value->id])}}">{{$value->ten_dia_diem}}</a></h3>
-                                    {{-- <span class="listing">15 Listing</span> --}}
                                 </div>
-                            </div>
+                            @endforeach
                         </div>
-                        @endforeach
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     @endif
     <section class="ftco-section bg-light">
         <div class="container">
@@ -151,7 +132,7 @@
                 <div class="col-sm col-md-6 col-lg ftco-animate">
                     <div class="destination">
                         <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL('assets/web/images/destination-1.jpg')}});">
+                            style="background-image: url({{ URL('assets/web/images/destination-1.jpg') }});">
                             <div class="icon d-flex justify-content-center align-items-center">
                                 <span class="icon-search2"></span>
                             </div>
@@ -186,7 +167,7 @@
                 <div class="col-sm col-md-6 col-lg ftco-animate">
                     <div class="destination">
                         <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL('assets/web/images/destination-1.jpg')}});">
+                            style="background-image: url({{ URL('assets/web/images/hotel-1.jpg') }});">
                             <div class="icon d-flex justify-content-center align-items-center">
                                 <span class="icon-search2"></span>
                             </div>
@@ -194,7 +175,7 @@
                         <div class="text p-3">
                             <div class="d-flex">
                                 <div class="one">
-                                    <h3><a href="#">Paris, Italy</a></h3>
+                                    <h3><a href="#">Hotel, Italy</a></h3>
                                     <p class="rate">
                                         <i class="icon-star"></i>
                                         <i class="icon-star"></i>
@@ -205,15 +186,14 @@
                                     </p>
                                 </div>
                                 <div class="two">
-                                    <span class="price">$200</span>
+                                    <span class="price per-price">$40<br><small>/night</small></span>
                                 </div>
                             </div>
                             <p>Far far away, behind the word mountains, far from the countries</p>
-                            <p class="days"><span>2 days 3 nights</span></p>
                             <hr>
                             <p class="bottom-area d-flex">
-                                <span><i class="icon-map-o"></i> San Franciso, CA</span>
-                                <span class="ml-auto"><a href="#">Discover</a></span>
+                                <span><i class="icon-map-o"></i> Miami, Fl</span>
+                                <span class="ml-auto"><a href="#">Book Now</a></span>
                             </p>
                         </div>
                     </div>
@@ -221,7 +201,7 @@
                 <div class="col-sm col-md-6 col-lg ftco-animate">
                     <div class="destination">
                         <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL('assets/web/images/destination-1.jpg')}});">
+                            style="background-image: url({{ URL('assets/web/images/hotel-2.jpg') }});">
                             <div class="icon d-flex justify-content-center align-items-center">
                                 <span class="icon-search2"></span>
                             </div>
@@ -229,7 +209,7 @@
                         <div class="text p-3">
                             <div class="d-flex">
                                 <div class="one">
-                                    <h3><a href="#">Paris, Italy</a></h3>
+                                    <h3><a href="#">Hotel, Italy</a></h3>
                                     <p class="rate">
                                         <i class="icon-star"></i>
                                         <i class="icon-star"></i>
@@ -240,15 +220,14 @@
                                     </p>
                                 </div>
                                 <div class="two">
-                                    <span class="price">$200</span>
+                                    <span class="price per-price">$40<br><small>/night</small></span>
                                 </div>
                             </div>
                             <p>Far far away, behind the word mountains, far from the countries</p>
-                            <p class="days"><span>2 days 3 nights</span></p>
                             <hr>
                             <p class="bottom-area d-flex">
-                                <span><i class="icon-map-o"></i> San Franciso, CA</span>
-                                <span class="ml-auto"><a href="#">Discover</a></span>
+                                <span><i class="icon-map-o"></i> Miami, Fl</span>
+                                <span class="ml-auto"><a href="#">Book Now</a></span>
                             </p>
                         </div>
                     </div>
@@ -256,7 +235,7 @@
                 <div class="col-sm col-md-6 col-lg ftco-animate">
                     <div class="destination">
                         <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL('assets/web/images/destination-1.jpg')}});">
+                            style="background-image: url({{ URL('assets/web/images/hotel-3.jpg') }});">
                             <div class="icon d-flex justify-content-center align-items-center">
                                 <span class="icon-search2"></span>
                             </div>
@@ -264,7 +243,7 @@
                         <div class="text p-3">
                             <div class="d-flex">
                                 <div class="one">
-                                    <h3><a href="#">Paris, Italy</a></h3>
+                                    <h3><a href="#">Hotel, Italy</a></h3>
                                     <p class="rate">
                                         <i class="icon-star"></i>
                                         <i class="icon-star"></i>
@@ -275,50 +254,14 @@
                                     </p>
                                 </div>
                                 <div class="two">
-                                    <span class="price">$200</span>
+                                    <span class="price per-price">$40<br><small>/night</small></span>
                                 </div>
                             </div>
                             <p>Far far away, behind the word mountains, far from the countries</p>
-                            <p class="days"><span>2 days 3 nights</span></p>
                             <hr>
                             <p class="bottom-area d-flex">
-                                <span><i class="icon-map-o"></i> San Franciso, CA</span>
-                                <span class="ml-auto"><a href="#">Discover</a></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm col-md-6 col-lg ftco-animate">
-                    <div class="destination">
-                        <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL('assets/web/images/destination-1.jpg')}});">
-                            <div class="icon d-flex justify-content-center align-items-center">
-                                <span class="icon-search2"></span>
-                            </div>
-                        </a>
-                        <div class="text p-3">
-                            <div class="d-flex">
-                                <div class="one">
-                                    <h3><a href="#">Paris, Italy</a></h3>
-                                    <p class="rate">
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star-o"></i>
-                                        <span>8 Rating</span>
-                                    </p>
-                                </div>
-                                <div class="two">
-                                    <span class="price">$200</span>
-                                </div>
-                            </div>
-                            <p>Far far away, behind the word mountains, far from the countries</p>
-                            <p class="days"><span>2 days 3 nights</span></p>
-                            <hr>
-                            <p class="bottom-area d-flex">
-                                <span><i class="icon-map-o"></i> San Franciso, CA</span>
-                                <span class="ml-auto"><a href="#">Discover</a></span>
+                                <span><i class="icon-map-o"></i> Miami, Fl</span>
+                                <span class="ml-auto"><a href="#">Book Now</a></span>
                             </p>
                         </div>
                     </div>
@@ -327,41 +270,41 @@
         </div>
     </section>
     @if ($ls_quan_an_noi_bat->count() > 0)
-    <section class="ftco-section bg-light">
-        <div class="container">
-            <div class="row justify-content-start mb-5 pb-3">
-                <div class="col-md-7 heading-section ftco-animate">
-                    <span class="subheading">Quán ăn</span>
-                    <h2 class="mb-4"><strong>Quán ăn</strong> Nổi bật</h2>
+        <section class="ftco-section bg-light">
+            <div class="container">
+                <div class="row justify-content-start mb-5 pb-3">
+                    <div class="col-md-7 heading-section ftco-animate">
+                        <span class="subheading">Quán ăn</span>
+                        <h2 class="mb-4"><strong>Quán ăn</strong> Nổi bật</h2>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                 @foreach ($ls_quan_an_noi_bat as $key => $value)
-                <div class="col-sm col-md-6 col-lg ftco-animate">
-                    <div class="destination">
-                        <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL($value->hinh_quan_an)}});">
-                            <div class="icon d-flex justify-content-center align-items-center">
-                                <span class="icon-search2"></span>
-                            </div>
-                        </a>
-                        <div class="text p-3">
-                            <div class="d-flex">
-                                <div class="one">
-                                    <h3><a href="#">{{$value->ten_quan_an}}</a></h3>
+            <div class="container-fluid">
+                <div class="row">
+                    @foreach ($ls_quan_an_noi_bat as $key => $value)
+                        <div class="col-sm col-md-6 col-lg ftco-animate">
+                            <div class="destination">
+                                <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
+                                    style="background-image: url({{ URL($value->hinh_quan_an) }});">
+                                    <div class="icon d-flex justify-content-center align-items-center">
+                                        <span class="icon-search2"></span>
+                                    </div>
+                                </a>
+                                <div class="text p-3">
+                                    <div class="d-flex">
+                                        <div class="one">
+                                            <h3><a href="#">{{ $value->ten_quan_an }}</a></h3>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
-        </div>
-    </section>
+        </section>
     @endif
-    <section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url({{URL('assets/web/images/bg_1.jpg')}});">
+    {{-- <section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url({{URL('assets/web/images/bg_1.jpg')}});">
         <div class="container">
             <div class="row justify-content-center mb-5 pb-3">
                 <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
@@ -408,15 +351,15 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
 
     <section class="ftco-section">
         <div class="container">
             <div class="row justify-content-start mb-5 pb-3">
                 <div class="col-md-7 heading-section ftco-animate">
-                    <span class="subheading">Special Offers</span>
-                    <h2 class="mb-4"><strong>Popular</strong> Hotels &amp; Rooms</h2>
+                    <span class="subheading">Khách sạn</span>
+                    <h2 class="mb-4"><strong>Phổ biến</strong> Khách sạn &amp; Phòng</h2>
                 </div>
             </div>
         </div>
@@ -425,7 +368,7 @@
                 <div class="col-sm col-md-6 col-lg ftco-animate">
                     <div class="destination">
                         <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL('assets/web/images/hotel-1.jpg')}});">
+                            style="background-image: url({{ URL('assets/web/images/hotel-1.jpg') }});">
                             <div class="icon d-flex justify-content-center align-items-center">
                                 <span class="icon-search2"></span>
                             </div>
@@ -459,7 +402,7 @@
                 <div class="col-sm col-md-6 col-lg ftco-animate">
                     <div class="destination">
                         <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL('assets/web/images/hotel-2.jpg')}});">
+                            style="background-image: url({{ URL('assets/web/images/hotel-2.jpg') }});">
                             <div class="icon d-flex justify-content-center align-items-center">
                                 <span class="icon-search2"></span>
                             </div>
@@ -493,7 +436,7 @@
                 <div class="col-sm col-md-6 col-lg ftco-animate">
                     <div class="destination">
                         <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL('assets/web/images/hotel-3.jpg')}});">
+                            style="background-image: url({{ URL('assets/web/images/hotel-3.jpg') }});">
                             <div class="icon d-flex justify-content-center align-items-center">
                                 <span class="icon-search2"></span>
                             </div>
@@ -527,7 +470,7 @@
                 <div class="col-sm col-md-6 col-lg ftco-animate">
                     <div class="destination">
                         <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL('assets/web/images/hotel-4.jpg')}});">
+                            style="background-image: url({{ URL('assets/web/images/hotel-4.jpg') }});">
                             <div class="icon d-flex justify-content-center align-items-center">
                                 <span class="icon-search2"></span>
                             </div>
@@ -561,7 +504,7 @@
                 <div class="col-sm col-md-6 col-lg ftco-animate">
                     <div class="destination">
                         <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL('assets/web/images/hotel-5.jpg')}});">
+                            style="background-image: url({{ URL('assets/web/images/hotel-5.jpg') }});">
                             <div class="icon d-flex justify-content-center align-items-center">
                                 <span class="icon-search2"></span>
                             </div>
@@ -618,7 +561,8 @@
                             <div class="carousel-testimony owl-carousel">
                                 <div class="item">
                                     <div class="testimony-wrap d-flex">
-                                        <div class="user-img mb-5" style="background-image: url({{URL('assets/web/images/person_1.jpg')}})">
+                                        <div class="user-img mb-5"
+                                            style="background-image: url({{ URL('assets/web/images/person_1.jpg') }})">
                                             <span class="quote d-flex align-items-center justify-content-center">
                                                 <i class="icon-quote-left"></i>
                                             </span>
@@ -633,7 +577,8 @@
                                 </div>
                                 <div class="item">
                                     <div class="testimony-wrap d-flex">
-                                        <div class="user-img mb-5" style="background-image: url({{URL('assets/web/images/person_2.jpg')}})">
+                                        <div class="user-img mb-5"
+                                            style="background-image: url({{ URL('assets/web/images/person_2.jpg') }})">
                                             <span class="quote d-flex align-items-center justify-content-center">
                                                 <i class="icon-quote-left"></i>
                                             </span>
@@ -648,7 +593,8 @@
                                 </div>
                                 <div class="item">
                                     <div class="testimony-wrap d-flex">
-                                        <div class="user-img mb-5" style="background-image: url({{URL('assets/web/images/person_3.jpg')}})">
+                                        <div class="user-img mb-5"
+                                            style="background-image: url({{ URL('assets/web/images/person_3.jpg') }})">
                                             <span class="quote d-flex align-items-center justify-content-center">
                                                 <i class="icon-quote-left"></i>
                                             </span>
@@ -673,15 +619,15 @@
         <div class="container">
             <div class="row justify-content-start mb-5 pb-3">
                 <div class="col-md-7 heading-section ftco-animate">
-                    <span class="subheading">Special Offers</span>
-                    <h2 class="mb-4"><strong>Popular</strong> Restaurants</h2>
+                    <span class="subheading">Nhà hàng</span>
+                    <h2 class="mb-4"><strong>Nhà hàng</strong> Nổi tiếng</h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="destination">
                         <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL('assets/web/images/restaurant-1.jpg')}});">
+                            style="background-image: url({{ URL('assets/web/images/restaurant-1.jpg') }});">
                             <div class="icon d-flex justify-content-center align-items-center">
                                 <span class="icon-search2"></span>
                             </div>
@@ -708,7 +654,7 @@
                 <div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="destination">
                         <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL('assets/web/images/restaurant-2.jpg')}});">
+                            style="background-image: url({{ URL('assets/web/images/restaurant-2.jpg') }});">
                             <div class="icon d-flex justify-content-center align-items-center">
                                 <span class="icon-search2"></span>
                             </div>
@@ -735,7 +681,7 @@
                 <div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="destination">
                         <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL('assets/web/images/restaurant-3.jpg')}});">
+                            style="background-image: url({{ URL('assets/web/images/restaurant-3.jpg') }});">
                             <div class="icon d-flex justify-content-center align-items-center">
                                 <span class="icon-search2"></span>
                             </div>
@@ -762,7 +708,7 @@
                 <div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="destination">
                         <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{URL('assets/web/images/restaurant-4.jpg')}});">
+                            style="background-image: url({{ URL('assets/web/images/restaurant-4.jpg') }});">
                             <div class="icon d-flex justify-content-center align-items-center">
                                 <span class="icon-search2"></span>
                             </div>
@@ -794,14 +740,14 @@
         <div class="container">
             <div class="row justify-content-start mb-5 pb-3">
                 <div class="col-md-7 heading-section ftco-animate">
-                    <span class="subheading">Recent Blog</span>
-                    <h2><strong>Tips</strong> &amp; Articles</h2>
+                    <h2><strong>Bài viết</strong> &amp; Nổi bật</h2>
                 </div>
             </div>
             <div class="row d-flex">
                 <div class="col-md-3 d-flex ftco-animate">
                     <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20" style="background-image: url({{URL('assets/web/images/image_1.jpg')}});">
+                        <a href="blog-single.html" class="block-20"
+                            style="background-image: url({{ URL('assets/web/images/image_1.jpg') }});">
                         </a>
                         <div class="text p-4 d-block">
                             <span class="tag">Tips, Travel</span>
@@ -817,7 +763,8 @@
                 </div>
                 <div class="col-md-3 d-flex ftco-animate">
                     <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20" style="background-image: url({{URL('assets/web/images/image_2.jpg')}});">
+                        <a href="blog-single.html" class="block-20"
+                            style="background-image: url({{ URL('assets/web/images/image_2.jpg') }});">
                         </a>
                         <div class="text p-4">
                             <span class="tag">Culture</span>
@@ -833,7 +780,8 @@
                 </div>
                 <div class="col-md-3 d-flex ftco-animate">
                     <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20" style="background-image: url({{URL('assets/web/images/image_3.jpg')}});">
+                        <a href="blog-single.html" class="block-20"
+                            style="background-image: url({{ URL('assets/web/images/image_3.jpg') }});">
                         </a>
                         <div class="text p-4">
                             <span class="tag">Tips, Travel</span>
@@ -849,7 +797,8 @@
                 </div>
                 <div class="col-md-3 d-flex ftco-animate">
                     <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20" style="background-image: url({{URL('assets/web/images/image_4.jpg')}});">
+                        <a href="blog-single.html" class="block-20"
+                            style="background-image: url({{ URL('assets/web/images/image_4.jpg') }});">
                         </a>
                         <div class="text p-4">
                             <span class="tag">Tips, Travel</span>

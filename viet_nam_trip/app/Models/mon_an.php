@@ -16,6 +16,7 @@ class mon_an extends Model
     protected $fillable = [
         'quan_an_id',
         'ten_mon',
+        'hinh_mon_an',
         'gia_ban',
         'hinh_mon_an',
         'noi_bat',

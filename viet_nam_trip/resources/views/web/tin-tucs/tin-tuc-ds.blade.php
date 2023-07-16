@@ -2,7 +2,7 @@
 
 @section('content')
     @parent
-    @include('web.includes.banner')
+    {{-- @include('web.includes.banner') --}}
     <section class="ftco-section bg-light">
         <div class="container">
             <div class="row d-flex">

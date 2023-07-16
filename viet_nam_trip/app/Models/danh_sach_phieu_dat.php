@@ -17,9 +17,9 @@ class danh_sach_phieu_dat extends Model
         'phieu_dat_id',
         'ho_ten',
         'gioi_tinh',
-        'ngay',
-        'thang',
-        'nam',
+        'ngay_sinh',
+        // 'thang',
+        // 'nam',
         'loai',
     ];
 }

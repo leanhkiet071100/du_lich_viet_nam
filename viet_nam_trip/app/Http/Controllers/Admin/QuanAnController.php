@@ -175,7 +175,7 @@ class QuanAnController extends Controller
         $ls_dia_diem = dia_diem::select('ten_dia_diem','dia_diems.id')->get();
         $query = mon_an::query();
         $query= $this->handleFilter_mon_an($query, $request);
-        $ls_mon_an = $query->paginate(5);
+        $ls_mon_an = $query->where('quan_an_id', '=',$id)->paginate(5);
 
         $data= [
             'pageTitle' => $quan_an->ten_quan_an,

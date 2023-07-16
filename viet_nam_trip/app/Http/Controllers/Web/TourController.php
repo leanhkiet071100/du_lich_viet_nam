@@ -148,26 +148,31 @@ class TourController extends Controller
 
     public function load_nguoi_lon(Request $request, $so_luong){
         $year_now = Carbon::now()->format('Y');
-        $nam_nguoi_lon = array();
-        $thang = array();
-        $ngay = array();
-        for($i = 1; $i <= 12; $i++)
-        {
-            $thang[$i] = $i;
-        }
-        for($i = 1; $i <= 31; $i++)
-        {
-            $ngay[$i] = $i;
-        }
-        for($i = 12; $i < 100; $i++)
-        {
-            $nam = $year_now - $i;
-            $nam_nguoi_lon[$i - 12] = $nam;
-        }
+         $date_now = Carbon::now()->format('Y-m-d');
+        // $nam_nguoi_lon = array();
+        // $thang = array();
+        // $ngay = array();
+        // for($i = 1; $i <= 12; $i++)
+        // {
+        //     $thang[$i] = $i;
+        // }
+        // for($i = 1; $i <= 31; $i++)
+        // {
+        //     $ngay[$i] = $i;
+        // }
+        // for($i = 12; $i < 100; $i++)
+        // {
+        //     $nam = $year_now - $i;
+        //     $nam_nguoi_lon[$i - 12] = $nam;
+        // }
+        $nam_min = $year_now - 100;
+        $date_min = Carbon::create($nam_min, 1, 1)->format('Y-m-d');
+        $nam_max = $year_now - 12;
+        $date_max = Carbon::create($nam_max, 12, 31)->format('Y-m-d');
         $data= [
-            'nam_nguoi_lon' => $nam_nguoi_lon,
-            'ngay' => $ngay,
-            'thang' => $thang,
+            'date_now'=>$date_now,
+            'date_min'=>$date_min,
+            'date_max'=>$date_max,
             'so_luong' => $so_luong,
         ];
         return view('web.tour.thong-tin-lien-lac.nguoi-lon', $data);
@@ -175,54 +180,67 @@ class TourController extends Controller
 
     public function load_tre_em(Request $request, $so_luong){
         $year_now = Carbon::now()->format('Y');
-        $nam_nguoi_lon = array();
-        $thang = array();
-        $ngay = array();
-        for($i = 1; $i <= 12; $i++)
-        {
-            $thang[$i] = $i;
-        }
-        for($i = 1; $i <= 31; $i++)
-        {
-            $ngay[$i] = $i;
-        }
-        for($i = 2; $i < 12; $i++)
-        {
-            $nam = $year_now - $i;
-            $nam_tre_em[$i - 12] = $nam;
-        }
+        $date_now = Carbon::now()->format('Y-m-d');
+        // $nam_nguoi_lon = array();
+        // $thang = array();
+        // $ngay = array();
+        // for($i = 1; $i <= 12; $i++)
+        // {
+        //     $thang[$i] = $i;
+        // }
+        // for($i = 1; $i <= 31; $i++)
+        // {
+        //     $ngay[$i] = $i;
+        // }
+        // for($i = 2; $i < 12; $i++)
+        // {
+        //     $nam = $year_now - $i;
+        //     $nam_tre_em[$i - 12] = $nam;
+        // }
+        $nam_min = $year_now - 12;
+        $date_min = Carbon::create($nam_min, 1, 1)->format('Y-m-d');
+        $nam_max = $year_now - 2;
+        $date_max = Carbon::create($nam_max, 12, 31)->format('Y-m-d');
         $data= [
-            'nam_tre_em' => $nam_tre_em,
-            'ngay' => $ngay,
-            'thang' => $thang,
+            // 'nam_tre_em' => $nam_tre_em,
+            // 'ngay' => $ngay,
+            // 'thang' => $thang,
             'so_luong' => $so_luong,
+            'date_max' => $date_max,
+            'date_min' => $date_min,
         ];
         return view('web.tour.thong-tin-lien-lac.tre-em', $data);
     }
 
     public function load_tre_nho(Request $request, $so_luong){
         $year_now = Carbon::now()->format('Y');
-        $nam_nguoi_lon = array();
-        $thang = array();
-        $ngay = array();
-        for($i = 1; $i <= 12; $i++)
-        {
-            $thang[$i] = $i;
-        }
-        for($i = 1; $i <= 31; $i++)
-        {
-            $ngay[$i] = $i;
-        }
-        for($i = 0; $i < 2; $i++)
-        {
-            $nam = $year_now - $i;
-            $nam_tre_nho[$i - 12] = $nam;
-        }
+        $date_now = Carbon::now()->format('Y-m-d');
+        // $nam_nguoi_lon = array();
+        // $thang = array();
+        // $ngay = array();
+        // for($i = 1; $i <= 12; $i++)
+        // {
+        //     $thang[$i] = $i;
+        // }
+        // for($i = 1; $i <= 31; $i++)
+        // {
+        //     $ngay[$i] = $i;
+        // }
+        // for($i = 0; $i < 2; $i++)
+        // {
+        //     $nam = $year_now - $i;
+        //     $nam_tre_nho[$i - 12] = $nam;
+        // }
+        $nam = $year_now - 2;
+        $date_min = Carbon::create($nam, 1, 1)->format('Y-m-d');
         $data= [
-            'nam_tre_nho' => $nam_tre_nho,
-            'ngay' => $ngay,
-            'thang' => $thang,
+            // 'nam_tre_nho' => $nam_tre_nho,
+            // 'ngay' => $ngay,
+            // 'thang' => $thang,
+            'nam'=> $nam,
             'so_luong' => $so_luong,
+            'date_now'=>$date_now,
+            'date_min'=>$date_min,
         ];
         return view('web.tour.thong-tin-lien-lac.tre-nho', $data);
     }
@@ -295,6 +313,7 @@ class TourController extends Controller
         ];
         $request->validate($rule, $message, $attribute);
         $data_input = $request->all();
+        // dd($data_input);
         $goi_du_lich = goi_du_lich::join('loai_goi_du_liches', 'loai_goi_du_liches.id', '=', 'goi_du_liches.loai_id')
                     ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
                     ->find($id);
@@ -339,9 +358,7 @@ class TourController extends Controller
                 'phieu_dat_id'=>$phieu_dat->id,
                 'ho_ten'=>$data_input[$i.'_fullname'],
                 'gioi_tinh'=>$data_input[$i.'_gender'],
-                'ngay'=>$data_input[$i.'_day'],
-                'thang'=>$data_input[$i.'_month'],
-                'nam'=>$data_input[$i.'_year'],
+                'ngay_sinh'=>$data_input[$i.'_birthday'],
                 'loai'=>'nguoi-lon',
             ]);
             $ds_phieu->save();
@@ -352,9 +369,7 @@ class TourController extends Controller
                 'phieu_dat_id'=>$phieu_dat->id,
                 'ho_ten'=>$data_input[$i.'_fullname_tre_em'],
                 'gioi_tinh'=>$data_input[$i.'_gender_tre_em'],
-                'ngay'=>$data_input[$i.'_day_tre_em'],
-                'thang'=>$data_input[$i.'_month_tre_em'],
-                'nam'=>$data_input[$i.'_year_tre_em'],
+                'ngay_sinh'=>$data_input[$i.'birthday_tre_em'],
                 'loai'=>'tre-em',
             ]);
             $ds_phieu->save();
@@ -365,9 +380,7 @@ class TourController extends Controller
                 'phieu_dat_id'=>$phieu_dat->id,
                 'ho_ten'=>$data_input[$i.'_fullname_tre_nho'],
                 'gioi_tinh'=>$data_input[$i.'_gender_tre_nho'],
-                'ngay'=>$data_input[$i.'_day_tre_nho'],
-                'thang'=>$data_input[$i.'_month_tre_nho'],
-                'nam'=>$data_input[$i.'_year_tre_nho'],
+                'ngay_sinh'=>$data_input[$i.'_birthday_tre_nho'],
                 'loai'=>'tre-nho',
             ]);
             $ds_phieu->save();

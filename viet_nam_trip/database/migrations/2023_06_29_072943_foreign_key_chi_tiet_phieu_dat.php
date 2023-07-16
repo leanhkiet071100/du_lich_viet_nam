@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('chi_tiet_phieu_dats', function (Blueprint $table) {
-            $table->foreign('phieu_dat_id')->references('id')->on('phieu_dats');
-        });
+        // Schema::table('chi_tiet_phieu_dats', function (Blueprint $table) {
+        //     $table->foreign('phieu_dat_id')->references('id')->on('phieu_dats');
+        // });
     }
 
     /**
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('chi_tiet_phieu_dats', function (Blueprint $table) {
-            $table->dropForeign('chi_tiet_phieu_dats_phieu_dat_id_foreign');
-        });
+        // Schema::table('chi_tiet_phieu_dats', function (Blueprint $table) {
+        //     $table->dropForeign('chi_tiet_phieu_dats_phieu_dat_id_foreign');
+        // });
     }
 };

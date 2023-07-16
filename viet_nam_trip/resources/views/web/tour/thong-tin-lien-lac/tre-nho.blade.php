@@ -24,6 +24,10 @@
                 </div>
                 <div class="group-info-birthday">
                     <span>Ngày sinh</span>
+                    <input type="date" name="{{ $i }}.birthday_tre_nho" class="form-control" placeholder="Ngày sinh" min="{{$date_min}}" max="{{$date_now}}">
+                </div>
+                {{-- <div class="group-info-birthday">
+                    <span>Ngày sinh</span>
                     <select class="form-control" name="{{ $i }}.day_tre_nho" placeholder="Vui lòng chọn ngày"
                         required="required">
                         <option value="">Ngày</option>
@@ -52,7 +56,7 @@
                             <option value="{{ $value }}">{{ $value }}</option>
                         @endforeach
                     </select>
-                </div>
+                </div> --}}
             @endfor
         </div>
     </div>

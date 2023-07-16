@@ -12,13 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('danh_sach_phieu_dats', function (Blueprint $table) {
+            // $table->id();
+            // $table->foreignId('phieu_dat_id')->nullable();
+            // $table->string('ho_ten')->nullable();
+            // $table->boolean('gioi_tinh')->nullable();
+            // $table->integer('ngay')->nullable();
+            // $table->integer('thang')->nullable();
+            // $table->integer('nam')->nullable();
+            // $table->string('loai')->nullable();
+            // $table->timestamps();
+            // $table->softDeletes();
             $table->id();
             $table->foreignId('phieu_dat_id')->nullable();
             $table->string('ho_ten')->nullable();
             $table->boolean('gioi_tinh')->nullable();
-            $table->integer('ngay')->nullable();
-            $table->integer('thang')->nullable();
-            $table->integer('nam')->nullable();
+            $table->date('ngay_sinh')->nullable();
             $table->string('loai')->nullable();
             $table->timestamps();
             $table->softDeletes();

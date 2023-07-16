@@ -109,7 +109,8 @@
                                                 @default
                                             @endswitch
                                         </td>
-                                        <td class="text-center td-chuc-nang{{ $value->id }}"  id="td-chuc-nang{{ $value->id }}">
+                                        <td class="text-center td-chuc-nang{{ $value->id }}"
+                                            id="td-chuc-nang{{ $value->id }}">
                                             @switch($value->trang_thai)
                                                 @case(1)
                                                     <button onclick="duyet({{ $value->id }})"
@@ -119,11 +120,15 @@
                                                 @break
 
                                                 @case(4)
-                                                    @if ($value->hoa_don->trang_thai == 2)
-                                                        <button onclick="hoan_tien({{ $value->id }})"
-                                                            class="btn btn-hover-shine btn-outline-success border-0 btn-sm">
-                                                            Hoàn tiền
-                                                        </button>
+                                                    @if ($value->hoa_don != null)
+                                                        @if ($value->hoa_don->trang_thai == 2)
+                                                            <button onclick="hoan_tien({{ $value->id }})"
+                                                                class="btn btn-hover-shine btn-outline-success border-0 btn-sm">
+                                                                Hoàn tiền
+                                                            </button>
+                                                        @endif
+
+
                                                     @endif
                                                 @break
 
@@ -143,8 +148,10 @@
                                                 <button onclick="form_huy({{ $value->id }})"
                                                     class="btn btn-hover-shine btn-outline-danger border-0 btn-sm">Hủy</button>
                                             @endif
-                                            @if ($value->hoa_don->trang_thai ?? '0'  == 1 || $value->trang_thai == 2  )
-                                                <a href="{{route('admin.tour.xuat-hoa-don',['phieu_dat_id'=>$value->id])}}" class="btn btn-hover-shine btn-outline-info border-0 btn-sm">Xuất hóa đơn</a>
+                                            @if ($value->hoa_don->trang_thai ?? '0' == 1 || $value->trang_thai == 2)
+                                                <a href="{{ route('admin.tour.xuat-hoa-don', ['phieu_dat_id' => $value->id]) }}"
+                                                    class="btn btn-hover-shine btn-outline-info border-0 btn-sm">Xuất hóa
+                                                    đơn</a>
                                             @endif
 
 
@@ -299,7 +306,7 @@
             });
         }
 
-         function hoan_tien(id) {
+        function hoan_tien(id) {
             var url = "{{ route('admin.tour.hoan-tien', '') }}" + '/' + id;
             $.ajaxSetup({
                 headers: {
