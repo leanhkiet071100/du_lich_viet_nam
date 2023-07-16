@@ -110,6 +110,57 @@ Khu thắng cảnh này tập hợp các kiến trúc gắn liền với cố đ
                 'noi_bat'=>1,
                 'trang_thai'=>1,
             ],
+            [
+                'ten_dia_diem' => 'Tràng An - Ninh Bình',
+                'vi_do' => null,
+                'sao' => null,
+                'mua_du_lich' =>'Đông',
+                'mo_ta' => 'Trong số các địa điểm du lịch Việt Nam ẩn chứa nhiều giá trị văn hoá - lịch sử nhất, chắc chắn Tràng An - Ninh Bình là cái tên hàng đầu.',
+                'noi_dung' => 'Trong số các địa điểm du lịch Việt Nam ẩn chứa nhiều giá trị văn hoá - lịch sử nhất, chắc chắn Tràng An - Ninh Bình là cái tên hàng đầu. Khu di tích này đã được UNESCO công nhận là Di sản văn hoá và thiên nhiên thế giới vào 2014.
+
+Khu thắng cảnh này tập hợp các kiến trúc gắn liền với cố đô Hoa Lư hào hùng xưa, ẩn sâu trong các dãy núi đá vôi tráng lệ và dòng sông uốn lượn mơ màng. Nếu bạn là tín đồ du lịch văn hoá hoặc tâm linh, một số kiến trúc sau sẽ khiến bạn “động lòng": đền Trần Ninh Bình, đền Tứ Trụ, đền Suối Tiên,...',
+                'hinh_anh_dia_diem' => 'hinh_test/dia_danh_3.jpg',
+                'tinh'=>'Ninh Bình',
+                'huyen'=>'Long Thành',
+                'xa'=>'Xã Bình An',
+                'chi_tiet_dia_chi'=>'số 16 đường N16',
+                'noi_bat'=>1,
+                'trang_thai'=>1,
+            ],
+            [
+                'ten_dia_diem' => 'Tràng An - Ninh Bình',
+                'vi_do' => null,
+                'sao' => null,
+                'mua_du_lich' =>'Đông',
+                'mo_ta' => 'Trong số các địa điểm du lịch Việt Nam ẩn chứa nhiều giá trị văn hoá - lịch sử nhất, chắc chắn Tràng An - Ninh Bình là cái tên hàng đầu.',
+                'noi_dung' => 'Trong số các địa điểm du lịch Việt Nam ẩn chứa nhiều giá trị văn hoá - lịch sử nhất, chắc chắn Tràng An - Ninh Bình là cái tên hàng đầu. Khu di tích này đã được UNESCO công nhận là Di sản văn hoá và thiên nhiên thế giới vào 2014.
+
+Khu thắng cảnh này tập hợp các kiến trúc gắn liền với cố đô Hoa Lư hào hùng xưa, ẩn sâu trong các dãy núi đá vôi tráng lệ và dòng sông uốn lượn mơ màng. Nếu bạn là tín đồ du lịch văn hoá hoặc tâm linh, một số kiến trúc sau sẽ khiến bạn “động lòng": đền Trần Ninh Bình, đền Tứ Trụ, đền Suối Tiên,...',
+                'hinh_anh_dia_diem' => 'hinh_test/dia_danh_3.jpg',
+                'tinh'=>'Ninh Bình',
+                'huyen'=>'Long Thành',
+                'xa'=>'Xã Bình An',
+                'chi_tiet_dia_chi'=>'số 16 đường N16',
+                'noi_bat'=>1,
+                'trang_thai'=>1,
+            ],
+            [
+                'ten_dia_diem' => 'Tràng An - Ninh Bình',
+                'vi_do' => null,
+                'sao' => null,
+                'mua_du_lich' =>'Đông',
+                'mo_ta' => 'Trong số các địa điểm du lịch Việt Nam ẩn chứa nhiều giá trị văn hoá - lịch sử nhất, chắc chắn Tràng An - Ninh Bình là cái tên hàng đầu.',
+                'noi_dung' => 'Trong số các địa điểm du lịch Việt Nam ẩn chứa nhiều giá trị văn hoá - lịch sử nhất, chắc chắn Tràng An - Ninh Bình là cái tên hàng đầu. Khu di tích này đã được UNESCO công nhận là Di sản văn hoá và thiên nhiên thế giới vào 2014.
+
+Khu thắng cảnh này tập hợp các kiến trúc gắn liền với cố đô Hoa Lư hào hùng xưa, ẩn sâu trong các dãy núi đá vôi tráng lệ và dòng sông uốn lượn mơ màng. Nếu bạn là tín đồ du lịch văn hoá hoặc tâm linh, một số kiến trúc sau sẽ khiến bạn “động lòng": đền Trần Ninh Bình, đền Tứ Trụ, đền Suối Tiên,...',
+                'hinh_anh_dia_diem' => 'hinh_test/dia_danh_3.jpg',
+                'tinh'=>'Ninh Bình',
+                'huyen'=>'Long Thành',
+                'xa'=>'Xã Bình An',
+                'chi_tiet_dia_chi'=>'số 16 đường N16',
+                'noi_bat'=>1,
+                'trang_thai'=>1,
+            ],
         ]);
     }
 }

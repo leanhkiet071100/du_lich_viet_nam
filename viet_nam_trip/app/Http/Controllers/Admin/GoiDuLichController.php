@@ -68,10 +68,12 @@ class GoiDuLichController extends Controller
 
     public function create()
     {
+         $date_now = Carbon::now()->format('Y-m-d');
         $ls_loai_goi_du_lich = loai_goi_du_lich::all();
         $data= [
             'pageTitle' => trans('public.create_location'),
             'ls_loai_goi_du_lich' => $ls_loai_goi_du_lich,
+            'date_now' => $date_now,
         ];
         return view('admin.goidulich.goidulich-them', $data);
     }
@@ -92,10 +94,7 @@ class GoiDuLichController extends Controller
             'ngay-khoi-hanh' => 'required',
             'so-ngay-du-lich'=> 'required|numeric',
             'so-dem-du-lich'=> 'required|numeric',
-            'not-compo'=> 'required',
-            'compo'=> 'required',
             'thong-tin-dich-vu'=> 'required',
-            'dieu-kien-ap-dung'=> 'required',
         ];
         $message =[
             'required' => ':attribute không được để trống',
@@ -124,10 +123,7 @@ class GoiDuLichController extends Controller
             'gia-tre-nho' => 'giá trẻ nhỏ',
             'so-ngay-du-lich'=> 'Số ngày du lịch',
             'so-dem-du-lich'=> 'Số đêm du lịch',
-            'not-compo'=> 'Không có trong compo',
-            'compo'=> 'Compo',
             'thong-tin-dich-vu'=> 'Thông tin dịch vụ',
-            'dieu-kien-ap-dung'=> 'Điều kiện áp dụng',
         ];
 
         $request->validate($rule, $message, $attribute);
@@ -146,10 +142,10 @@ class GoiDuLichController extends Controller
             'gia_tre_nho'=> str_replace(',', '', $data['gia-tre-nho']),
             'so_ngay'=>$data['so-ngay-du-lich'],
             'so_dem'=>$data['so-dem-du-lich'],
-            'not_compo'=>$data['not-compo'],
-            'compo'=>$data['compo'],
+            //'not_compo'=>$data['not-compo'],
+            // 'compo'=>$data['compo'],
             'thong_tin_dich_vu'=>$data['thong-tin-dich-vu'],
-            'dieu_kien_ap_dung'=>$data['dieu-kien-ap-dung'],
+            // 'dieu_kien_ap_dung'=>$data['dieu-kien-ap-dung'],
             'trang_thai'=>1,
         ]);
         $goi_du_lich->save();
@@ -216,10 +212,10 @@ class GoiDuLichController extends Controller
             'ngay-khoi-hanh' => 'required',
             'so-ngay-du-lich'=> 'required|numeric',
             'so-dem-du-lich'=> 'required|numeric',
-            'not-compo'=> 'required',
-            'compo'=> 'required',
+            // 'not-compo'=> 'required',
+            // 'compo'=> 'required',
             'thong-tin-dich-vu'=> 'required',
-            'dieu-kien-ap-dung'=> 'required',
+            //'dieu-kien-ap-dung'=> 'required',
         ];
         $message =[
             'required' => ':attribute không được để trống',
@@ -248,10 +244,10 @@ class GoiDuLichController extends Controller
             'gia-tre-nho' => 'giá trẻ nhỏ',
             'so-ngay-du-lich'=> 'Số ngày du lịch',
             'so-dem-du-lich'=> 'Số đêm du lịch',
-            'not-compo'=> 'Không có trong compo',
-            'compo'=> 'Compo',
+            // 'not-compo'=> 'Không có trong compo',
+            // 'compo'=> 'Compo',
             'thong-tin-dich-vu'=> 'Thông tin dịch vụ',
-            'dieu-kien-ap-dung'=> 'Điều kiện áp dụng',
+            //'dieu-kien-ap-dung'=> 'Điều kiện áp dụng',
         ];
 
         $request->validate($rule, $message, $attribute);
@@ -270,10 +266,10 @@ class GoiDuLichController extends Controller
             'gia_tre_nho'=> str_replace(',', '', $data['gia-tre-nho']),
             'so_ngay'=>$data['so-ngay-du-lich'],
             'so_dem'=>$data['so-dem-du-lich'],
-            'not_compo'=>$data['not-compo'],
-            'compo'=>$data['compo'],
+            // 'not_compo'=>$data['not-compo'],
+            // 'compo'=>$data['compo'],
             'thong_tin_dich_vu'=>$data['thong-tin-dich-vu'],
-            'dieu_kien_ap_dung'=>$data['dieu-kien-ap-dung'],
+            // 'dieu_kien_ap_dung'=>$data['dieu-kien-ap-dung'],
             'trang_thai'=>1,
         ]);
         $goi_du_lich->save();
@@ -300,11 +296,20 @@ class GoiDuLichController extends Controller
         ]);
         foreach($phieu_dats as $key=>$value)
         {
+            if($value->trang_thai ==2){
             $value->update([
                 'trang_thai'=> 5,
             ]);
+            }
         }
 
         return Redirect::route('admin.goi-du-lich.index')->with('yes', 'gói du lịch đã hoàn thành');
+    }
+
+    public function destroy($id)
+    {
+        $goi_du_lich = goi_du_lich::find($id);
+        $goi_du_lich->delete();
+        return Redirect::route('admin.goi-du-lich.index')->with('success','Xóa thành công');
     }
 }

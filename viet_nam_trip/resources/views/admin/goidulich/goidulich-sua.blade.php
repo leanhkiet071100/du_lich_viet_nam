@@ -242,7 +242,7 @@
                                 </div>
                             </div>
 
-                            <div class="position-relative row form-group">
+                            {{-- <div class="position-relative row form-group">
                                 <label for="not-compo"
                                     class="col-md-3 text-md-right col-form-label">Không compo</label>
                                 <div class="col-md-9 col-xl-8">
@@ -254,7 +254,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="position-relative row form-group">
                                 <label for="thong-tin-dich-vu" class="col-md-3 text-md-right col-form-label">Thông tin dịch vụ</label>
@@ -269,7 +269,7 @@
                                 </div>
                             </div>
 
-                            <div class="position-relative row form-group">
+                            {{-- <div class="position-relative row form-group">
                                 <label for="dieu-kien-ap-dung" class="col-md-3 text-md-right col-form-label">Điều kiện áp dụng</label>
                                 <div class="col-md-9 col-xl-8">
                                     <textarea class="form-control ckeditor1" id="dieu-kien-ap-dung" name="dieu-kien-ap-dung" placeholder="Điều kiện áp dụng"
@@ -280,9 +280,9 @@
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="position-relative row form-group">
+                            {{-- <div class="position-relative row form-group">
                                 <label for="compo" class="col-md-3 text-md-right col-form-label">compo bao gồm</label>
                                 <div class="col-md-9 col-xl-8">
                                     <textarea class="form-control ckeditor1" id="compo" name="compo" placeholder="Compo"
@@ -293,7 +293,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
 
                             <div class="position-relative row form-group mb-1">
@@ -352,9 +352,9 @@
                 return false;
             }
         }
-        CKEDITOR.replace('not-compo');
-        CKEDITOR.replace('compo');
+        // CKEDITOR.replace('not-compo');
+        // CKEDITOR.replace('compo');
         CKEDITOR.replace('thong-tin-dich-vu');
-        CKEDITOR.replace('dieu-kien-ap-dung');
+        //CKEDITOR.replace('dieu-kien-ap-dung');
     </script>
 @endsection

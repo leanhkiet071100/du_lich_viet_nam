@@ -13,6 +13,8 @@ use Carbon\Carbon;
 use Validator;
 use App\Models\dia_diem;
 use App\Models\quan_an;
+use App\Models\goi_du_lich;
+use App\Models\bai_viet;
 
 class TrangChuController extends Controller
 {
@@ -23,10 +25,14 @@ class TrangChuController extends Controller
     {
         $ls_dia_diem_noi_bat = dia_diem::where('noi_bat','=',1)->get();
         $ls_quan_an_noi_bat = quan_an::where('noi_bat','=',1)->get();
+        $ls_goi_du_lich_noi_bat = goi_du_lich::where('noi_bat','=',1)->get();
+        $ls_bai_viet_noi_bat = bai_viet::where('noi_bat','=',1)->where('loai_bai_viet', '=', 'tin-tuc')->get();
         $data= [
             'pageTitle' => "Trang chủ",
             'ls_dia_diem_noi_bat' => $ls_dia_diem_noi_bat,
             'ls_quan_an_noi_bat' => $ls_quan_an_noi_bat,
+            'ls_goi_du_lich_noi_bat'=> $ls_goi_du_lich_noi_bat,
+            'ls_bai_viet_noi_bat'=> $ls_bai_viet_noi_bat,
         ];
         return view('web.trang-chu.trang-chu', $data);
     }
