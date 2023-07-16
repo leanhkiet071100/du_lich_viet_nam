@@ -1,6 +1,7 @@
 import 'package:dulich/Global/color.dart';
 import 'package:dulich/Models/goi_dulich.dart';
 import 'package:dulich/Providers/tour_provider.dart';
+import 'package:dulich/Views/booking/component/payment.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../Global/alert.dart';
@@ -332,6 +333,7 @@ class AlertTourState extends State<AlertTour> {
               SizedBox(
                 height: 10,
               ),
+              PaymentScreen(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [

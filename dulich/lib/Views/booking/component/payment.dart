@@ -1,56 +1,64 @@
-import 'package:dulich/Global/color.dart';
-import 'package:dulich/Models/phieu_dat.dart';
-import 'package:dulich/Providers/phieudat_provider.dart';
-import 'package:dulich/Views/booking/component/payment_detail.dart';
-import 'package:dulich/Views/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class PaymentScreen extends StatefulWidget {
-  const PaymentScreen({Key? key}) : super(key: key);
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
+  PaymentMethod _selectedMethod = PaymentMethod.cash;
+  bool _isAgreedToTerms = false;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          leading: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Dashboard(),
-                ),
-              );
+    return Container(
+      padding: EdgeInsets.all(5.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Hình thức thanh toán',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 16.0),
+          ListTile(
+            leading: Radio(
+              value: PaymentMethod.cash,
+              groupValue: _selectedMethod,
+              onChanged: (value) {
+                setState(() {
+                  _selectedMethod = value!;
+                });
+              },
+            ),
+            title: Text('Tiền mặt'),
+          ),
+          ListTile(
+            leading: Radio(
+              value: PaymentMethod.vnpay,
+              groupValue: _selectedMethod,
+              onChanged: (value) {
+                setState(() {
+                  _selectedMethod = value!;
+                });
+              },
+            ),
+            title: Text('VNPay'),
+          ),
+          SizedBox(height: 16.0),
+          CheckboxListTile(
+            title: Text('Tôi đồng ý với các điều khoản thanh toán'),
+            value: _isAgreedToTerms,
+            onChanged: (value) {
+              setState(() {
+                _isAgreedToTerms = value!;
+              });
             },
-            child: const Icon(
-              Icons.arrow_back_ios,
-              color: blackColor,
-            ),
           ),
-          backgroundColor: miniColor,
-          title: Center(
-            child: Text(
-              "Thanh toán ",
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ),
-        body: FutureBuilder(
-            future: PhieuDatProvider.getAllPhieu(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.hasData) {
-                return OrderDetailsScreen(listPhietDat: snapshot.data!);
-              } else if (snapshot.hasError) {
-                return Center(
-                  child: Text('Có lỗi rồi'),
-                );
-              }
-              return Center(child: CircularProgressIndicator());
-            }));
+        ],
+      ),
+    );
   }
 }
+
+enum PaymentMethod { cash, vnpay }

@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:dulich/Global/color.dart';
 import 'package:dulich/Global/url.dart';
 import 'package:dulich/Providers/register_provider.dart';
+import 'package:dulich/Views/booking/booking_detail.dart';
 import 'package:dulich/Views/dashboard/dashboard.dart';
+import 'package:dulich/Views/tour/tour_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:dulich/Models/tour_object.dart';
@@ -76,6 +78,9 @@ class TourProvider {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
+              content: Text('Chúng tôi sẽ liên hệ tới bạn sớm nhất!',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.black)),
               title: Row(
                 children: [
                   Icon(
@@ -85,20 +90,28 @@ class TourProvider {
                   SizedBox(
                     width: 10,
                   ),
-                  Text('Đặt tour thành công',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: blackColor,
-                      ))
+                  Container(
+                      child: Text('Đặt tour thành công!',
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: blackColor,
+                          ))),
                 ],
               ),
               actions: [
                 TextButton(
                     onPressed: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Dashboard()),
-                      );
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TourDetail(
+                                title: 'a',
+                                imageUrl:
+                                    'https://suckhoedoisong.qltns.mediacdn.vn/324455921873985536/2022/7/10/hinh-anh-cac-loai-hinh-du-lich-3-1657423025597-1657423027180128362217.jpeg',
+                                price: 1200000),
+                          ));
                     },
                     child: Text(
                       'OK',

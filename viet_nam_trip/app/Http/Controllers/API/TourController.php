@@ -86,7 +86,14 @@ class TourController extends Controller
             'trang_thai'=>1,
         ]);
         $phieu_dat->save();
-
+            $hoa_don = new hoa_don;
+            $hoa_don->fill([
+                'phieu_dat_id'=>$phieu_dat->id,
+                'tong_tien'=>$tong,
+                'loai_thanh_toan'=>'tien-mat',
+                'trang_thai'=> 2,
+            ]);
+            $hoa_don->save();
       $response=
         [
             'message'=>'Đặt tour thành công',
@@ -107,14 +114,14 @@ class TourController extends Controller
                     ->find($phieu_dat->goi_du_lich_id);
         $tong_hoa_don = ($phieu_dat->so_nguoi_lon* $goi_du_lich->gia_nguoi_lon) + ($phieu_dat->so_tre_em* $goi_du_lich->gia_tre_em);
         if( $input['payments'] == 'tienmat'){
-            $hoa_don = new hoa_don;
-            $hoa_don->fill([
-                'phieu_dat_id'=>$phieu_dat->id,
-                'tong_tien'=>$tong_hoa_don,
-                'loai_thanh_toan'=>'tien-mat',
-                'trang_thai'=> 2,
-            ]);
-            $hoa_don->save();
+            // $hoa_don = new hoa_don;
+            // $hoa_don->fill([
+            //     'phieu_dat_id'=>$phieu_dat->id,
+            //     'tong_tien'=>$tong_hoa_don,
+            //     'loai_thanh_toan'=>'tien-mat',
+            //     'trang_thai'=> 2,
+            // ]);
+            // $hoa_don->save();
         $response=
         [
             'message'=>'Thanh toán thành công',
