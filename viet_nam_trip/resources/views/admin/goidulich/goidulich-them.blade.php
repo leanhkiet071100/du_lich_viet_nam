@@ -104,8 +104,7 @@
                                 <label for="tap-trung"
                                     class="col-md-3 text-md-right col-form-label">{{ trans('public.concentrate') }}</label>
                                 <div class="col-md-9 col-xl-8">
-                                    <input name="tap-trung" id="tap-trung" placeholder="{{ trans('public.concentrate') }}"
-                                        type="datetime-local" class="form-control" value="{{ old('tap-trung') }}">
+                                    <input name="tap-trung" id="tap-trung" placeholder="{{ trans('public.concentrate') }}" type="datetime-local" class="form-control" value="{{ old('tap-trung') }}" min="{{$date_now}}">
                                     <div class="text-center">
                                         @error('tap-trung')
                                             <span style="color:red"> {{ $message }}</span>
@@ -202,7 +201,7 @@
                                 <div class="col-md-9 col-xl-8">
                                     <input type="date" name="ngay-khoi-hanh" id="ngay-khoi-hanh"
                                         placeholder="{{ trans('public.departure_day') }}" class="form-control"
-                                        value="{{ old('ngay-khoi-hanh') }}">
+                                        value="{{ old('ngay-khoi-hanh') }}" min="{{$date_now}}">
                                     <div class="text-center">
                                         @error('ngay-khoi-hanh')
                                             <span style="color:red"> {{ $message }}</span>

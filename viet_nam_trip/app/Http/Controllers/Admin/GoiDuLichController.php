@@ -68,10 +68,12 @@ class GoiDuLichController extends Controller
 
     public function create()
     {
+         $date_now = Carbon::now()->format('Y-m-d');
         $ls_loai_goi_du_lich = loai_goi_du_lich::all();
         $data= [
             'pageTitle' => trans('public.create_location'),
             'ls_loai_goi_du_lich' => $ls_loai_goi_du_lich,
+            'date_now' => $date_now,
         ];
         return view('admin.goidulich.goidulich-them', $data);
     }

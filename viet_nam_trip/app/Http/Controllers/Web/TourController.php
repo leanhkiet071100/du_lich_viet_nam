@@ -326,7 +326,7 @@ class TourController extends Controller
         ];
         $request->validate($rule, $message, $attribute);
         $data_input = $request->all();
-        // dd($data_input);
+        //dd($data_input);
         $goi_du_lich = goi_du_lich::join('loai_goi_du_liches', 'loai_goi_du_liches.id', '=', 'goi_du_liches.loai_id')
                     ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
                     ->find($id);
@@ -382,7 +382,7 @@ class TourController extends Controller
                 'phieu_dat_id'=>$phieu_dat->id,
                 'ho_ten'=>$data_input[$i.'_fullname_tre_em'],
                 'gioi_tinh'=>$data_input[$i.'_gender_tre_em'],
-                'ngay_sinh'=>$data_input[$i.'birthday_tre_em'],
+                'ngay_sinh'=>$data_input[$i.'_birthday_tre_em'],
                 'loai'=>'tre-em',
             ]);
             $ds_phieu->save();

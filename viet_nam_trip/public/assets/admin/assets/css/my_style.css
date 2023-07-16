@@ -482,3 +482,82 @@ table.align-middle.mb-0.table.table-borderless.table-striped.table-hover {
     height: 38px;
     max-height: 38px;
 }
+/* chi tiết đơn hàng */
+.card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.widget-content {
+    padding: 1rem;
+    flex-direction: row;
+    align-items: center;
+}
+
+.widget-content .widget-content-wrapper {
+    display: flex;
+    flex: 1;
+    position: relative;
+    align-items: center;
+}
+
+.display_data p {
+    font-size: 20px;
+    margin-bottom: 0;
+    line-height: 37px;
+}
+
+.chi-tiet-tien-don-hang {
+    background-color: #fafafa;
+    border-top: 1px solid rgba(0, 0, 0, .09);
+}
+
+.chi-tiet-tien {
+    padding: 0 24px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: right;
+    border-bottom: 1px dotted rgba(0, 0, 0, .09);
+}
+
+.ten-tien {
+    padding: 13px 10px;
+    color: rgba(0, 0, 0, .54);
+    font-size: 20px;
+}
+
+.gia-tien {
+    padding: 13px 0 13px 10px;
+    width: 240px;
+    border-left: 1px dotted rgba(0, 0, 0, .09);
+    justify-content: flex-end;
+    word-wrap: break-word;
+    color: rgba(0, 0, 0, .8);
+}
+
+.tt-chi-tiet-don-hang {
+    padding: 20px 24px;
+    font-size: 20px;
+    line-height: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.trang-thai-chi-tiet .trang-thai {
+    color: #ee4d2d;
+    text-transform: uppercase;
+}
+
+.tt-chia {
+    margin: 0 20px;
+}
+
+.tro-lai a {
+    color: rgba(0, 0, 0, .54);
+}
+
+.tro-lai a:hover {
+    color: #7fad39;
+}

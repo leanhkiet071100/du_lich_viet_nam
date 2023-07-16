@@ -148,7 +148,7 @@
                                                 <button onclick="form_huy({{ $value->id }})"
                                                     class="btn btn-hover-shine btn-outline-danger border-0 btn-sm">Hủy</button>
                                             @endif
-                                            @if ($value->hoa_don->trang_thai ?? '0' == 1 || $value->trang_thai == 2)
+                                            @if ( ($value->hoa_don->trang_thai ?? '0') == 1 && ($value->trang_thai == 2))
                                                 <a href="{{ route('admin.tour.xuat-hoa-don', ['phieu_dat_id' => $value->id]) }}"
                                                     class="btn btn-hover-shine btn-outline-info border-0 btn-sm">Xuất hóa
                                                     đơn</a>

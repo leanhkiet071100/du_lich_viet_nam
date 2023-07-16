@@ -24,7 +24,7 @@
                 <div class="main-card mb-3 card">
                     <div class="tt-chi-tiet-don-hang">
                         <div class="tro-lai">
-                            <a href="{{ route('web.tai-khoan.phieu-dat') }}">Trở lại</a>
+                            <a href="{{ route('admin.tour.index') }}">Trở lại</a>
                         </div>
                         <div class="trang-thai-chi-tiet">
                             <span>Mã đơn hàng: {{ $phieu_dat->id }}</span>
@@ -91,6 +91,33 @@
                                     Địa chỉ</label>
                                 <div class="col-md-9 col-xl-8">
                                     <p>{{ $phieu_dat->dia_chi }}</p>
+                                </div>
+                            </div>
+                        @endif
+                        @if ($phieu_dat->ngay_dat != null)
+                            <div class="position-relative row form-group">
+                                <label for="street_address" class="col-md-3 text-md-right col-form-label">
+                                    Ngày đặt</label>
+                                <div class="col-md-9 col-xl-8">
+                                    <p>{{ date('d-m-Y', strtotime($phieu_dat->ngay_dat)) }}</p>
+                                </div>
+                            </div>
+                        @endif
+                        @if ($phieu_dat->ngay_huy != null)
+                            <div class="position-relative row form-group">
+                                <label for="street_address" class="col-md-3 text-md-right col-form-label">
+                                    Ngày hủy</label>
+                                <div class="col-md-9 col-xl-8">
+                                    <p>{{ date('d-m-Y', strtotime($phieu_dat->ngay_huy)) }}</p>
+                                </div>
+                            </div>
+                        @endif
+                        @if ($phieu_dat->li_do_huy != null)
+                            <div class="position-relative row form-group">
+                                <label for="street_address" class="col-md-3 text-md-right col-form-label">
+                                    lí do hủy</label>
+                                <div class="col-md-9 col-xl-8">
+                                    <p>{{ $phieu_dat->li_do_huy }}</p>
                                 </div>
                             </div>
                         @endif

@@ -41,16 +41,13 @@
                                                     </div>
                                                     <hr>
                                                     <p class="bottom-area d-flex">
-                                                        <span
-                                                            class="price per-price">{{ number_format($value->gia_ban) }}<small>/phần</small></span>
+                                                        <span class="price per-price">{{ number_format($value->gia_ban) }}<small>/phần</small></span>
                                                     </p>
 
                                                 </div>
                                             </div>
                                         </div>
                                     @endforeach
-
-
                                 </div>
                             </div>
 
