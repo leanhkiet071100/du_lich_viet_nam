@@ -167,19 +167,6 @@ class _FoodDetailState extends State<FoodDetail> {
                     ),
                   ),
                 ),
-
-                Container(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
-                  child: const Text(
-                    "Menu",
-                    style: TextStyle(
-                      height: 1.5,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: blackColor,
-                    ),
-                  ),
-                ),
               ],
             ),
           ),

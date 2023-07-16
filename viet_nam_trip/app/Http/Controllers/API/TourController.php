@@ -38,6 +38,7 @@ class TourController extends Controller
         return response()->json($lstDattour);
     }
 
+
     public function dat_tour(Request $request){
         $rule = [
             'Fullname' => 'required',

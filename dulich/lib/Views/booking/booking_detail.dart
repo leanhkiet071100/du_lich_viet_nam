@@ -3,6 +3,7 @@ import 'package:dulich/Global/color.dart';
 import 'package:dulich/Models/goi_dulich.dart';
 import 'package:dulich/Providers/goidulich_provider.dart';
 import 'package:dulich/Views/booking/book_now.dart';
+import 'package:dulich/Views/booking/component/booking_search.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -116,7 +117,13 @@ class TourListScreen extends StatelessWidget {
         actions: [
           Container(
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const BookingSearch()),
+                    (route) => false);
+              },
               icon: Icon(
                 Icons.search,
                 color: Colors.black,

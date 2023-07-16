@@ -25,34 +25,4 @@ class PhieuDatProvider {
     });
     return parsePhieu(response.body);
   }
-  // static List<PhieuDat> parsePhieu(String reponseBody) {
-  //   final pased = jsonDecode(reponseBody).cast<Map<String,dynamic>>();
-  //   return pased.map<PhieuDat>((e) => PhieuDat.fromJson(e)).toList();
-  // }
-
-  // static Future<List<PhieuDat>> fetchPosts() async {
-  //   var token = await getToken();
-  //   final response = await http.get(Uri.parse(phieuDatUrl), headers: {
-  //     'Accept': 'application/json',
-  //     'Authorization': 'Bearer $token',
-  //   });
-  //   return parsePhieu(response.body);
-  // }
-
-  // static Future<dynamic> getToken() async {
-  //   /* ==== Lấy token từ Storage ==== */
-  //   SharedPreferences pres = await SharedPreferences.getInstance();
-  //   var token = pres.getString('token');
-  //   return token;
-  // }
-
-  // static Future<List<PhieuDat>> getAllPhieu() async {
-  //   var token = await getToken();
-  //   final response = await http.get(Uri.parse(phieuDatUrl), headers: {
-  //     'Content-type': 'application/json',
-  //     'Accept': 'application/json',
-  //     'Authorization': 'Bearer $token',
-  //   });
-  //   return parsePhieu(response.body);
-  // }
 }

@@ -9,6 +9,8 @@ use App\Http\Controllers\API\GoiDuLichController;
 use App\Http\Controllers\API\QuanAnController;
 use App\Http\Controllers\API\MonAnController;
 
+use App\Http\Controllers\API\TaiKhoanController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,10 +41,21 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::post('dat-tour',[TourController::class,'dat_tour']);
     Route::get('get-thanh-toan',[TourController::class,'get_thanh_toan']);
     Route::post('thanh-toan',[TourController::class,'thanh_toan']);
+
+
+    // tour
+
+    Route::get('/phieu-dat', [TaiKhoanController::class,'phieu_dat']);
+    Route::get('/phieu-dat-cho-duyet',[TaiKhoanController::class,'phieu_dat_cho_duyet']);
+    Route::get('/phieu-dat-da-duyet',[TaiKhoanController::class,'phieu_dat_da_duyet']);
+    Route::get('/phieu-dat-duyet-huy',[TaiKhoanController::class,'phieu_dat_duyet_huy']);
+    Route::get('/phieu-dat-hoan-thanh',[TaiKhoanController::class,'phieu_dat_hoan_thanh']);
+    Route::get('/phieu-dat-huy',[TaiKhoanController::class,'phieu_dat_huy']);
+    Route::get('/phieu-dat-chi-tiet/{id}',[TaiKhoanController::class,'phieu_dat_chi_tiet']);
 });
 
 Route::apiResource('luutru',KhachSanController::class);
 Route::apiResource('quan-an',QuanAnController::class);
 Route::apiResource('list-tour',TourController::class);
 Route::apiResource('mon-an',MonAnController::class);
-Route::get('mon-an/show/{quan_an_id}',[MonAnController::class,'show']);
+//Route::get('mon-an/show/{quan_an_id}',[MonAnController::class,'show']);

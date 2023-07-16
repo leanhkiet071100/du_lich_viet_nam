@@ -1,52 +1,18 @@
 import 'dart:convert';
 import 'package:dulich/Global/color.dart';
 import 'package:dulich/Global/url.dart';
-import 'package:dulich/Providers/register_provider.dart';
-import 'package:dulich/Views/booking/booking_detail.dart';
-import 'package:dulich/Views/dashboard/dashboard.dart';
-import 'package:dulich/Views/tour/tour_detail.dart';
+import 'package:dulich/Views/tour/tour.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:dulich/Models/tour_object.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TourProvider {
-  static List<TourObject> parseTour(String responseBody) {
-    final parse = jsonDecode(responseBody)['data'].cast<Map<String, dynamic>>();
-    return parse.map<TourObject>((e) => TourObject.fromJson(e)).toList();
-  }
-
-  static Future<List<TourObject>> fetchPosts() async {
-    final response = await http
-        .get(Uri.parse(tourUrl), headers: {'Accept': 'application/json'});
-    return parseTour(response.body);
-  }
-
   static Future<dynamic> getToken() async {
     /* ==== Lấy token từ Storage ==== */
     SharedPreferences pres = await SharedPreferences.getInstance();
     var token = pres.getString('token');
     return token;
-  }
-
-  static Future<List<TourObject>> getAllTour() async {
-    var token = await TourProvider.getToken();
-    final response = await http.get(Uri.parse('list-tour'), headers: {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-    });
-
-    return parseTour(response.body);
-  }
-
-  static Future<List<TourObject>> getAllPhieu() async {
-    var token = await TourProvider.getToken();
-    final response = await http.get(Uri.parse('list-tour'), headers: {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-    });
-
-    return parseTour(response.body);
   }
 
   Future<void> dattour(
@@ -103,15 +69,8 @@ class TourProvider {
               actions: [
                 TextButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TourDetail(
-                                title: 'a',
-                                imageUrl:
-                                    'https://suckhoedoisong.qltns.mediacdn.vn/324455921873985536/2022/7/10/hinh-anh-cac-loai-hinh-du-lich-3-1657423025597-1657423027180128362217.jpeg',
-                                price: 1200000),
-                          ));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Tour()));
                     },
                     child: Text(
                       'OK',

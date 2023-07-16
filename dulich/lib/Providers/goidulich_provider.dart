@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dulich/Global/contants.dart';
 import 'package:dulich/Global/url.dart';
 import 'package:http/http.dart' as http;
 import 'package:dulich/Models/goi_dulich.dart';
@@ -21,5 +22,20 @@ class GoiDuLichProvider {
       'Accept': 'application/json',
     });
     return parseTour(response.body);
+  }
+
+  static Future<List<GoiDuLich>> searchHotels(String searchString) async {
+    List<GoiDuLich> lstResult = [];
+    List<dynamic> data = await getAllTour();
+
+    if (searchString == '') return lstResult = [];
+
+    for (var e in data) {
+      GoiDuLich co = GoiDuLich.fromJson(e);
+      if (co.ten.toUpperCase().contains(searchString.toUpperCase())) {
+        lstResult.add(co);
+      }
+    }
+    return lstResult;
   }
 }

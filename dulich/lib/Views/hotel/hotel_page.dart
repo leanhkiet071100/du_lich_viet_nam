@@ -16,7 +16,6 @@ class HotelPage extends StatefulWidget {
 }
 
 class _HotelPageState extends State<HotelPage> {
-  late Hotel id;
   @override
   void initState() {
     super.initState();
