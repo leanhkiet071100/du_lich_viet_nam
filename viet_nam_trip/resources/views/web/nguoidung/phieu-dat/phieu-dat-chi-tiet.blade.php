@@ -13,7 +13,7 @@
             })
         </script>
     @endif
-    @include('web.includes.banner')
+    {{-- @include('web.includes.banner') --}}
     <section class="time-line-user">
         <div class="container">
             <div class="row">
@@ -252,8 +252,6 @@
                                                         <th class="text-center">Họ và tên</th>
                                                         <th class="text-center">Giới tính</th>
                                                         <th class="text-center">Ngày sinh</th>
-                                                        <th class="text-center">Tháng sinh</th>
-                                                        <th class="text-center">Năm sinh</th>
                                                         <th class="text-center">Loại</th>
 
                                                     </tr>
@@ -279,14 +277,9 @@
                                                                 @endif
                                                             </td>
                                                             <td class="text-center">
-                                                                {{ $value->ngay }}
+                                                                {{date('d-m-Y', strtotime($value->ngay_sinh)); }}
                                                             </td>
-                                                            <td class="text-center">
-                                                                {{ $value->thang }}
-                                                            </td>
-                                                            <td class="text-center">
-                                                                {{ $value->nam }}
-                                                            </td>
+
                                                             <td class="text-center">
                                                                 @if ($value->loai == 'nguoi-lon')
                                                                     Người lớn

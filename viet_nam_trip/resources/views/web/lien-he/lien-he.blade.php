@@ -2,7 +2,7 @@
 
 @section('content')
     @parent
-    @include('web.includes.banner')
+    {{-- @include('web.includes.banner') --}}
     <section class="ftco-section contact-section ftco-degree-bg">
         <div class="container">
             @if ($web != null)

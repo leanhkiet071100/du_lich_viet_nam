@@ -2,7 +2,7 @@
 
 @section('content')
     @parent
-    @include('web.includes.banner')
+    {{-- @include('web.includes.banner') --}}
 @endsection
 @section('js')
 <script>

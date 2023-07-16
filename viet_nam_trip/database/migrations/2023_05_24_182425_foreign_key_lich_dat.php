@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('lich_dats', function (Blueprint $table) {
-            $table->foreign('goi_du_lich_id')->references('id')->on('goi_du_liches');
-            $table->foreign('nguoi_dung_id')->references('id')->on('nguoi_dungs');
-        });
+        // Schema::table('lich_dats', function (Blueprint $table) {
+        //     $table->foreign('goi_du_lich_id')->references('id')->on('goi_du_liches');
+        //     $table->foreign('nguoi_dung_id')->references('id')->on('nguoi_dungs');
+        // });
     }
 
     /**

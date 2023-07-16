@@ -9,7 +9,7 @@
             alert('{{ session()->get('success') }}')
         </script>
     @endif
-     @include('web.includes.banner')
+     {{-- @include('web.includes.banner') --}}
     <section class="time-line-user">
         <div class="container">
             <div class="row">

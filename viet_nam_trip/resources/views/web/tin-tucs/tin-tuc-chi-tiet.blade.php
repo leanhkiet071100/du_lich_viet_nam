@@ -2,7 +2,7 @@
 
 @section('content')
     @parent
-    @include('web.includes.banner')
+    {{-- @include('web.includes.banner') --}}
     <section class="ftco-section ftco-degree-bg">
         <input disabled type="hidden" value="{{ $tin_tuc->id }}" id="tin_tuc_id">
         <div class="container">
