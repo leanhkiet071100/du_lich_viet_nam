@@ -82,7 +82,7 @@
                                 </div>
                                 <button type="submit" class="btn vizew-btn w-100 mt-30">ĐĂNG NHẬP</button>
                             </form>
-                            <div class="login-social">
+                            {{-- <div class="login-social">
                                 <div class="login-other">
                                     <div class="ke"></div>
                                     <div class="other">Hoặc</div>
@@ -106,7 +106,7 @@
                                         </div>
                                     </button>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

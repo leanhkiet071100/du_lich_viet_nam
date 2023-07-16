@@ -24,6 +24,11 @@
             background: burlywood;
         }
     </style>
+      @if (session()->has('success'))
+        <script>
+            alert('{{ session()->get('success') }}')
+        </script>
+    @endif
     <section class="ftco-section ftco-degree-bg">
         <div class="container">
             <div class="row">
@@ -197,7 +202,7 @@
                                             <span>
                                                 {{ date('d/m/Y', strtotime($value->ngay_khoi_hanh)) }}-{{ $value->so_ngay }}
                                                 ngày</span>
-                                            <span class="ml-auto"><a href="#">Đặt ngay</a></span>
+                                            {{-- <span class="ml-auto"><a href="#">Đặt ngay</a></span> --}}
                                         </p>
                                     </div>
                                 </div>

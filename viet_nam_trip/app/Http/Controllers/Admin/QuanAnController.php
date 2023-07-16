@@ -116,6 +116,7 @@ class QuanAnController extends Controller
             'xa' => 'required',
             'dia-chi' => 'required',
             'hinh'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:500000',
+            'mota'=> 'required'
         ];
         $message =[
             'required' => ':attribute không được để trống',
@@ -131,6 +132,7 @@ class QuanAnController extends Controller
             'xa' => 'Xã',
             'dia-chi' => 'Địa chỉ',
             'hinh'=>'Hình quán ăn',
+            'mota'=> 'mô tả',
         ];
         $request->validate($rule, $message, $attribute);
         $data = $request->all();
@@ -147,6 +149,7 @@ class QuanAnController extends Controller
             'xa'=>$xa->ten,
             'dia_chi'=> $data['dia-chi'],
             'so_dien_thoai'=>$data['so-dien-thoai'],
+            'mo_ta'=>$data['mota'],
         ]);
         $quan_an->save();
         if(!empty($data['hinh'])){
@@ -155,8 +158,8 @@ class QuanAnController extends Controller
             // getClientOriginalExtension(): lấy đuôi file
             $file_name = $data['hinh']->getClientoriginalName();
             // move:  di chuyển hình ảnh; public_path: tạo  thư mục ; $file_name: tên file
-            $imagePath = $data['hinh']->move(public_path('hinh_quan_an/'.$quan_an->id), $file_name);
-            $quan_an->hinh_quan_an = 'hinh_quan_an/'.$quan_an->id.'/'.$file_name;
+            $imagePath = $data['hinh']->move(public_path('img/hinh_quan_an/'.$quan_an->id), $file_name);
+            $quan_an->hinh_quan_an = 'img/hinh_quan_an/'.$quan_an->id.'/'.$file_name;
         }
         $quan_an->save();
         return Redirect::route('admin.quan-an.edit',['id' => $quan_an->id]);
@@ -212,6 +215,7 @@ class QuanAnController extends Controller
             'xa' => 'required',
             'dia-chi' => 'required',
             'hinh'=>'image|mimes:jpeg,png,jpg,gif,svg|max:500000',
+            'mota'=> 'required',
         ];
         $message =[
             'required' => ':attribute không được để trống',
@@ -227,6 +231,7 @@ class QuanAnController extends Controller
             'xa' => 'Xã',
             'dia-chi' => 'Địa chỉ',
             'hinh'=>'Hình quán ăn',
+            'mota'=> 'mô tả',
         ];
         $request->validate($rule, $message, $attribute);
         $data = $request->all();
@@ -242,6 +247,7 @@ class QuanAnController extends Controller
             'xa'=>$xa->ten,
             'dia_chi'=> $data['dia-chi'],
             'so_dien_thoai'=>$data['so-dien-thoai'],
+             'mo_ta'=>$data['mota'],
         ]);
         if(!empty($data['hinh'])){
             // đặt tên file và kiểu file
@@ -249,8 +255,8 @@ class QuanAnController extends Controller
             // getClientOriginalExtension(): lấy đuôi file
             $file_name = $data['hinh']->getClientoriginalName();
             // move:  di chuyển hình ảnh; public_path: tạo  thư mục ; $file_name: tên file
-            $imagePath = $data['hinh']->move(public_path('hinh_quan_an/'.$quan_an->id), $file_name);
-            $quan_an->hinh_quan_an = 'hinh_quan_an/'.$quan_an->id.'/'.$file_name;
+            $imagePath = $data['hinh']->move(public_path('img/hinh_quan_an/'.$quan_an->id), $file_name);
+            $quan_an->hinh_quan_an = 'img/hinh_quan_an/'.$quan_an->id.'/'.$file_name;
         }
         $quan_an->save();
         return Redirect::route('admin.quan-an.index')->with('success','Sửa thành công');

@@ -13,7 +13,7 @@
                         <i class="pe-7s-ticket icon-gradient bg-mean-fruit"></i>
                     </div>
                     <div>
-                        {{ trans('public.add_location') }}
+                        {{ $pageTitle }}
                         <div class="page-title-subheading">
                             {{ trans('public.manage_title') }}
                         </div>
@@ -22,14 +22,12 @@
             </div>
         </div>
 
-        @include('admin.quanan.monan-ds')
-
         <div class="row">
             <div class="col-md-12">
                 <div class="main-card mb-3 card">
                     <div class="card-body">
                         <form method="post" enctype="multipart/form-data"
-                            action="{{ route('admin.quan-an.update', ['id' => $quan_an->id]) }}">
+                            action="{{ route('admin.dia-diem.quan-an-store', ['id' => $dia_diem->id]) }}">
                             @csrf
                             <div class="position-relative row form-group">
                                 <label for=""
@@ -41,7 +39,7 @@
                                             <div style="width: 100%; max-height: 100%; overflow: hidden;" class="hinh">
                                                 <img style="width: 100%; cursor: pointer;" class="thumbnail"
                                                     data-toggle="tooltip" title="Click to add image" data-placement="bottom"
-                                                    src="{{ URL($quan_an->hinh_quan_an ?? 'assets/img/add-image-icon.jpg') }}"
+                                                    src="{{ URL(old('hinh') ?? 'assets/img/add-image-icon.jpg') }}"
                                                     alt="Add Image">
 
                                                 <input name="hinh" type="file" onchange="changeImg(this);"
@@ -64,7 +62,7 @@
                                     class="col-md-3 text-md-right col-form-label">{{ trans('public.name') }}</label>
                                 <div class="col-md-9 col-xl-8">
                                     <input name="ten" id="ten" placeholder="Tên quán ăn" type="text"
-                                        class="form-control" value="{{ old('ten') ?? $quan_an->ten_quan_an }}">
+                                        class="form-control" value="{{ old('ten') }}">
                                     <div class="text-center">
                                         @error('ten')
                                             <span style="color:red"> {{ $message }}</span>
@@ -78,8 +76,7 @@
                                     class="col-md-3 text-md-right col-form-label">{{ trans('public.phone_munber') }}</label>
                                 <div class="col-md-9 col-xl-8">
                                     <input name="so-dien-thoai" id="so-dien-thoai" placeholder="Số điện thoại"
-                                        type="text" class="form-control"
-                                        value="{{ old('so-dien-thoai') ?? $quan_an->so_dien_thoai }}"
+                                        type="text" class="form-control" value="{{ old('so-dien-thoai') }}"
                                         onkeypress="return isNumberKey(event)">
                                     <div class="text-center">
                                         @error('so-dien-thoai')
@@ -91,30 +88,6 @@
                             </div>
 
                             <div class="position-relative row form-group">
-                                <label for="dia_diem_id"
-                                    class="col-md-3 text-md-right col-form-label">{{ trans('public.location') }}</label>
-                                <div class="col-md-9 col-xl-8">
-                                    <div class="">
-                                        <select name="dia_diem_id" class="form-select select-dia-diem-id"
-                                            aria-label="Default select example" data-type="dia_diem_id">
-
-                                            @foreach ($ls_dia_diem as $key => $value)
-                                                <option
-                                                    {{ (old('dia_diem_id') ?? $quan_an->dia_diem_id) == $value->id ? 'selected' : '' }}
-                                                    value="{{ $value->id }}">{{ $value->ten_dia_diem }}</option>
-                                            @endforeach
-
-                                        </select>
-                                        <div class="text-center">
-                                            @error('dia_diem_id')
-                                                <span style="color:red"> {{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="position-relative row form-group">
                                 <label for="ten" class="col-md-3 text-md-right col-form-label"></label>
                                 <div class="col-md-9 col-xl-8">
                                     <div class="row tinh-huyen-xa">
@@ -123,17 +96,12 @@
                                                 aria-label="Default select example" data-type="tinh"
                                                 id="js-location-tinh js-location">
                                                 <option value="0">{{ trans('public.conscious') }}</option>
-                                                @if (old('huyen') == null)
-                                                    @foreach ($tinh as $key => $value)
-                                                        <option {{ $quan_an->tinh == $value->ten ? 'selected' : '' }}
-                                                            value="{{ $value->id }}">{{ $value->ten }}</option>
-                                                    @endforeach
-                                                @else
-                                                    @foreach ($tinh as $key => $value)
-                                                        <option {{ old('tinh') == $value->id ? 'selected' : '' }}
-                                                            value="{{ $value->id }}">{{ $value->ten }}</option>
-                                                    @endforeach
-                                                @endif
+                                                @foreach ($tinh as $key => $value)
+                                                    <option {{ old('tinh') == $value->id ? 'selected' : '' }}
+                                                        parent_id="{{ $value->id }}" value="{{ $value->id }}">
+                                                        {{ $value->ten }}</option>
+                                                @endforeach
+
                                             </select>
                                             <div class="text-center">
                                                 @error('tinh')
@@ -142,17 +110,16 @@
                                             </div>
                                         </div>
                                         <div class="huyen">
-                                            <select name="huyen" id="js-location-huyen" class="form-select js-location"
+                                            <select name="huyen" {{ old('huyen') == null ? 'disabled' : '' }}
+                                                id="js-location-huyen" class="form-select js-location"
                                                 aria-label="Default select example" data-type="huyen">
                                                 @if (old('huyen') == null)
-                                                    @foreach ($ls_huyen_tinh as $key => $value)
-                                                        <option {{ $quan_an->huyen == $value->ten ? 'selected' : '' }}
-                                                            value="{{ $value->id }}">{{ $value->ten }}</option>
-                                                    @endforeach
+                                                    <option selected>{{ trans('public.district') }}</option>
                                                 @else
                                                     @foreach ($huyen as $key => $value)
                                                         <option {{ old('huyen') == $value->id ? 'selected' : '' }}
-                                                            value="{{ $value->id }}">{{ $value->ten }}</option>
+                                                            parent_id="{{ $value->id }}" value="{{ $value->id }}">
+                                                            {{ $value->ten }}</option>
                                                     @endforeach
                                                 @endif
 
@@ -165,13 +132,11 @@
                                             </div>
                                         </div>
                                         <div class="xa">
-                                            <select name="xa" class="form-select js-location-xa"
-                                                aria-label="Default select example" data-type="xa" id="js-location-xa">
+                                            <select name="xa" {{ old('xa') == null ? 'disabled' : '' }}
+                                                class="form-select js-location-xa" aria-label="Default select example"
+                                                data-type="xa" id="js-location-xa">
                                                 @if (old('xa') == null)
-                                                    @foreach ($ls_xa_huyen as $key => $value)
-                                                        <option {{ $quan_an->xa == $value->ten ? 'selected' : '' }}
-                                                            value="{{ $value->id }}">{{ $value->ten }}</option>
-                                                    @endforeach
+                                                    <option selected>{{ trans('public.commune') }}</option>
                                                 @else
                                                     @foreach ($xa as $key => $value)
                                                         <option {{ old('xa') == $value->id ? 'selected' : '' }}
@@ -196,7 +161,7 @@
                                 <div class="col-md-9 col-xl-8">
                                     <input name="dia-chi" id="dia-chi"
                                         placeholder="{{ trans('public.specific_address') }}" type="text"
-                                        class="form-control" value="{{ old('dia-chi') ?? $quan_an->dia_chi }}">
+                                        class="form-control" value="{{ old('dia-chi') }}">
                                     <div class="text-center">
                                         @error('dia-chi')
                                             <span style="color:red"> {{ $message }}</span>
@@ -210,7 +175,7 @@
                                     class="col-md-3 text-md-right col-form-label">{{ trans('public.describe') }}</label>
                                 <div class="col-md-9 col-xl-8">
                                     <textarea class="form-control ckeditor1" id="mota" name="mota" placeholder="{{ trans('public.describe') }}"
-                                        value="{{ old('mota') }}">{{ old('mota') ?? $quan_an->mo_ta }}</textarea>
+                                        value="{{ old('mota') }}">{{ old('mota') }}</textarea>
                                     <div class="text-center">
                                         @error('mota')
                                             <span style="color:red"> {{ $message }}</span>
@@ -314,97 +279,7 @@
             }
 
         })
-    </script>
 
-    {{-- món ăn --}}
-    <script>
-        $(document).on('click', '.delete_nhanhieu', function(e) {
-            e.preventDefault();
-            var r = confirm("Bạn có chắc chắn muốn xóa?");
-            if (r == true) {
-                var idnhanhieu = $(this).val();
-                var url = $(this).attr('data-url');
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                $.ajax({
-                    url: url,
-                    type: "DELETE",
-                    success: function(data) {
-                        alert(data.mess);
-                        load();
-                    }
-                });
-            }
-        });
-
-        $(document).on('click', '.edit_nhanhieu', function(e) {
-            e.preventDefault();
-            var url = $(this).attr('data-url');
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: url,
-                type: 'GET',
-                //data: formData,
-                contentType: false,
-                processData: false,
-                success: function(data) {
-                    console.log(data);
-                    var create_nhan_hieu = document.getElementById('create-nhan-hieu');
-                    create_nhan_hieu.style.display = "block";
-                    $('#create-nhan-hieu').html('');
-                    $('#create-nhan-hieu').append(data);
-                    add_them_layout();
-                }
-            });
-        });
-
-
-
-        function hien_form_loai_san_pham(idquanan) {
-            //  var formData = new FormData();
-            //  formData.append('idpost', idpost);
-            console.log(idquanan)
-            var url = "{{ route('admin.mon-an.create', '') }}/" + idquanan;
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: url,
-                type: 'GET',
-                //data: formData,
-                contentType: false,
-                processData: false,
-                success: function(data) {
-                    //console.log(data);
-                    var create_nhan_hieu = document.getElementById('create-nhan-hieu');
-                    create_nhan_hieu.style.display = "block";
-                    $('#create-nhan-hieu').html('');
-                    $('#create-nhan-hieu').append(data);
-                    add_them_layout();
-                }
-            });
-        }
-
-        function huy() {
-            var create_nhan_hieu = document.getElementById('create-nhan-hieu');
-            create_nhan_hieu.style.display = "none";
-            remove_them_layout();
-        }
-
-        function load() {
-            location.reload()
-        }
-
-         CKEDITOR.replace('mota');
+        CKEDITOR.replace('mota');
     </script>
 @endsection

@@ -42,6 +42,12 @@
                                 <p><a href="{{route('admin.dia-diem-hinh.index',['id'=>$dia_diem->id])}}">{{trans('public.list_img')}}</a></p>
                             </div>
                         </div>
+                        <div class="position-relative row form-group">
+                            <label for="brand_id" class="col-md-3 text-md-right col-form-label">Danh sách quán ăn</label>
+                            <div class="col-md-9 col-xl-8">
+                                <p><a href="{{route('admin.dia-diem.quan-an-index',['id'=>$dia_diem->id])}}">Danh sách quán ăn</a></p>
+                            </div>
+                        </div>
 
                         <div class="position-relative row form-group">
                             <label for="name"

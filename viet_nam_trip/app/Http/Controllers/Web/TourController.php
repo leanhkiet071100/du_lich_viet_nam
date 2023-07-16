@@ -31,7 +31,8 @@ class TourController extends Controller
 
         //$query = goi_du_lich::where('ngay_khoi_hanh', '=','2023-06-08');
         $query= $query->join('loai_goi_du_liches', 'loai_goi_du_liches.id', '=', 'goi_du_liches.loai_id')
-                    ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich');
+                    ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
+                    ->where('goi_du_liches.trang_thai', '=', 1);
         $query= $this->handleFilters($query, $request);
         $ls_goi_du_lich = $query->paginate(9);
 
@@ -128,22 +129,34 @@ class TourController extends Controller
     }
 
     public function booking(Request $request, $id){
+        $id_user = Auth::user()->id;
         $goi_du_lich = goi_du_lich::join('loai_goi_du_liches', 'loai_goi_du_liches.id', '=', 'goi_du_liches.loai_id')
-                    ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich')
+                    ->select('goi_du_liches.*','loai_goi_du_liches.ten as ten_loai_goi_du_lich', 'goi_du_liches.so_nguoi_con_lai')
                     ->find($id);
-        $year_now = Carbon::now()->format('Y');
-        $nam_nguoi_lon = array();
-        for($i = 12; $i < 100; $i++)
-        {
-            $nam = $year_now - $i;
-            $nam_nguoi_lon[$i - 12] = $nam;
+        $true_booking = phieu_dat::where('goi_du_lich_id', $id)->where('nguoi_dung_id',$id_user)->first();
+        $so_nguoi_con_lai = $goi_du_lich->so_nguoi_con_lai;
+        if($true_booking == null){
+            if($so_nguoi_con_lai != 0 || $so_nguoi_con_lai == null){
+                $year_now = Carbon::now()->format('Y');
+                $nam_nguoi_lon = array();
+                for($i = 12; $i < 100; $i++)
+                {
+                    $nam = $year_now - $i;
+                    $nam_nguoi_lon[$i - 12] = $nam;
+                }
+                $data= [
+                    'pageTitle' =>'booking'.$goi_du_lich->ten,
+                    'goi_du_lich' => $goi_du_lich,
+                    'nam_nguoi_lon' => $nam_nguoi_lon,
+                ];
+                return view('web.tour.phieu-dat', $data);
+            }
+            else{
+                return Redirect::route('web.tour.index')->with('success', 'tour đã đủ người vui lòng chọn tour khác');
+            }
+        }else{
+            return Redirect::route('web.tour.index')->with('success', 'Bạn đã đặt tour này rồi vui lòng chọn tour khác');
         }
-        $data= [
-            'pageTitle' =>'booking'.$goi_du_lich->ten,
-            'goi_du_lich' => $goi_du_lich,
-            'nam_nguoi_lon' => $nam_nguoi_lon,
-        ];
-        return view('web.tour.phieu-dat', $data);
     }
 
     public function load_nguoi_lon(Request $request, $so_luong){

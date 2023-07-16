@@ -35,11 +35,11 @@
                                     <ul class="text-nowrap" id="images">
                                         <li class="float-left d-inline-block mr-2 mb-2" style="width: 32%;">
 
-                                            <div style="width: 100%; max-height: 100%; overflow: hidden;"
-                                                class="hinh">
+                                            <div style="width: 100%; max-height: 100%; overflow: hidden;" class="hinh">
                                                 <img style="width: 100%; cursor: pointer;" class="thumbnail"
                                                     data-toggle="tooltip" title="Click to add image" data-placement="bottom"
-                                                    src="{{ URL(old('hinh') ?? 'assets/img/add-image-icon.jpg') }}" alt="Add Image">
+                                                    src="{{ URL(old('hinh') ?? 'assets/img/add-image-icon.jpg') }}"
+                                                    alt="Add Image">
 
                                                 <input name="hinh" type="file" onchange="changeImg(this);"
                                                     accept="image/x-png,image/gif,image/jpeg"
@@ -60,7 +60,8 @@
                                 <label for="ten"
                                     class="col-md-3 text-md-right col-form-label">{{ trans('public.name') }}</label>
                                 <div class="col-md-9 col-xl-8">
-                                    <input name="ten" id="ten" placeholder="Tên quán ăn" type="text" class="form-control" value="{{ old('ten') }}">
+                                    <input name="ten" id="ten" placeholder="Tên quán ăn" type="text"
+                                        class="form-control" value="{{ old('ten') }}">
                                     <div class="text-center">
                                         @error('ten')
                                             <span style="color:red"> {{ $message }}</span>
@@ -73,7 +74,9 @@
                                 <label for="so-dien-thoai"
                                     class="col-md-3 text-md-right col-form-label">{{ trans('public.phone_munber') }}</label>
                                 <div class="col-md-9 col-xl-8">
-                                    <input name="so-dien-thoai" id="so-dien-thoai" placeholder="Số điện thoại" type="text" class="form-control" value="{{ old('so-dien-thoai') }}" onkeypress="return isNumberKey(event)">
+                                    <input name="so-dien-thoai" id="so-dien-thoai" placeholder="Số điện thoại"
+                                        type="text" class="form-control" value="{{ old('so-dien-thoai') }}"
+                                        onkeypress="return isNumberKey(event)">
                                     <div class="text-center">
                                         @error('so-dien-thoai')
                                             <span style="color:red"> {{ $message }}</span>
@@ -87,18 +90,20 @@
                                     class="col-md-3 text-md-right col-form-label">{{ trans('public.location') }}</label>
                                 <div class="col-md-9 col-xl-8">
                                     <div class="">
-                                        <select name="dia_diem_id" class="form-select select-dia-diem-id" aria-label="Default select example" data-type="dia_diem_id">
+                                        <select name="dia_diem_id" class="form-select select-dia-diem-id"
+                                            aria-label="Default select example" data-type="dia_diem_id">
                                             <option>{{ trans('public.location') }}</option>
                                             @foreach ($ls_dia_diem as $key => $value)
-                                                <option {{ old('dia_diem_id') == $value->id ? 'selected' : '' }} value="{{ $value->id }}">{{ $value->ten_dia_diem }}</option>
+                                                <option {{ old('dia_diem_id') == $value->id ? 'selected' : '' }}
+                                                    value="{{ $value->id }}">{{ $value->ten_dia_diem }}</option>
                                             @endforeach
 
                                         </select>
-                                         <div class="text-center">
+                                        <div class="text-center">
                                             @error('dia_diem_id')
                                                 <span style="color:red"> {{ $message }}</span>
-                                             @enderror
-                                         </div>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
 
@@ -109,10 +114,14 @@
                                 <div class="col-md-9 col-xl-8">
                                     <div class="row tinh-huyen-xa">
                                         <div class="">
-                                            <select name="tinh" class="form-select js-location" aria-label="Default select example" data-type="tinh" id="js-location-tinh js-location">
+                                            <select name="tinh" class="form-select js-location"
+                                                aria-label="Default select example" data-type="tinh"
+                                                id="js-location-tinh js-location">
                                                 <option value="0">{{ trans('public.conscious') }}</option>
                                                 @foreach ($tinh as $key => $value)
-                                                    <option {{ old('tinh') == $value->id ? 'selected' : '' }} parent_id="{{$value->id}}" value="{{ $value->id }}">{{ $value->ten }}</option>
+                                                    <option {{ old('tinh') == $value->id ? 'selected' : '' }}
+                                                        parent_id="{{ $value->id }}" value="{{ $value->id }}">
+                                                        {{ $value->ten }}</option>
                                                 @endforeach
 
                                             </select>
@@ -123,12 +132,16 @@
                                             </div>
                                         </div>
                                         <div class="huyen">
-                                            <select name="huyen"  {{ old('huyen') == null ? 'disabled' : '' }}  id="js-location-huyen" class="form-select js-location" aria-label="Default select example" data-type="huyen">
-                                                @if ( old('huyen') == null)
+                                            <select name="huyen" {{ old('huyen') == null ? 'disabled' : '' }}
+                                                id="js-location-huyen" class="form-select js-location"
+                                                aria-label="Default select example" data-type="huyen">
+                                                @if (old('huyen') == null)
                                                     <option selected>{{ trans('public.district') }}</option>
                                                 @else
                                                     @foreach ($huyen as $key => $value)
-                                                        <option {{ old('huyen') == $value->id ? 'selected' : '' }} parent_id="{{$value->id}}" value="{{ $value->id }}">{{ $value->ten }}</option>
+                                                        <option {{ old('huyen') == $value->id ? 'selected' : '' }}
+                                                            parent_id="{{ $value->id }}" value="{{ $value->id }}">
+                                                            {{ $value->ten }}</option>
                                                     @endforeach
                                                 @endif
 
@@ -141,12 +154,16 @@
                                             </div>
                                         </div>
                                         <div class="xa">
-                                            <select name="xa" {{ old('xa') == null ? 'disabled' : '' }} class="form-select js-location-xa" aria-label="Default select example" data-type="xa" id="js-location-xa" >
-                                                @if ( old('xa') == null)
+                                            <select name="xa" {{ old('xa') == null ? 'disabled' : '' }}
+                                                class="form-select js-location-xa" aria-label="Default select example"
+                                                data-type="xa" id="js-location-xa">
+                                                @if (old('xa') == null)
                                                     <option selected>{{ trans('public.commune') }}</option>
                                                 @else
                                                     @foreach ($xa as $key => $value)
-                                                        <option {{ old('xa') == $value->id ? 'selected' : '' }} parent_id="{{$value->id}}" value="{{ $value->id }}">{{ $value->ten }}</option>
+                                                        <option {{ old('xa') == $value->id ? 'selected' : '' }}
+                                                            parent_id="{{ $value->id }}" value="{{ $value->id }}">
+                                                            {{ $value->ten }}</option>
                                                     @endforeach
                                                 @endif
 
@@ -175,7 +192,19 @@
                                 </div>
 
                             </div>
-
+                            <div class="position-relative row form-group">
+                                <label for="mota"
+                                    class="col-md-3 text-md-right col-form-label">{{ trans('public.describe') }}</label>
+                                <div class="col-md-9 col-xl-8">
+                                    <textarea class="form-control ckeditor1" id="mota" name="mota" placeholder="{{ trans('public.describe') }}"
+                                        value="{{ old('mota') }}">{{ old('mota') }}</textarea>
+                                    <div class="text-center">
+                                        @error('mota')
+                                            <span style="color:red"> {{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
                             <div class="position-relative row form-group mb-1">
                                 <div class="col-md-9 col-xl-8 offset-md-2">
                                     <a href="{{ route('admin.quan-an.index') }}"
@@ -237,7 +266,8 @@
                         $('#js-location-huyen').html('');
                         $.each(data.data, function(key, item) {
                             $('#js-location-huyen').append(
-                                '<option  value="' + (item.id) + '" >' + item.ten +'</option>'
+                                '<option  value="' + (item.id) + '" >' + item.ten +
+                                '</option>'
                             );
                         });
                         $('#js-location-xa').html('');
@@ -260,7 +290,8 @@
                         $('#js-location-xa').html('');
                         $.each(data.data, function(key, item) {
                             $('#js-location-xa').append(
-                                '<option value="' + (item.id) + '" >' + item.ten + '</option>'
+                                '<option value="' + (item.id) + '" >' + item.ten +
+                                '</option>'
                             );
                         });
                         var xa = document.getElementById('js-location-xa');
@@ -270,5 +301,7 @@
             }
 
         })
+                CKEDITOR.replace('mota');
     </script>
+
 @endsection

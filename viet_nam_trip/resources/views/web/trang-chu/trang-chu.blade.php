@@ -13,13 +13,13 @@
             <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start"
                 data-scrollax-parent="true">
                 <div class="col-md-9 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
-
-                    <p>Or browse the highlights</p>
+                    {{--
+                    <p>Or browse the highlights</p> --}}
                     <p class="browse d-md-flex">
-                        <span class="d-flex justify-content-md-center align-items-md-center"><a href="#"><i
+                        <span class="d-flex justify-content-md-center align-items-md-center"><a href="{{route('web.quan-an.index')}}"><i
                                     class="flaticon-fork"></i>Nhà hàng</a></span>
-                        <span class="d-flex justify-content-md-center align-items-md-center"><a href="#"><i
-                                    class="flaticon-hotel"></i>Khách sạn</a></span>
+                        {{-- <span class="d-flex justify-content-md-center align-items-md-center"><a href="#"><i
+                                    class="flaticon-hotel"></i>Khách sạn</a></span> --}}
                         <span class="d-flex justify-content-md-center align-items-md-center"><a
                                 href="{{ route('web.dia-diem.index') }}"><i class="flaticon-meeting-point"></i>Địa
                                 điểm</a></span>
@@ -122,150 +122,58 @@
         <div class="container">
             <div class="row justify-content-start mb-5 pb-3">
                 <div class="col-md-7 heading-section ftco-animate">
-                    <span class="subheading">Tour</span>
-                    <h2 class="mb-4"><strong>Tour</strong> Nổi bật</h2>
+                    <span class="subheading">Gói du lịch</span>
+                    <h2 class="mb-4"><strong>Gói du lịch</strong> Nổi bật</h2>
                 </div>
             </div>
         </div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm col-md-6 col-lg ftco-animate">
-                    <div class="destination">
-                        <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{ URL('assets/web/images/destination-1.jpg') }});">
-                            <div class="icon d-flex justify-content-center align-items-center">
-                                <span class="icon-search2"></span>
-                            </div>
-                        </a>
-                        <div class="text p-3">
-                            <div class="d-flex">
-                                <div class="one">
-                                    <h3><a href="#">Paris, Italy</a></h3>
-                                    <p class="rate">
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star-o"></i>
-                                        <span>8 Rating</span>
-                                    </p>
+                @foreach ($ls_goi_du_lich_noi_bat as $key => $value)
+                    <div class="col-sm col-md-6 col-lg ftco-animate">
+                        <div class="destination destination-tour">
+                            <a href="{{ route('web.tour.show', ['id' => $value->id]) }}"
+                                class="img img-2 d-flex justify-content-center align-items-center"
+                                style="background-image: url({{ URL($value->hinh_goi_du_lich ?? 'hinh_test/no-img.jpg') }}); background-size: 100% 100%;">
+                                <div class="icon d-flex justify-content-center align-items-center">
+                                    <span class="icon-search2"></span>
                                 </div>
-                                <div class="two">
-                                    <span class="price">$200</span>
+                            </a>
+                            <div class="text p-3">
+                                <div class="">
+                                    <div class="">
+                                        <h3 class="h3"><b><a
+                                                    href="{{ route('web.tour.show', ['id' => $value->id]) }}">{{ $value->ten }}</a></b>
+                                        </h3>
+                                        <p class="rate">
+                                            @for ($i = 0; $i < 5; $i++)
+                                                @if ($i < $value->sao)
+                                                    <i class="icon-star"></i>
+                                                @else
+                                                    <i class="icon-star-o"></i>
+                                                @endif
+                                            @endfor
+
+                                        </p>
+                                    </div>
                                 </div>
+                                <p>Loại: <b>{{ $value->ten_loai_goi_du_lich }}</b></p>
+                                <p>Nơi khởi hành: <b>{{ $value->noi_khoi_hanh }}</b></p>
+                                <p>Giá: <b
+                                        style="font-weight: 700; color: #fd5056; font-size: 18px;">{{ number_format($value->gia_nguoi_lon) }}</b>
+                                </p>
+                                <hr>
+                                <p class="bottom-area d-flex">
+                                    <span>
+                                        {{ date('d/m/Y', strtotime($value->ngay_khoi_hanh)) }}-{{ $value->so_ngay }}
+                                        ngày</span>
+                                    {{-- <span class="ml-auto"><a href="#">Đặt ngay</a></span> --}}
+                                </p>
                             </div>
-                            <p>Far far away, behind the word mountains, far from the countries</p>
-                            <p class="days"><span>2 days 3 nights</span></p>
-                            <hr>
-                            <p class="bottom-area d-flex">
-                                <span><i class="icon-map-o"></i> San Franciso, CA</span>
-                                <span class="ml-auto"><a href="#">Discover</a></span>
-                            </p>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm col-md-6 col-lg ftco-animate">
-                    <div class="destination">
-                        <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{ URL('assets/web/images/hotel-1.jpg') }});">
-                            <div class="icon d-flex justify-content-center align-items-center">
-                                <span class="icon-search2"></span>
-                            </div>
-                        </a>
-                        <div class="text p-3">
-                            <div class="d-flex">
-                                <div class="one">
-                                    <h3><a href="#">Hotel, Italy</a></h3>
-                                    <p class="rate">
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star-o"></i>
-                                        <span>8 Rating</span>
-                                    </p>
-                                </div>
-                                <div class="two">
-                                    <span class="price per-price">$40<br><small>/night</small></span>
-                                </div>
-                            </div>
-                            <p>Far far away, behind the word mountains, far from the countries</p>
-                            <hr>
-                            <p class="bottom-area d-flex">
-                                <span><i class="icon-map-o"></i> Miami, Fl</span>
-                                <span class="ml-auto"><a href="#">Book Now</a></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm col-md-6 col-lg ftco-animate">
-                    <div class="destination">
-                        <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{ URL('assets/web/images/hotel-2.jpg') }});">
-                            <div class="icon d-flex justify-content-center align-items-center">
-                                <span class="icon-search2"></span>
-                            </div>
-                        </a>
-                        <div class="text p-3">
-                            <div class="d-flex">
-                                <div class="one">
-                                    <h3><a href="#">Hotel, Italy</a></h3>
-                                    <p class="rate">
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star-o"></i>
-                                        <span>8 Rating</span>
-                                    </p>
-                                </div>
-                                <div class="two">
-                                    <span class="price per-price">$40<br><small>/night</small></span>
-                                </div>
-                            </div>
-                            <p>Far far away, behind the word mountains, far from the countries</p>
-                            <hr>
-                            <p class="bottom-area d-flex">
-                                <span><i class="icon-map-o"></i> Miami, Fl</span>
-                                <span class="ml-auto"><a href="#">Book Now</a></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm col-md-6 col-lg ftco-animate">
-                    <div class="destination">
-                        <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                            style="background-image: url({{ URL('assets/web/images/hotel-3.jpg') }});">
-                            <div class="icon d-flex justify-content-center align-items-center">
-                                <span class="icon-search2"></span>
-                            </div>
-                        </a>
-                        <div class="text p-3">
-                            <div class="d-flex">
-                                <div class="one">
-                                    <h3><a href="#">Hotel, Italy</a></h3>
-                                    <p class="rate">
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star"></i>
-                                        <i class="icon-star-o"></i>
-                                        <span>8 Rating</span>
-                                    </p>
-                                </div>
-                                <div class="two">
-                                    <span class="price per-price">$40<br><small>/night</small></span>
-                                </div>
-                            </div>
-                            <p>Far far away, behind the word mountains, far from the countries</p>
-                            <hr>
-                            <p class="bottom-area d-flex">
-                                <span><i class="icon-map-o"></i> Miami, Fl</span>
-                                <span class="ml-auto"><a href="#">Book Now</a></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+
             </div>
         </div>
     </section>
@@ -354,7 +262,7 @@
     </section> --}}
 
 
-    <section class="ftco-section">
+    {{-- <section class="ftco-section">
         <div class="container">
             <div class="row justify-content-start mb-5 pb-3">
                 <div class="col-md-7 heading-section ftco-animate">
@@ -537,9 +445,9 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
-    <section class="ftco-section testimony-section bg-light">
+    {{-- <section class="ftco-section testimony-section bg-light">
         <div class="container">
             <div class="row justify-content-start">
                 <div class="col-md-5 heading-section ftco-animate">
@@ -613,9 +521,9 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
-    <section class="ftco-section">
+    {{-- <section class="ftco-section">
         <div class="container">
             <div class="row justify-content-start mb-5 pb-3">
                 <div class="col-md-7 heading-section ftco-animate">
@@ -734,84 +642,33 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <section class="ftco-section bg-light">
         <div class="container">
             <div class="row justify-content-start mb-5 pb-3">
                 <div class="col-md-7 heading-section ftco-animate">
-                    <h2><strong>Bài viết</strong> &amp; Nổi bật</h2>
+                    <h2><strong>Tin tức</strong> &amp; Nổi bật</h2>
                 </div>
             </div>
             <div class="row d-flex">
-                <div class="col-md-3 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20"
-                            style="background-image: url({{ URL('assets/web/images/image_1.jpg') }});">
-                        </a>
-                        <div class="text p-4 d-block">
-                            <span class="tag">Tips, Travel</span>
-                            <h3 class="heading mt-3"><a href="#">8 Best homestay in Philippines that you don't miss
-                                    out</a></h3>
-                            <div class="meta mb-3">
-                                <div><a href="#">August 12, 2018</a></div>
-                                <div><a href="#">Admin</a></div>
-                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                @foreach ($ls_bai_viet_noi_bat as $key => $value)
+                    <div class="col-md-3 d-flex ftco-animate">
+                        <div class="blog-entry align-self-stretch">
+                            <a href="{{route('web.tin-tuc.show', ['id'=>$value->id])}}" class="block-20"
+                                style="background-image: url({{ URL($value->hinh_anh_bai_viet) }});">
+                            </a>
+                            <div class="text p-4 d-block">
+                                <h3 class="heading mt-3"><a href="{{route('web.tin-tuc.show', ['id'=>$value->id])}}">{{$value->tieu_de}}</a></h3>
+                                <div class="meta mb-3">
+                                    <div><a href="{{route('web.tin-tuc.show', ['id'=>$value->id])}}">{{$value->created_at}}</a></div>
+                                    <div><a>Admin</a></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20"
-                            style="background-image: url({{ URL('assets/web/images/image_2.jpg') }});">
-                        </a>
-                        <div class="text p-4">
-                            <span class="tag">Culture</span>
-                            <h3 class="heading mt-3"><a href="#">Even the all-powerful Pointing has no control about
-                                    the blind texts</a></h3>
-                            <div class="meta mb-3">
-                                <div><a href="#">August 12, 2018</a></div>
-                                <div><a href="#">Admin</a></div>
-                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20"
-                            style="background-image: url({{ URL('assets/web/images/image_3.jpg') }});">
-                        </a>
-                        <div class="text p-4">
-                            <span class="tag">Tips, Travel</span>
-                            <h3 class="heading mt-3"><a href="#">Even the all-powerful Pointing has no control about
-                                    the blind texts</a></h3>
-                            <div class="meta mb-3">
-                                <div><a href="#">August 12, 2018</a></div>
-                                <div><a href="#">Admin</a></div>
-                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20"
-                            style="background-image: url({{ URL('assets/web/images/image_4.jpg') }});">
-                        </a>
-                        <div class="text p-4">
-                            <span class="tag">Tips, Travel</span>
-                            <h3 class="heading mt-3"><a href="#">Even the all-powerful Pointing has no control about
-                                    the blind texts</a></h3>
-                            <div class="meta mb-3">
-                                <div><a href="#">August 12, 2018</a></div>
-                                <div><a href="#">Admin</a></div>
-                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+
             </div>
         </div>
     </section>

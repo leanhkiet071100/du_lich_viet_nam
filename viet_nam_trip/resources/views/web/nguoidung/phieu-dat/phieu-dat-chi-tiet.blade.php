@@ -515,9 +515,8 @@
                                 title: 'Cảm ơn bạn yêu',
                                 text: 'Đã hoàn lại thành công',
                             }).then((result) => {
-                                tro_lai();
+                                location.reload();
                             });
-
                         }
                     });
                 }

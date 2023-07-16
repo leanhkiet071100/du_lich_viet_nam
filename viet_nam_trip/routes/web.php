@@ -90,6 +90,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
                 //load tỉnh thành Việt Nam
                 Route::post('/get-load-huyen', 'DiaDiemController@get_load_huyen')->name('get-load-huyen');
                 Route::post('/get-load-xa', 'DiaDiemController@get_load_xa')->name('get-load-xa');
+                Route::get('/quan-an-index/{id}', 'DiaDiemController@quan_an_index')->name('quan-an-index');
+                Route::get('/quan-an-them/{id}', 'DiaDiemController@quan_an_them')->name('quan-an-them');
+                Route::post('/quan-an-store/{id}', 'DiaDiemController@quan_an_store')->name('quan-an-store');
             });
         });
 
@@ -297,6 +300,14 @@ Route::group(['namespace' => 'App\Http\Controllers\Web'], function () {
             Route::name('khach-san.')->group(function(){
                 Route::get('/', 'KhachSanController@index')->name('index');
                 Route::get('/{id}/show', 'KhachSanController@show')->name('show');
+            });
+        });
+
+        //quán ăn
+        Route::group(['prefix' => 'quan-an'], function () {
+            Route::name('quan-an.')->group(function(){
+                Route::get('/', 'QuanAnController@index')->name('index');
+                Route::get('/{id}/show', 'QuanAnController@show')->name('show');
             });
         });
 

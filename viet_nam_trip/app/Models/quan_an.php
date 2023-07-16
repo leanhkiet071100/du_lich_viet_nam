@@ -22,6 +22,7 @@ class quan_an extends Model
         'dia_chi',
         'so_dien_thoai',
         'hinh_quan_an',
+        'mo_ta',
         'noi_bat',
         'trang_thai',
     ];
