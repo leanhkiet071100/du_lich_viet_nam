@@ -41,6 +41,7 @@ public function register(Request $request)
     $input['cap']=2;
     $nguoidung= User::create($input);
 
+   
       // thông tin của web
       $web = web::orderBy('id')->first();
       $ten_web = $web->ten ?? 'cao thắng';
@@ -64,6 +65,7 @@ public function register(Request $request)
          // email nhận
          $email->to($nguoidung->email,$nguoidung->ten)->subject('XÁC NHẬN ĐĂNG KÍ TÀI KHOẢN');
      });
+      
      $response=[
          'message'=>'Vui lòng check email',
          'data'=>$nguoidung,
@@ -146,7 +148,7 @@ public function changePassword(Request $request)
 
 
 
-        public function post_quen_mat_khau(Request $request){
+    public function post_quen_mat_khau(Request $request){
 
         $this->validate($request,
             [
@@ -180,7 +182,8 @@ public function changePassword(Request $request)
         });
         //$request->put($nguoidung->email, $code);
 
-            $token= $nguoidung->createToken('user')->plainTextToken;
+        $token= $nguoidung->createToken('user')->plainTextToken;
+          //  $token= $nguoidung->createToken('user')->plainTextToken;
             $nguoidung->update([
                 'api_code'=> $code,
             ]);
@@ -188,12 +191,13 @@ public function changePassword(Request $request)
             [
                 'message'=>'Vui lòng kiểm tra mail',
                 'user'=>$nguoidung,
-                'token'=>$token,
+               'token'=>$token,
             ];
             return response()->json($response,200);
         }
     }
 
+ 
     public function quen_mat_khau_xac_nhan(Request $request){
         $this->validate($request,
             [
@@ -202,6 +206,8 @@ public function changePassword(Request $request)
             [
                 'code.required' => 'Không được bỏ trống',
             ]);
+        $code = $request->input('code');
+        $user = auth()->user();
         $input['code']=$request->input('code');
         if(auth()->user()->api_code == $input['code']){
             $response=
@@ -210,13 +216,15 @@ public function changePassword(Request $request)
             ];
             return response()->json($response,200);
         }else{
-        $response=
+           $response=
             [
                 'message'=>'Mã xác nhận sai vui lòng nhập lại',
             ];
-            return response()->json($response,401);
+            return response()->json($response,400);
         }
     }
+
+
     public function post_doi_mat_khau(Request $request){
             $rule = [
             'mat_khau_moi'=> 'required|min:6| max:50',

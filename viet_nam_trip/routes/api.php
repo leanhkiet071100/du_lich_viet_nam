@@ -23,6 +23,7 @@ use App\Http\Controllers\API\MonAnController;
 Route::post('register',[AuthController::class,'register']);
 Route::post('login',[AuthController::class,'login']);
 Route::post('post-quen-mat-khau',[AuthController::class,'post_quen_mat_khau']);
+Route::post('post-doi-mat-khau',[AuthController::class,'post_doi_mat_khau']);
 
 
 
@@ -32,8 +33,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::post('logout',[AuthController::class,'logout']);
-    Route::post('quen-mat-khau-xac-nhan',[AuthController::class,'quen_mat_khau_xac_nhan']);
-    Route::post('post-doi-mat-khau',[AuthController::class,'post_doi_mat_khau']);
+    Route::post('code',[AuthController::class,'quen_mat_khau_xac_nhan']);
     Route::post('change-pass',[AuthController::class,'changePassword']);
     Route::post('update-info',[AuthController::class,'update']);
     Route::post('dat-tour',[TourController::class,'dat_tour']);

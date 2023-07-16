@@ -1,5 +1,7 @@
 import 'package:dulich/Global/color.dart';
 import 'package:dulich/Providers/register_provider.dart';
+import 'package:dulich/Views/tour/tour_history.dart';
+import 'package:dulich/Views/tour/tour_tab.dart';
 import 'package:dulich/Views/user/user_change.dart';
 import 'package:dulich/Views/user/user_detail.dart';
 import 'package:dulich/Views/user/user_password.dart';
@@ -123,19 +125,8 @@ class _UserPageState extends State<UserPage> {
           InkWell(
             splashColor: greencolor,
             onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Alert(
-                      title: 'Bạn có chắc chắn đổi mật khẩu không?',
-                      onAction: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const EditInforPage()));
-                      },
-                    );
-                  });
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => TourTab()));
             },
             child: Container(
                 width: double.infinity,

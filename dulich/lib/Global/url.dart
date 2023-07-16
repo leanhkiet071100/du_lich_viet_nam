@@ -1,9 +1,9 @@
-const String baseUrl = "http://192.168.202.208:8000/api/";
+const String baseUrl = "http://192.168.100.52:8000/api/";
 const String loginUrl = baseUrl + "login";
 const String regisUrl = baseUrl + "register";
 const String logoutUrl = baseUrl + "logout";
-const String passUrl = baseUrl + "post-quen-mat-khau";
-const String codeUrl = baseUrl + "quen-mat-khau-xac-nhan";
+const String passUrl = baseUrl + "post-doi-mat-khau";
+const String codeUrl = baseUrl + "code";
 const String tourUrl = baseUrl + "dat-tour";
 const String hotelUrl = baseUrl + "luutru";
 const String goiDuLichUrl = baseUrl + "list-tour";

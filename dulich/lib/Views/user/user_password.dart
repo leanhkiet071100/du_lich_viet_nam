@@ -34,8 +34,8 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
   }
 
   void _changePassword() async {
+    snackBar('Vui lòng đợi...');
     if (formKey.currentState!.validate()) {
-      snackBar('Vui lòng đợi...');
       bool isChange = await RegisterProvider.changePassword(
           txtCurrent.text, txtnewPass.text, txtconfirmPass.text);
 

@@ -151,7 +151,7 @@ class RegisterProvider {
 
   /* ==== QUEN MAT KHAU ==== */
   static Future<bool> sendEmail(String email) async {
-    final response = await http.post(Uri.parse(passUrl),
+    final response = await http.post(Uri.parse(baseUrl + "post-quen-mat-khau"),
         body: ({
           'email': email,
         }));
@@ -225,14 +225,13 @@ class RegisterProvider {
   // }
   static Future<bool> confirmToken(String code) async {
     var token = await getToken();
-    final response = await http.post(Uri.parse(codeUrl),
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
-        body: ({
-          'code': code,
-        }));
+    final response = await http.post(
+      Uri.parse(codeUrl),
+      headers: {'Accept': 'application/json', 'Authorization': 'Bearer $token'},
+      body: {
+        'code': code,
+      },
+    );
     if (response.statusCode == 200) {
       return true;
     } else {

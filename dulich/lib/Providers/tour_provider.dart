@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:dulich/Global/color.dart';
 import 'package:dulich/Global/url.dart';
 import 'package:dulich/Providers/register_provider.dart';
-import 'package:dulich/Views/booking/component/payment.dart';
 import 'package:dulich/Views/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -29,7 +28,7 @@ class TourProvider {
   }
 
   static Future<List<TourObject>> getAllTour() async {
-    var token = await RegisterProvider.getToken();
+    var token = await TourProvider.getToken();
     final response = await http.get(Uri.parse('list-tour'), headers: {
       'Content-type': 'application/json',
       'Accept': 'application/json',
@@ -39,7 +38,7 @@ class TourProvider {
   }
 
   static Future<List<TourObject>> getAllPhieu() async {
-    var token = await RegisterProvider.getToken();
+    var token = await TourProvider.getToken();
     final response = await http.get(Uri.parse('list-tour'), headers: {
       'Content-type': 'application/json',
       'Accept': 'application/json',
