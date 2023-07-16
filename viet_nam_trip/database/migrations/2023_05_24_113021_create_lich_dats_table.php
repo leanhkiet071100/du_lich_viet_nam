@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lich_dats', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('goi_du_lich_id');
-            $table->foreignId('nguoi_dung_id');
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        // Schema::create('lich_dats', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->foreignId('goi_du_lich_id');
+        //     $table->foreignId('nguoi_dung_id');
+        //     $table->timestamps();
+        //     $table->softDeletes();
+        // });
     }
 
     /**

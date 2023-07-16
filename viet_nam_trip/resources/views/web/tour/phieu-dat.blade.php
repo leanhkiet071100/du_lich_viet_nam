@@ -211,7 +211,7 @@
                             </div>
                             <div class="detail-customer" id="detail-customer">
                                 <div class="list">
-                                    <h3>Thông tin hành khách</h3>
+                                    <h3>Thông tin khách hàng</h3>
 
                                     <div class="b-persion block">
                                         <div class="nguoi-lon" id="nguoi-lon">

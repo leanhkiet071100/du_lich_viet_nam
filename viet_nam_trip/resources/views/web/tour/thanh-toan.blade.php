@@ -2,7 +2,7 @@
 
 @section('content')
     @parent
-    @include('web.includes.banner')
+    {{-- @include('web.includes.banner') --}}
     <div class="booking-tour">
         <section class="checkout-head d-none d-lg-block">
             <div class="container">
